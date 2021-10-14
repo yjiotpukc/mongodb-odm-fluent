@@ -1,0 +1,33 @@
+{
+  "name": "yjiotpukc/mongodb-odm-fluent",
+  "description": "A fluent PHP mapping driver for Doctrine MongoDB ODM.",
+  "license": "MIT",
+  "keywords": [
+    "doctrine",
+    "laravel",
+    "mongodb",
+    "odm",
+    "data mapper",
+    "database",
+    "mappings",
+    "mapping driver",
+    "fluent"
+  ],
+  "authors": [
+    {
+      "name": "Vadim Zubko",
+      "email": "yjiotpukc@gmail.com"
+    }
+  ],
+  "require": {
+    "php": "^7.3|^8.0",
+    "ext-mongodb": "*",
+    "doctrine/mongodb-odm": "^2.2.0",
+    "doctrine/persistence": "^2.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "yjiotpukc\\MongoODMFluent\\": "src/"
+    }
+  }
+}
