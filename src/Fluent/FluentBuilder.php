@@ -6,7 +6,7 @@ namespace yjiotpukc\MongoODMFluent\Fluent;
 
 use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
 
-interface FluentBuilder extends Fluent
+interface FluentBuilder
 {
     /**
      * Builds accumulated fields to ClassMetadata
