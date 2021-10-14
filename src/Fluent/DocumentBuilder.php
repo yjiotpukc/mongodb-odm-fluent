@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace yjiotpukc\MongoODMFluent\Fluent;
 
 use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
+use yjiotpukc\MongoODMFluent\Types\Discriminator;
 use yjiotpukc\MongoODMFluent\Types\Index;
 
 class DocumentBuilder extends BaseBuilder implements FluentBuilder
@@ -39,6 +40,16 @@ class DocumentBuilder extends BaseBuilder implements FluentBuilder
      */
     protected $indexes;
 
+    /**
+     * @var int
+     */
+    protected $inheritanceType;
+
+    /**
+     * @var Discriminator
+     */
+    protected $discriminator;
+
     public function build(ClassMetadata $metadata): void
     {
         if ($this->db) {
@@ -60,6 +71,13 @@ class DocumentBuilder extends BaseBuilder implements FluentBuilder
             foreach ($this->indexes as $index) {
                 $metadata->addIndex($index->keys, $index->options);
             }
+        }
+        if ($this->inheritanceType) {
+            $metadata->setInheritanceType($this->inheritanceType);
+        }
+        if ($this->discriminator) {
+            $metadata->setDiscriminatorField($this->discriminator->field);
+            $metadata->setDiscriminatorMap($this->discriminator->map);
         }
 
         parent::build($metadata);
@@ -113,5 +131,26 @@ class DocumentBuilder extends BaseBuilder implements FluentBuilder
         $this->indexes[] = $index;
 
         return $index;
+    }
+
+    public function singleCollection(): DocumentBuilder
+    {
+        $this->inheritanceType = ClassMetadata::INHERITANCE_TYPE_SINGLE_COLLECTION;
+
+        return $this;
+    }
+
+    public function collectionPerClass(): DocumentBuilder
+    {
+        $this->inheritanceType = ClassMetadata::INHERITANCE_TYPE_COLLECTION_PER_CLASS;
+
+        return $this;
+    }
+
+    public function discriminator(string $fieldName): Discriminator
+    {
+        $this->discriminator = new Discriminator($fieldName);
+
+        return $this->discriminator;
     }
 }
