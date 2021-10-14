@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace yjiotpukc\MongoODMFluent\Mapping;
 
-use yjiotpukc\MongoODMFluent\Fluent\Fluent;
+use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
 
 interface Mapping
 {
@@ -15,6 +15,8 @@ interface Mapping
      */
     public function mapFor(): string;
 
+    public function load(ClassMetadata $metadata): void;
+
     /**
      * Returns whether the class with the specified name should have its metadata loaded.
      * This is only the case if it is either mapped as an Entity or a MappedSuperclass.
@@ -22,4 +24,9 @@ interface Mapping
      * @return bool
      */
     public function isTransient(): bool;
+
+    /**
+     * Returns fluent builder for this mapping type
+     */
+    public function createBuilder();
 }

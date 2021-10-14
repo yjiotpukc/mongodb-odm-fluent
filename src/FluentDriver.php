@@ -6,7 +6,6 @@ namespace yjiotpukc\MongoODMFluent;
 
 use Doctrine\Persistence\Mapping\ClassMetadata;
 use Doctrine\Persistence\Mapping\Driver\MappingDriver;
-use yjiotpukc\MongoODMFluent\FluentBuilderFactory\FluentBuilderFactory;
 use yjiotpukc\MongoODMFluent\Mapping\Mapping;
 use yjiotpukc\MongoODMFluent\MappingFinder\MappingFinder;
 
@@ -17,23 +16,14 @@ class FluentDriver implements MappingDriver
      */
     private $mappingFinder;
 
-    /**
-     * @var FluentBuilderFactory
-     */
-    private $builderFactory;
-
-    public function __construct(MappingFinder $mappingFinder, FluentBuilderFactory $builderFactory)
+    public function __construct(MappingFinder $mappingFinder)
     {
         $this->mappingFinder = $mappingFinder;
-        $this->builderFactory = $builderFactory;
     }
 
     public function loadMetadataForClass($className, ClassMetadata $metadata): void
     {
-        $mapping = $this->createMapping($className);
-        $builder = $this->builderFactory->createBuilder($mapping);
-        $mapping->map($builder);
-        $builder->build($metadata);
+        $this->createMapping($className)->load($metadata);
     }
 
     /**
