@@ -9,11 +9,34 @@ use yjiotpukc\MongoODMFluent\Types\Index;
 
 class DocumentBuilder extends BaseBuilder implements FluentBuilder
 {
+    /**
+     * @var string
+     */
     protected $db;
+
+    /**
+     * @var string
+     */
     protected $collection;
+
+    /**
+     * @var string
+     */
     protected $repositoryClass;
+
+    /**
+     * @var bool
+     */
     protected $readOnly;
+
+    /**
+     * @var string|int|null
+     */
     protected $writeConcern;
+
+    /**
+     * @var Index[]
+     */
     protected $indexes;
 
     public function build(ClassMetadata $metadata): void
@@ -35,7 +58,7 @@ class DocumentBuilder extends BaseBuilder implements FluentBuilder
         }
         if ($this->indexes) {
             foreach ($this->indexes as $index) {
-                $metadata->addIndex($index->keys, $index->options());
+                $metadata->addIndex($index->keys, $index->options);
             }
         }
 

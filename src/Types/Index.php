@@ -8,8 +8,8 @@ use yjiotpukc\MongoODMFluent\MappingException;
 
 class Index
 {
-    public $keys;
-    public $options;
+    protected $keys;
+    protected $options;
 
     /**
      * @param string|string[] $keys
@@ -85,5 +85,17 @@ class Index
         $this->options['partialFilterExpression'] = $expression;
 
         return $this;
+    }
+
+    public function __get($name)
+    {
+        switch ($name) {
+            case 'keys':
+                return $this->keys;
+            case 'options':
+                return $this->options;
+        }
+
+        throw new MappingException("Unknown field {$name} in Index");
     }
 }
