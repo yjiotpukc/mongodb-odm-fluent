@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace yjiotpukc\MongoODMFluent\Builder;
 
 use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
-use yjiotpukc\MongoODMFluent\Type\Index;
+use yjiotpukc\MongoODMFluent\Type\Implementation\Index;
 
 class EmbeddedDocumentBuilder extends BaseBuilder implements FluentBuilder
 {

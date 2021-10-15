@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace yjiotpukc\MongoODMFluent\Builder;
 
 use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
-use yjiotpukc\MongoODMFluent\Type\Field;
-use yjiotpukc\MongoODMFluent\Type\Id;
+use yjiotpukc\MongoODMFluent\Type\Implementation\Field;
+use yjiotpukc\MongoODMFluent\Type\Implementation\Id;
 
 abstract class BaseBuilder implements FluentBuilder
 {
