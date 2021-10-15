@@ -6,7 +6,8 @@ namespace yjiotpukc\MongoODMFluent\Builder;
 
 use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
 use yjiotpukc\MongoODMFluent\Type\Implementation\Field;
-use yjiotpukc\MongoODMFluent\Type\Implementation\Id;
+use yjiotpukc\MongoODMFluent\Type\Id;
+use yjiotpukc\MongoODMFluent\Type\Implementation\Id as IdImplementation;
 
 abstract class BaseBuilder implements FluentBuilder
 {
@@ -25,7 +26,7 @@ abstract class BaseBuilder implements FluentBuilder
 
     public function id(): Id
     {
-        $id = new Id();
+        $id = new IdImplementation();
         $this->fields[] = $id;
 
         return $id;

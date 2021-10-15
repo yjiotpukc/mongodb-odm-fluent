@@ -5,49 +5,50 @@ declare(strict_types=1);
 namespace yjiotpukc\MongoODMFluent\Type\Implementation;
 
 use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
+use yjiotpukc\MongoODMFluent\Type\Id as IdType;
 
-class Id
+class Id implements IdType
 {
     protected $type;
     protected $strategy = 'auto';
     protected $generator;
 
-    public function type(string $type): Id
+    public function type(string $type): IdType
     {
         $this->type = $type;
 
         return $this;
     }
 
-    public function alNum(): Id
+    public function alNum(): IdType
     {
         $this->strategy = ClassMetadata::GENERATOR_TYPE_ALNUM;
 
         return $this;
     }
 
-    public function increment(): Id
+    public function increment(): IdType
     {
         $this->strategy = 'increment';
 
         return $this;
     }
 
-    public function uuid(): Id
+    public function uuid(): IdType
     {
         $this->strategy = 'uuid';
 
         return $this;
     }
 
-    public function none(): Id
+    public function none(): IdType
     {
         $this->strategy = 'none';
 
         return $this;
     }
 
-    public function custom(string $generatorClassName): Id
+    public function custom(string $generatorClassName): IdType
     {
         $this->strategy = 'custom';
         $this->generator = $generatorClassName;
