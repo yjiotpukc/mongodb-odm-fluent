@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace yjiotpukc\MongoODMFluent\Types;
+namespace yjiotpukc\MongoODMFluent\Type;
 
 use yjiotpukc\MongoODMFluent\MappingException;
 

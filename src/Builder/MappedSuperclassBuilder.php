@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace yjiotpukc\MongoODMFluent\Fluent;
+namespace yjiotpukc\MongoODMFluent\Builder;
 
 use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
-use yjiotpukc\MongoODMFluent\Types\Discriminator;
+use yjiotpukc\MongoODMFluent\Type\Discriminator;
 
 class MappedSuperclassBuilder extends BaseBuilder implements FluentBuilder
 {

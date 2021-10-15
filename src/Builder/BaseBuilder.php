@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace yjiotpukc\MongoODMFluent\Fluent;
+namespace yjiotpukc\MongoODMFluent\Builder;
 
 use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
-use yjiotpukc\MongoODMFluent\Types\Field;
-use yjiotpukc\MongoODMFluent\Types\Id;
+use yjiotpukc\MongoODMFluent\Type\Field;
+use yjiotpukc\MongoODMFluent\Type\Id;
 
 abstract class BaseBuilder implements FluentBuilder
 {

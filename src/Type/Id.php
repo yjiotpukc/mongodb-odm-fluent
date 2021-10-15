@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace yjiotpukc\MongoODMFluent\Types;
+namespace yjiotpukc\MongoODMFluent\Type;
 
 use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
 
