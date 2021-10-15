@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace yjiotpukc\MongoODMFluent\Type\Implementation;
 
-class Field
+use yjiotpukc\MongoODMFluent\Type\Field as FieldType;
+
+class Field implements FieldType
 {
     /**
      * @var string
@@ -38,21 +40,21 @@ class Field
         $this->name = $fieldName;
     }
 
-    public function nameInDb(string $name): Field
+    public function nameInDb(string $name): FieldType
     {
         $this->name = $name;
 
         return $this;
     }
 
-    public function nullable(): Field
+    public function nullable(): FieldType
     {
         $this->nullable = true;
 
         return $this;
     }
 
-    public function notSaved(): Field
+    public function notSaved(): FieldType
     {
         $this->notSaved = true;
 
