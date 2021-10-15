@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace yjiotpukc\MongoODMFluent\Builder;
 
 use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
-use yjiotpukc\MongoODMFluent\Type\Implementation\Index;
+use yjiotpukc\MongoODMFluent\Type\Implementation\Index as IndexImplementation;
+use yjiotpukc\MongoODMFluent\Type\Index;
 
 class EmbeddedDocumentBuilder extends BaseBuilder implements FluentBuilder
 {
@@ -32,7 +33,7 @@ class EmbeddedDocumentBuilder extends BaseBuilder implements FluentBuilder
      */
     public function index($keys = []): Index
     {
-        $index = new Index($keys);
+        $index = new IndexImplementation($keys);
         $this->indexes[] = $index;
 
         return $index;
