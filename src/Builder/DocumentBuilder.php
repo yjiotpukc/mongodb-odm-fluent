@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace yjiotpukc\MongoODMFluent\Builder;
 
 use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
-use yjiotpukc\MongoODMFluent\Type\Implementation\Discriminator;
+use yjiotpukc\MongoODMFluent\Type\Discriminator;
+use yjiotpukc\MongoODMFluent\Type\Implementation\Discriminator as DiscriminatorImplementation;
 use yjiotpukc\MongoODMFluent\Type\Implementation\Index as IndexImplementation;
 use yjiotpukc\MongoODMFluent\Type\Index;
 
@@ -47,7 +48,7 @@ class DocumentBuilder extends BaseBuilder implements FluentBuilder
     protected $inheritanceType;
 
     /**
-     * @var Discriminator
+     * @var DiscriminatorImplementation
      */
     protected $discriminator;
 
@@ -150,7 +151,7 @@ class DocumentBuilder extends BaseBuilder implements FluentBuilder
 
     public function discriminator(string $fieldName): Discriminator
     {
-        $this->discriminator = new Discriminator($fieldName);
+        $this->discriminator = new DiscriminatorImplementation($fieldName);
 
         return $this->discriminator;
     }

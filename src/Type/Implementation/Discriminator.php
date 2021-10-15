@@ -4,41 +4,29 @@ declare(strict_types=1);
 
 namespace yjiotpukc\MongoODMFluent\Type\Implementation;
 
-use yjiotpukc\MongoODMFluent\MappingException;
+use yjiotpukc\MongoODMFluent\Type\Discriminator as DiscriminatorType;
 
-class Discriminator
+class Discriminator implements DiscriminatorType
 {
     /**
      * @var string
      */
-    protected $field;
+    public $field;
 
     /**
      * @var string[]
      */
-    protected $map;
+    public $map;
 
     public function __construct(string $field)
     {
         $this->field = $field;
     }
 
-    public function map(string $value, string $class): Discriminator
+    public function map(string $value, string $class): DiscriminatorType
     {
         $this->map[$value] = $class;
 
         return $this;
-    }
-
-    public function __get($name)
-    {
-        switch ($name) {
-            case 'field':
-                return $this->field;
-            case 'map':
-                return $this->map;
-        }
-
-        throw new MappingException("Unknown field {$name} in Discriminator");
     }
 }
