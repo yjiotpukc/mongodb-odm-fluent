@@ -9,4 +9,6 @@ interface Discriminator
     public function __construct(string $field);
 
     public function map(string $value, string $class): Discriminator;
+
+    public function default($value): Discriminator;
 }

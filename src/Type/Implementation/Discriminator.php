@@ -18,6 +18,8 @@ class Discriminator implements DiscriminatorType
      */
     public $map;
 
+    public $defaultValue;
+
     public function __construct(string $field)
     {
         $this->field = $field;
@@ -26,6 +28,13 @@ class Discriminator implements DiscriminatorType
     public function map(string $value, string $class): DiscriminatorType
     {
         $this->map[$value] = $class;
+
+        return $this;
+    }
+
+    public function default($value): DiscriminatorType
+    {
+        $this->defaultValue = $value;
 
         return $this;
     }

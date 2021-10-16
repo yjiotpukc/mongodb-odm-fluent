@@ -30,6 +30,7 @@ class MappedSuperclassBuilder extends BaseBuilder implements FluentBuilder
         if ($this->discriminator) {
             $metadata->setDiscriminatorField($this->discriminator->field);
             $metadata->setDiscriminatorMap($this->discriminator->map);
+            $metadata->setDefaultDiscriminatorValue($this->discriminator->defaultValue);
         }
 
         parent::build($metadata);
