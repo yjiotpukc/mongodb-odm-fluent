@@ -14,7 +14,7 @@ interface EmbedMany
 
     public function notSaved(): EmbedMany;
 
-    public function discriminator(string $field): Discriminator;
+    public function discriminator(Discriminator $discriminator): EmbedMany;
 
     public function collectionClass(string $className): EmbedMany;
 

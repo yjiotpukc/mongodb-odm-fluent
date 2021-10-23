@@ -49,10 +49,10 @@ class MappedSuperclassBuilder extends BaseBuilder implements FluentBuilder
         return $this;
     }
 
-    public function discriminator(string $fieldName): Discriminator
+    public function discriminator(Discriminator $discriminator): MappedSuperclassBuilder
     {
-        $this->discriminator = new Discriminator($fieldName);
+        $this->discriminator = $discriminator;
 
-        return $this->discriminator;
+        return $this;
     }
 }

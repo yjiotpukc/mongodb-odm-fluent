@@ -12,5 +12,5 @@ interface EmbedOne
 
     public function notSaved(): EmbedOne;
 
-    public function discriminator(string $field): Discriminator;
+    public function discriminator(Discriminator $discriminator): EmbedOne;
 }

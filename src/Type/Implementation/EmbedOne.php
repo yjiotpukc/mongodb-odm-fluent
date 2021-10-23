@@ -49,11 +49,11 @@ class EmbedOne implements EmbedOneType
         return $this;
     }
 
-    public function discriminator(string $field): Discriminator
+    public function discriminator(Discriminator $discriminator): EmbedOneType
     {
-        $this->discriminator = new Discriminator($field);
+        $this->discriminator = $discriminator;
 
-        return $this->discriminator;
+        return $this;
     }
 
     public function map(): array

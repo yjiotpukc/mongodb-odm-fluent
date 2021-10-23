@@ -149,10 +149,10 @@ class DocumentBuilder extends BaseBuilder implements FluentBuilder
         return $this;
     }
 
-    public function discriminator(string $fieldName): Discriminator
+    public function discriminator(Discriminator $discriminator): DocumentBuilder
     {
-        $this->discriminator = new Discriminator($fieldName);
+        $this->discriminator = $discriminator;
 
-        return $this->discriminator;
+        return $this;
     }
 }

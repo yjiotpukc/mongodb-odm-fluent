@@ -73,11 +73,11 @@ class ReferenceMany extends AbstractReference implements ReferenceManyType
         return $this;
     }
 
-    public function discriminator(string $field): Discriminator
+    public function discriminator(Discriminator $discriminator): ReferenceManyType
     {
-        $this->discriminator = new Discriminator($field);
+        $this->discriminator = $discriminator;
 
-        return $this->discriminator;
+        return $this;
     }
 
     public function orphanRemoval(): ReferenceManyType
