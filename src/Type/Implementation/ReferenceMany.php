@@ -32,6 +32,13 @@ class ReferenceMany extends AbstractReference implements ReferenceManyType, Mapp
      */
     protected $prime;
 
+    public function __construct(string $fieldName, string $target)
+    {
+        parent::__construct($fieldName, $target);
+        $this->prime = [];
+        $this->strategy = (new CollectionStrategy())->pushAll();
+    }
+
     public function target(string $target): ReferenceManyType
     {
         $this->target = $target;

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace yjiotpukc\MongoODMFluent\Type\Implementation;
 
+use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
 use yjiotpukc\MongoODMFluent\Type\Cascade;
 use yjiotpukc\MongoODMFluent\Type\Discriminator;
 use yjiotpukc\MongoODMFluent\Type\MappableField;
@@ -84,24 +85,32 @@ class AbstractReference implements MappableField
     {
         $this->fieldName = $fieldName;
         $this->target = $target;
+        $this->notSaved = false;
+        $this->nullable = false;
+        $this->orphanRemoval = false;
+        $this->storeAs = ClassMetadata::REFERENCE_STORE_AS_DB_REF;
+        $this->sort = [];
+        $this->criteria = [];
     }
 
     public function map(): array
     {
         $map = [
-            'reference' => true,
-            'name' => $this->fieldName,
-            'notSaved' => $this->notSaved,
-            'nullable' => $this->nullable,
-            'storeAs' => $this->storeAs,
-            'cascade' => $this->cascade->cascades,
+            'reference'     => true,
+            'name'          => $this->fieldName,
+            'notSaved'      => $this->notSaved,
+            'nullable'      => $this->nullable,
+            'storeAs'       => $this->storeAs,
             'orphanRemoval' => $this->orphanRemoval,
-            'sort' => $this->sort,
-            'criteria' => $this->criteria,
+            'sort'          => $this->sort,
+            'criteria'      => $this->criteria,
         ];
 
         if ($this->target) {
             $map['targetDocument'] = $this->target;
+        }
+        if ($this->cascade) {
+            $map['cascade'] = $this->cascade->cascades;
         }
         if ($this->discriminator) {
             $map['discriminatorField'] = $this->discriminator->field;

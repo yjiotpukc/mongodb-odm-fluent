@@ -11,6 +11,11 @@ class Cascade
      */
     public $cascades;
 
+    public function __construct()
+    {
+        $this->cascades = [];
+    }
+
     public function all(): Cascade
     {
         $this->cascades = [
