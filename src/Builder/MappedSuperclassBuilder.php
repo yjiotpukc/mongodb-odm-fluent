@@ -6,7 +6,6 @@ namespace yjiotpukc\MongoODMFluent\Builder;
 
 use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
 use yjiotpukc\MongoODMFluent\Type\Discriminator;
-use yjiotpukc\MongoODMFluent\Type\Implementation\Discriminator as DiscriminatorImplementation;
 
 class MappedSuperclassBuilder extends BaseBuilder implements FluentBuilder
 {
@@ -52,7 +51,7 @@ class MappedSuperclassBuilder extends BaseBuilder implements FluentBuilder
 
     public function discriminator(string $fieldName): Discriminator
     {
-        $this->discriminator = new DiscriminatorImplementation($fieldName);
+        $this->discriminator = new Discriminator($fieldName);
 
         return $this->discriminator;
     }
