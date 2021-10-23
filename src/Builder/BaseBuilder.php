@@ -82,14 +82,4 @@ abstract class BaseBuilder implements FluentBuilder
 
         return $referenceOne;
     }
-
-    public function strategy(): CollectionStrategy
-    {
-        return new CollectionStrategy();
-    }
-
-    public function cascade(): Cascade
-    {
-        return new Cascade();
-    }
 }
