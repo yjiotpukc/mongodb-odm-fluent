@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace yjiotpukc\MongoODMFluent\Type;
 
+use yjiotpukc\MongoODMFluent\Type\ValueObject\CollectionStrategy;
+
 interface EmbedMany
 {
     public function __construct(string $fieldName, string $target);
@@ -16,5 +18,5 @@ interface EmbedMany
 
     public function collectionClass(string $className): EmbedMany;
 
-    public function strategy(): EmbedManyStrategy;
+    public function strategy(CollectionStrategy $strategy): EmbedMany;
 }

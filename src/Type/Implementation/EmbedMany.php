@@ -6,7 +6,7 @@ namespace yjiotpukc\MongoODMFluent\Type\Implementation;
 
 use yjiotpukc\MongoODMFluent\Type\Discriminator as DiscriminatorType;
 use yjiotpukc\MongoODMFluent\Type\EmbedMany as EmbedManyType;
-use yjiotpukc\MongoODMFluent\Type\EmbedManyStrategy as EmbedManyStrategyType;
+use yjiotpukc\MongoODMFluent\Type\ValueObject\CollectionStrategy;
 
 class EmbedMany implements EmbedManyType
 {
@@ -36,7 +36,7 @@ class EmbedMany implements EmbedManyType
     public $collectionClass;
 
     /**
-     * @var EmbedManyStrategy
+     * @var CollectionStrategy
      */
     public $strategy;
 
@@ -74,11 +74,11 @@ class EmbedMany implements EmbedManyType
         return $this;
     }
 
-    public function strategy(): EmbedManyStrategyType
+    public function strategy(CollectionStrategy $strategy): EmbedManyType
     {
-        $this->strategy = new EmbedManyStrategy($this);
+        $this->strategy = $strategy;
 
-        return $this->strategy;
+        return $this;
     }
 
     public function map(): array
