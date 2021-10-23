@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace yjiotpukc\MongoODMFluent\Type\Implementation;
 
+use yjiotpukc\MongoODMFluent\Type\Cascade;
+use yjiotpukc\MongoODMFluent\Type\CollectionStrategy;
 use yjiotpukc\MongoODMFluent\Type\Discriminator;
 use yjiotpukc\MongoODMFluent\Type\ReferenceMany as ReferenceManyType;
-use yjiotpukc\MongoODMFluent\Type\ValueObject\Cascade;
-use yjiotpukc\MongoODMFluent\Type\ValueObject\CollectionStrategy;
 
 class ReferenceMany extends AbstractReference implements ReferenceManyType
 {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace yjiotpukc\MongoODMFluent\Type\ValueObject;
+namespace yjiotpukc\MongoODMFluent\Type;
 
 class CollectionStrategy
 {

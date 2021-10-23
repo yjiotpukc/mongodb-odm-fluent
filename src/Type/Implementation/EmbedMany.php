@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace yjiotpukc\MongoODMFluent\Type\Implementation;
 
+use yjiotpukc\MongoODMFluent\Type\CollectionStrategy;
 use yjiotpukc\MongoODMFluent\Type\Discriminator;
 use yjiotpukc\MongoODMFluent\Type\EmbedMany as EmbedManyType;
-use yjiotpukc\MongoODMFluent\Type\ValueObject\CollectionStrategy;
 
 class EmbedMany implements EmbedManyType
 {

@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace yjiotpukc\MongoODMFluent\Type;
 
-use yjiotpukc\MongoODMFluent\Type\ValueObject\Cascade;
-use yjiotpukc\MongoODMFluent\Type\ValueObject\CollectionStrategy;
-
 interface ReferenceMany
 {
     public function __construct(string $fieldName, string $target);

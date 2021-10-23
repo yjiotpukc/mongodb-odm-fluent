@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace yjiotpukc\MongoODMFluent\Type;
 
-use yjiotpukc\MongoODMFluent\Type\ValueObject\Cascade;
-
 interface ReferenceOne
 {
     public function __construct(string $fieldName, string $target);

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace yjiotpukc\MongoODMFluent\Type\Implementation;
 
+use yjiotpukc\MongoODMFluent\Type\Cascade;
 use yjiotpukc\MongoODMFluent\Type\Discriminator;
 use yjiotpukc\MongoODMFluent\Type\ReferenceOne as ReferenceOneType;
-use yjiotpukc\MongoODMFluent\Type\ValueObject\Cascade;
 
 class ReferenceOne extends AbstractReference implements ReferenceOneType
 {

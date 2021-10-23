@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace yjiotpukc\MongoODMFluent\Builder;
 
 use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
+use yjiotpukc\MongoODMFluent\Type\Cascade;
+use yjiotpukc\MongoODMFluent\Type\CollectionStrategy;
 use yjiotpukc\MongoODMFluent\Type\EmbedMany;
 use yjiotpukc\MongoODMFluent\Type\EmbedOne;
 use yjiotpukc\MongoODMFluent\Type\Field;
@@ -17,8 +19,6 @@ use yjiotpukc\MongoODMFluent\Type\Implementation\ReferenceMany as ReferenceManyI
 use yjiotpukc\MongoODMFluent\Type\Implementation\ReferenceOne as ReferenceOneImplementation;
 use yjiotpukc\MongoODMFluent\Type\ReferenceMany;
 use yjiotpukc\MongoODMFluent\Type\ReferenceOne;
-use yjiotpukc\MongoODMFluent\Type\ValueObject\Cascade;
-use yjiotpukc\MongoODMFluent\Type\ValueObject\CollectionStrategy;
 
 abstract class BaseBuilder implements FluentBuilder
 {
