@@ -7,9 +7,10 @@ namespace yjiotpukc\MongoODMFluent\Type\Implementation;
 use yjiotpukc\MongoODMFluent\Type\Cascade;
 use yjiotpukc\MongoODMFluent\Type\CollectionStrategy;
 use yjiotpukc\MongoODMFluent\Type\Discriminator;
+use yjiotpukc\MongoODMFluent\Type\MappableField;
 use yjiotpukc\MongoODMFluent\Type\ReferenceMany as ReferenceManyType;
 
-class ReferenceMany extends AbstractReference implements ReferenceManyType
+class ReferenceMany extends AbstractReference implements ReferenceManyType, MappableField
 {
     /**
      * @var int

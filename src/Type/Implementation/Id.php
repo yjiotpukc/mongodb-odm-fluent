@@ -6,8 +6,9 @@ namespace yjiotpukc\MongoODMFluent\Type\Implementation;
 
 use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
 use yjiotpukc\MongoODMFluent\Type\Id as IdType;
+use yjiotpukc\MongoODMFluent\Type\MappableField;
 
-class Id implements IdType
+class Id implements IdType, MappableField
 {
     protected $type;
     protected $strategy = 'auto';

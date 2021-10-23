@@ -6,9 +6,10 @@ namespace yjiotpukc\MongoODMFluent\Type\Implementation;
 
 use yjiotpukc\MongoODMFluent\Type\Cascade;
 use yjiotpukc\MongoODMFluent\Type\Discriminator;
+use yjiotpukc\MongoODMFluent\Type\MappableField;
 use yjiotpukc\MongoODMFluent\Type\ReferenceOne as ReferenceOneType;
 
-class ReferenceOne extends AbstractReference implements ReferenceOneType
+class ReferenceOne extends AbstractReference implements ReferenceOneType, MappableField
 {
     public function target(string $target): ReferenceOneType
     {

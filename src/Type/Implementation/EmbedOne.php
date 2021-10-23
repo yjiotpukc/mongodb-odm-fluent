@@ -6,8 +6,9 @@ namespace yjiotpukc\MongoODMFluent\Type\Implementation;
 
 use yjiotpukc\MongoODMFluent\Type\Discriminator;
 use yjiotpukc\MongoODMFluent\Type\EmbedOne as EmbedOneType;
+use yjiotpukc\MongoODMFluent\Type\MappableField;
 
-class EmbedOne implements EmbedOneType
+class EmbedOne implements EmbedOneType, MappableField
 {
     /**
      * @var string

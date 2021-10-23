@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace yjiotpukc\MongoODMFluent\Type\Implementation;
 
 use yjiotpukc\MongoODMFluent\Type\Field as FieldType;
+use yjiotpukc\MongoODMFluent\Type\MappableField;
 
-class Field implements FieldType
+class Field implements FieldType, MappableField
 {
     /**
      * @var string

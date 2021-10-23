@@ -7,8 +7,9 @@ namespace yjiotpukc\MongoODMFluent\Type\Implementation;
 use yjiotpukc\MongoODMFluent\Type\CollectionStrategy;
 use yjiotpukc\MongoODMFluent\Type\Discriminator;
 use yjiotpukc\MongoODMFluent\Type\EmbedMany as EmbedManyType;
+use yjiotpukc\MongoODMFluent\Type\MappableField;
 
-class EmbedMany implements EmbedManyType
+class EmbedMany implements EmbedManyType, MappableField
 {
     /**
      * @var string

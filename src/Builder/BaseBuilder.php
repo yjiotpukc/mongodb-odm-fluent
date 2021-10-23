@@ -17,29 +17,21 @@ use yjiotpukc\MongoODMFluent\Type\Implementation\Field as FieldImplementation;
 use yjiotpukc\MongoODMFluent\Type\Implementation\Id as IdImplementation;
 use yjiotpukc\MongoODMFluent\Type\Implementation\ReferenceMany as ReferenceManyImplementation;
 use yjiotpukc\MongoODMFluent\Type\Implementation\ReferenceOne as ReferenceOneImplementation;
+use yjiotpukc\MongoODMFluent\Type\MappableField;
 use yjiotpukc\MongoODMFluent\Type\ReferenceMany;
 use yjiotpukc\MongoODMFluent\Type\ReferenceOne;
 
 abstract class BaseBuilder implements FluentBuilder
 {
+    /**
+     * @var MappableField[]
+     */
     protected $fields = [];
 
     public function build(ClassMetadata $metadata): void
     {
         foreach ($this->fields as $field) {
-            if ($field instanceof Id) {
-                $metadata->mapField($field->map());
-            } elseif ($field instanceof Field) {
-                $metadata->mapField($field->map());
-            } elseif($field instanceof EmbedOne) {
-                $metadata->mapField($field->map());
-            } elseif ($field instanceof EmbedMany) {
-                $metadata->mapField($field->map());
-            } elseif($field instanceof ReferenceOne) {
-                $metadata->mapField($field->map());
-            } elseif ($field instanceof ReferenceMany) {
-                $metadata->mapField($field->map());
-            }
+            $metadata->mapField($field->map());
         }
     }
 

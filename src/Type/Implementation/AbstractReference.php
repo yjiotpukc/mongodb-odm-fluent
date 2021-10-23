@@ -6,8 +6,9 @@ namespace yjiotpukc\MongoODMFluent\Type\Implementation;
 
 use yjiotpukc\MongoODMFluent\Type\Cascade;
 use yjiotpukc\MongoODMFluent\Type\Discriminator;
+use yjiotpukc\MongoODMFluent\Type\MappableField;
 
-class AbstractReference
+class AbstractReference implements MappableField
 {
     /**
      * @var string
