@@ -36,7 +36,7 @@ class FluentDriver implements MappingDriver
 
     public function isTransient($className): bool
     {
-        return $this->mappingFinder->exists($className);
+        return !$this->mappingFinder->exists($className);
     }
 
     protected function createMapping(string $entityClassName): Mapping
