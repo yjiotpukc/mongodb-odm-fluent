@@ -10,6 +10,16 @@ use yjiotpukc\MongoODMFluent\Type\Discriminator;
 class MappedSuperclassBuilder extends BaseBuilder implements FluentBuilder
 {
     /**
+     * @var string
+     */
+    protected $db;
+
+    /**
+     * @var string
+     */
+    protected $collection;
+
+    /**
      * @var int
      */
     protected $inheritanceType;
@@ -23,6 +33,12 @@ class MappedSuperclassBuilder extends BaseBuilder implements FluentBuilder
     {
         $metadata->isMappedSuperclass = true;
 
+        if ($this->db) {
+            $metadata->setDatabase($this->db);
+        }
+        if ($this->collection) {
+            $metadata->setCollection($this->collection);
+        }
         if ($this->inheritanceType) {
             $metadata->setInheritanceType($this->inheritanceType);
         }
@@ -33,6 +49,20 @@ class MappedSuperclassBuilder extends BaseBuilder implements FluentBuilder
         }
 
         parent::build($metadata);
+    }
+
+    public function db(string $name): MappedSuperclassBuilder
+    {
+        $this->db = $name;
+
+        return $this;
+    }
+
+    public function collection(string $name): MappedSuperclassBuilder
+    {
+        $this->collection = $name;
+
+        return $this;
     }
 
     public function singleCollection(): MappedSuperclassBuilder
