@@ -12,6 +12,7 @@ class DirectoryMappingFinder implements MappingFinder
 
     public function __construct(array $mappingDirectories, array $mappingNamespaces)
     {
+        $this->mappings = [];
         $this->scanMappingDirectories($mappingDirectories);
         $this->registerMappings($mappingNamespaces);
     }
@@ -44,7 +45,7 @@ class DirectoryMappingFinder implements MappingFinder
             $absolutePath = $dirPath . DIRECTORY_SEPARATOR . $item;
             if (is_dir($absolutePath)) {
                 $this->scanDir($dirPath);
-            } elseif (str_ends_with($dirPath, '.php')) {
+            } elseif (str_ends_with($absolutePath, '.php')) {
                 require_once $absolutePath;
             }
         }
