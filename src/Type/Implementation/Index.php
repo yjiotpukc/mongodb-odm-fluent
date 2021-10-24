@@ -22,6 +22,7 @@ class Index implements IndexType
         } else {
             $this->keys = $keys;
         }
+        $this->options = [];
     }
 
     public function asc(string $key): IndexType
