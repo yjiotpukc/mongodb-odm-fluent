@@ -37,6 +37,6 @@ class ListMappingFinder implements MappingFinder
 
     public function getAll(): array
     {
-        return array_values($this->mappings);
+        return array_keys($this->mappings);
     }
 }

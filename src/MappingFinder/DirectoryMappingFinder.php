@@ -29,7 +29,7 @@ class DirectoryMappingFinder implements MappingFinder
 
     public function getAll(): array
     {
-        return array_values($this->mappings);
+        return array_keys($this->mappings);
     }
 
     protected function scanMappingDirectories(array $mappingDirs)
