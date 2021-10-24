@@ -14,6 +14,8 @@ interface MappingFinder
      */
     public function find(string $entityClassName): string;
 
+    public function exists(string $entityClassName): bool;
+
     /**
      * Gets the names of all mapped classes known to this finder
      *

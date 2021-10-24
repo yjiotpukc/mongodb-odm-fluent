@@ -18,11 +18,6 @@ abstract class MappedSuperclassMapping implements Mapping
         $builder->build($metadata);
     }
 
-    final public function isTransient(): bool
-    {
-        return true;
-    }
-
     final public function createBuilder(): MappedSuperclassBuilder
     {
         return new MappedSuperclassBuilder();

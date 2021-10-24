@@ -18,14 +18,6 @@ interface Mapping
     public function load(ClassMetadata $metadata): void;
 
     /**
-     * Returns whether the class with the specified name should have its metadata loaded.
-     * This is only the case if it is either mapped as an Entity or a MappedSuperclass.
-     *
-     * @return bool
-     */
-    public function isTransient(): bool;
-
-    /**
      * Returns fluent builder for this mapping type
      */
     public function createBuilder();

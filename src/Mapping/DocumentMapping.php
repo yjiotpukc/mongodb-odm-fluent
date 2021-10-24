@@ -18,11 +18,6 @@ abstract class DocumentMapping implements Mapping
         $builder->build($metadata);
     }
 
-    final public function isTransient(): bool
-    {
-        return true;
-    }
-
     final public function createBuilder(): DocumentBuilder
     {
         return new DocumentBuilder();

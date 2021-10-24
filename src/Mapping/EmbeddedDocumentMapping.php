@@ -18,11 +18,6 @@ abstract class EmbeddedDocumentMapping implements Mapping
         $builder->build($metadata);
     }
 
-    final public function isTransient(): bool
-    {
-        return false;
-    }
-
     final public function createBuilder(): EmbeddedDocumentBuilder
     {
         return new EmbeddedDocumentBuilder();

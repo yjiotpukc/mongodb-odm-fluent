@@ -30,6 +30,11 @@ class ListMappingFinder implements MappingFinder
         return $this->mappings[$entityClassName];
     }
 
+    public function exists(string $entityClassName): bool
+    {
+        return isset($this->mappings[$entityClassName]);
+    }
+
     public function getAll(): array
     {
         return array_values($this->mappings);
