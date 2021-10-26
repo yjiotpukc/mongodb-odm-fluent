@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace yjiotpukc\MongoODMFluent\MappingFinder;
 
 use yjiotpukc\MongoODMFluent\Mapping\Mapping;
+use yjiotpukc\MongoODMFluent\MappingException;
 
 class DirectoryMappingFinder implements MappingFinder
 {
@@ -19,6 +20,10 @@ class DirectoryMappingFinder implements MappingFinder
 
     public function find(string $entityClassName): string
     {
+        if (!$this->exists($entityClassName)) {
+            throw new MappingException("Mapping for entity [$entityClassName] not found");
+        }
+
         return $this->mappings[$entityClassName];
     }
 
@@ -49,7 +54,7 @@ class DirectoryMappingFinder implements MappingFinder
 
             $absolutePath = $dirPath . DIRECTORY_SEPARATOR . $item;
             if (is_dir($absolutePath)) {
-                $this->scanDir($dirPath);
+                $this->scanDir($absolutePath);
             } elseif (str_ends_with($absolutePath, '.php')) {
                 require_once $absolutePath;
             }
