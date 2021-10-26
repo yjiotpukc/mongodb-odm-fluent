@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace yjiotpukc\MongoODMFluent\Tests\Stubs;
 
 use yjiotpukc\MongoODMFluent\MappingFinder\MappingFinder;
+use yjiotpukc\MongoODMFluent\MappingSet\MappingSet;
+use yjiotpukc\MongoODMFluent\MappingSet\SimpleMappingSet;
 
 class MappingFinderStub implements MappingFinder
 {
@@ -15,18 +17,13 @@ class MappingFinderStub implements MappingFinder
         $this->mappings = $mappings;
     }
 
-    public function find(string $entityClassName): string
+    public function makeMappingSet(): MappingSet
     {
-        return $this->mappings[$entityClassName];
-    }
+        $mappingSet = new SimpleMappingSet();
+        foreach ($this->mappings as $entity => $mapping) {
+            $mappingSet->add($entity, $mapping);
+        }
 
-    public function exists(string $entityClassName): bool
-    {
-        return isset($this->mappings[$entityClassName]);
-    }
-
-    public function getAll(): array
-    {
-        return array_keys($this->mappings);
+        return $mappingSet;
     }
 }
