@@ -5,43 +5,42 @@ declare(strict_types=1);
 namespace yjiotpukc\MongoODMFluent\MappingFinder;
 
 use yjiotpukc\MongoODMFluent\Mapping\Mapping;
-use yjiotpukc\MongoODMFluent\MappingException;
+use yjiotpukc\MongoODMFluent\MappingSet\MappingSet;
+use yjiotpukc\MongoODMFluent\MappingSet\SimpleMappingSet;
 
 class DirectoryMappingFinder implements MappingFinder
 {
-    protected $mappings;
+    protected $wereDirectoriesScanned;
+    protected $mappingDirectories;
+    protected $mappingNamespaces;
 
     public function __construct(array $mappingDirectories, array $mappingNamespaces)
     {
-        $this->mappings = [];
-        $this->scanMappingDirectories($mappingDirectories);
-        $this->registerMappings($mappingNamespaces);
+        $this->wereDirectoriesScanned = false;
+        $this->mappingDirectories = $mappingDirectories;
+        $this->mappingNamespaces = $mappingNamespaces;
     }
 
-    public function find(string $entityClassName): string
+    public function makeMappingSet(): MappingSet
     {
-        if (!$this->exists($entityClassName)) {
-            throw new MappingException("Mapping for entity [$entityClassName] not found");
+        $mappingSet = new SimpleMappingSet();
+
+        if (!$this->wereDirectoriesScanned) {
+            $this->scanMappingDirectories();
         }
 
-        return $this->mappings[$entityClassName];
+        $this->addMappingsToSet($mappingSet);
+
+        return $mappingSet;
     }
 
-    public function exists(string $entityClassName): bool
+    protected function scanMappingDirectories()
     {
-        return isset($this->mappings[$entityClassName]);
-    }
-
-    public function getAll(): array
-    {
-        return array_keys($this->mappings);
-    }
-
-    protected function scanMappingDirectories(array $mappingDirs)
-    {
-        foreach ($mappingDirs as $mappingDir) {
+        foreach ($this->mappingDirectories as $mappingDir) {
             $this->scanDir($mappingDir);
         }
+
+        $this->wereDirectoriesScanned = true;
     }
 
     protected function scanDir(string $dirPath)
@@ -61,12 +60,12 @@ class DirectoryMappingFinder implements MappingFinder
         }
     }
 
-    protected function registerMappings(array $mappingNamespaces)
+    protected function addMappingsToSet(SimpleMappingSet $mappingSet)
     {
         $declaredClasses = get_declared_classes();
         foreach ($declaredClasses as $declaredClass) {
             $isMappingNamespace = false;
-            foreach ($mappingNamespaces as $namespace) {
+            foreach ($this->mappingNamespaces as $namespace) {
                 if (str_starts_with($declaredClass, $namespace)) {
                     $isMappingNamespace = true;
                     break;
@@ -76,7 +75,7 @@ class DirectoryMappingFinder implements MappingFinder
             if ($isMappingNamespace) {
                 $instance = new $declaredClass();
                 if ($instance instanceof Mapping) {
-                    $this->mappings[$instance->mapFor()] = $declaredClass;
+                    $mappingSet->add($instance->mapFor(), $declaredClass);
                 }
             }
         }
