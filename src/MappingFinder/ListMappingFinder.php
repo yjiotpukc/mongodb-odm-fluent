@@ -18,7 +18,7 @@ class ListMappingFinder implements MappingFinder
         foreach ($mappingClassNames as $mappingClassName) {
             $mapping = new $mappingClassName();
             if (!($mapping instanceof Mapping)) {
-                throw new MappingException("Class {$mappingClassName} is not a mapping");
+                throw new MappingException("Class [{$mappingClassName}] is not a mapping");
             }
 
             $this->mappings[$mapping->mapFor()] = $mappingClassName;
@@ -27,6 +27,10 @@ class ListMappingFinder implements MappingFinder
 
     public function find(string $entityClassName): string
     {
+        if (!$this->exists($entityClassName)) {
+            throw new MappingException("Mapping for entity [$entityClassName] not found");
+        }
+
         return $this->mappings[$entityClassName];
     }
 
