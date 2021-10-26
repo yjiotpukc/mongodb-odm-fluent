@@ -41,13 +41,34 @@ class FluentDriver implements MappingDriver
 
     protected function createMapping(string $entityClassName): Mapping
     {
+        $this->assertMappingExists($entityClassName);
         $mappingClassName = $this->mappingFinder->find($entityClassName);
-
+        $this->assertMappingClassExists($mappingClassName);
         $mapping = new $mappingClassName();
+        $this->assertMappingIsInstanceOfMapping($mapping);
+
+        return $mapping;
+    }
+
+    protected function assertMappingExists(string $entityClassName): void
+    {
+        if (!$this->mappingFinder->exists($entityClassName)) {
+            throw new MappingException("Mapping for entity [$entityClassName] not found");
+        }
+    }
+
+    protected function assertMappingClassExists(string $mappingClassName): void
+    {
+        if (!class_exists($mappingClassName)) {
+            throw new MappingException("[$mappingClassName] does not exist");
+        }
+    }
+
+    protected function assertMappingIsInstanceOfMapping(object $mapping): void
+    {
+        $mappingClassName = get_class($mapping);
         if (!($mapping instanceof Mapping)) {
             throw new MappingException("[$mappingClassName] is not a mapping");
         }
-
-        return $mapping;
     }
 }
