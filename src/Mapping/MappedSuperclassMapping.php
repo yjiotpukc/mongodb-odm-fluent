@@ -13,13 +13,8 @@ abstract class MappedSuperclassMapping implements Mapping
 
     public function load(ClassMetadata $metadata): void
     {
-        $builder = $this->createBuilder();
+        $builder = new MappedSuperclassBuilder();
         $this->map($builder);
         $builder->build($metadata);
-    }
-
-    final public function createBuilder(): MappedSuperclassBuilder
-    {
-        return new MappedSuperclassBuilder();
     }
 }

@@ -13,13 +13,8 @@ abstract class EmbeddedDocumentMapping implements Mapping
 
     public function load(ClassMetadata $metadata): void
     {
-        $builder = $this->createBuilder();
+        $builder = new EmbeddedDocumentBuilder();
         $this->map($builder);
         $builder->build($metadata);
-    }
-
-    final public function createBuilder(): EmbeddedDocumentBuilder
-    {
-        return new EmbeddedDocumentBuilder();
     }
 }

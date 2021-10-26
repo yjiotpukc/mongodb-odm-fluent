@@ -17,8 +17,4 @@ class AnotherMappingStub implements Mapping
     public function load(ClassMetadata $metadata): void
     {
     }
-
-    public function createBuilder()
-    {
-    }
 }
