@@ -29,6 +29,11 @@
       "yjiotpukc\\MongoODMFluent\\": "src/"
     }
   },
+  "autoload-dev": {
+    "psr-4": {
+      "yjiotpukc\\MongoODMFluent\\Tests\\": "tests/"
+    }
+  },
   "require-dev": {
     "phpunit/phpunit": "^9.5"
   }
