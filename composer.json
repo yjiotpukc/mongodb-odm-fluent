@@ -22,9 +22,7 @@
   ],
   "require": {
     "php": "^7.3|^8.0",
-    "ext-mongodb": "*",
-    "doctrine/mongodb-odm": "^2.2.0",
-    "doctrine/persistence": "^2.0"
+    "doctrine/mongodb-odm": "^2.2.0"
   },
   "autoload": {
     "psr-4": {
