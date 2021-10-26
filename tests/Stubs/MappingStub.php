@@ -13,7 +13,7 @@ class MappingStub implements Mapping
 
     public function mapFor(): string
     {
-        return '';
+        return EntityStub::class;
     }
 
     public function load(ClassMetadata $metadata): void
