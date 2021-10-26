@@ -8,17 +8,18 @@ use Doctrine\Persistence\Mapping\ClassMetadata;
 use Doctrine\Persistence\Mapping\Driver\MappingDriver;
 use yjiotpukc\MongoODMFluent\Mapping\Mapping;
 use yjiotpukc\MongoODMFluent\MappingFinder\MappingFinder;
+use yjiotpukc\MongoODMFluent\MappingSet\MappingSet;
 
 class FluentDriver implements MappingDriver
 {
     /**
-     * @var MappingFinder
+     * @var MappingSet
      */
-    private $mappingFinder;
+    protected $mappingSet;
 
     public function __construct(MappingFinder $mappingFinder)
     {
-        $this->mappingFinder = $mappingFinder;
+        $this->mappingSet = $mappingFinder->makeMappingSet();
     }
 
     public function loadMetadataForClass($className, ClassMetadata $metadata): void
@@ -31,18 +32,18 @@ class FluentDriver implements MappingDriver
      */
     public function getAllClassNames(): array
     {
-        return $this->mappingFinder->getAll();
+        return $this->mappingSet->getAll();
     }
 
     public function isTransient($className): bool
     {
-        return !$this->mappingFinder->exists($className);
+        return !$this->mappingSet->exists($className);
     }
 
     protected function createMapping(string $entityClassName): Mapping
     {
         $this->assertMappingExists($entityClassName);
-        $mappingClassName = $this->mappingFinder->find($entityClassName);
+        $mappingClassName = $this->mappingSet->find($entityClassName);
         $this->assertMappingClassExists($mappingClassName);
         $mapping = new $mappingClassName();
         $this->assertMappingIsInstanceOfMapping($mapping);
@@ -52,7 +53,7 @@ class FluentDriver implements MappingDriver
 
     protected function assertMappingExists(string $entityClassName): void
     {
-        if (!$this->mappingFinder->exists($entityClassName)) {
+        if (!$this->mappingSet->exists($entityClassName)) {
             throw new MappingException("Mapping for entity [$entityClassName] not found");
         }
     }
