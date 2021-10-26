@@ -13,13 +13,8 @@ abstract class DocumentMapping implements Mapping
 
     public function load(ClassMetadata $metadata): void
     {
-        $builder = $this->createBuilder();
+        $builder = new DocumentBuilder();
         $this->map($builder);
         $builder->build($metadata);
-    }
-
-    final public function createBuilder(): DocumentBuilder
-    {
-        return new DocumentBuilder();
     }
 }

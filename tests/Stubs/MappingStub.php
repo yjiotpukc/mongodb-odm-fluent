@@ -21,10 +21,6 @@ class MappingStub implements Mapping
         static::$wasLoaded = true;
     }
 
-    public function createBuilder()
-    {
-    }
-
     public static function wasLoaded(): bool
     {
         return static::$wasLoaded;
