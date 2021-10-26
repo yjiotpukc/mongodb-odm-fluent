@@ -8,49 +8,25 @@ use PHPUnit\Framework\TestCase;
 use yjiotpukc\MongoODMFluent\MappingException;
 use yjiotpukc\MongoODMFluent\MappingFinder\ListMappingFinder;
 use yjiotpukc\MongoODMFluent\Tests\Stubs\EntityStub;
-use yjiotpukc\MongoODMFluent\Tests\Stubs\EntityWithoutMappingStub;
+use yjiotpukc\MongoODMFluent\Tests\Stubs\Mappings\AnotherEntityStub;
+use yjiotpukc\MongoODMFluent\Tests\Stubs\Mappings\AnotherMappingStub;
 use yjiotpukc\MongoODMFluent\Tests\Stubs\MappingStub;
 
 class ListMappingFinderTest extends TestCase
 {
+    public function testCreatesMappingSet()
+    {
+        $finder = new ListMappingFinder([MappingStub::class, AnotherMappingStub::class]);
+        $mappingSet = $finder->makeMappingSet();
+        self::assertEquals([EntityStub::class, AnotherEntityStub::class], $mappingSet->getAll());
+    }
+
     public function testFailsIfClassIsNotMapping()
     {
         $className = EntityStub::class;
         $this->expectException(MappingException::class);
         $this->expectExceptionMessage("Class [{$className}] is not a mapping");
-        new ListMappingFinder([$className]);
-    }
-
-    public function testMappingExists()
-    {
-        $finder = new ListMappingFinder([MappingStub::class]);
-        self::assertTrue($finder->exists(EntityStub::class));
-    }
-
-    public function testMappingDoesNotExist()
-    {
-        $finder = new ListMappingFinder([MappingStub::class]);
-        self::assertFalse($finder->exists(EntityWithoutMappingStub::class));
-    }
-
-    public function testReturnsMapping()
-    {
-        $finder = new ListMappingFinder([MappingStub::class]);
-        self::assertEquals(MappingStub::class, $finder->find(EntityStub::class));
-    }
-
-    public function testFailsIfNoMappingFound()
-    {
-        $entityClassName = EntityWithoutMappingStub::class;
-        $this->expectException(MappingException::class);
-        $this->expectExceptionMessage("Mapping for entity [$entityClassName] not found");
-        $finder = new ListMappingFinder([MappingStub::class]);
-        $finder->find($entityClassName);
-    }
-
-    public function testReturnsAllMappings()
-    {
-        $finder = new ListMappingFinder([MappingStub::class]);
-        self::assertEquals([EntityStub::class], $finder->getAll());
+        $finder = new ListMappingFinder([$className]);
+        $finder->makeMappingSet();
     }
 }
