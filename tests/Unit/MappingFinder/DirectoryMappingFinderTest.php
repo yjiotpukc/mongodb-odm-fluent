@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace yjiotpukc\MongoODMFluent\Tests\MappingFinder;
+namespace yjiotpukc\MongoODMFluent\Tests\Unit\MappingFinder;
 
 use PHPUnit\Framework\TestCase;
 use yjiotpukc\MongoODMFluent\MappingFinder\DirectoryMappingFinder;
@@ -36,7 +36,7 @@ class DirectoryMappingFinderTest extends TestCase
 
     protected function getDirectoryPath(): string
     {
-        return realpath(__DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'Stubs');
+        return realpath(__DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'Stubs');
     }
 
     public function createMappingSet(): MappingSet

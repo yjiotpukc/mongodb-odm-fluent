@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace yjiotpukc\MongoODMFluent\Tests\MappingFinder;
+namespace yjiotpukc\MongoODMFluent\Tests\Unit\MappingFinder;
 
 use PHPUnit\Framework\TestCase;
 use yjiotpukc\MongoODMFluent\MappingException;
