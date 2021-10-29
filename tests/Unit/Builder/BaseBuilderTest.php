@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace yjiotpukc\MongoODMFluent\Tests\Builder;
+namespace yjiotpukc\MongoODMFluent\Tests\Unit\Builder;
 
 use PHPUnit\Framework\TestCase;
 use yjiotpukc\MongoODMFluent\Tests\Stubs\BaseBuilderStub;
