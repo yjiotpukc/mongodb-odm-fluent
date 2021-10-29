@@ -5,37 +5,17 @@ declare(strict_types=1);
 namespace yjiotpukc\MongoODMFluent\Builder;
 
 use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
-use yjiotpukc\MongoODMFluent\Type\Implementation\Index as IndexImplementation;
-use yjiotpukc\MongoODMFluent\Type\Index;
+use yjiotpukc\MongoODMFluent\Builder\Traits\CanHaveIndex;
 
 class EmbeddedDocumentBuilder extends BaseBuilder implements FluentBuilder
 {
-    /**
-     * @var Index[]
-     */
-    protected $indexes;
+    use CanHaveIndex;
 
     public function build(ClassMetadata $metadata): void
     {
         $metadata->isEmbeddedDocument = true;
-        if ($this->indexes) {
-            foreach ($this->indexes as $index) {
-                $metadata->addIndex($index->keys, $index->options);
-            }
-        }
+        $this->buildIndex($metadata);
 
         parent::build($metadata);
-    }
-
-    /**
-     * @param string|string[] $keys
-     * @return Index
-     */
-    public function index($keys = []): Index
-    {
-        $index = new IndexImplementation($keys);
-        $this->indexes[] = $index;
-
-        return $index;
     }
 }
