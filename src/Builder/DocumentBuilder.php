@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace yjiotpukc\MongoODMFluent\Builder;
 
 use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
+use yjiotpukc\MongoODMFluent\Builder\Traits\CanHaveCollection;
 use yjiotpukc\MongoODMFluent\Builder\Traits\CanHaveDb;
 use yjiotpukc\MongoODMFluent\Builder\Traits\CanHaveDiscriminator;
 use yjiotpukc\MongoODMFluent\Builder\Traits\CanHaveIndex;
@@ -12,13 +13,9 @@ use yjiotpukc\MongoODMFluent\Builder\Traits\CanHaveIndex;
 class DocumentBuilder extends BaseBuilder implements FluentBuilder
 {
     use CanHaveDb;
+    use CanHaveCollection;
     use CanHaveIndex;
     use CanHaveDiscriminator;
-
-    /**
-     * @var string
-     */
-    protected $collection;
 
     /**
      * @var string
@@ -43,9 +40,7 @@ class DocumentBuilder extends BaseBuilder implements FluentBuilder
     public function build(ClassMetadata $metadata): void
     {
         $this->buildDb($metadata);
-        if ($this->collection) {
-            $metadata->setCollection($this->collection);
-        }
+        $this->buildCollection($metadata);
         if ($this->repositoryClass) {
             $metadata->setCustomRepositoryClass($this->repositoryClass);
         }
@@ -63,13 +58,6 @@ class DocumentBuilder extends BaseBuilder implements FluentBuilder
         $this->buildDiscriminator($metadata);
 
         parent::build($metadata);
-    }
-
-    public function collection(string $name): DocumentBuilder
-    {
-        $this->collection = $name;
-
-        return $this;
     }
 
     public function repository(string $className): DocumentBuilder
