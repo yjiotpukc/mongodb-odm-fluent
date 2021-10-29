@@ -5,16 +5,13 @@ declare(strict_types=1);
 namespace yjiotpukc\MongoODMFluent\Builder;
 
 use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
+use yjiotpukc\MongoODMFluent\Builder\Traits\CanHaveDb;
 use yjiotpukc\MongoODMFluent\Builder\Traits\CanHaveDiscriminator;
 
 class MappedSuperclassBuilder extends BaseBuilder implements FluentBuilder
 {
+    use CanHaveDb;
     use CanHaveDiscriminator;
-
-    /**
-     * @var string
-     */
-    protected $db;
 
     /**
      * @var string
@@ -29,10 +26,8 @@ class MappedSuperclassBuilder extends BaseBuilder implements FluentBuilder
     public function build(ClassMetadata $metadata): void
     {
         $metadata->isMappedSuperclass = true;
+        $this->buildDb($metadata);
 
-        if ($this->db) {
-            $metadata->setDatabase($this->db);
-        }
         if ($this->collection) {
             $metadata->setCollection($this->collection);
         }
@@ -43,13 +38,6 @@ class MappedSuperclassBuilder extends BaseBuilder implements FluentBuilder
         $this->buildDiscriminator($metadata);
 
         parent::build($metadata);
-    }
-
-    public function db(string $name): MappedSuperclassBuilder
-    {
-        $this->db = $name;
-
-        return $this;
     }
 
     public function collection(string $name): MappedSuperclassBuilder
