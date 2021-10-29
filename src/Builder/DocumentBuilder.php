@@ -5,12 +5,13 @@ declare(strict_types=1);
 namespace yjiotpukc\MongoODMFluent\Builder;
 
 use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
+use yjiotpukc\MongoODMFluent\Builder\Traits\CanHaveDiscriminator;
 use yjiotpukc\MongoODMFluent\Builder\Traits\CanHaveIndex;
-use yjiotpukc\MongoODMFluent\Type\Discriminator;
 
 class DocumentBuilder extends BaseBuilder implements FluentBuilder
 {
     use CanHaveIndex;
+    use CanHaveDiscriminator;
 
     /**
      * @var string
@@ -42,11 +43,6 @@ class DocumentBuilder extends BaseBuilder implements FluentBuilder
      */
     protected $inheritanceType;
 
-    /**
-     * @var Discriminator
-     */
-    protected $discriminator;
-
     public function build(ClassMetadata $metadata): void
     {
         if ($this->db) {
@@ -67,13 +63,9 @@ class DocumentBuilder extends BaseBuilder implements FluentBuilder
         if ($this->inheritanceType) {
             $metadata->setInheritanceType($this->inheritanceType);
         }
-        if ($this->discriminator) {
-            $metadata->setDiscriminatorField($this->discriminator->field);
-            $metadata->setDiscriminatorMap($this->discriminator->map);
-            $metadata->setDefaultDiscriminatorValue($this->discriminator->defaultValue);
-        }
 
         $this->buildIndex($metadata);
+        $this->buildDiscriminator($metadata);
 
         parent::build($metadata);
     }
@@ -126,13 +118,6 @@ class DocumentBuilder extends BaseBuilder implements FluentBuilder
     public function collectionPerClass(): DocumentBuilder
     {
         $this->inheritanceType = ClassMetadata::INHERITANCE_TYPE_COLLECTION_PER_CLASS;
-
-        return $this;
-    }
-
-    public function discriminator(Discriminator $discriminator): DocumentBuilder
-    {
-        $this->discriminator = $discriminator;
 
         return $this;
     }

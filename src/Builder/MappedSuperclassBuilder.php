@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace yjiotpukc\MongoODMFluent\Builder;
 
 use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
-use yjiotpukc\MongoODMFluent\Type\Discriminator;
+use yjiotpukc\MongoODMFluent\Builder\Traits\CanHaveDiscriminator;
 
 class MappedSuperclassBuilder extends BaseBuilder implements FluentBuilder
 {
+    use CanHaveDiscriminator;
+
     /**
      * @var string
      */
@@ -24,11 +26,6 @@ class MappedSuperclassBuilder extends BaseBuilder implements FluentBuilder
      */
     protected $inheritanceType;
 
-    /**
-     * @var Discriminator
-     */
-    protected $discriminator;
-
     public function build(ClassMetadata $metadata): void
     {
         $metadata->isMappedSuperclass = true;
@@ -42,11 +39,8 @@ class MappedSuperclassBuilder extends BaseBuilder implements FluentBuilder
         if ($this->inheritanceType) {
             $metadata->setInheritanceType($this->inheritanceType);
         }
-        if ($this->discriminator) {
-            $metadata->setDiscriminatorField($this->discriminator->field);
-            $metadata->setDiscriminatorMap($this->discriminator->map);
-            $metadata->setDefaultDiscriminatorValue($this->discriminator->defaultValue);
-        }
+
+        $this->buildDiscriminator($metadata);
 
         parent::build($metadata);
     }
@@ -75,13 +69,6 @@ class MappedSuperclassBuilder extends BaseBuilder implements FluentBuilder
     public function collectionPerClass(): MappedSuperclassBuilder
     {
         $this->inheritanceType = ClassMetadata::INHERITANCE_TYPE_COLLECTION_PER_CLASS;
-
-        return $this;
-    }
-
-    public function discriminator(Discriminator $discriminator): MappedSuperclassBuilder
-    {
-        $this->discriminator = $discriminator;
 
         return $this;
     }
