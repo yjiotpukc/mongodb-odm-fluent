@@ -5,12 +5,13 @@ declare(strict_types=1);
 namespace yjiotpukc\MongoODMFluent\Builder;
 
 use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
+use yjiotpukc\MongoODMFluent\Builder\Traits\CanHaveIndex;
 use yjiotpukc\MongoODMFluent\Type\Discriminator;
-use yjiotpukc\MongoODMFluent\Type\Implementation\Index as IndexImplementation;
-use yjiotpukc\MongoODMFluent\Type\Index;
 
 class DocumentBuilder extends BaseBuilder implements FluentBuilder
 {
+    use CanHaveIndex;
+
     /**
      * @var string
      */
@@ -35,11 +36,6 @@ class DocumentBuilder extends BaseBuilder implements FluentBuilder
      * @var string|int|null
      */
     protected $writeConcern;
-
-    /**
-     * @var Index[]
-     */
-    protected $indexes;
 
     /**
      * @var int
@@ -68,11 +64,6 @@ class DocumentBuilder extends BaseBuilder implements FluentBuilder
         if ($this->writeConcern) {
             $metadata->setWriteConcern($this->writeConcern);
         }
-        if ($this->indexes) {
-            foreach ($this->indexes as $index) {
-                $metadata->addIndex($index->keys, $index->options);
-            }
-        }
         if ($this->inheritanceType) {
             $metadata->setInheritanceType($this->inheritanceType);
         }
@@ -81,6 +72,8 @@ class DocumentBuilder extends BaseBuilder implements FluentBuilder
             $metadata->setDiscriminatorMap($this->discriminator->map);
             $metadata->setDefaultDiscriminatorValue($this->discriminator->defaultValue);
         }
+
+        $this->buildIndex($metadata);
 
         parent::build($metadata);
     }
@@ -121,18 +114,6 @@ class DocumentBuilder extends BaseBuilder implements FluentBuilder
         $this->writeConcern = $writeConcern;
 
         return $this;
-    }
-
-    /**
-     * @param string|string[] $keys
-     * @return Index
-     */
-    public function index($keys = []): Index
-    {
-        $index = new IndexImplementation($keys);
-        $this->indexes[] = $index;
-
-        return $index;
     }
 
     public function singleCollection(): DocumentBuilder
