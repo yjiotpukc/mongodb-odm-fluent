@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace yjiotpukc\MongoODMFluent\Type\Implementation;
 
+use yjiotpukc\MongoODMFluent\Builder\FluentBuilder;
 use yjiotpukc\MongoODMFluent\Type\Cascade;
 use yjiotpukc\MongoODMFluent\Type\CollectionStrategy;
 use yjiotpukc\MongoODMFluent\Type\Discriminator;
-use yjiotpukc\MongoODMFluent\Type\MappableField;
 use yjiotpukc\MongoODMFluent\Type\ReferenceMany as ReferenceManyType;
 
-class ReferenceMany extends AbstractReference implements ReferenceManyType, MappableField
+class ReferenceMany extends AbstractReference implements ReferenceManyType, FluentBuilder
 {
     /**
      * @var int

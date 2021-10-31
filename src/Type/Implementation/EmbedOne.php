@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace yjiotpukc\MongoODMFluent\Type\Implementation;
 
+use yjiotpukc\MongoODMFluent\Builder\FluentBuilder;
 use yjiotpukc\MongoODMFluent\Type\Discriminator;
 use yjiotpukc\MongoODMFluent\Type\EmbedOne as EmbedOneType;
 use yjiotpukc\MongoODMFluent\Type\MappableField;
 
-class EmbedOne implements EmbedOneType, MappableField
+class EmbedOne extends MappableField implements EmbedOneType, FluentBuilder
 {
     /**
      * @var string

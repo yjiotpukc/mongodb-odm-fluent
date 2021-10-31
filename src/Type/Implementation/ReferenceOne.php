@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace yjiotpukc\MongoODMFluent\Type\Implementation;
 
+use yjiotpukc\MongoODMFluent\Builder\FluentBuilder;
 use yjiotpukc\MongoODMFluent\Type\Cascade;
 use yjiotpukc\MongoODMFluent\Type\Discriminator;
-use yjiotpukc\MongoODMFluent\Type\MappableField;
 use yjiotpukc\MongoODMFluent\Type\ReferenceOne as ReferenceOneType;
 
-class ReferenceOne extends AbstractReference implements ReferenceOneType, MappableField
+class ReferenceOne extends AbstractReference implements ReferenceOneType, FluentBuilder
 {
     public function target(string $target): ReferenceOneType
     {
