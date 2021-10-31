@@ -6,8 +6,9 @@ namespace yjiotpukc\MongoODMFluent\Builder;
 
 use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
 use yjiotpukc\MongoODMFluent\Builder\Traits\CanHaveIndex;
+use yjiotpukc\MongoODMFluent\Type\Buildable;
 
-class EmbeddedDocumentBuilder extends BaseBuilder implements FluentBuilder
+class EmbeddedDocumentBuilder extends BaseBuilder implements Buildable
 {
     use CanHaveIndex;
 

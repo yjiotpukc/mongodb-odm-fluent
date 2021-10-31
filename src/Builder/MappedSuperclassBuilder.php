@@ -9,8 +9,9 @@ use yjiotpukc\MongoODMFluent\Builder\Traits\CanHaveCollection;
 use yjiotpukc\MongoODMFluent\Builder\Traits\CanHaveDb;
 use yjiotpukc\MongoODMFluent\Builder\Traits\CanHaveDiscriminator;
 use yjiotpukc\MongoODMFluent\Builder\Traits\CanHaveInheritance;
+use yjiotpukc\MongoODMFluent\Type\Buildable;
 
-class MappedSuperclassBuilder extends BaseBuilder implements FluentBuilder
+class MappedSuperclassBuilder extends BaseBuilder implements Buildable
 {
     use CanHaveDb;
     use CanHaveCollection;

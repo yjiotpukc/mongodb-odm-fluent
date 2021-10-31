@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace yjiotpukc\MongoODMFluent\Type\Implementation;
 
-use yjiotpukc\MongoODMFluent\Builder\FluentBuilder;
+use yjiotpukc\MongoODMFluent\Type\Buildable;
 use yjiotpukc\MongoODMFluent\Type\Field as FieldType;
-use yjiotpukc\MongoODMFluent\Type\MappableField;
+use yjiotpukc\MongoODMFluent\Type\BuildableField;
 
-class Field extends MappableField implements FieldType, FluentBuilder
+class Field extends BuildableField implements FieldType, Buildable
 {
     /**
      * @var string
