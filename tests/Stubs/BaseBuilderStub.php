@@ -10,6 +10,6 @@ class BaseBuilderStub extends BaseBuilder
 {
     public function getFields(): array
     {
-        return $this->fields;
+        return $this->buildables;
     }
 }
