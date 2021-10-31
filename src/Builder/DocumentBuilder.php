@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace yjiotpukc\MongoODMFluent\Builder;
 
-use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
 use yjiotpukc\MongoODMFluent\Buildable\Buildable;
 use yjiotpukc\MongoODMFluent\Builder\Traits\CanBeReadOnly;
 use yjiotpukc\MongoODMFluent\Builder\Traits\CanHaveCollection;
@@ -23,28 +22,4 @@ class DocumentBuilder extends BaseBuilder implements Buildable
     use CanHaveDiscriminator;
     use CanHaveRepository;
     use CanBeReadOnly;
-
-    /**
-     * @var string|int|null
-     */
-    protected $writeConcern;
-
-    public function build(ClassMetadata $metadata): void
-    {
-        if ($this->writeConcern) {
-            $metadata->setWriteConcern($this->writeConcern);
-        }
-
-        parent::build($metadata);
-    }
-
-    /**
-     * @param string|int|null $writeConcern
-     */
-    public function writeConcern($writeConcern): DocumentBuilder
-    {
-        $this->writeConcern = $writeConcern;
-
-        return $this;
-    }
 }
