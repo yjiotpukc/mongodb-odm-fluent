@@ -11,6 +11,7 @@ use yjiotpukc\MongoODMFluent\Builder\Traits\CanHaveDb;
 use yjiotpukc\MongoODMFluent\Builder\Traits\CanHaveDiscriminator;
 use yjiotpukc\MongoODMFluent\Builder\Traits\CanHaveIndex;
 use yjiotpukc\MongoODMFluent\Builder\Traits\CanHaveInheritance;
+use yjiotpukc\MongoODMFluent\Builder\Traits\CanHaveRepository;
 
 class DocumentBuilder extends BaseBuilder implements Buildable
 {
@@ -19,11 +20,7 @@ class DocumentBuilder extends BaseBuilder implements Buildable
     use CanHaveIndex;
     use CanHaveInheritance;
     use CanHaveDiscriminator;
-
-    /**
-     * @var string
-     */
-    protected $repositoryClass;
+    use CanHaveRepository;
 
     /**
      * @var bool
@@ -37,9 +34,6 @@ class DocumentBuilder extends BaseBuilder implements Buildable
 
     public function build(ClassMetadata $metadata): void
     {
-        if ($this->repositoryClass) {
-            $metadata->setCustomRepositoryClass($this->repositoryClass);
-        }
         if ($this->readOnly) {
             $metadata->isReadOnly = $this->readOnly;
         }
@@ -48,13 +42,6 @@ class DocumentBuilder extends BaseBuilder implements Buildable
         }
 
         parent::build($metadata);
-    }
-
-    public function repository(string $className): DocumentBuilder
-    {
-        $this->repositoryClass = $className;
-
-        return $this;
     }
 
     public function readOnly(): DocumentBuilder
