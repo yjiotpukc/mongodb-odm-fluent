@@ -2,12 +2,10 @@
 
 declare(strict_types=1);
 
-namespace yjiotpukc\MongoODMFluent\Type\Implementation;
+namespace yjiotpukc\MongoODMFluent\Buildable;
 
 use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
-use yjiotpukc\MongoODMFluent\Type\Buildable;
 use yjiotpukc\MongoODMFluent\Type\Id as IdType;
-use yjiotpukc\MongoODMFluent\Type\BuildableField;
 
 class Id extends BuildableField implements IdType, Buildable
 {

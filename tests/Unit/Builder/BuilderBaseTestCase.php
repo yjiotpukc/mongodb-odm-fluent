@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace yjiotpukc\MongoODMFluent\Tests\Unit\Builder;
 
 use PHPUnit\Framework\TestCase;
+use yjiotpukc\MongoODMFluent\Buildable\EmbedMany;
+use yjiotpukc\MongoODMFluent\Buildable\EmbedOne;
+use yjiotpukc\MongoODMFluent\Buildable\Field;
+use yjiotpukc\MongoODMFluent\Buildable\Id;
+use yjiotpukc\MongoODMFluent\Buildable\ReferenceMany;
+use yjiotpukc\MongoODMFluent\Buildable\ReferenceOne;
 use yjiotpukc\MongoODMFluent\Tests\Stubs\BaseBuilderStub;
-use yjiotpukc\MongoODMFluent\Type\Implementation\EmbedMany;
-use yjiotpukc\MongoODMFluent\Type\Implementation\EmbedOne;
-use yjiotpukc\MongoODMFluent\Type\Implementation\Field;
-use yjiotpukc\MongoODMFluent\Type\Implementation\Id;
-use yjiotpukc\MongoODMFluent\Type\Implementation\ReferenceMany;
-use yjiotpukc\MongoODMFluent\Type\Implementation\ReferenceOne;
 
 abstract class BuilderBaseTestCase extends TestCase
 {

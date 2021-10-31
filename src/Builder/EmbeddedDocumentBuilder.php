@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace yjiotpukc\MongoODMFluent\Builder;
 
 use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
+use yjiotpukc\MongoODMFluent\Buildable\Buildable;
 use yjiotpukc\MongoODMFluent\Builder\Traits\CanHaveIndex;
-use yjiotpukc\MongoODMFluent\Type\Buildable;
 
 class EmbeddedDocumentBuilder extends BaseBuilder implements Buildable
 {
