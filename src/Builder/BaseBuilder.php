@@ -35,49 +35,38 @@ abstract class BaseBuilder implements Buildable
 
     public function id(): Id
     {
-        $id = new IdImplementation();
-        $this->buildables[] = $id;
-
-        return $id;
+        return $this->addBuildable(new IdImplementation());
     }
 
     public function field(string $type, string $fieldName): Field
     {
-        $field = new FieldImplementation($type, $fieldName);
-        $this->buildables[] = $field;
-
-        return $field;
+        return $this->addBuildable(new FieldImplementation($type, $fieldName));
     }
 
     public function embedOne(string $fieldName, string $target = ''): EmbedOne
     {
-        $embedOne = new EmbedOneImplementation($fieldName, $target);
-        $this->buildables[] = $embedOne;
-
-        return $embedOne;
+        return $this->addBuildable(new EmbedOneImplementation($fieldName, $target));
     }
 
     public function embedMany(string $fieldName, string $target = ''): EmbedMany
     {
-        $embedMany = new EmbedManyImplementation($fieldName, $target);
-        $this->buildables[] = $embedMany;
-
-        return $embedMany;
+        return $this->addBuildable(new EmbedManyImplementation($fieldName, $target));
     }
 
     public function referenceOne(string $fieldName, string $target = ''): ReferenceOne
     {
-        $referenceOne = new ReferenceOneImplementation($fieldName, $target);
-        $this->buildables[] = $referenceOne;
-
-        return $referenceOne;
+        return $this->addBuildable(new ReferenceOneImplementation($fieldName, $target));
     }
 
     public function referenceMany(string $fieldName, string $target = ''): ReferenceMany
     {
-        $referenceOne = new ReferenceManyImplementation($fieldName, $target);
-        $this->buildables[] = $referenceOne;
+        return $this->addBuildable(new ReferenceManyImplementation($fieldName, $target));
+    }
 
-        return $referenceOne;
+    protected function addBuildable($buildable)
+    {
+        $this->buildables[] = $buildable;
+
+        return $buildable;
     }
 }
