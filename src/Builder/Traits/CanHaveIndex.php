@@ -10,11 +10,6 @@ use yjiotpukc\MongoODMFluent\Type\Index;
 trait CanHaveIndex
 {
     /**
-     * @var Index[]
-     */
-    protected $indexes = [];
-
-    /**
      * @param string|string[] $keys
      * @return Index
      */
