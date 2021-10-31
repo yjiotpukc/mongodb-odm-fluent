@@ -15,8 +15,6 @@ class EmbeddedDocumentBuilder extends BaseBuilder implements Buildable
     public function build(ClassMetadata $metadata): void
     {
         $metadata->isEmbeddedDocument = true;
-        $this->buildIndex($metadata);
-
         parent::build($metadata);
     }
 }
