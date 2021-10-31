@@ -6,6 +6,7 @@ namespace yjiotpukc\MongoODMFluent\Builder;
 
 use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
 use yjiotpukc\MongoODMFluent\Buildable\Buildable;
+use yjiotpukc\MongoODMFluent\Builder\Traits\CanBeReadOnly;
 use yjiotpukc\MongoODMFluent\Builder\Traits\CanHaveCollection;
 use yjiotpukc\MongoODMFluent\Builder\Traits\CanHaveDb;
 use yjiotpukc\MongoODMFluent\Builder\Traits\CanHaveDiscriminator;
@@ -21,11 +22,7 @@ class DocumentBuilder extends BaseBuilder implements Buildable
     use CanHaveInheritance;
     use CanHaveDiscriminator;
     use CanHaveRepository;
-
-    /**
-     * @var bool
-     */
-    protected $readOnly;
+    use CanBeReadOnly;
 
     /**
      * @var string|int|null
@@ -34,21 +31,11 @@ class DocumentBuilder extends BaseBuilder implements Buildable
 
     public function build(ClassMetadata $metadata): void
     {
-        if ($this->readOnly) {
-            $metadata->isReadOnly = $this->readOnly;
-        }
         if ($this->writeConcern) {
             $metadata->setWriteConcern($this->writeConcern);
         }
 
         parent::build($metadata);
-    }
-
-    public function readOnly(): DocumentBuilder
-    {
-        $this->readOnly = true;
-
-        return $this;
     }
 
     /**
