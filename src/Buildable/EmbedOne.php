@@ -2,15 +2,12 @@
 
 declare(strict_types=1);
 
-namespace yjiotpukc\MongoODMFluent\Type\Implementation;
+namespace yjiotpukc\MongoODMFluent\Buildable;
 
-use yjiotpukc\MongoODMFluent\Type\Buildable;
-use yjiotpukc\MongoODMFluent\Type\CollectionStrategy;
 use yjiotpukc\MongoODMFluent\Type\Discriminator;
-use yjiotpukc\MongoODMFluent\Type\EmbedMany as EmbedManyType;
-use yjiotpukc\MongoODMFluent\Type\BuildableField;
+use yjiotpukc\MongoODMFluent\Type\EmbedOne as EmbedOneType;
 
-class EmbedMany extends BuildableField implements EmbedManyType, Buildable
+class EmbedOne extends BuildableField implements EmbedOneType, Buildable
 {
     /**
      * @var string
@@ -20,7 +17,7 @@ class EmbedMany extends BuildableField implements EmbedManyType, Buildable
     /**
      * @var string
      */
-    public $targetDocument;
+    public $targetDocument = '';
 
     /**
      * @var bool
@@ -30,17 +27,7 @@ class EmbedMany extends BuildableField implements EmbedManyType, Buildable
     /**
      * @var Discriminator
      */
-    public $discriminator;
-
-    /**
-     * @var string
-     */
-    public $collectionClass;
-
-    /**
-     * @var CollectionStrategy
-     */
-    public $strategy;
+    public $discriminator = null;
 
     public function __construct(string $fieldName, string $target)
     {
@@ -48,37 +35,23 @@ class EmbedMany extends BuildableField implements EmbedManyType, Buildable
         $this->targetDocument = $target;
     }
 
-    public function target(string $target): EmbedManyType
+    public function target(string $target): EmbedOneType
     {
         $this->targetDocument = $target;
 
         return $this;
     }
 
-    public function notSaved(): EmbedManyType
+    public function notSaved(): EmbedOneType
     {
         $this->notSaved = true;
 
         return $this;
     }
 
-    public function discriminator(Discriminator $discriminator): EmbedManyType
+    public function discriminator(Discriminator $discriminator): EmbedOneType
     {
         $this->discriminator = $discriminator;
-
-        return $this;
-    }
-
-    public function collectionClass(string $className): EmbedManyType
-    {
-        $this->collectionClass = $className;
-
-        return $this;
-    }
-
-    public function strategy(CollectionStrategy $strategy): EmbedManyType
-    {
-        $this->strategy = $strategy;
 
         return $this;
     }
@@ -87,18 +60,12 @@ class EmbedMany extends BuildableField implements EmbedManyType, Buildable
     {
         $map = [
             'embedded' => true,
-            'type' => 'many',
+            'type' => 'one',
             'fieldName'=> $this->fieldName,
         ];
 
         if ($this->targetDocument) {
             $map['targetDocument'] = $this->targetDocument;
-        }
-        if (isset($this->collectionClass)) {
-            $map['collectionClass'] = $this->collectionClass;
-        }
-        if (isset($this->strategy)) {
-            $map['strategy'] = $this->strategy->strategy;
         }
         if ($this->discriminator) {
             $map['discriminatorField'] = $this->discriminator->field;
