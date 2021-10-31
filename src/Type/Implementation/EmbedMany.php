@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace yjiotpukc\MongoODMFluent\Type\Implementation;
 
+use yjiotpukc\MongoODMFluent\Builder\FluentBuilder;
 use yjiotpukc\MongoODMFluent\Type\CollectionStrategy;
 use yjiotpukc\MongoODMFluent\Type\Discriminator;
 use yjiotpukc\MongoODMFluent\Type\EmbedMany as EmbedManyType;
 use yjiotpukc\MongoODMFluent\Type\MappableField;
 
-class EmbedMany implements EmbedManyType, MappableField
+class EmbedMany extends MappableField implements EmbedManyType, FluentBuilder
 {
     /**
      * @var string

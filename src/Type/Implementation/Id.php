@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace yjiotpukc\MongoODMFluent\Type\Implementation;
 
 use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
+use yjiotpukc\MongoODMFluent\Builder\FluentBuilder;
 use yjiotpukc\MongoODMFluent\Type\Id as IdType;
 use yjiotpukc\MongoODMFluent\Type\MappableField;
 
-class Id implements IdType, MappableField
+class Id extends MappableField implements IdType, FluentBuilder
 {
     protected $type;
     protected $strategy = 'auto';
