@@ -24,19 +24,19 @@ abstract class BaseBuilder implements Buildable
     /**
      * @var Buildable[]
      */
-    protected $fields = [];
+    protected $buildables = [];
 
     public function build(ClassMetadata $metadata): void
     {
-        foreach ($this->fields as $field) {
-            $field->build($metadata);
+        foreach ($this->buildables as $buildable) {
+            $buildable->build($metadata);
         }
     }
 
     public function id(): Id
     {
         $id = new IdImplementation();
-        $this->fields[] = $id;
+        $this->buildables[] = $id;
 
         return $id;
     }
@@ -44,7 +44,7 @@ abstract class BaseBuilder implements Buildable
     public function field(string $type, string $fieldName): Field
     {
         $field = new FieldImplementation($type, $fieldName);
-        $this->fields[] = $field;
+        $this->buildables[] = $field;
 
         return $field;
     }
@@ -52,7 +52,7 @@ abstract class BaseBuilder implements Buildable
     public function embedOne(string $fieldName, string $target = ''): EmbedOne
     {
         $embedOne = new EmbedOneImplementation($fieldName, $target);
-        $this->fields[] = $embedOne;
+        $this->buildables[] = $embedOne;
 
         return $embedOne;
     }
@@ -60,7 +60,7 @@ abstract class BaseBuilder implements Buildable
     public function embedMany(string $fieldName, string $target = ''): EmbedMany
     {
         $embedMany = new EmbedManyImplementation($fieldName, $target);
-        $this->fields[] = $embedMany;
+        $this->buildables[] = $embedMany;
 
         return $embedMany;
     }
@@ -68,7 +68,7 @@ abstract class BaseBuilder implements Buildable
     public function referenceOne(string $fieldName, string $target = ''): ReferenceOne
     {
         $referenceOne = new ReferenceOneImplementation($fieldName, $target);
-        $this->fields[] = $referenceOne;
+        $this->buildables[] = $referenceOne;
 
         return $referenceOne;
     }
@@ -76,7 +76,7 @@ abstract class BaseBuilder implements Buildable
     public function referenceMany(string $fieldName, string $target = ''): ReferenceMany
     {
         $referenceOne = new ReferenceManyImplementation($fieldName, $target);
-        $this->fields[] = $referenceOne;
+        $this->buildables[] = $referenceOne;
 
         return $referenceOne;
     }
