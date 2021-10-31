@@ -8,7 +8,7 @@ use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
 use yjiotpukc\MongoODMFluent\Type\Cascade;
 use yjiotpukc\MongoODMFluent\Type\Discriminator;
 
-class AbstractReference extends BuildableField implements Buildable
+abstract class AbstractReference extends BuildableField implements Buildable
 {
     /**
      * @var string
