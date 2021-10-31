@@ -38,7 +38,6 @@ class DocumentBuilder extends BaseBuilder implements Buildable
     public function build(ClassMetadata $metadata): void
     {
         $this->buildInheritance($metadata);
-        $this->buildDiscriminator($metadata);
 
         if ($this->repositoryClass) {
             $metadata->setCustomRepositoryClass($this->repositoryClass);
