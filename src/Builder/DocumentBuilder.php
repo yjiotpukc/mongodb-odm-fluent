@@ -40,7 +40,6 @@ class DocumentBuilder extends BaseBuilder implements Buildable
         $this->buildDb($metadata);
         $this->buildCollection($metadata);
         $this->buildInheritance($metadata);
-        $this->buildIndex($metadata);
         $this->buildDiscriminator($metadata);
 
         if ($this->repositoryClass) {

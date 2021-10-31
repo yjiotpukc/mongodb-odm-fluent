@@ -2,12 +2,13 @@
 
 declare(strict_types=1);
 
-namespace yjiotpukc\MongoODMFluent\Type\Implementation;
+namespace yjiotpukc\MongoODMFluent\Buildable;
 
+use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
 use yjiotpukc\MongoODMFluent\MappingException;
 use yjiotpukc\MongoODMFluent\Type\Index as IndexType;
 
-class Index implements IndexType
+class Index implements IndexType, Buildable
 {
     public $keys;
     public $options;
@@ -87,5 +88,10 @@ class Index implements IndexType
         $this->options['partialFilterExpression'] = $expression;
 
         return $this;
+    }
+
+    public function build(ClassMetadata $metadata): void
+    {
+        $metadata->addIndex($this->keys, $this->options);
     }
 }
