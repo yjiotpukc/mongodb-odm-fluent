@@ -21,7 +21,6 @@ class MappedSuperclassBuilder extends BaseBuilder implements Buildable
     public function build(ClassMetadata $metadata): void
     {
         $metadata->isMappedSuperclass = true;
-        $this->buildCollection($metadata);
         $this->buildInheritance($metadata);
         $this->buildDiscriminator($metadata);
 
