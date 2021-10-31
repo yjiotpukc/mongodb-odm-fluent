@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace yjiotpukc\MongoODMFluent\Builder;
 
 use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
+use yjiotpukc\MongoODMFluent\Type\Buildable;
 use yjiotpukc\MongoODMFluent\Type\EmbedMany;
 use yjiotpukc\MongoODMFluent\Type\EmbedOne;
 use yjiotpukc\MongoODMFluent\Type\Field;
@@ -18,10 +19,10 @@ use yjiotpukc\MongoODMFluent\Type\Implementation\ReferenceOne as ReferenceOneImp
 use yjiotpukc\MongoODMFluent\Type\ReferenceMany;
 use yjiotpukc\MongoODMFluent\Type\ReferenceOne;
 
-abstract class BaseBuilder implements FluentBuilder
+abstract class BaseBuilder implements Buildable
 {
     /**
-     * @var FluentBuilder[]
+     * @var Buildable[]
      */
     protected $fields = [];
 

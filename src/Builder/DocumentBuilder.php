@@ -10,8 +10,9 @@ use yjiotpukc\MongoODMFluent\Builder\Traits\CanHaveDb;
 use yjiotpukc\MongoODMFluent\Builder\Traits\CanHaveDiscriminator;
 use yjiotpukc\MongoODMFluent\Builder\Traits\CanHaveIndex;
 use yjiotpukc\MongoODMFluent\Builder\Traits\CanHaveInheritance;
+use yjiotpukc\MongoODMFluent\Type\Buildable;
 
-class DocumentBuilder extends BaseBuilder implements FluentBuilder
+class DocumentBuilder extends BaseBuilder implements Buildable
 {
     use CanHaveDb;
     use CanHaveCollection;

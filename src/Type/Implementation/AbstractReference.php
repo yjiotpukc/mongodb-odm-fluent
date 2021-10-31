@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace yjiotpukc\MongoODMFluent\Type\Implementation;
 
 use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
-use yjiotpukc\MongoODMFluent\Builder\FluentBuilder;
+use yjiotpukc\MongoODMFluent\Type\Buildable;
 use yjiotpukc\MongoODMFluent\Type\Cascade;
 use yjiotpukc\MongoODMFluent\Type\Discriminator;
-use yjiotpukc\MongoODMFluent\Type\MappableField;
+use yjiotpukc\MongoODMFluent\Type\BuildableField;
 
-class AbstractReference extends MappableField implements FluentBuilder
+class AbstractReference extends BuildableField implements Buildable
 {
     /**
      * @var string
