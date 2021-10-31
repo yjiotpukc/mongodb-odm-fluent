@@ -37,7 +37,6 @@ class DocumentBuilder extends BaseBuilder implements Buildable
 
     public function build(ClassMetadata $metadata): void
     {
-        $this->buildDb($metadata);
         $this->buildCollection($metadata);
         $this->buildInheritance($metadata);
         $this->buildDiscriminator($metadata);
