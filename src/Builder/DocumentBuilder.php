@@ -11,12 +11,14 @@ use yjiotpukc\MongoODMFluent\Builder\Traits\CanHaveDb;
 use yjiotpukc\MongoODMFluent\Builder\Traits\CanHaveDiscriminator;
 use yjiotpukc\MongoODMFluent\Builder\Traits\CanHaveIndex;
 use yjiotpukc\MongoODMFluent\Builder\Traits\CanHaveInheritance;
+use yjiotpukc\MongoODMFluent\Builder\Traits\CanHaveReferences;
 use yjiotpukc\MongoODMFluent\Builder\Traits\CanHaveRepository;
 
 class DocumentBuilder extends BaseBuilder implements Buildable
 {
     use CanHaveDb;
     use CanHaveCollection;
+    use CanHaveReferences;
     use CanHaveIndex;
     use CanHaveInheritance;
     use CanHaveDiscriminator;
