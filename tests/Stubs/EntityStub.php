@@ -7,4 +7,6 @@ namespace yjiotpukc\MongoODMFluent\Tests\Stubs;
 class EntityStub
 {
     private $id;
+    private $firstName;
+    private $age;
 }

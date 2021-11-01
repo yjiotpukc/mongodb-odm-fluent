@@ -31,7 +31,7 @@ class Field extends BuildableField implements FieldType, Buildable
     /**
      * @var bool
      */
-    protected $notSaved;
+    protected $notSaved = false;
 
     public function __construct(string $type, string $fieldName)
     {
