@@ -6,9 +6,7 @@ namespace yjiotpukc\MongoODMFluent\Builder;
 
 use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
 use yjiotpukc\MongoODMFluent\Buildable\Buildable;
-use yjiotpukc\MongoODMFluent\Buildable\Field as FieldImplementation;
 use yjiotpukc\MongoODMFluent\Buildable\Id as IdImplementation;
-use yjiotpukc\MongoODMFluent\Type\Field;
 use yjiotpukc\MongoODMFluent\Type\Id;
 
 abstract class BaseBuilder implements Buildable
@@ -28,11 +26,6 @@ abstract class BaseBuilder implements Buildable
     public function id(): Id
     {
         return $this->addBuildable(new IdImplementation());
-    }
-
-    public function field(string $type, string $fieldName): Field
-    {
-        return $this->addBuildable(new FieldImplementation($type, $fieldName));
     }
 
     protected function addBuildable($buildable)
