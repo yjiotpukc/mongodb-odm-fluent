@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace yjiotpukc\MongoODMFluent\Buildable;
 
-use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
 use yjiotpukc\MongoODMFluent\Type\Id as IdType;
 
 class Id extends BuildableField implements IdType, Buildable
@@ -22,7 +21,7 @@ class Id extends BuildableField implements IdType, Buildable
 
     public function alNum(): IdType
     {
-        $this->strategy = ClassMetadata::GENERATOR_TYPE_ALNUM;
+        $this->strategy = 'alNum';
 
         return $this;
     }
@@ -63,6 +62,10 @@ class Id extends BuildableField implements IdType, Buildable
             'fieldName' => 'id',
             'strategy' => $this->strategy,
         ];
+
+        if ($this->type) {
+            $fields['type'] = $this->type;
+        }
 
         if ($this->strategy === 'custom') {
             $fields['options']['class'] = $this->generator;
