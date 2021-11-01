@@ -6,8 +6,6 @@ namespace yjiotpukc\MongoODMFluent\Builder;
 
 use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
 use yjiotpukc\MongoODMFluent\Buildable\Buildable;
-use yjiotpukc\MongoODMFluent\Buildable\Id as IdImplementation;
-use yjiotpukc\MongoODMFluent\Type\Id;
 
 abstract class BaseBuilder implements Buildable
 {
@@ -21,11 +19,6 @@ abstract class BaseBuilder implements Buildable
         foreach ($this->buildables as $buildable) {
             $buildable->build($metadata);
         }
-    }
-
-    public function id(): Id
-    {
-        return $this->addBuildable(new IdImplementation());
     }
 
     protected function addBuildable($buildable)
