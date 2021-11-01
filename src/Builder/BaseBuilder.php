@@ -53,16 +53,6 @@ abstract class BaseBuilder implements Buildable
         return $this->addBuildable(new EmbedManyImplementation($fieldName, $target));
     }
 
-    public function referenceOne(string $fieldName, string $target = ''): ReferenceOne
-    {
-        return $this->addBuildable(new ReferenceOneImplementation($fieldName, $target));
-    }
-
-    public function referenceMany(string $fieldName, string $target = ''): ReferenceMany
-    {
-        return $this->addBuildable(new ReferenceManyImplementation($fieldName, $target));
-    }
-
     protected function addBuildable($buildable)
     {
         $this->buildables[] = $buildable;
