@@ -11,6 +11,7 @@ use yjiotpukc\MongoODMFluent\Builder\Traits\CanHaveDb;
 use yjiotpukc\MongoODMFluent\Builder\Traits\CanHaveDiscriminator;
 use yjiotpukc\MongoODMFluent\Builder\Traits\CanHaveEmbeds;
 use yjiotpukc\MongoODMFluent\Builder\Traits\CanHaveFields;
+use yjiotpukc\MongoODMFluent\Builder\Traits\CanHaveIds;
 use yjiotpukc\MongoODMFluent\Builder\Traits\CanHaveIndex;
 use yjiotpukc\MongoODMFluent\Builder\Traits\CanHaveInheritance;
 use yjiotpukc\MongoODMFluent\Builder\Traits\CanHaveReferences;
@@ -20,6 +21,7 @@ class DocumentBuilder extends BaseBuilder implements Buildable
 {
     use CanHaveDb;
     use CanHaveCollection;
+    use CanHaveIds;
     use CanHaveFields;
     use CanHaveReferences;
     use CanHaveEmbeds;

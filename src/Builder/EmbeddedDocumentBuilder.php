@@ -8,11 +8,13 @@ use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
 use yjiotpukc\MongoODMFluent\Buildable\Buildable;
 use yjiotpukc\MongoODMFluent\Builder\Traits\CanHaveEmbeds;
 use yjiotpukc\MongoODMFluent\Builder\Traits\CanHaveFields;
+use yjiotpukc\MongoODMFluent\Builder\Traits\CanHaveIds;
 use yjiotpukc\MongoODMFluent\Builder\Traits\CanHaveIndex;
 use yjiotpukc\MongoODMFluent\Builder\Traits\CanHaveReferences;
 
 class EmbeddedDocumentBuilder extends BaseBuilder implements Buildable
 {
+    use CanHaveIds;
     use CanHaveFields;
     use CanHaveReferences;
     use CanHaveEmbeds;
