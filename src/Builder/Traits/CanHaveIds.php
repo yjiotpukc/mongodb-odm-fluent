@@ -9,10 +9,10 @@ use yjiotpukc\MongoODMFluent\Type\Id;
 
 trait CanHaveIds
 {
+    use AbstractBuilderTrait;
+
     public function id(): Id
     {
         return $this->addBuildable(new IdImplementation());
     }
-
-    abstract protected function addBuildable($buildable);
 }

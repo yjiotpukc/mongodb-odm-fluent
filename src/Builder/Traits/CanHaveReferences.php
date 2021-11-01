@@ -11,6 +11,8 @@ use yjiotpukc\MongoODMFluent\Type\ReferenceOne;
 
 trait CanHaveReferences
 {
+    use AbstractBuilderTrait;
+
     public function referenceOne(string $fieldName, string $target = ''): ReferenceOne
     {
         return $this->addBuildable(new ReferenceOneImplementation($fieldName, $target));
@@ -20,6 +22,4 @@ trait CanHaveReferences
     {
         return $this->addBuildable(new ReferenceManyImplementation($fieldName, $target));
     }
-
-    abstract protected function addBuildable($buildable);
 }

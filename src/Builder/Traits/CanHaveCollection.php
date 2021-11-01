@@ -8,12 +8,12 @@ use yjiotpukc\MongoODMFluent\Buildable\Collection;
 
 trait CanHaveCollection
 {
+    use AbstractBuilderTrait;
+
     public function collection(string $name): self
     {
         $this->addBuildable(new Collection($name));
 
         return $this;
     }
-
-    abstract protected function addBuildable($buildable);
 }

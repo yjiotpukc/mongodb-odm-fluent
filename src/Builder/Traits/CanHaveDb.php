@@ -8,12 +8,12 @@ use yjiotpukc\MongoODMFluent\Buildable\Db;
 
 trait CanHaveDb
 {
+    use AbstractBuilderTrait;
+
     public function db(string $name): self
     {
         $this->addBuildable(new Db($name));
 
         return $this;
     }
-
-    abstract protected function addBuildable($buildable);
 }

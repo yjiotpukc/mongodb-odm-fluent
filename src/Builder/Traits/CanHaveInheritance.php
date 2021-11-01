@@ -9,6 +9,8 @@ use yjiotpukc\MongoODMFluent\Buildable\Inheritance;
 
 trait CanHaveInheritance
 {
+    use AbstractBuilderTrait;
+
     public function singleCollection(): self
     {
         $this->addBuildable(new Inheritance(ClassMetadata::INHERITANCE_TYPE_SINGLE_COLLECTION));
@@ -22,6 +24,4 @@ trait CanHaveInheritance
 
         return $this;
     }
-
-    abstract protected function addBuildable($buildable);
 }

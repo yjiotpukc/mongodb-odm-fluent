@@ -8,12 +8,12 @@ use yjiotpukc\MongoODMFluent\Buildable\RepositoryClass;
 
 trait CanHaveRepository
 {
+    use AbstractBuilderTrait;
+
     public function repository(string $className): self
     {
         $this->addBuildable(new RepositoryClass($className));
 
         return $this;
     }
-
-    abstract protected function addBuildable($buildable);
 }
