@@ -16,6 +16,7 @@ use yjiotpukc\MongoODMFluent\Builder\Traits\CanHaveIndex;
 use yjiotpukc\MongoODMFluent\Builder\Traits\CanHaveInheritance;
 use yjiotpukc\MongoODMFluent\Builder\Traits\CanHaveReferences;
 use yjiotpukc\MongoODMFluent\Builder\Traits\CanHaveRepository;
+use yjiotpukc\MongoODMFluent\Builder\Traits\CanHaveWriteConcern;
 
 class DocumentBuilder extends BaseBuilder implements Buildable
 {
@@ -30,4 +31,5 @@ class DocumentBuilder extends BaseBuilder implements Buildable
     use CanHaveDiscriminator;
     use CanHaveRepository;
     use CanBeReadOnly;
+    use CanHaveWriteConcern;
 }

@@ -9,10 +9,10 @@ use yjiotpukc\MongoODMFluent\Type\Field;
 
 trait CanHaveFields
 {
+    use AbstractBuilderTrait;
+
     public function field(string $type, string $fieldName): Field
     {
         return $this->addBuildable(new FieldImplementation($type, $fieldName));
     }
-
-    abstract protected function addBuildable($buildable);
 }

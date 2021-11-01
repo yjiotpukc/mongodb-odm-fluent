@@ -9,6 +9,8 @@ use yjiotpukc\MongoODMFluent\Type\Index;
 
 trait CanHaveIndex
 {
+    use AbstractBuilderTrait;
+
     /**
      * @param string|string[] $keys
      * @return Index
@@ -17,6 +19,4 @@ trait CanHaveIndex
     {
         return $this->addBuildable(new IndexImplementation($keys));
     }
-
-    abstract protected function addBuildable($buildable);
 }

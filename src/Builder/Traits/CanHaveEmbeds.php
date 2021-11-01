@@ -11,6 +11,8 @@ use yjiotpukc\MongoODMFluent\Type\EmbedOne;
 
 trait CanHaveEmbeds
 {
+    use AbstractBuilderTrait;
+
     public function embedOne(string $fieldName, string $target = ''): EmbedOne
     {
         return $this->addBuildable(new EmbedOneImplementation($fieldName, $target));
@@ -20,6 +22,4 @@ trait CanHaveEmbeds
     {
         return $this->addBuildable(new EmbedManyImplementation($fieldName, $target));
     }
-
-    abstract protected function addBuildable($buildable);
 }

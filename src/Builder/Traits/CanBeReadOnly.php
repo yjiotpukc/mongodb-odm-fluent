@@ -8,12 +8,12 @@ use yjiotpukc\MongoODMFluent\Buildable\ReadOnly;
 
 trait CanBeReadOnly
 {
+    use AbstractBuilderTrait;
+
     public function readOnly(): self
     {
         $this->addBuildable(new ReadOnly());
 
         return $this;
     }
-
-    abstract protected function addBuildable($buildable);
 }

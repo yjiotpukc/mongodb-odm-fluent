@@ -8,6 +8,8 @@ use yjiotpukc\MongoODMFluent\Buildable\WriteConcern;
 
 trait CanHaveWriteConcern
 {
+    use AbstractBuilderTrait;
+
     /**
      * @param int|string|null $writeConcern
      */
@@ -17,6 +19,4 @@ trait CanHaveWriteConcern
 
         return $this;
     }
-
-    abstract protected function addBuildable($buildable);
 }

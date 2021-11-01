@@ -8,12 +8,12 @@ use yjiotpukc\MongoODMFluent\Type\Discriminator;
 
 trait CanHaveDiscriminator
 {
+    use AbstractBuilderTrait;
+
     public function discriminator(Discriminator $discriminator): self
     {
         $this->addBuildable($discriminator);
 
         return $this;
     }
-
-    abstract protected function addBuildable($buildable);
 }
