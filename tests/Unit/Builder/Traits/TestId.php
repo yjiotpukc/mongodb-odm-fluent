@@ -105,7 +105,7 @@ trait TestId
 
     protected function assertIdFieldMappingIsCorrect(array $overwriteFields, array $fieldMapping)
     {
-        $expectedFields = array_merge([
+        $defaultFields = [
             'id' => true,
             'fieldName' => 'id',
             'strategy' => 'auto',
@@ -119,11 +119,8 @@ trait TestId
             'nullable' => false,
             'isOwningSide' => true,
             'isInverseSide' => false,
-        ], $overwriteFields);
+        ];
 
-        ksort($expectedFields);
-        ksort($fieldMapping);
-
-        static::assertSame($expectedFields, $fieldMapping);
+        $this->assertFieldMappingIsCorrect($defaultFields, $overwriteFields, $fieldMapping);
     }
 }

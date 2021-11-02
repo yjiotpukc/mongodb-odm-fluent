@@ -14,7 +14,7 @@ trait TestField
         $builder->field('string', 'firstName');
         $builder->build($metadata);
 
-        $this->assertFieldMappingIsCorrect([
+        $this->assertFieldFieldMappingIsCorrect([
             'fieldName' => 'firstName',
             'name' => 'firstName',
             'type' => 'string',
@@ -29,7 +29,7 @@ trait TestField
         $builder->field('integer', 'age');
         $builder->build($metadata);
 
-        $this->assertFieldMappingIsCorrect([
+        $this->assertFieldFieldMappingIsCorrect([
             'fieldName' => 'age',
             'name' => 'age',
             'type' => 'integer',
@@ -44,7 +44,7 @@ trait TestField
         $builder->field('string', 'firstName')->nullable();
         $builder->build($metadata);
 
-        $this->assertFieldMappingIsCorrect([
+        $this->assertFieldFieldMappingIsCorrect([
             'fieldName' => 'firstName',
             'name' => 'firstName',
             'type' => 'string',
@@ -60,7 +60,7 @@ trait TestField
         $builder->field('string', 'firstName')->notSaved();
         $builder->build($metadata);
 
-        $this->assertFieldMappingIsCorrect([
+        $this->assertFieldFieldMappingIsCorrect([
             'fieldName' => 'firstName',
             'name' => 'firstName',
             'type' => 'string',
@@ -76,16 +76,16 @@ trait TestField
         $builder->field('string', 'firstName')->nameInDb('name');
         $builder->build($metadata);
 
-        $this->assertFieldMappingIsCorrect([
+        $this->assertFieldFieldMappingIsCorrect([
             'fieldName' => 'firstName',
             'name' => 'name',
             'type' => 'string',
         ], $metadata->fieldMappings['firstName']);
     }
 
-    protected function assertFieldMappingIsCorrect(array $overwriteFields, array $fieldMapping)
+    protected function assertFieldFieldMappingIsCorrect(array $overwriteFields, array $fieldMapping)
     {
-        $expectedFields = array_merge([
+        $defaultFields = [
             'notSaved' => false,
             'strategy' => 'set',
             'nullable' => false,
@@ -96,11 +96,8 @@ trait TestField
             'isCascadeDetach' => false,
             'isOwningSide' => true,
             'isInverseSide' => false,
-        ], $overwriteFields);
+        ];
 
-        ksort($expectedFields);
-        ksort($fieldMapping);
-
-        static::assertSame($expectedFields, $fieldMapping);
+        $this->assertFieldMappingIsCorrect($defaultFields, $overwriteFields, $fieldMapping);
     }
 }
