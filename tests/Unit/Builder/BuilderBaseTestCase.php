@@ -34,4 +34,14 @@ abstract class BuilderBaseTestCase extends TestCase
     {
         return new ClassMetadata(EntityStub::class);
     }
+
+    protected function assertFieldMappingIsCorrect(array $defaultFields, array $overwriteFields, array $fieldMapping)
+    {
+        $expectedFields = array_merge($defaultFields, $overwriteFields);
+
+        ksort($expectedFields);
+        ksort($fieldMapping);
+
+        static::assertSame($expectedFields, $fieldMapping);
+    }
 }
