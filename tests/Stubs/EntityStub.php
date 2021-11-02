@@ -9,4 +9,5 @@ class EntityStub
     private $id;
     private $firstName;
     private $age;
+    private $address;
 }
