@@ -18,11 +18,7 @@ trait TestReferenceOne
         $builder->referenceOne('address', AnotherEntityStub::class);
         $builder->build($metadata);
 
-        $this->assertReferenceOneFieldMappingIsCorrect([
-            'name' => 'address',
-            'fieldName' => 'address',
-            'targetDocument' => AnotherEntityStub::class,
-        ], $metadata->fieldMappings['address']);
+        $this->assertReferenceOneFieldMappingIsCorrect([], $metadata->fieldMappings['address']);
     }
 
     public function testReferenceOneWithTarget()
@@ -33,11 +29,7 @@ trait TestReferenceOne
         $builder->referenceOne('address')->target(AnotherEntityStub::class);
         $builder->build($metadata);
 
-        $this->assertReferenceOneFieldMappingIsCorrect([
-            'name' => 'address',
-            'fieldName' => 'address',
-            'targetDocument' => AnotherEntityStub::class,
-        ], $metadata->fieldMappings['address']);
+        $this->assertReferenceOneFieldMappingIsCorrect([], $metadata->fieldMappings['address']);
     }
 
     public function testReferenceOneWithoutTarget()
@@ -48,11 +40,11 @@ trait TestReferenceOne
         $builder->referenceOne('address');
         $builder->build($metadata);
 
-        $this->assertReferenceOneFieldMappingIsCorrect([
-            'name' => 'address',
-            'fieldName' => 'address',
-            'discriminatorField' => '_doctrine_class_name',
-        ], $metadata->fieldMappings['address']);
+        $this->assertReferenceOneFieldMappingIsCorrect(
+            ['discriminatorField' => '_doctrine_class_name'],
+            $metadata->fieldMappings['address'],
+            ['targetDocument']
+        );
     }
 
     public function testReferenceOneAsDbRef()
@@ -63,11 +55,7 @@ trait TestReferenceOne
         $builder->referenceOne('address', AnotherEntityStub::class)->storeAsDbRef();
         $builder->build($metadata);
 
-        $this->assertReferenceOneFieldMappingIsCorrect([
-            'name' => 'address',
-            'fieldName' => 'address',
-            'targetDocument' => AnotherEntityStub::class,
-        ], $metadata->fieldMappings['address']);
+        $this->assertReferenceOneFieldMappingIsCorrect([], $metadata->fieldMappings['address']);
     }
 
     public function testReferenceOneAsDbRefWithDb()
@@ -78,12 +66,10 @@ trait TestReferenceOne
         $builder->referenceOne('address', AnotherEntityStub::class)->storeAsDbRefWithDb();
         $builder->build($metadata);
 
-        $this->assertReferenceOneFieldMappingIsCorrect([
-            'name' => 'address',
-            'fieldName' => 'address',
-            'targetDocument' => AnotherEntityStub::class,
-            'storeAs' => 'dbRefWithDb',
-        ], $metadata->fieldMappings['address']);
+        $this->assertReferenceOneFieldMappingIsCorrect(
+            ['storeAs' => 'dbRefWithDb'],
+            $metadata->fieldMappings['address']
+        );
     }
 
     public function testReferenceOneAsRef()
@@ -94,12 +80,10 @@ trait TestReferenceOne
         $builder->referenceOne('address', AnotherEntityStub::class)->storeAsRef();
         $builder->build($metadata);
 
-        $this->assertReferenceOneFieldMappingIsCorrect([
-            'name' => 'address',
-            'fieldName' => 'address',
-            'targetDocument' => AnotherEntityStub::class,
-            'storeAs' => 'ref',
-        ], $metadata->fieldMappings['address']);
+        $this->assertReferenceOneFieldMappingIsCorrect(
+            ['storeAs' => 'ref'],
+            $metadata->fieldMappings['address']
+        );
     }
 
     public function testReferenceOneAsId()
@@ -110,12 +94,10 @@ trait TestReferenceOne
         $builder->referenceOne('address', AnotherEntityStub::class)->storeAsId();
         $builder->build($metadata);
 
-        $this->assertReferenceOneFieldMappingIsCorrect([
-            'name' => 'address',
-            'fieldName' => 'address',
-            'targetDocument' => AnotherEntityStub::class,
-            'storeAs' => 'id',
-        ], $metadata->fieldMappings['address']);
+        $this->assertReferenceOneFieldMappingIsCorrect(
+            ['storeAs' => 'id'],
+            $metadata->fieldMappings['address']
+        );
     }
 
     public function testNullableReferenceOne()
@@ -126,12 +108,10 @@ trait TestReferenceOne
         $builder->referenceOne('address', AnotherEntityStub::class)->nullable();
         $builder->build($metadata);
 
-        $this->assertReferenceOneFieldMappingIsCorrect([
-            'name' => 'address',
-            'fieldName' => 'address',
-            'targetDocument' => AnotherEntityStub::class,
-            'nullable' => true,
-        ], $metadata->fieldMappings['address']);
+        $this->assertReferenceOneFieldMappingIsCorrect(
+            ['nullable' => true],
+            $metadata->fieldMappings['address']
+        );
     }
 
     public function testNotSavedReferenceOne()
@@ -142,12 +122,10 @@ trait TestReferenceOne
         $builder->referenceOne('address', AnotherEntityStub::class)->notSaved();
         $builder->build($metadata);
 
-        $this->assertReferenceOneFieldMappingIsCorrect([
-            'name' => 'address',
-            'fieldName' => 'address',
-            'targetDocument' => AnotherEntityStub::class,
-            'notSaved' => true,
-        ], $metadata->fieldMappings['address']);
+        $this->assertReferenceOneFieldMappingIsCorrect(
+            ['notSaved' => true],
+            $metadata->fieldMappings['address']
+        );
     }
 
     public function testReferenceOneWithOrphanRemoval()
@@ -158,12 +136,10 @@ trait TestReferenceOne
         $builder->referenceOne('address', AnotherEntityStub::class)->orphanRemoval();
         $builder->build($metadata);
 
-        $this->assertReferenceOneFieldMappingIsCorrect([
-            'name' => 'address',
-            'fieldName' => 'address',
-            'targetDocument' => AnotherEntityStub::class,
-            'orphanRemoval' => true,
-        ], $metadata->fieldMappings['address']);
+        $this->assertReferenceOneFieldMappingIsCorrect(
+            ['orphanRemoval' => true],
+            $metadata->fieldMappings['address']
+        );
     }
 
     /**
@@ -178,14 +154,7 @@ trait TestReferenceOne
         $builder->build($metadata);
 
         $this->assertReferenceOneFieldMappingIsCorrect(
-            array_merge(
-                [
-                    'name' => 'address',
-                    'fieldName' => 'address',
-                    'targetDocument' => AnotherEntityStub::class,
-                ],
-                $expectedFields
-            ),
+            $expectedFields,
             $metadata->fieldMappings['address']
         );
     }
@@ -199,9 +168,6 @@ trait TestReferenceOne
         $builder->build($metadata);
 
         $this->assertReferenceOneFieldMappingIsCorrect([
-            'name' => 'address',
-            'fieldName' => 'address',
-            'targetDocument' => AnotherEntityStub::class,
             'isInverseSide' => true,
             'isOwningSide' => false,
             'repositoryMethod' => 'getAddresses',
@@ -216,12 +182,10 @@ trait TestReferenceOne
         $builder->referenceOne('address', AnotherEntityStub::class)->skip(4);
         $builder->build($metadata);
 
-        $this->assertReferenceOneFieldMappingIsCorrect([
-            'name' => 'address',
-            'fieldName' => 'address',
-            'targetDocument' => AnotherEntityStub::class,
-            'skip' => 4,
-        ], $metadata->fieldMappings['address']);
+        $this->assertReferenceOneFieldMappingIsCorrect(
+            ['skip' => 4],
+            $metadata->fieldMappings['address']
+        );
     }
 
     public function testReferenceOneWithMappedBy()
@@ -233,9 +197,6 @@ trait TestReferenceOne
         $builder->build($metadata);
 
         $this->assertReferenceOneFieldMappingIsCorrect([
-            'name' => 'address',
-            'fieldName' => 'address',
-            'targetDocument' => AnotherEntityStub::class,
             'isInverseSide' => true,
             'isOwningSide' => false,
             'mappedBy' => 'user_id',
@@ -250,12 +211,10 @@ trait TestReferenceOne
         $builder->referenceOne('address', AnotherEntityStub::class)->inversedBy('address_id');
         $builder->build($metadata);
 
-        $this->assertReferenceOneFieldMappingIsCorrect([
-            'name' => 'address',
-            'fieldName' => 'address',
-            'targetDocument' => AnotherEntityStub::class,
-            'inversedBy' => 'address_id',
-        ], $metadata->fieldMappings['address']);
+        $this->assertReferenceOneFieldMappingIsCorrect(
+            ['inversedBy' => 'address_id'],
+            $metadata->fieldMappings['address']
+        );
     }
 
     /**
@@ -270,17 +229,7 @@ trait TestReferenceOne
         $builder->build($metadata);
 
         $this->assertReferenceOneFieldMappingIsCorrect(
-            array_merge(
-                [
-                    'name' => 'address',
-                    'fieldName' => 'address',
-                    'targetDocument' => AnotherEntityStub::class,
-                    'defaultDiscriminatorValue' => null,
-                    'discriminatorField' => 'type',
-                    'discriminatorMap' => null,
-                ],
-                $expectedFields
-            ),
+            $expectedFields,
             $metadata->fieldMappings['address']
         );
     }
@@ -293,12 +242,10 @@ trait TestReferenceOne
         $builder->referenceOne('address', AnotherEntityStub::class)->addSort('sort');
         $builder->build($metadata);
 
-        $this->assertReferenceOneFieldMappingIsCorrect([
-            'name' => 'address',
-            'fieldName' => 'address',
-            'targetDocument' => AnotherEntityStub::class,
-            'sort' => ['sort' => 'asc'],
-        ], $metadata->fieldMappings['address']);
+        $this->assertReferenceOneFieldMappingIsCorrect(
+            ['sort' => ['sort' => 'asc']],
+            $metadata->fieldMappings['address']
+        );
     }
 
     public function testReferenceOneWithSortAsc()
@@ -309,12 +256,10 @@ trait TestReferenceOne
         $builder->referenceOne('address', AnotherEntityStub::class)->addSort('sort', 'asc');
         $builder->build($metadata);
 
-        $this->assertReferenceOneFieldMappingIsCorrect([
-            'name' => 'address',
-            'fieldName' => 'address',
-            'targetDocument' => AnotherEntityStub::class,
-            'sort' => ['sort' => 'asc'],
-        ], $metadata->fieldMappings['address']);
+        $this->assertReferenceOneFieldMappingIsCorrect(
+            ['sort' => ['sort' => 'asc']],
+            $metadata->fieldMappings['address']
+        );
     }
 
     public function testReferenceOneWithSortDesc()
@@ -325,12 +270,10 @@ trait TestReferenceOne
         $builder->referenceOne('address', AnotherEntityStub::class)->addSort('sort', 'desc');
         $builder->build($metadata);
 
-        $this->assertReferenceOneFieldMappingIsCorrect([
-            'name' => 'address',
-            'fieldName' => 'address',
-            'targetDocument' => AnotherEntityStub::class,
-            'sort' => ['sort' => 'desc'],
-        ], $metadata->fieldMappings['address']);
+        $this->assertReferenceOneFieldMappingIsCorrect(
+            ['sort' => ['sort' => 'desc']],
+            $metadata->fieldMappings['address']
+        );
     }
 
     public function testReferenceOneWithMultiSort()
@@ -342,9 +285,6 @@ trait TestReferenceOne
         $builder->build($metadata);
 
         $this->assertReferenceOneFieldMappingIsCorrect([
-            'name' => 'address',
-            'fieldName' => 'address',
-            'targetDocument' => AnotherEntityStub::class,
             'sort' => [
                 'sort' => 'desc',
                 'id' => 'asc',
@@ -360,12 +300,10 @@ trait TestReferenceOne
         $builder->referenceOne('address', AnotherEntityStub::class)->addCriteria('type', 'physical');
         $builder->build($metadata);
 
-        $this->assertReferenceOneFieldMappingIsCorrect([
-            'name' => 'address',
-            'fieldName' => 'address',
-            'targetDocument' => AnotherEntityStub::class,
-            'criteria' => ['type' => 'physical'],
-        ], $metadata->fieldMappings['address']);
+        $this->assertReferenceOneFieldMappingIsCorrect(
+            ['criteria' => ['type' => 'physical']],
+            $metadata->fieldMappings['address']
+        );
     }
 
     public function testReferenceOneWithMultiCriteria()
@@ -377,9 +315,6 @@ trait TestReferenceOne
         $builder->build($metadata);
 
         $this->assertReferenceOneFieldMappingIsCorrect([
-            'name' => 'address',
-            'fieldName' => 'address',
-            'targetDocument' => AnotherEntityStub::class,
             'criteria' => [
                 'type' => 'physical',
                 'name' => 'home',
@@ -490,9 +425,12 @@ trait TestReferenceOne
         ];
     }
 
-    protected function assertReferenceOneFieldMappingIsCorrect(array $overwriteFields, array $fieldMapping)
+    protected function assertReferenceOneFieldMappingIsCorrect(array $overwriteFields, array $fieldMapping, array $deleteFields = [])
     {
         $defaultFields = [
+            'name' => 'address',
+            'fieldName' => 'address',
+            'targetDocument' => AnotherEntityStub::class,
             'association' => 1,
             'criteria' => [],
             'isCascadeDetach' => false,
@@ -512,6 +450,6 @@ trait TestReferenceOne
             'type' => 'one',
         ];
 
-        $this->assertFieldMappingIsCorrect($defaultFields, $overwriteFields, $fieldMapping);
+        $this->assertFieldMappingIsCorrect($defaultFields, $overwriteFields, $fieldMapping, $deleteFields);
     }
 }

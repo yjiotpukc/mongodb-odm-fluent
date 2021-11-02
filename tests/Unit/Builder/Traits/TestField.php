@@ -14,11 +14,7 @@ trait TestField
         $builder->field('string', 'firstName');
         $builder->build($metadata);
 
-        $this->assertFieldFieldMappingIsCorrect([
-            'fieldName' => 'firstName',
-            'name' => 'firstName',
-            'type' => 'string',
-        ], $metadata->fieldMappings['firstName']);
+        $this->assertFieldFieldMappingIsCorrect([], $metadata->fieldMappings['firstName']);
     }
 
     public function testIntegerField()
@@ -44,12 +40,10 @@ trait TestField
         $builder->field('string', 'firstName')->nullable();
         $builder->build($metadata);
 
-        $this->assertFieldFieldMappingIsCorrect([
-            'fieldName' => 'firstName',
-            'name' => 'firstName',
-            'type' => 'string',
-            'nullable' => true,
-        ], $metadata->fieldMappings['firstName']);
+        $this->assertFieldFieldMappingIsCorrect(
+            ['nullable' => true],
+            $metadata->fieldMappings['firstName']
+        );
     }
 
     public function testNotSavedStringField()
@@ -60,12 +54,10 @@ trait TestField
         $builder->field('string', 'firstName')->notSaved();
         $builder->build($metadata);
 
-        $this->assertFieldFieldMappingIsCorrect([
-            'fieldName' => 'firstName',
-            'name' => 'firstName',
-            'type' => 'string',
-            'notSaved' => true,
-        ], $metadata->fieldMappings['firstName']);
+        $this->assertFieldFieldMappingIsCorrect(
+            ['notSaved' => true],
+            $metadata->fieldMappings['firstName']
+        );
     }
 
     public function testStringFieldWithDifferentNameInDb()
@@ -76,16 +68,18 @@ trait TestField
         $builder->field('string', 'firstName')->nameInDb('name');
         $builder->build($metadata);
 
-        $this->assertFieldFieldMappingIsCorrect([
-            'fieldName' => 'firstName',
-            'name' => 'name',
-            'type' => 'string',
-        ], $metadata->fieldMappings['firstName']);
+        $this->assertFieldFieldMappingIsCorrect(
+            ['name' => 'name'],
+            $metadata->fieldMappings['firstName']
+        );
     }
 
     protected function assertFieldFieldMappingIsCorrect(array $overwriteFields, array $fieldMapping)
     {
         $defaultFields = [
+            'fieldName' => 'firstName',
+            'name' => 'firstName',
+            'type' => 'string',
             'notSaved' => false,
             'strategy' => 'set',
             'nullable' => false,
