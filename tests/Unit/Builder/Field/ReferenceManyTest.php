@@ -2,33 +2,35 @@
 
 declare(strict_types=1);
 
-namespace yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Traits;
+namespace yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Field;
 
+use yjiotpukc\MongoODMFluent\Builder\Field\ReferenceMany;
 use yjiotpukc\MongoODMFluent\Tests\Stubs\CollectionStub;
 use yjiotpukc\MongoODMFluent\Tests\Stubs\Mappings\AnotherEntityStub;
+use yjiotpukc\MongoODMFluent\Tests\Unit\Builder\BuilderBaseTestCase;
 use yjiotpukc\MongoODMFluent\Type\Cascade;
 use yjiotpukc\MongoODMFluent\Type\CollectionStrategy;
 use yjiotpukc\MongoODMFluent\Type\Discriminator;
 
-trait TestReferenceMany
+class ReferenceManyTest extends BuilderBaseTestCase
 {
     public function testReferenceMany()
     {
-        $this->builder->referenceMany('address', AnotherEntityStub::class);
+        $this->givenDefaultBuilder();
 
         $this->assertReferenceManyWasBuiltCorrectly([]);
     }
 
     public function testReferenceManyWithTarget()
     {
-        $this->builder->referenceMany('address')->target(AnotherEntityStub::class);
+        $this->givenBuilder('address')->target(AnotherEntityStub::class);
 
         $this->assertReferenceManyWasBuiltCorrectly([]);
     }
 
     public function testReferenceManyWithoutTarget()
     {
-        $this->builder->referenceMany('address');
+        $this->givenBuilder('address');
 
         $this->assertReferenceManyWasBuiltCorrectly(
             ['discriminatorField' => '_doctrine_class_name'],
@@ -38,49 +40,49 @@ trait TestReferenceMany
 
     public function testReferenceManyAsDbRef()
     {
-        $this->builder->referenceMany('address', AnotherEntityStub::class)->storeAsDbRef();
+        $this->givenDefaultBuilder()->storeAsDbRef();
 
         $this->assertReferenceManyWasBuiltCorrectly([]);
     }
 
     public function testReferenceManyAsDbRefWithDb()
     {
-        $this->builder->referenceMany('address', AnotherEntityStub::class)->storeAsDbRefWithDb();
+        $this->givenDefaultBuilder()->storeAsDbRefWithDb();
 
         $this->assertReferenceManyWasBuiltCorrectly(['storeAs' => 'dbRefWithDb']);
     }
 
     public function testReferenceManyAsRef()
     {
-        $this->builder->referenceMany('address', AnotherEntityStub::class)->storeAsRef();
+        $this->givenDefaultBuilder()->storeAsRef();
 
         $this->assertReferenceManyWasBuiltCorrectly(['storeAs' => 'ref']);
     }
 
     public function testReferenceManyAsId()
     {
-        $this->builder->referenceMany('address', AnotherEntityStub::class)->storeAsId();
+        $this->givenDefaultBuilder()->storeAsId();
 
         $this->assertReferenceManyWasBuiltCorrectly(['storeAs' => 'id']);
     }
 
     public function testNullableReferenceMany()
     {
-        $this->builder->referenceMany('address', AnotherEntityStub::class)->nullable();
+        $this->givenDefaultBuilder()->nullable();
 
         $this->assertReferenceManyWasBuiltCorrectly(['nullable' => true]);
     }
 
     public function testNotSavedReferenceMany()
     {
-        $this->builder->referenceMany('address', AnotherEntityStub::class)->notSaved();
+        $this->givenDefaultBuilder()->notSaved();
 
         $this->assertReferenceManyWasBuiltCorrectly(['notSaved' => true]);
     }
 
     public function testReferenceManyWithOrphanRemoval()
     {
-        $this->builder->referenceMany('address', AnotherEntityStub::class)->orphanRemoval();
+        $this->givenDefaultBuilder()->orphanRemoval();
 
         $this->assertReferenceManyWasBuiltCorrectly(['orphanRemoval' => true]);
     }
@@ -90,14 +92,14 @@ trait TestReferenceMany
      */
     public function testReferenceManyWithCascadeAll(Cascade $cascade, array $expectedFields)
     {
-        $this->builder->referenceMany('address', AnotherEntityStub::class)->cascade($cascade);
+        $this->givenDefaultBuilder()->cascade($cascade);
 
         $this->assertReferenceManyWasBuiltCorrectly($expectedFields);
     }
 
     public function testReferenceManyWithRepositoryMethod()
     {
-        $this->builder->referenceMany('address', AnotherEntityStub::class)->repositoryMethod('getAddresses');
+        $this->givenDefaultBuilder()->repositoryMethod('getAddresses');
 
         $this->assertReferenceManyWasBuiltCorrectly([
             'isInverseSide' => true,
@@ -108,21 +110,21 @@ trait TestReferenceMany
 
     public function testReferenceManyWithSkip()
     {
-        $this->builder->referenceMany('address', AnotherEntityStub::class)->skip(4);
+        $this->givenDefaultBuilder()->skip(4);
 
         $this->assertReferenceManyWasBuiltCorrectly(['skip' => 4]);
     }
 
     public function testReferenceManyWithLimit()
     {
-        $this->builder->referenceMany('address', AnotherEntityStub::class)->limit(5);
+        $this->givenDefaultBuilder()->limit(5);
 
         $this->assertReferenceManyWasBuiltCorrectly(['limit' => 5]);
     }
 
     public function testReferenceManyWithMappedBy()
     {
-        $this->builder->referenceMany('address', AnotherEntityStub::class)->mappedBy('user_id');
+        $this->givenDefaultBuilder()->mappedBy('user_id');
 
         $this->assertReferenceManyWasBuiltCorrectly([
             'isInverseSide' => true,
@@ -133,7 +135,7 @@ trait TestReferenceMany
 
     public function testReferenceManyWithInversedBy()
     {
-        $this->builder->referenceMany('address', AnotherEntityStub::class)->inversedBy('address_id');
+        $this->givenDefaultBuilder()->inversedBy('address_id');
 
         $this->assertReferenceManyWasBuiltCorrectly(['inversedBy' => 'address_id']);
     }
@@ -143,15 +145,14 @@ trait TestReferenceMany
      */
     public function testReferenceManyWithDiscriminator(Discriminator $discriminator, array $expectedFields)
     {
-        $this->builder->referenceMany('address', AnotherEntityStub::class)->discriminator($discriminator);
+        $this->givenDefaultBuilder()->discriminator($discriminator);
 
         $this->assertReferenceManyWasBuiltCorrectly($expectedFields);
     }
 
     public function testReferenceManyWithSortDefault()
     {
-        $this->builder
-            ->referenceMany('address', AnotherEntityStub::class)
+        $this->givenDefaultBuilder()
             ->strategy((new CollectionStrategy())->setArray())
             ->addSort('sort');
 
@@ -163,8 +164,7 @@ trait TestReferenceMany
 
     public function testReferenceManyWithSortAsc()
     {
-        $this->builder
-            ->referenceMany('address', AnotherEntityStub::class)
+        $this->givenDefaultBuilder()
             ->strategy((new CollectionStrategy())->setArray())
             ->addSort('sort', 'asc');
 
@@ -176,8 +176,7 @@ trait TestReferenceMany
 
     public function testReferenceManyWithSortDesc()
     {
-        $this->builder
-            ->referenceMany('address', AnotherEntityStub::class)
+        $this->givenDefaultBuilder()
             ->strategy((new CollectionStrategy())->setArray())
             ->addSort('sort', 'desc');
 
@@ -189,8 +188,7 @@ trait TestReferenceMany
 
     public function testReferenceManyWithMultiSort()
     {
-        $this->builder
-            ->referenceMany('address', AnotherEntityStub::class)
+        $this->givenDefaultBuilder()
             ->strategy((new CollectionStrategy())->setArray())
             ->addSort('sort', 'desc')
             ->addSort('id');
@@ -206,15 +204,14 @@ trait TestReferenceMany
 
     public function testReferenceManyWithCriteria()
     {
-        $this->builder->referenceMany('address', AnotherEntityStub::class)->addCriteria('type', 'physical');
+        $this->givenDefaultBuilder()->addCriteria('type', 'physical');
 
         $this->assertReferenceManyWasBuiltCorrectly(['criteria' => ['type' => 'physical']]);
     }
 
     public function testReferenceManyWithMultiCriteria()
     {
-        $this->builder
-            ->referenceMany('address', AnotherEntityStub::class)
+        $this->givenDefaultBuilder()
             ->addCriteria('type', 'physical')
             ->addCriteria('name', 'home');
 
@@ -231,27 +228,21 @@ trait TestReferenceMany
      */
     public function testReferenceManyWithCollectionStrategy(CollectionStrategy $strategy, array $expectedFields)
     {
-        $this->builder
-            ->referenceMany('address', AnotherEntityStub::class)
-            ->strategy($strategy);
+        $this->givenDefaultBuilder()->strategy($strategy);
 
         $this->assertReferenceManyWasBuiltCorrectly($expectedFields);
     }
 
     public function testReferenceManyWithCollectionClass()
     {
-        $this->builder
-            ->referenceMany('address', AnotherEntityStub::class)
-            ->collectionClass(CollectionStub::class);
+        $this->givenDefaultBuilder()->collectionClass(CollectionStub::class);
 
         $this->assertReferenceManyWasBuiltCorrectly(['collectionClass' => CollectionStub::class]);
     }
 
     public function testReferenceManyWithPrime()
     {
-        $this->builder->referenceMany('address', AnotherEntityStub::class)
-            ->mappedBy('user_id')
-            ->addPrime('type');
+        $this->givenDefaultBuilder()->mappedBy('user_id')->addPrime('type');
 
         $this->assertReferenceManyWasBuiltCorrectly([
             'isInverseSide' => true,
@@ -298,5 +289,17 @@ trait TestReferenceMany
             'strategy' => 'pushAll',
             'type' => 'many',
         ];
+    }
+
+    protected function givenDefaultBuilder(): ReferenceMany
+    {
+        return $this->givenBuilder('address', AnotherEntityStub::class);
+    }
+
+    protected function givenBuilder(string $fieldName, string $target = ''): ReferenceMany
+    {
+        $this->builder = new ReferenceMany($fieldName, $target);
+
+        return $this->builder;
     }
 }

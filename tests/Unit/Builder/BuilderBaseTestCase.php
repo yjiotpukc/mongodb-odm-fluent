@@ -20,33 +20,14 @@ abstract class BuilderBaseTestCase extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->builder = $this->givenEmptyBuilder();
-        $this->metadata = $this->givenClassMetadata();
-    }
-
-    abstract public function givenEmptyBuilder();
-
-    public function givenBuilderWithId()
-    {
-        $builder = $this->givenEmptyBuilder();
-        $builder->id();
-
-        return $builder;
-    }
-
-    public function givenBuilderWithSomeFields()
-    {
-        $builder = $this->givenEmptyBuilder();
-        $builder->field('string', 'firstName');
-        $builder->field('string', 'lastName');
-        $builder->field('int', 'age');
-
-        return $builder;
+        $this->givenClassMetadata();
     }
 
     public function givenClassMetadata(): ClassMetadata
     {
-        return new ClassMetadata(EntityStub::class);
+        $this->metadata = new ClassMetadata(EntityStub::class);
+
+        return $this->metadata;
     }
 
     protected function assertFieldMappingIsCorrect(array $defaultFields, array $overwriteFields, array $fieldMapping, array $deleteFields = [])

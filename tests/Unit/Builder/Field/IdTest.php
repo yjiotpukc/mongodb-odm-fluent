@@ -2,22 +2,24 @@
 
 declare(strict_types=1);
 
-namespace yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Traits;
+namespace yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Field;
 
+use yjiotpukc\MongoODMFluent\Builder\Field\Id;
 use yjiotpukc\MongoODMFluent\Tests\Stubs\IdGeneratorStub;
+use yjiotpukc\MongoODMFluent\Tests\Unit\Builder\BuilderBaseTestCase;
 
-trait TestId
+class IdTest extends BuilderBaseTestCase
 {
     public function testDefaultId()
     {
-        $this->builder->id();
+        $this->givenBuilder();
 
         $this->assertIdWasBuiltCorrectly([]);
     }
 
     public function testUuidId()
     {
-        $this->builder->id()->uuid();
+        $this->givenBuilder()->uuid();
 
         $this->assertIdWasBuiltCorrectly([
             'strategy' => 'uuid',
@@ -27,7 +29,7 @@ trait TestId
 
     public function testAlphaNumericId()
     {
-        $this->builder->id()->alNum();
+        $this->givenBuilder()->alNum();
 
         $this->assertIdWasBuiltCorrectly([
             'strategy' => 'alNum',
@@ -37,7 +39,7 @@ trait TestId
 
     public function testIncrementId()
     {
-        $this->builder->id()->increment();
+        $this->givenBuilder()->increment();
 
         $this->assertIdWasBuiltCorrectly([
             'strategy' => 'increment',
@@ -47,7 +49,7 @@ trait TestId
 
     public function testNoneId()
     {
-        $this->builder->id()->none();
+        $this->givenBuilder()->none();
 
         $this->assertIdWasBuiltCorrectly([
             'strategy' => 'none',
@@ -57,7 +59,7 @@ trait TestId
 
     public function testCustomId()
     {
-        $this->builder->id()->custom(IdGeneratorStub::class);
+        $this->givenBuilder()->custom(IdGeneratorStub::class);
 
         $this->assertIdWasBuiltCorrectly([
             'strategy' => 'custom',
@@ -68,7 +70,7 @@ trait TestId
 
     public function testAlphaNumericStringId()
     {
-        $this->builder->id()->alNum()->type('string');
+        $this->givenBuilder()->alNum()->type('string');
 
         $this->assertIdWasBuiltCorrectly([
             'strategy' => 'alNum',
@@ -104,5 +106,12 @@ trait TestId
             'isOwningSide' => true,
             'isInverseSide' => false,
         ];
+    }
+
+    protected function givenBuilder(): Id
+    {
+        $this->builder = new Id();
+
+        return $this->builder;
     }
 }
