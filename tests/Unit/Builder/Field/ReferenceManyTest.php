@@ -7,7 +7,6 @@ namespace yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Field;
 use yjiotpukc\MongoODMFluent\Builder\Field\ReferenceMany;
 use yjiotpukc\MongoODMFluent\Tests\Stubs\CollectionStub;
 use yjiotpukc\MongoODMFluent\Tests\Stubs\Mappings\AnotherEntityStub;
-use yjiotpukc\MongoODMFluent\Tests\Unit\Builder\BuilderTestCase;
 use yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Traits\CascadeProvider;
 use yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Traits\CollectionStrategyProvider;
 use yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Traits\DiscriminatorProvider;
@@ -15,7 +14,7 @@ use yjiotpukc\MongoODMFluent\Type\Cascade;
 use yjiotpukc\MongoODMFluent\Type\CollectionStrategy;
 use yjiotpukc\MongoODMFluent\Type\Discriminator;
 
-class ReferenceManyTest extends BuilderTestCase
+class ReferenceManyTest extends FieldTestCase
 {
     use CascadeProvider;
     use CollectionStrategyProvider;
@@ -25,22 +24,23 @@ class ReferenceManyTest extends BuilderTestCase
     {
         $this->givenDefaultBuilder();
 
-        $this->assertReferenceManyWasBuiltCorrectly([]);
+        $this->assertFieldBuildsCorrectly();
     }
 
     public function testReferenceManyWithTarget()
     {
         $this->givenBuilder('address')->target(AnotherEntityStub::class);
 
-        $this->assertReferenceManyWasBuiltCorrectly([]);
+        $this->assertFieldBuildsCorrectly();
     }
 
     public function testReferenceManyWithoutTarget()
     {
         $this->givenBuilder('address');
 
-        $this->assertReferenceManyWasBuiltCorrectly(
+        $this->assertFieldBuildsCorrectly(
             ['discriminatorField' => '_doctrine_class_name'],
+            'address',
             ['targetDocument']
         );
     }
@@ -49,49 +49,49 @@ class ReferenceManyTest extends BuilderTestCase
     {
         $this->givenDefaultBuilder()->storeAsDbRef();
 
-        $this->assertReferenceManyWasBuiltCorrectly([]);
+        $this->assertFieldBuildsCorrectly();
     }
 
     public function testReferenceManyAsDbRefWithDb()
     {
         $this->givenDefaultBuilder()->storeAsDbRefWithDb();
 
-        $this->assertReferenceManyWasBuiltCorrectly(['storeAs' => 'dbRefWithDb']);
+        $this->assertFieldBuildsCorrectly(['storeAs' => 'dbRefWithDb']);
     }
 
     public function testReferenceManyAsRef()
     {
         $this->givenDefaultBuilder()->storeAsRef();
 
-        $this->assertReferenceManyWasBuiltCorrectly(['storeAs' => 'ref']);
+        $this->assertFieldBuildsCorrectly(['storeAs' => 'ref']);
     }
 
     public function testReferenceManyAsId()
     {
         $this->givenDefaultBuilder()->storeAsId();
 
-        $this->assertReferenceManyWasBuiltCorrectly(['storeAs' => 'id']);
+        $this->assertFieldBuildsCorrectly(['storeAs' => 'id']);
     }
 
     public function testNullableReferenceMany()
     {
         $this->givenDefaultBuilder()->nullable();
 
-        $this->assertReferenceManyWasBuiltCorrectly(['nullable' => true]);
+        $this->assertFieldBuildsCorrectly(['nullable' => true]);
     }
 
     public function testNotSavedReferenceMany()
     {
         $this->givenDefaultBuilder()->notSaved();
 
-        $this->assertReferenceManyWasBuiltCorrectly(['notSaved' => true]);
+        $this->assertFieldBuildsCorrectly(['notSaved' => true]);
     }
 
     public function testReferenceManyWithOrphanRemoval()
     {
         $this->givenDefaultBuilder()->orphanRemoval();
 
-        $this->assertReferenceManyWasBuiltCorrectly(['orphanRemoval' => true]);
+        $this->assertFieldBuildsCorrectly(['orphanRemoval' => true]);
     }
 
     /**
@@ -101,14 +101,14 @@ class ReferenceManyTest extends BuilderTestCase
     {
         $this->givenDefaultBuilder()->cascade($cascade);
 
-        $this->assertReferenceManyWasBuiltCorrectly($expectedFields);
+        $this->assertFieldBuildsCorrectly($expectedFields);
     }
 
     public function testReferenceManyWithRepositoryMethod()
     {
         $this->givenDefaultBuilder()->repositoryMethod('getAddresses');
 
-        $this->assertReferenceManyWasBuiltCorrectly([
+        $this->assertFieldBuildsCorrectly([
             'isInverseSide' => true,
             'isOwningSide' => false,
             'repositoryMethod' => 'getAddresses',
@@ -119,21 +119,21 @@ class ReferenceManyTest extends BuilderTestCase
     {
         $this->givenDefaultBuilder()->skip(4);
 
-        $this->assertReferenceManyWasBuiltCorrectly(['skip' => 4]);
+        $this->assertFieldBuildsCorrectly(['skip' => 4]);
     }
 
     public function testReferenceManyWithLimit()
     {
         $this->givenDefaultBuilder()->limit(5);
 
-        $this->assertReferenceManyWasBuiltCorrectly(['limit' => 5]);
+        $this->assertFieldBuildsCorrectly(['limit' => 5]);
     }
 
     public function testReferenceManyWithMappedBy()
     {
         $this->givenDefaultBuilder()->mappedBy('user_id');
 
-        $this->assertReferenceManyWasBuiltCorrectly([
+        $this->assertFieldBuildsCorrectly([
             'isInverseSide' => true,
             'isOwningSide' => false,
             'mappedBy' => 'user_id',
@@ -144,7 +144,7 @@ class ReferenceManyTest extends BuilderTestCase
     {
         $this->givenDefaultBuilder()->inversedBy('address_id');
 
-        $this->assertReferenceManyWasBuiltCorrectly(['inversedBy' => 'address_id']);
+        $this->assertFieldBuildsCorrectly(['inversedBy' => 'address_id']);
     }
 
     /**
@@ -154,7 +154,7 @@ class ReferenceManyTest extends BuilderTestCase
     {
         $this->givenDefaultBuilder()->discriminator($discriminator);
 
-        $this->assertReferenceManyWasBuiltCorrectly($expectedFields);
+        $this->assertFieldBuildsCorrectly($expectedFields);
     }
 
     public function testReferenceManyWithSortDefault()
@@ -163,7 +163,7 @@ class ReferenceManyTest extends BuilderTestCase
             ->strategy((new CollectionStrategy())->setArray())
             ->addSort('sort');
 
-        $this->assertReferenceManyWasBuiltCorrectly([
+        $this->assertFieldBuildsCorrectly([
             'strategy' => 'setArray',
             'sort' => ['sort' => 'asc'],
         ]);
@@ -175,7 +175,7 @@ class ReferenceManyTest extends BuilderTestCase
             ->strategy((new CollectionStrategy())->setArray())
             ->addSort('sort', 'asc');
 
-        $this->assertReferenceManyWasBuiltCorrectly([
+        $this->assertFieldBuildsCorrectly([
             'strategy' => 'setArray',
             'sort' => ['sort' => 'asc'],
         ]);
@@ -187,7 +187,7 @@ class ReferenceManyTest extends BuilderTestCase
             ->strategy((new CollectionStrategy())->setArray())
             ->addSort('sort', 'desc');
 
-        $this->assertReferenceManyWasBuiltCorrectly([
+        $this->assertFieldBuildsCorrectly([
             'strategy' => 'setArray',
             'sort' => ['sort' => 'desc'],
         ]);
@@ -200,7 +200,7 @@ class ReferenceManyTest extends BuilderTestCase
             ->addSort('sort', 'desc')
             ->addSort('id');
 
-        $this->assertReferenceManyWasBuiltCorrectly([
+        $this->assertFieldBuildsCorrectly([
             'strategy' => 'setArray',
             'sort' => [
                 'sort' => 'desc',
@@ -213,7 +213,7 @@ class ReferenceManyTest extends BuilderTestCase
     {
         $this->givenDefaultBuilder()->addCriteria('type', 'physical');
 
-        $this->assertReferenceManyWasBuiltCorrectly(['criteria' => ['type' => 'physical']]);
+        $this->assertFieldBuildsCorrectly(['criteria' => ['type' => 'physical']]);
     }
 
     public function testReferenceManyWithMultiCriteria()
@@ -222,7 +222,7 @@ class ReferenceManyTest extends BuilderTestCase
             ->addCriteria('type', 'physical')
             ->addCriteria('name', 'home');
 
-        $this->assertReferenceManyWasBuiltCorrectly([
+        $this->assertFieldBuildsCorrectly([
             'criteria' => [
                 'type' => 'physical',
                 'name' => 'home',
@@ -237,21 +237,21 @@ class ReferenceManyTest extends BuilderTestCase
     {
         $this->givenDefaultBuilder()->strategy($strategy);
 
-        $this->assertReferenceManyWasBuiltCorrectly($expectedFields);
+        $this->assertFieldBuildsCorrectly($expectedFields);
     }
 
     public function testReferenceManyWithCollectionClass()
     {
         $this->givenDefaultBuilder()->collectionClass(CollectionStub::class);
 
-        $this->assertReferenceManyWasBuiltCorrectly(['collectionClass' => CollectionStub::class]);
+        $this->assertFieldBuildsCorrectly(['collectionClass' => CollectionStub::class]);
     }
 
     public function testReferenceManyWithPrime()
     {
         $this->givenDefaultBuilder()->mappedBy('user_id')->addPrime('type');
 
-        $this->assertReferenceManyWasBuiltCorrectly([
+        $this->assertFieldBuildsCorrectly([
             'isInverseSide' => true,
             'isOwningSide' => false,
             'mappedBy' => 'user_id',
@@ -259,19 +259,7 @@ class ReferenceManyTest extends BuilderTestCase
         ]);
     }
 
-    protected function assertReferenceManyWasBuiltCorrectly(array $expectedFields, array $deleteFields = [])
-    {
-        $this->builder->build($this->metadata);
-
-        $this->assertFieldMappingIsCorrect(
-            $this->getReferenceManyDefaultMapping(),
-            $expectedFields,
-            $this->metadata->fieldMappings['address'],
-            $deleteFields
-        );
-    }
-
-    protected function getReferenceManyDefaultMapping(): array
+    protected function getDefaultMapping(): array
     {
         return [
             'name' => 'address',
@@ -296,6 +284,11 @@ class ReferenceManyTest extends BuilderTestCase
             'strategy' => 'pushAll',
             'type' => 'many',
         ];
+    }
+
+    protected function getDefaultFieldName(): string
+    {
+        return 'address';
     }
 
     protected function givenDefaultBuilder(): ReferenceMany

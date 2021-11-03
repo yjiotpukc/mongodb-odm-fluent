@@ -6,13 +6,12 @@ namespace yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Field;
 
 use yjiotpukc\MongoODMFluent\Builder\Field\ReferenceOne;
 use yjiotpukc\MongoODMFluent\Tests\Stubs\Mappings\AnotherEntityStub;
-use yjiotpukc\MongoODMFluent\Tests\Unit\Builder\BuilderTestCase;
 use yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Traits\CascadeProvider;
 use yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Traits\DiscriminatorProvider;
 use yjiotpukc\MongoODMFluent\Type\Cascade;
 use yjiotpukc\MongoODMFluent\Type\Discriminator;
 
-class ReferenceOneTest extends BuilderTestCase
+class ReferenceOneTest extends FieldTestCase
 {
     use CascadeProvider;
     use DiscriminatorProvider;
@@ -21,22 +20,23 @@ class ReferenceOneTest extends BuilderTestCase
     {
         $this->givenDefaultBuilder();
 
-        $this->assertReferenceOneWasBuiltCorrectly([]);
+        $this->assertFieldBuildsCorrectly();
     }
 
     public function testReferenceOneWithTarget()
     {
         $this->givenBuilder('address')->target(AnotherEntityStub::class);
 
-        $this->assertReferenceOneWasBuiltCorrectly([]);
+        $this->assertFieldBuildsCorrectly();
     }
 
     public function testReferenceOneWithoutTarget()
     {
         $this->givenBuilder('address');
 
-        $this->assertReferenceOneWasBuiltCorrectly(
+        $this->assertFieldBuildsCorrectly(
             ['discriminatorField' => '_doctrine_class_name'],
+            'address',
             ['targetDocument']
         );
     }
@@ -45,49 +45,49 @@ class ReferenceOneTest extends BuilderTestCase
     {
         $this->givenDefaultBuilder()->storeAsDbRef();
 
-        $this->assertReferenceOneWasBuiltCorrectly([]);
+        $this->assertFieldBuildsCorrectly();
     }
 
     public function testReferenceOneAsDbRefWithDb()
     {
         $this->givenDefaultBuilder()->storeAsDbRefWithDb();
 
-        $this->assertReferenceOneWasBuiltCorrectly(['storeAs' => 'dbRefWithDb']);
+        $this->assertFieldBuildsCorrectly(['storeAs' => 'dbRefWithDb']);
     }
 
     public function testReferenceOneAsRef()
     {
         $this->givenDefaultBuilder()->storeAsRef();
 
-        $this->assertReferenceOneWasBuiltCorrectly(['storeAs' => 'ref']);
+        $this->assertFieldBuildsCorrectly(['storeAs' => 'ref']);
     }
 
     public function testReferenceOneAsId()
     {
         $this->givenDefaultBuilder()->storeAsId();
 
-        $this->assertReferenceOneWasBuiltCorrectly(['storeAs' => 'id']);
+        $this->assertFieldBuildsCorrectly(['storeAs' => 'id']);
     }
 
     public function testNullableReferenceOne()
     {
         $this->givenDefaultBuilder()->nullable();
 
-        $this->assertReferenceOneWasBuiltCorrectly(['nullable' => true]);
+        $this->assertFieldBuildsCorrectly(['nullable' => true]);
     }
 
     public function testNotSavedReferenceOne()
     {
         $this->givenDefaultBuilder()->notSaved();
 
-        $this->assertReferenceOneWasBuiltCorrectly(['notSaved' => true]);
+        $this->assertFieldBuildsCorrectly(['notSaved' => true]);
     }
 
     public function testReferenceOneWithOrphanRemoval()
     {
         $this->givenDefaultBuilder()->orphanRemoval();
 
-        $this->assertReferenceOneWasBuiltCorrectly(['orphanRemoval' => true]);
+        $this->assertFieldBuildsCorrectly(['orphanRemoval' => true]);
     }
 
     /**
@@ -97,14 +97,14 @@ class ReferenceOneTest extends BuilderTestCase
     {
         $this->givenDefaultBuilder()->cascade($cascade);
 
-        $this->assertReferenceOneWasBuiltCorrectly($expectedFields);
+        $this->assertFieldBuildsCorrectly($expectedFields);
     }
 
     public function testReferenceOneWithRepositoryMethod()
     {
         $this->givenDefaultBuilder()->repositoryMethod('getAddresses');
 
-        $this->assertReferenceOneWasBuiltCorrectly([
+        $this->assertFieldBuildsCorrectly([
             'isInverseSide' => true,
             'isOwningSide' => false,
             'repositoryMethod' => 'getAddresses',
@@ -115,14 +115,14 @@ class ReferenceOneTest extends BuilderTestCase
     {
         $this->givenDefaultBuilder()->skip(4);
 
-        $this->assertReferenceOneWasBuiltCorrectly(['skip' => 4]);
+        $this->assertFieldBuildsCorrectly(['skip' => 4]);
     }
 
     public function testReferenceOneWithMappedBy()
     {
         $this->givenDefaultBuilder()->mappedBy('user_id');
 
-        $this->assertReferenceOneWasBuiltCorrectly([
+        $this->assertFieldBuildsCorrectly([
             'isInverseSide' => true,
             'isOwningSide' => false,
             'mappedBy' => 'user_id',
@@ -133,7 +133,7 @@ class ReferenceOneTest extends BuilderTestCase
     {
         $this->givenDefaultBuilder()->inversedBy('address_id');
 
-        $this->assertReferenceOneWasBuiltCorrectly(['inversedBy' => 'address_id']);
+        $this->assertFieldBuildsCorrectly(['inversedBy' => 'address_id']);
     }
 
     /**
@@ -143,35 +143,35 @@ class ReferenceOneTest extends BuilderTestCase
     {
         $this->givenDefaultBuilder()->discriminator($discriminator);
 
-        $this->assertReferenceOneWasBuiltCorrectly($expectedFields);
+        $this->assertFieldBuildsCorrectly($expectedFields);
     }
 
     public function testReferenceOneWithSortDefault()
     {
         $this->givenDefaultBuilder()->addSort('sort');
 
-        $this->assertReferenceOneWasBuiltCorrectly(['sort' => ['sort' => 'asc']]);
+        $this->assertFieldBuildsCorrectly(['sort' => ['sort' => 'asc']]);
     }
 
     public function testReferenceOneWithSortAsc()
     {
         $this->givenDefaultBuilder()->addSort('sort', 'asc');
 
-        $this->assertReferenceOneWasBuiltCorrectly(['sort' => ['sort' => 'asc']]);
+        $this->assertFieldBuildsCorrectly(['sort' => ['sort' => 'asc']]);
     }
 
     public function testReferenceOneWithSortDesc()
     {
         $this->givenDefaultBuilder()->addSort('sort', 'desc');
 
-        $this->assertReferenceOneWasBuiltCorrectly(['sort' => ['sort' => 'desc']]);
+        $this->assertFieldBuildsCorrectly(['sort' => ['sort' => 'desc']]);
     }
 
     public function testReferenceOneWithMultiSort()
     {
         $this->givenDefaultBuilder()->addSort('sort', 'desc')->addSort('id');
 
-        $this->assertReferenceOneWasBuiltCorrectly([
+        $this->assertFieldBuildsCorrectly([
             'sort' => [
                 'sort' => 'desc',
                 'id' => 'asc',
@@ -183,14 +183,14 @@ class ReferenceOneTest extends BuilderTestCase
     {
         $this->givenDefaultBuilder()->addCriteria('type', 'physical');
 
-        $this->assertReferenceOneWasBuiltCorrectly(['criteria' => ['type' => 'physical']]);
+        $this->assertFieldBuildsCorrectly(['criteria' => ['type' => 'physical']]);
     }
 
     public function testReferenceOneWithMultiCriteria()
     {
         $this->givenDefaultBuilder()->addCriteria('type', 'physical')->addCriteria('name', 'home');
 
-        $this->assertReferenceOneWasBuiltCorrectly([
+        $this->assertFieldBuildsCorrectly([
             'criteria' => [
                 'type' => 'physical',
                 'name' => 'home',
@@ -198,19 +198,7 @@ class ReferenceOneTest extends BuilderTestCase
         ]);
     }
 
-    protected function assertReferenceOneWasBuiltCorrectly(array $expectedFields, array $deleteFields = [])
-    {
-        $this->builder->build($this->metadata);
-
-        $this->assertFieldMappingIsCorrect(
-            $this->getReferenceOneDefaultMapping(),
-            $expectedFields,
-            $this->metadata->fieldMappings['address'],
-            $deleteFields
-        );
-    }
-
-    protected function getReferenceOneDefaultMapping(): array
+    protected function getDefaultMapping(): array
     {
         return [
             'name' => 'address',
@@ -234,6 +222,11 @@ class ReferenceOneTest extends BuilderTestCase
             'strategy' => 'set',
             'type' => 'one',
         ];
+    }
+
+    protected function getDefaultFieldName(): string
+    {
+        return 'address';
     }
 
     protected function givenDefaultBuilder(): ReferenceOne

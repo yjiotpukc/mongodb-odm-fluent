@@ -25,17 +25,4 @@ abstract class BuilderTestCase extends TestCase
 
         return $this->metadata;
     }
-
-    protected function assertFieldMappingIsCorrect(array $defaultFields, array $overwriteFields, array $fieldMapping, array $deleteFields = [])
-    {
-        $expectedFields = array_merge($defaultFields, $overwriteFields);
-        foreach ($deleteFields as $deleteField) {
-            unset($expectedFields[$deleteField]);
-        }
-
-        ksort($expectedFields);
-        ksort($fieldMapping);
-
-        static::assertSame($expectedFields, $fieldMapping);
-    }
 }
