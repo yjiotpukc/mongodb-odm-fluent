@@ -26,9 +26,6 @@ abstract class FieldTestCase extends BuilderTestCase
             unset($expectedFields[$deleteField]);
         }
 
-        ksort($expectedFields);
-        ksort($fieldMapping);
-
-        static::assertSame($expectedFields, $fieldMapping);
+        self::assertSameArray($expectedFields, $fieldMapping);
     }
 }

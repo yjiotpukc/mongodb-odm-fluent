@@ -28,4 +28,12 @@ abstract class BuilderTestCase extends TestCase
 
         return $this->metadata;
     }
+
+    public static function assertSameArray(array $expected, array $actual)
+    {
+        ksort($expected);
+        ksort($actual);
+
+        static::assertSame($expected, $actual);
+    }
 }
