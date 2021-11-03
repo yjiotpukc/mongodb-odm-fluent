@@ -2,15 +2,13 @@
 
 declare(strict_types=1);
 
-namespace yjiotpukc\MongoODMFluent\Builder\Traits;
+namespace yjiotpukc\MongoODMFluent\Builder\Document\Traits;
 
 use yjiotpukc\MongoODMFluent\Buildable\Index as IndexImplementation;
 use yjiotpukc\MongoODMFluent\Type\Index;
 
 trait CanHaveIndex
 {
-    use AbstractBuilderTrait;
-
     /**
      * @param string|string[] $keys
      * @return Index

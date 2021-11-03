@@ -2,18 +2,14 @@
 
 declare(strict_types=1);
 
-namespace yjiotpukc\MongoODMFluent\Builder\Traits;
+namespace yjiotpukc\MongoODMFluent\Builder\Document\Traits;
 
 use yjiotpukc\MongoODMFluent\Buildable\Collection;
 
 trait CanHaveCollection
 {
-    use AbstractBuilderTrait;
-
     public function collection(string $name): self
     {
-        $this->addBuildable(new Collection($name));
-
-        return $this;
+        return $this->addBuildableAndReturnSelf(new Collection($name));
     }
 }

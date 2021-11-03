@@ -27,4 +27,11 @@ abstract class BaseBuilder implements Buildable
 
         return $buildable;
     }
+
+    protected function addBuildableAndReturnSelf($buildable): self
+    {
+        $this->buildables[] = $buildable;
+
+        return $this;
+    }
 }

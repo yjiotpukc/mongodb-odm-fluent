@@ -2,18 +2,14 @@
 
 declare(strict_types=1);
 
-namespace yjiotpukc\MongoODMFluent\Builder\Traits;
+namespace yjiotpukc\MongoODMFluent\Builder\Document\Traits;
 
 use yjiotpukc\MongoODMFluent\Buildable\ReadOnly;
 
 trait CanBeReadOnly
 {
-    use AbstractBuilderTrait;
-
     public function readOnly(): self
     {
-        $this->addBuildable(new ReadOnly());
-
-        return $this;
+        return $this->addBuildableAndReturnSelf(new ReadOnly());
     }
 }
