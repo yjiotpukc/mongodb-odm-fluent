@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace yjiotpukc\MongoODMFluent\Buildable;
+namespace yjiotpukc\MongoODMFluent\Builder;
 
 use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
 
-interface Buildable
+interface Builder
 {
     /**
      * Builds accumulated fields to ClassMetadata

@@ -2,11 +2,12 @@
 
 declare(strict_types=1);
 
-namespace yjiotpukc\MongoODMFluent\Buildable;
+namespace yjiotpukc\MongoODMFluent\Builder\Field;
 
+use yjiotpukc\MongoODMFluent\Builder\Builder;
 use yjiotpukc\MongoODMFluent\Type\Field as FieldType;
 
-class Field extends BuildableField implements FieldType, Buildable
+class Field extends BuilderField implements FieldType, Builder
 {
     /**
      * @var string

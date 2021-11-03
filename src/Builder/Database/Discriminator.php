@@ -2,12 +2,13 @@
 
 declare(strict_types=1);
 
-namespace yjiotpukc\MongoODMFluent\Buildable;
+namespace yjiotpukc\MongoODMFluent\Builder\Database;
 
 use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
+use yjiotpukc\MongoODMFluent\Builder\Builder;
 use yjiotpukc\MongoODMFluent\Type\Discriminator as DiscriminatorType;
 
-class Discriminator implements Buildable
+class Discriminator implements Builder
 {
     /**
      * @var DiscriminatorType

@@ -2,11 +2,12 @@
 
 declare(strict_types=1);
 
-namespace yjiotpukc\MongoODMFluent\Buildable;
+namespace yjiotpukc\MongoODMFluent\Builder\Database;
 
 use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
+use yjiotpukc\MongoODMFluent\Builder\Builder;
 
-class Inheritance implements Buildable
+class Inheritance implements Builder
 {
     /**
      * @var int

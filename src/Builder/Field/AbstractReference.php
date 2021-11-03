@@ -2,13 +2,14 @@
 
 declare(strict_types=1);
 
-namespace yjiotpukc\MongoODMFluent\Buildable;
+namespace yjiotpukc\MongoODMFluent\Builder\Field;
 
 use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
+use yjiotpukc\MongoODMFluent\Builder\Builder;
 use yjiotpukc\MongoODMFluent\Type\Cascade;
 use yjiotpukc\MongoODMFluent\Type\Discriminator;
 
-abstract class AbstractReference extends BuildableField implements Buildable
+abstract class AbstractReference extends BuilderField implements Builder
 {
     /**
      * @var string

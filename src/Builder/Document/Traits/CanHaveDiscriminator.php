@@ -10,6 +10,6 @@ trait CanHaveDiscriminator
 {
     public function discriminator(Discriminator $discriminator): self
     {
-        return $this->addBuildableAndReturnSelf($discriminator);
+        return $this->addBuilderAndReturnSelf($discriminator);
     }
 }

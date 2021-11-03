@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace yjiotpukc\MongoODMFluent\Builder\Document;
 
-use yjiotpukc\MongoODMFluent\Buildable\Buildable;
 use yjiotpukc\MongoODMFluent\Builder\BaseBuilder;
+use yjiotpukc\MongoODMFluent\Builder\Builder;
 use yjiotpukc\MongoODMFluent\Builder\Document\Traits\CanBeReadOnly;
 use yjiotpukc\MongoODMFluent\Builder\Document\Traits\CanHaveCollection;
 use yjiotpukc\MongoODMFluent\Builder\Document\Traits\CanHaveDb;
@@ -19,7 +19,7 @@ use yjiotpukc\MongoODMFluent\Builder\Document\Traits\CanHaveReferences;
 use yjiotpukc\MongoODMFluent\Builder\Document\Traits\CanHaveRepository;
 use yjiotpukc\MongoODMFluent\Builder\Document\Traits\CanHaveWriteConcern;
 
-class DocumentBuilder extends BaseBuilder implements Buildable
+class DocumentBuilder extends BaseBuilder implements Builder
 {
     use CanHaveDb;
     use CanHaveCollection;

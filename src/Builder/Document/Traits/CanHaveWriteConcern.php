@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace yjiotpukc\MongoODMFluent\Builder\Document\Traits;
 
-use yjiotpukc\MongoODMFluent\Buildable\WriteConcern;
+use yjiotpukc\MongoODMFluent\Builder\Database\WriteConcern;
 
 trait CanHaveWriteConcern
 {
@@ -13,6 +13,6 @@ trait CanHaveWriteConcern
      */
     public function writeConcern($writeConcern): self
     {
-        return $this->addBuildableAndReturnSelf(new WriteConcern($writeConcern));
+        return $this->addBuilderAndReturnSelf(new WriteConcern($writeConcern));
     }
 }
