@@ -6,22 +6,21 @@ namespace yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Field;
 
 use yjiotpukc\MongoODMFluent\Builder\Field\Id;
 use yjiotpukc\MongoODMFluent\Tests\Stubs\IdGeneratorStub;
-use yjiotpukc\MongoODMFluent\Tests\Unit\Builder\BuilderTestCase;
 
-class IdTest extends BuilderTestCase
+class IdTest extends FieldTestCase
 {
     public function testDefaultId()
     {
         $this->givenBuilder();
 
-        $this->assertIdWasBuiltCorrectly([]);
+        $this->assertFieldBuildsCorrectly();
     }
 
     public function testUuidId()
     {
         $this->givenBuilder()->uuid();
 
-        $this->assertIdWasBuiltCorrectly([
+        $this->assertFieldBuildsCorrectly([
             'strategy' => 'uuid',
             'type' => 'custom_id',
         ]);
@@ -31,7 +30,7 @@ class IdTest extends BuilderTestCase
     {
         $this->givenBuilder()->alNum();
 
-        $this->assertIdWasBuiltCorrectly([
+        $this->assertFieldBuildsCorrectly([
             'strategy' => 'alNum',
             'type' => 'custom_id',
         ]);
@@ -41,7 +40,7 @@ class IdTest extends BuilderTestCase
     {
         $this->givenBuilder()->increment();
 
-        $this->assertIdWasBuiltCorrectly([
+        $this->assertFieldBuildsCorrectly([
             'strategy' => 'increment',
             'type' => 'int',
         ]);
@@ -51,7 +50,7 @@ class IdTest extends BuilderTestCase
     {
         $this->givenBuilder()->none();
 
-        $this->assertIdWasBuiltCorrectly([
+        $this->assertFieldBuildsCorrectly([
             'strategy' => 'none',
             'type' => 'custom_id',
         ]);
@@ -61,7 +60,7 @@ class IdTest extends BuilderTestCase
     {
         $this->givenBuilder()->custom(IdGeneratorStub::class);
 
-        $this->assertIdWasBuiltCorrectly([
+        $this->assertFieldBuildsCorrectly([
             'strategy' => 'custom',
             'options' => ['class' => IdGeneratorStub::class],
             'type' => 'custom_id',
@@ -72,24 +71,13 @@ class IdTest extends BuilderTestCase
     {
         $this->givenBuilder()->alNum()->type('string');
 
-        $this->assertIdWasBuiltCorrectly([
+        $this->assertFieldBuildsCorrectly([
             'strategy' => 'alNum',
             'type' => 'string',
         ]);
     }
 
-    protected function assertIdWasBuiltCorrectly(array $expectedFields)
-    {
-        $this->builder->build($this->metadata);
-
-        $this->assertFieldMappingIsCorrect(
-            $this->getIdDefaultMapping(),
-            $expectedFields,
-            $this->metadata->fieldMappings['id']
-        );
-    }
-
-    protected function getIdDefaultMapping(): array
+    protected function getDefaultMapping(): array
     {
         return [
             'id' => true,
@@ -106,6 +94,11 @@ class IdTest extends BuilderTestCase
             'isOwningSide' => true,
             'isInverseSide' => false,
         ];
+    }
+
+    protected function getDefaultFieldName(): string
+    {
+        return 'id';
     }
 
     protected function givenBuilder(): Id

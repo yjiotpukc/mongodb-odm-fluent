@@ -5,22 +5,21 @@ declare(strict_types=1);
 namespace yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Field;
 
 use yjiotpukc\MongoODMFluent\Builder\Field\Field;
-use yjiotpukc\MongoODMFluent\Tests\Unit\Builder\BuilderTestCase;
 
-class FieldTest extends BuilderTestCase
+class FieldTest extends FieldTestCase
 {
     public function testStringField()
     {
         $this->givenDefaultBuilder();
 
-        $this->assertFieldWasBuiltCorrectly([]);
+        $this->assertFieldBuildsCorrectly();
     }
 
     public function testIntegerField()
     {
         $this->givenBuilder('integer', 'age');
 
-        $this->assertFieldWasBuiltCorrectly([
+        $this->assertFieldBuildsCorrectly([
             'fieldName' => 'age',
             'name' => 'age',
             'type' => 'integer',
@@ -31,35 +30,24 @@ class FieldTest extends BuilderTestCase
     {
         $this->givenDefaultBuilder()->nullable();
 
-        $this->assertFieldWasBuiltCorrectly(['nullable' => true]);
+        $this->assertFieldBuildsCorrectly(['nullable' => true]);
     }
 
     public function testNotSavedStringField()
     {
         $this->givenDefaultBuilder()->notSaved();
 
-        $this->assertFieldWasBuiltCorrectly(['notSaved' => true]);
+        $this->assertFieldBuildsCorrectly(['notSaved' => true]);
     }
 
     public function testStringFieldWithDifferentNameInDb()
     {
         $this->givenDefaultBuilder()->nameInDb('name');
 
-        $this->assertFieldWasBuiltCorrectly(['name' => 'name']);
+        $this->assertFieldBuildsCorrectly(['name' => 'name']);
     }
 
-    protected function assertFieldWasBuiltCorrectly(array $expectedFields, string $fieldName = 'firstName')
-    {
-        $this->builder->build($this->metadata);
-
-        $this->assertFieldMappingIsCorrect(
-            $this->getFieldDefaultMapping(),
-            $expectedFields,
-            $this->metadata->fieldMappings[$fieldName]
-        );
-    }
-
-    protected function getFieldDefaultMapping(): array
+    protected function getDefaultMapping(): array
     {
         return [
             'fieldName' => 'firstName',
@@ -76,6 +64,11 @@ class FieldTest extends BuilderTestCase
             'isOwningSide' => true,
             'isInverseSide' => false,
         ];
+    }
+
+    protected function getDefaultFieldName(): string
+    {
+        return 'firstName';
     }
 
     protected function givenDefaultBuilder(): Field
