@@ -81,7 +81,7 @@ abstract class AbstractReference extends BuilderField implements Builder
      */
     protected $nullable;
 
-    public function __construct(string $fieldName, string $target)
+    public function __construct(string $fieldName, string $target = '')
     {
         $this->fieldName = $fieldName;
         $this->target = $target;

@@ -32,7 +32,7 @@ class ReferenceMany extends AbstractReference implements ReferenceManyType, Buil
      */
     protected $prime;
 
-    public function __construct(string $fieldName, string $target)
+    public function __construct(string $fieldName, string $target = '')
     {
         parent::__construct($fieldName, $target);
         $this->prime = [];

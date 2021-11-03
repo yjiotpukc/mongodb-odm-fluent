@@ -2,20 +2,23 @@
 
 declare(strict_types=1);
 
-namespace yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Traits;
+namespace yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Field;
 
-trait TestField
+use yjiotpukc\MongoODMFluent\Builder\Field\Field;
+use yjiotpukc\MongoODMFluent\Tests\Unit\Builder\BuilderBaseTestCase;
+
+class FieldTest extends BuilderBaseTestCase
 {
     public function testStringField()
     {
-        $this->builder->field('string', 'firstName');
+        $this->givenDefaultBuilder();
 
         $this->assertFieldWasBuiltCorrectly([]);
     }
 
     public function testIntegerField()
     {
-        $this->builder->field('integer', 'age');
+        $this->givenBuilder('integer', 'age');
 
         $this->assertFieldWasBuiltCorrectly([
             'fieldName' => 'age',
@@ -26,21 +29,21 @@ trait TestField
 
     public function testNullableStringField()
     {
-        $this->builder->field('string', 'firstName')->nullable();
+        $this->givenDefaultBuilder()->nullable();
 
         $this->assertFieldWasBuiltCorrectly(['nullable' => true]);
     }
 
     public function testNotSavedStringField()
     {
-        $this->builder->field('string', 'firstName')->notSaved();
+        $this->givenDefaultBuilder()->notSaved();
 
         $this->assertFieldWasBuiltCorrectly(['notSaved' => true]);
     }
 
     public function testStringFieldWithDifferentNameInDb()
     {
-        $this->builder->field('string', 'firstName')->nameInDb('name');
+        $this->givenDefaultBuilder()->nameInDb('name');
 
         $this->assertFieldWasBuiltCorrectly(['name' => 'name']);
     }
@@ -73,5 +76,17 @@ trait TestField
             'isOwningSide' => true,
             'isInverseSide' => false,
         ];
+    }
+
+    protected function givenDefaultBuilder(): Field
+    {
+        return $this->givenBuilder('string', 'firstName');
+    }
+
+    protected function givenBuilder(string $type, string $fieldName): Field
+    {
+        $this->builder = new Field($type, $fieldName);
+
+        return $this->builder;
     }
 }

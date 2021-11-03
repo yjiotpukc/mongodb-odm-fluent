@@ -2,31 +2,33 @@
 
 declare(strict_types=1);
 
-namespace yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Traits;
+namespace yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Field;
 
+use yjiotpukc\MongoODMFluent\Builder\Field\ReferenceOne;
 use yjiotpukc\MongoODMFluent\Tests\Stubs\Mappings\AnotherEntityStub;
+use yjiotpukc\MongoODMFluent\Tests\Unit\Builder\BuilderBaseTestCase;
 use yjiotpukc\MongoODMFluent\Type\Cascade;
 use yjiotpukc\MongoODMFluent\Type\Discriminator;
 
-trait TestReferenceOne
+class ReferenceOneTest extends BuilderBaseTestCase
 {
     public function testReferenceOne()
     {
-        $this->builder->referenceOne('address', AnotherEntityStub::class);
+        $this->givenDefaultBuilder();
 
         $this->assertReferenceOneWasBuiltCorrectly([]);
     }
 
     public function testReferenceOneWithTarget()
     {
-        $this->builder->referenceOne('address')->target(AnotherEntityStub::class);
+        $this->givenBuilder('address')->target(AnotherEntityStub::class);
 
         $this->assertReferenceOneWasBuiltCorrectly([]);
     }
 
     public function testReferenceOneWithoutTarget()
     {
-        $this->builder->referenceOne('address');
+        $this->givenBuilder('address');
 
         $this->assertReferenceOneWasBuiltCorrectly(
             ['discriminatorField' => '_doctrine_class_name'],
@@ -36,49 +38,49 @@ trait TestReferenceOne
 
     public function testReferenceOneAsDbRef()
     {
-        $this->builder->referenceOne('address', AnotherEntityStub::class)->storeAsDbRef();
+        $this->givenDefaultBuilder()->storeAsDbRef();
 
         $this->assertReferenceOneWasBuiltCorrectly([]);
     }
 
     public function testReferenceOneAsDbRefWithDb()
     {
-        $this->builder->referenceOne('address', AnotherEntityStub::class)->storeAsDbRefWithDb();
+        $this->givenDefaultBuilder()->storeAsDbRefWithDb();
 
         $this->assertReferenceOneWasBuiltCorrectly(['storeAs' => 'dbRefWithDb']);
     }
 
     public function testReferenceOneAsRef()
     {
-        $this->builder->referenceOne('address', AnotherEntityStub::class)->storeAsRef();
+        $this->givenDefaultBuilder()->storeAsRef();
 
         $this->assertReferenceOneWasBuiltCorrectly(['storeAs' => 'ref']);
     }
 
     public function testReferenceOneAsId()
     {
-        $this->builder->referenceOne('address', AnotherEntityStub::class)->storeAsId();
+        $this->givenDefaultBuilder()->storeAsId();
 
         $this->assertReferenceOneWasBuiltCorrectly(['storeAs' => 'id']);
     }
 
     public function testNullableReferenceOne()
     {
-        $this->builder->referenceOne('address', AnotherEntityStub::class)->nullable();
+        $this->givenDefaultBuilder()->nullable();
 
         $this->assertReferenceOneWasBuiltCorrectly(['nullable' => true]);
     }
 
     public function testNotSavedReferenceOne()
     {
-        $this->builder->referenceOne('address', AnotherEntityStub::class)->notSaved();
+        $this->givenDefaultBuilder()->notSaved();
 
         $this->assertReferenceOneWasBuiltCorrectly(['notSaved' => true]);
     }
 
     public function testReferenceOneWithOrphanRemoval()
     {
-        $this->builder->referenceOne('address', AnotherEntityStub::class)->orphanRemoval();
+        $this->givenDefaultBuilder()->orphanRemoval();
 
         $this->assertReferenceOneWasBuiltCorrectly(['orphanRemoval' => true]);
     }
@@ -88,14 +90,14 @@ trait TestReferenceOne
      */
     public function testReferenceOneWithCascadeAll(Cascade $cascade, array $expectedFields)
     {
-        $this->builder->referenceOne('address', AnotherEntityStub::class)->cascade($cascade);
+        $this->givenDefaultBuilder()->cascade($cascade);
 
         $this->assertReferenceOneWasBuiltCorrectly($expectedFields);
     }
 
     public function testReferenceOneWithRepositoryMethod()
     {
-        $this->builder->referenceOne('address', AnotherEntityStub::class)->repositoryMethod('getAddresses');
+        $this->givenDefaultBuilder()->repositoryMethod('getAddresses');
 
         $this->assertReferenceOneWasBuiltCorrectly([
             'isInverseSide' => true,
@@ -106,14 +108,14 @@ trait TestReferenceOne
 
     public function testReferenceOneWithSkip()
     {
-        $this->builder->referenceOne('address', AnotherEntityStub::class)->skip(4);
+        $this->givenDefaultBuilder()->skip(4);
 
         $this->assertReferenceOneWasBuiltCorrectly(['skip' => 4]);
     }
 
     public function testReferenceOneWithMappedBy()
     {
-        $this->builder->referenceOne('address', AnotherEntityStub::class)->mappedBy('user_id');
+        $this->givenDefaultBuilder()->mappedBy('user_id');
 
         $this->assertReferenceOneWasBuiltCorrectly([
             'isInverseSide' => true,
@@ -124,7 +126,7 @@ trait TestReferenceOne
 
     public function testReferenceOneWithInversedBy()
     {
-        $this->builder->referenceOne('address', AnotherEntityStub::class)->inversedBy('address_id');
+        $this->givenDefaultBuilder()->inversedBy('address_id');
 
         $this->assertReferenceOneWasBuiltCorrectly(['inversedBy' => 'address_id']);
     }
@@ -134,38 +136,35 @@ trait TestReferenceOne
      */
     public function testReferenceOneWithDiscriminator(Discriminator $discriminator, array $expectedFields)
     {
-        $this->builder->referenceOne('address', AnotherEntityStub::class)->discriminator($discriminator);
+        $this->givenDefaultBuilder()->discriminator($discriminator);
 
         $this->assertReferenceOneWasBuiltCorrectly($expectedFields);
     }
 
     public function testReferenceOneWithSortDefault()
     {
-        $this->builder->referenceOne('address', AnotherEntityStub::class)->addSort('sort');
+        $this->givenDefaultBuilder()->addSort('sort');
 
         $this->assertReferenceOneWasBuiltCorrectly(['sort' => ['sort' => 'asc']]);
     }
 
     public function testReferenceOneWithSortAsc()
     {
-        $this->builder->referenceOne('address', AnotherEntityStub::class)->addSort('sort', 'asc');
+        $this->givenDefaultBuilder()->addSort('sort', 'asc');
 
         $this->assertReferenceOneWasBuiltCorrectly(['sort' => ['sort' => 'asc']]);
     }
 
     public function testReferenceOneWithSortDesc()
     {
-        $this->builder->referenceOne('address', AnotherEntityStub::class)->addSort('sort', 'desc');
+        $this->givenDefaultBuilder()->addSort('sort', 'desc');
 
         $this->assertReferenceOneWasBuiltCorrectly(['sort' => ['sort' => 'desc']]);
     }
 
     public function testReferenceOneWithMultiSort()
     {
-        $this->builder
-            ->referenceOne('address', AnotherEntityStub::class)
-            ->addSort('sort', 'desc')
-            ->addSort('id');
+        $this->givenDefaultBuilder()->addSort('sort', 'desc')->addSort('id');
 
         $this->assertReferenceOneWasBuiltCorrectly([
             'sort' => [
@@ -177,19 +176,14 @@ trait TestReferenceOne
 
     public function testReferenceOneWithCriteria()
     {
-        $this->builder
-            ->referenceOne('address', AnotherEntityStub::class)
-            ->addCriteria('type', 'physical');
+        $this->givenDefaultBuilder()->addCriteria('type', 'physical');
 
         $this->assertReferenceOneWasBuiltCorrectly(['criteria' => ['type' => 'physical']]);
     }
 
     public function testReferenceOneWithMultiCriteria()
     {
-        $this->builder
-            ->referenceOne('address', AnotherEntityStub::class)
-            ->addCriteria('type', 'physical')
-            ->addCriteria('name', 'home');
+        $this->givenDefaultBuilder()->addCriteria('type', 'physical')->addCriteria('name', 'home');
 
         $this->assertReferenceOneWasBuiltCorrectly([
             'criteria' => [
@@ -235,5 +229,17 @@ trait TestReferenceOne
             'strategy' => 'set',
             'type' => 'one',
         ];
+    }
+
+    protected function givenDefaultBuilder(): ReferenceOne
+    {
+        return $this->givenBuilder('address', AnotherEntityStub::class);
+    }
+
+    protected function givenBuilder(string $fieldName, string $target = ''): ReferenceOne
+    {
+        $this->builder = new ReferenceOne($fieldName, $target);
+
+        return $this->builder;
     }
 }
