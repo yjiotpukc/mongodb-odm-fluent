@@ -14,6 +14,16 @@ use yjiotpukc\MongoODMFluent\Type\Discriminator;
 
 abstract class BuilderBaseTestCase extends TestCase
 {
+    protected $builder;
+    protected $metadata;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->builder = $this->givenEmptyBuilder();
+        $this->metadata = $this->givenClassMetadata();
+    }
+
     abstract public function givenEmptyBuilder();
 
     public function givenBuilderWithId()

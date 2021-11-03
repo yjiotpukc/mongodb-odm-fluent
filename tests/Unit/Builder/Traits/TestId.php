@@ -10,102 +10,86 @@ trait TestId
 {
     public function testDefaultId()
     {
-        $builder = $this->givenEmptyBuilder();
-        $metadata = $this->givenClassMetadata();
+        $this->builder->id();
 
-        $builder->id();
-        $builder->build($metadata);
-
-        $this->assertIdFieldMappingIsCorrect([], $metadata->fieldMappings['id']);
+        $this->assertIdWasBuiltCorrectly([]);
     }
 
     public function testUuidId()
     {
-        $builder = $this->givenEmptyBuilder();
-        $metadata = $this->givenClassMetadata();
+        $this->builder->id()->uuid();
 
-        $builder->id()->uuid();
-        $builder->build($metadata);
-
-        $this->assertIdFieldMappingIsCorrect([
+        $this->assertIdWasBuiltCorrectly([
             'strategy' => 'uuid',
             'type' => 'custom_id',
-        ], $metadata->fieldMappings['id']);
+        ]);
     }
 
     public function testAlphaNumericId()
     {
-        $builder = $this->givenEmptyBuilder();
-        $metadata = $this->givenClassMetadata();
+        $this->builder->id()->alNum();
 
-        $builder->id()->alNum();
-        $builder->build($metadata);
-
-        $this->assertIdFieldMappingIsCorrect([
+        $this->assertIdWasBuiltCorrectly([
             'strategy' => 'alNum',
             'type' => 'custom_id',
-        ], $metadata->fieldMappings['id']);
+        ]);
     }
 
     public function testIncrementId()
     {
-        $builder = $this->givenEmptyBuilder();
-        $metadata = $this->givenClassMetadata();
+        $this->builder->id()->increment();
 
-        $builder->id()->increment();
-        $builder->build($metadata);
-        $this->assertIdFieldMappingIsCorrect([
+        $this->assertIdWasBuiltCorrectly([
             'strategy' => 'increment',
             'type' => 'int',
-        ], $metadata->fieldMappings['id']);
+        ]);
     }
 
     public function testNoneId()
     {
-        $builder = $this->givenEmptyBuilder();
-        $metadata = $this->givenClassMetadata();
+        $this->builder->id()->none();
 
-        $builder->id()->none();
-        $builder->build($metadata);
-
-        $this->assertIdFieldMappingIsCorrect([
+        $this->assertIdWasBuiltCorrectly([
             'strategy' => 'none',
             'type' => 'custom_id',
-        ], $metadata->fieldMappings['id']);
+        ]);
     }
 
     public function testCustomId()
     {
-        $builder = $this->givenEmptyBuilder();
-        $metadata = $this->givenClassMetadata();
+        $this->builder->id()->custom(IdGeneratorStub::class);
 
-        $builder->id()->custom(IdGeneratorStub::class);
-        $builder->build($metadata);
-
-        $this->assertIdFieldMappingIsCorrect([
+        $this->assertIdWasBuiltCorrectly([
             'strategy' => 'custom',
             'options' => ['class' => IdGeneratorStub::class],
             'type' => 'custom_id',
-        ], $metadata->fieldMappings['id']);
+        ]);
     }
 
     public function testAlphaNumericStringId()
     {
-        $builder = $this->givenEmptyBuilder();
-        $metadata = $this->givenClassMetadata();
+        $this->builder->id()->alNum()->type('string');
 
-        $builder->id()->alNum()->type('string');
-        $builder->build($metadata);
-
-        $this->assertIdFieldMappingIsCorrect([
+        $this->assertIdWasBuiltCorrectly([
             'strategy' => 'alNum',
             'type' => 'string',
-        ], $metadata->fieldMappings['id']);
+        ]);
     }
 
-    protected function assertIdFieldMappingIsCorrect(array $overwriteFields, array $fieldMapping)
+    protected function assertIdWasBuiltCorrectly(array $expectedFields)
     {
-        $defaultFields = [
+        $this->builder->build($this->metadata);
+
+        $this->assertFieldMappingIsCorrect(
+            $this->getIdDefaultMapping(),
+            $expectedFields,
+            $this->metadata->fieldMappings['id']
+        );
+    }
+
+    protected function getIdDefaultMapping(): array
+    {
+        return [
             'id' => true,
             'fieldName' => 'id',
             'strategy' => 'auto',
@@ -120,7 +104,5 @@ trait TestId
             'isOwningSide' => true,
             'isInverseSide' => false,
         ];
-
-        $this->assertFieldMappingIsCorrect($defaultFields, $overwriteFields, $fieldMapping);
     }
 }

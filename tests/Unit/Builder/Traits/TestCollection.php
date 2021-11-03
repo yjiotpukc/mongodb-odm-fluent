@@ -8,12 +8,9 @@ trait TestCollection
 {
     public function testCollection()
     {
-        $builder = $this->givenEmptyBuilder();
-        $metadata = $this->givenClassMetadata();
+        $this->builder->collection('someName');
+        $this->builder->build($this->metadata);
 
-        $builder->collection('someName');
-        $builder->build($metadata);
-
-        static::assertSame('someName', $metadata->collection);
+        static::assertSame('someName', $this->metadata->collection);
     }
 }
