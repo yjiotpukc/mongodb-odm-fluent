@@ -55,7 +55,7 @@ class EmbedOneTest extends FieldTestCase
         $this->assertFieldBuildsCorrectly($expectedFields);
     }
 
-    protected function getDefaultMapping(): array
+    public static function getDefaultMapping(): array
     {
         return [
             'association' => 3,
@@ -77,7 +77,7 @@ class EmbedOneTest extends FieldTestCase
         ];
     }
 
-    protected function getDefaultFieldName(): string
+    public static function getDefaultFieldName(): string
     {
         return 'address';
     }

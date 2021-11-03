@@ -259,7 +259,7 @@ class ReferenceManyTest extends FieldTestCase
         ]);
     }
 
-    protected function getDefaultMapping(): array
+    public static function getDefaultMapping(): array
     {
         return [
             'name' => 'address',
@@ -286,7 +286,7 @@ class ReferenceManyTest extends FieldTestCase
         ];
     }
 
-    protected function getDefaultFieldName(): string
+    public static function getDefaultFieldName(): string
     {
         return 'address';
     }

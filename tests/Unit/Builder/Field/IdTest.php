@@ -77,7 +77,7 @@ class IdTest extends FieldTestCase
         ]);
     }
 
-    protected function getDefaultMapping(): array
+    public static function getDefaultMapping(): array
     {
         return [
             'id' => true,
@@ -96,7 +96,7 @@ class IdTest extends FieldTestCase
         ];
     }
 
-    protected function getDefaultFieldName(): string
+    public static function getDefaultFieldName(): string
     {
         return 'id';
     }
