@@ -5,32 +5,31 @@ declare(strict_types=1);
 namespace yjiotpukc\MongoODMFluent\Builder;
 
 use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
-use yjiotpukc\MongoODMFluent\Buildable\Buildable;
 
-abstract class BaseBuilder implements Buildable
+abstract class BaseBuilder implements Builder
 {
     /**
-     * @var Buildable[]
+     * @var Builder[]
      */
-    protected $buildables = [];
+    protected $builders = [];
 
     public function build(ClassMetadata $metadata): void
     {
-        foreach ($this->buildables as $buildable) {
-            $buildable->build($metadata);
+        foreach ($this->builders as $builder) {
+            $builder->build($metadata);
         }
     }
 
-    protected function addBuildable($buildable)
+    protected function addBuilder($builder)
     {
-        $this->buildables[] = $buildable;
+        $this->builders[] = $builder;
 
-        return $buildable;
+        return $builder;
     }
 
-    protected function addBuildableAndReturnSelf($buildable): self
+    protected function addBuilderAndReturnSelf($builder): self
     {
-        $this->buildables[] = $buildable;
+        $this->builders[] = $builder;
 
         return $this;
     }

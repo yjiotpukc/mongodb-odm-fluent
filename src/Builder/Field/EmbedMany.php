@@ -2,13 +2,14 @@
 
 declare(strict_types=1);
 
-namespace yjiotpukc\MongoODMFluent\Buildable;
+namespace yjiotpukc\MongoODMFluent\Builder\Field;
 
+use yjiotpukc\MongoODMFluent\Builder\Builder;
 use yjiotpukc\MongoODMFluent\Type\CollectionStrategy;
 use yjiotpukc\MongoODMFluent\Type\Discriminator;
 use yjiotpukc\MongoODMFluent\Type\EmbedMany as EmbedManyType;
 
-class EmbedMany extends BuildableField implements EmbedManyType, Buildable
+class EmbedMany extends BuilderField implements EmbedManyType, Builder
 {
     /**
      * @var string

@@ -2,11 +2,12 @@
 
 declare(strict_types=1);
 
-namespace yjiotpukc\MongoODMFluent\Buildable;
+namespace yjiotpukc\MongoODMFluent\Builder\Database;
 
 use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
+use yjiotpukc\MongoODMFluent\Builder\Builder;
 
-class ReadOnly implements Buildable
+class ReadOnly implements Builder
 {
     public function build(ClassMetadata $metadata): void
     {

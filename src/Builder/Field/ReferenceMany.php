@@ -2,14 +2,15 @@
 
 declare(strict_types=1);
 
-namespace yjiotpukc\MongoODMFluent\Buildable;
+namespace yjiotpukc\MongoODMFluent\Builder\Field;
 
+use yjiotpukc\MongoODMFluent\Builder\Builder;
 use yjiotpukc\MongoODMFluent\Type\Cascade;
 use yjiotpukc\MongoODMFluent\Type\CollectionStrategy;
 use yjiotpukc\MongoODMFluent\Type\Discriminator;
 use yjiotpukc\MongoODMFluent\Type\ReferenceMany as ReferenceManyType;
 
-class ReferenceMany extends AbstractReference implements ReferenceManyType, Buildable
+class ReferenceMany extends AbstractReference implements ReferenceManyType, Builder
 {
     /**
      * @var int

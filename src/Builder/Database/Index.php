@@ -2,13 +2,14 @@
 
 declare(strict_types=1);
 
-namespace yjiotpukc\MongoODMFluent\Buildable;
+namespace yjiotpukc\MongoODMFluent\Builder\Database;
 
 use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
+use yjiotpukc\MongoODMFluent\Builder\Builder;
 use yjiotpukc\MongoODMFluent\MappingException;
 use yjiotpukc\MongoODMFluent\Type\Index as IndexType;
 
-class Index implements IndexType, Buildable
+class Index implements IndexType, Builder
 {
     public $keys;
     public $options;

@@ -2,12 +2,13 @@
 
 declare(strict_types=1);
 
-namespace yjiotpukc\MongoODMFluent\Buildable;
+namespace yjiotpukc\MongoODMFluent\Builder\Field;
 
+use yjiotpukc\MongoODMFluent\Builder\Builder;
 use yjiotpukc\MongoODMFluent\Type\Discriminator;
 use yjiotpukc\MongoODMFluent\Type\EmbedOne as EmbedOneType;
 
-class EmbedOne extends BuildableField implements EmbedOneType, Buildable
+class EmbedOne extends BuilderField implements EmbedOneType, Builder
 {
     /**
      * @var string

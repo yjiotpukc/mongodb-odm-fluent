@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace yjiotpukc\MongoODMFluent\Builder\Document;
 
 use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
-use yjiotpukc\MongoODMFluent\Buildable\Buildable;
 use yjiotpukc\MongoODMFluent\Builder\BaseBuilder;
+use yjiotpukc\MongoODMFluent\Builder\Builder;
 use yjiotpukc\MongoODMFluent\Builder\Document\Traits\CanHaveCollection;
 use yjiotpukc\MongoODMFluent\Builder\Document\Traits\CanHaveDb;
 use yjiotpukc\MongoODMFluent\Builder\Document\Traits\CanHaveDiscriminator;
@@ -16,7 +16,7 @@ use yjiotpukc\MongoODMFluent\Builder\Document\Traits\CanHaveIds;
 use yjiotpukc\MongoODMFluent\Builder\Document\Traits\CanHaveInheritance;
 use yjiotpukc\MongoODMFluent\Builder\Document\Traits\CanHaveReferences;
 
-class MappedSuperclassBuilder extends BaseBuilder implements Buildable
+class MappedSuperclassBuilder extends BaseBuilder implements Builder
 {
     use CanHaveDb;
     use CanHaveCollection;

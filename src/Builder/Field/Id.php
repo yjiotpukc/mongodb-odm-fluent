@@ -2,11 +2,12 @@
 
 declare(strict_types=1);
 
-namespace yjiotpukc\MongoODMFluent\Buildable;
+namespace yjiotpukc\MongoODMFluent\Builder\Field;
 
+use yjiotpukc\MongoODMFluent\Builder\Builder;
 use yjiotpukc\MongoODMFluent\Type\Id as IdType;
 
-class Id extends BuildableField implements IdType, Buildable
+class Id extends BuilderField implements IdType, Builder
 {
     protected $type;
     protected $strategy = 'auto';

@@ -2,13 +2,14 @@
 
 declare(strict_types=1);
 
-namespace yjiotpukc\MongoODMFluent\Buildable;
+namespace yjiotpukc\MongoODMFluent\Builder\Field;
 
+use yjiotpukc\MongoODMFluent\Builder\Builder;
 use yjiotpukc\MongoODMFluent\Type\Cascade;
 use yjiotpukc\MongoODMFluent\Type\Discriminator;
 use yjiotpukc\MongoODMFluent\Type\ReferenceOne as ReferenceOneType;
 
-class ReferenceOne extends AbstractReference implements ReferenceOneType, Buildable
+class ReferenceOne extends AbstractReference implements ReferenceOneType, Builder
 {
     public function target(string $target): ReferenceOneType
     {
