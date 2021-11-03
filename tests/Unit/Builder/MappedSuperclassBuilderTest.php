@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace yjiotpukc\MongoODMFluent\Tests\Unit\Builder;
 
-use yjiotpukc\MongoODMFluent\Builder\MappedSuperclassBuilder;
+use yjiotpukc\MongoODMFluent\Builder\Document\MappedSuperclassBuilder;
 use yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Traits\TestCollection;
 use yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Traits\TestDb;
 use yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Traits\TestField;
