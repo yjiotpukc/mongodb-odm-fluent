@@ -24,7 +24,7 @@ class EmbedMany extends BuilderField implements EmbedManyType, Builder
     /**
      * @var bool
      */
-    public $notSaved;
+    public $notSaved = false;
 
     /**
      * @var Discriminator
@@ -41,7 +41,7 @@ class EmbedMany extends BuilderField implements EmbedManyType, Builder
      */
     public $strategy;
 
-    public function __construct(string $fieldName, string $target)
+    public function __construct(string $fieldName, string $target = '')
     {
         $this->fieldName = $fieldName;
         $this->targetDocument = $target;
@@ -88,6 +88,7 @@ class EmbedMany extends BuilderField implements EmbedManyType, Builder
             'embedded' => true,
             'type' => 'many',
             'fieldName'=> $this->fieldName,
+            'notSaved' => $this->notSaved,
         ];
 
         if ($this->targetDocument) {
@@ -102,9 +103,7 @@ class EmbedMany extends BuilderField implements EmbedManyType, Builder
         if ($this->discriminator) {
             $map['discriminatorField'] = $this->discriminator->field;
             $map['discriminatorMap'] = $this->discriminator->map;
-            if (isset($this->discriminator->defaultValue)) {
                 $map['defaultDiscriminatorValue'] = $this->discriminator->defaultValue;
-            }
         }
 
         return $map;
