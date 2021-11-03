@@ -10,8 +10,11 @@ use yjiotpukc\MongoODMFluent\Tests\Stubs\EntityStub;
 
 abstract class BuilderTestCase extends TestCase
 {
-    protected $builder;
+    /**
+     * @var ClassMetadata
+     */
     protected $metadata;
+    protected $builder;
 
     protected function setUp(): void
     {
