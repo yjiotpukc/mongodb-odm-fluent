@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace yjiotpukc\MongoODMFluent\Mapping;
 
 use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
-use yjiotpukc\MongoODMFluent\Builder\EmbeddedDocumentBuilder;
+use yjiotpukc\MongoODMFluent\Builder\Document\EmbeddedDocumentBuilder;
 
 abstract class EmbeddedDocumentMapping implements Mapping
 {

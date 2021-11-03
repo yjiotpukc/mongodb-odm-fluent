@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace yjiotpukc\MongoODMFluent\Mapping;
 
 use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
-use yjiotpukc\MongoODMFluent\Builder\MappedSuperclassBuilder;
+use yjiotpukc\MongoODMFluent\Builder\Document\MappedSuperclassBuilder;
 
 abstract class MappedSuperclassMapping implements Mapping
 {
