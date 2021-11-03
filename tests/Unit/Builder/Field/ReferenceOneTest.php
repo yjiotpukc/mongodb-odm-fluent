@@ -7,11 +7,16 @@ namespace yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Field;
 use yjiotpukc\MongoODMFluent\Builder\Field\ReferenceOne;
 use yjiotpukc\MongoODMFluent\Tests\Stubs\Mappings\AnotherEntityStub;
 use yjiotpukc\MongoODMFluent\Tests\Unit\Builder\BuilderBaseTestCase;
+use yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Traits\CascadeProvider;
+use yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Traits\DiscriminatorProvider;
 use yjiotpukc\MongoODMFluent\Type\Cascade;
 use yjiotpukc\MongoODMFluent\Type\Discriminator;
 
 class ReferenceOneTest extends BuilderBaseTestCase
 {
+    use CascadeProvider;
+    use DiscriminatorProvider;
+
     public function testReferenceOne()
     {
         $this->givenDefaultBuilder();

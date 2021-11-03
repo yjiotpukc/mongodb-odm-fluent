@@ -8,12 +8,19 @@ use yjiotpukc\MongoODMFluent\Builder\Field\ReferenceMany;
 use yjiotpukc\MongoODMFluent\Tests\Stubs\CollectionStub;
 use yjiotpukc\MongoODMFluent\Tests\Stubs\Mappings\AnotherEntityStub;
 use yjiotpukc\MongoODMFluent\Tests\Unit\Builder\BuilderBaseTestCase;
+use yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Traits\CascadeProvider;
+use yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Traits\CollectionStrategyProvider;
+use yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Traits\DiscriminatorProvider;
 use yjiotpukc\MongoODMFluent\Type\Cascade;
 use yjiotpukc\MongoODMFluent\Type\CollectionStrategy;
 use yjiotpukc\MongoODMFluent\Type\Discriminator;
 
 class ReferenceManyTest extends BuilderBaseTestCase
 {
+    use CascadeProvider;
+    use CollectionStrategyProvider;
+    use DiscriminatorProvider;
+
     public function testReferenceMany()
     {
         $this->givenDefaultBuilder();
