@@ -22,6 +22,22 @@ class Index implements IndexType, Builder
         if (is_string($keys)) {
             $this->keys = [$keys => 'asc'];
         } else {
+            $notNumericFields = array_filter(
+                array_keys($keys),
+                function ($key) {
+                    return !is_numeric($key);
+                }
+            );
+            $isAssociative = count($notNumericFields) > 0;
+
+            if (!$isAssociative) {
+                $newKeys = [];
+                foreach ($keys as $key) {
+                    $newKeys[$key] = 'asc';
+                }
+                $keys = $newKeys;
+            }
+
             $this->keys = $keys;
         }
         $this->options = [];
