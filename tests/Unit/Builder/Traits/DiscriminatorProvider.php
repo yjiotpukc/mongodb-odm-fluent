@@ -17,15 +17,17 @@ trait DiscriminatorProvider
                 [
                     'defaultDiscriminatorValue' => null,
                     'discriminatorField' => 'type',
-                    'discriminatorMap' => null,
+                    'discriminatorMap' => [],
                 ],
             ],
             [
-                (new Discriminator('type'))->default('physical'),
+                (new Discriminator('type'))
+                    ->map('physical', AnotherEntityStub::class)
+                    ->default('physical'),
                 [
                     'defaultDiscriminatorValue' => 'physical',
                     'discriminatorField' => 'type',
-                    'discriminatorMap' => null,
+                    'discriminatorMap' => ['physical' => AnotherEntityStub::class],
                 ],
             ],
             [

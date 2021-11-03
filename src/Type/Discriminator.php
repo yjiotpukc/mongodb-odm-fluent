@@ -21,6 +21,7 @@ class Discriminator
     public function __construct(string $field)
     {
         $this->field = $field;
+        $this->map = [];
     }
 
     public function map(string $value, string $class): Discriminator
