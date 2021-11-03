@@ -6,9 +6,9 @@ namespace yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Field;
 
 use yjiotpukc\MongoODMFluent\Builder\Field\Id;
 use yjiotpukc\MongoODMFluent\Tests\Stubs\IdGeneratorStub;
-use yjiotpukc\MongoODMFluent\Tests\Unit\Builder\BuilderBaseTestCase;
+use yjiotpukc\MongoODMFluent\Tests\Unit\Builder\BuilderTestCase;
 
-class IdTest extends BuilderBaseTestCase
+class IdTest extends BuilderTestCase
 {
     public function testDefaultId()
     {

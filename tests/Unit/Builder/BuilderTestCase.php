@@ -8,7 +8,7 @@ use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
 use PHPUnit\Framework\TestCase;
 use yjiotpukc\MongoODMFluent\Tests\Stubs\EntityStub;
 
-abstract class BuilderBaseTestCase extends TestCase
+abstract class BuilderTestCase extends TestCase
 {
     protected $builder;
     protected $metadata;

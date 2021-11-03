@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Field;
 
 use yjiotpukc\MongoODMFluent\Builder\Field\Field;
-use yjiotpukc\MongoODMFluent\Tests\Unit\Builder\BuilderBaseTestCase;
+use yjiotpukc\MongoODMFluent\Tests\Unit\Builder\BuilderTestCase;
 
-class FieldTest extends BuilderBaseTestCase
+class FieldTest extends BuilderTestCase
 {
     public function testStringField()
     {

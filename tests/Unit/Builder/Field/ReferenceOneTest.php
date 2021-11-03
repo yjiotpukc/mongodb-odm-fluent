@@ -6,13 +6,13 @@ namespace yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Field;
 
 use yjiotpukc\MongoODMFluent\Builder\Field\ReferenceOne;
 use yjiotpukc\MongoODMFluent\Tests\Stubs\Mappings\AnotherEntityStub;
-use yjiotpukc\MongoODMFluent\Tests\Unit\Builder\BuilderBaseTestCase;
+use yjiotpukc\MongoODMFluent\Tests\Unit\Builder\BuilderTestCase;
 use yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Traits\CascadeProvider;
 use yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Traits\DiscriminatorProvider;
 use yjiotpukc\MongoODMFluent\Type\Cascade;
 use yjiotpukc\MongoODMFluent\Type\Discriminator;
 
-class ReferenceOneTest extends BuilderBaseTestCase
+class ReferenceOneTest extends BuilderTestCase
 {
     use CascadeProvider;
     use DiscriminatorProvider;
