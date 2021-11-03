@@ -23,14 +23,14 @@ class EmbedOne extends BuilderField implements EmbedOneType, Builder
     /**
      * @var bool
      */
-    public $notSaved;
+    public $notSaved = false;
 
     /**
      * @var Discriminator
      */
     public $discriminator = null;
 
-    public function __construct(string $fieldName, string $target)
+    public function __construct(string $fieldName, string $target = '')
     {
         $this->fieldName = $fieldName;
         $this->targetDocument = $target;
@@ -62,7 +62,8 @@ class EmbedOne extends BuilderField implements EmbedOneType, Builder
         $map = [
             'embedded' => true,
             'type' => 'one',
-            'fieldName'=> $this->fieldName,
+            'fieldName' => $this->fieldName,
+            'notSaved' => $this->notSaved,
         ];
 
         if ($this->targetDocument) {
@@ -71,9 +72,7 @@ class EmbedOne extends BuilderField implements EmbedOneType, Builder
         if ($this->discriminator) {
             $map['discriminatorField'] = $this->discriminator->field;
             $map['discriminatorMap'] = $this->discriminator->map;
-            if (isset($this->discriminator->defaultValue)) {
-                $map['defaultDiscriminatorValue'] = $this->discriminator->defaultValue;
-            }
+            $map['defaultDiscriminatorValue'] = $this->discriminator->defaultValue;
         }
 
         return $map;
