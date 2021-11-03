@@ -8,75 +8,57 @@ trait TestField
 {
     public function testStringField()
     {
-        $builder = $this->givenEmptyBuilder();
-        $metadata = $this->givenClassMetadata();
+        $this->builder->field('string', 'firstName');
 
-        $builder->field('string', 'firstName');
-        $builder->build($metadata);
-
-        $this->assertFieldFieldMappingIsCorrect([], $metadata->fieldMappings['firstName']);
+        $this->assertFieldWasBuiltCorrectly([]);
     }
 
     public function testIntegerField()
     {
-        $builder = $this->givenEmptyBuilder();
-        $metadata = $this->givenClassMetadata();
+        $this->builder->field('integer', 'age');
 
-        $builder->field('integer', 'age');
-        $builder->build($metadata);
-
-        $this->assertFieldFieldMappingIsCorrect([
+        $this->assertFieldWasBuiltCorrectly([
             'fieldName' => 'age',
             'name' => 'age',
             'type' => 'integer',
-        ], $metadata->fieldMappings['age']);
+        ], 'age');
     }
 
     public function testNullableStringField()
     {
-        $builder = $this->givenEmptyBuilder();
-        $metadata = $this->givenClassMetadata();
+        $this->builder->field('string', 'firstName')->nullable();
 
-        $builder->field('string', 'firstName')->nullable();
-        $builder->build($metadata);
-
-        $this->assertFieldFieldMappingIsCorrect(
-            ['nullable' => true],
-            $metadata->fieldMappings['firstName']
-        );
+        $this->assertFieldWasBuiltCorrectly(['nullable' => true]);
     }
 
     public function testNotSavedStringField()
     {
-        $builder = $this->givenEmptyBuilder();
-        $metadata = $this->givenClassMetadata();
+        $this->builder->field('string', 'firstName')->notSaved();
 
-        $builder->field('string', 'firstName')->notSaved();
-        $builder->build($metadata);
-
-        $this->assertFieldFieldMappingIsCorrect(
-            ['notSaved' => true],
-            $metadata->fieldMappings['firstName']
-        );
+        $this->assertFieldWasBuiltCorrectly(['notSaved' => true]);
     }
 
     public function testStringFieldWithDifferentNameInDb()
     {
-        $builder = $this->givenEmptyBuilder();
-        $metadata = $this->givenClassMetadata();
+        $this->builder->field('string', 'firstName')->nameInDb('name');
 
-        $builder->field('string', 'firstName')->nameInDb('name');
-        $builder->build($metadata);
+        $this->assertFieldWasBuiltCorrectly(['name' => 'name']);
+    }
 
-        $this->assertFieldFieldMappingIsCorrect(
-            ['name' => 'name'],
-            $metadata->fieldMappings['firstName']
+    protected function assertFieldWasBuiltCorrectly(array $expectedFields, string $fieldName = 'firstName')
+    {
+        $this->builder->build($this->metadata);
+
+        $this->assertFieldMappingIsCorrect(
+            $this->getFieldDefaultMapping(),
+            $expectedFields,
+            $this->metadata->fieldMappings[$fieldName]
         );
     }
 
-    protected function assertFieldFieldMappingIsCorrect(array $overwriteFields, array $fieldMapping)
+    protected function getFieldDefaultMapping(): array
     {
-        $defaultFields = [
+        return [
             'fieldName' => 'firstName',
             'name' => 'firstName',
             'type' => 'string',
@@ -91,7 +73,5 @@ trait TestField
             'isOwningSide' => true,
             'isInverseSide' => false,
         ];
-
-        $this->assertFieldMappingIsCorrect($defaultFields, $overwriteFields, $fieldMapping);
     }
 }

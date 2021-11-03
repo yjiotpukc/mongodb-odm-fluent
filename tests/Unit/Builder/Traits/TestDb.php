@@ -8,12 +8,9 @@ trait TestDb
 {
     public function testDb()
     {
-        $builder = $this->givenEmptyBuilder();
-        $metadata = $this->givenClassMetadata();
+        $this->builder->db('someName');
+        $this->builder->build($this->metadata);
 
-        $builder->db('someName');
-        $builder->build($metadata);
-
-        static::assertSame('someName', $metadata->db);
+        static::assertSame('someName', $this->metadata->db);
     }
 }
