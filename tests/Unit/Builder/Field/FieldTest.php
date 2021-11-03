@@ -47,7 +47,7 @@ class FieldTest extends FieldTestCase
         $this->assertFieldBuildsCorrectly(['name' => 'name']);
     }
 
-    protected function getDefaultMapping(): array
+    public static function getDefaultMapping(): array
     {
         return [
             'fieldName' => 'firstName',
@@ -66,7 +66,7 @@ class FieldTest extends FieldTestCase
         ];
     }
 
-    protected function getDefaultFieldName(): string
+    public static function getDefaultFieldName(): string
     {
         return 'firstName';
     }

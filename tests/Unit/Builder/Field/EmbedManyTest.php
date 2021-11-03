@@ -76,7 +76,7 @@ class EmbedManyTest extends FieldTestCase
         $this->assertFieldBuildsCorrectly($expectedFields);
     }
 
-    protected function getDefaultMapping(): array
+    public static function getDefaultMapping(): array
     {
         return [
             'association' => 4,
@@ -98,7 +98,7 @@ class EmbedManyTest extends FieldTestCase
         ];
     }
 
-    protected function getDefaultFieldName(): string
+    public static function getDefaultFieldName(): string
     {
         return 'address';
     }
