@@ -85,45 +85,35 @@ abstract class BuilderBaseTestCase extends TestCase
             [
                 (new Cascade())->detach(),
                 [
-                    'cascade' => [
-                        'detach',
-                    ],
+                    'cascade' => ['detach'],
                     'isCascadeDetach' => true,
                 ],
             ],
             [
                 (new Cascade())->merge(),
                 [
-                    'cascade' => [
-                        'merge',
-                    ],
+                    'cascade' => ['merge'],
                     'isCascadeMerge' => true,
                 ],
             ],
             [
                 (new Cascade())->persist(),
                 [
-                    'cascade' => [
-                        'persist',
-                    ],
+                    'cascade' => ['persist'],
                     'isCascadePersist' => true,
                 ],
             ],
             [
                 (new Cascade())->refresh(),
                 [
-                    'cascade' => [
-                        'refresh',
-                    ],
+                    'cascade' => ['refresh'],
                     'isCascadeRefresh' => true,
                 ],
             ],
             [
                 (new Cascade())->remove(),
                 [
-                    'cascade' => [
-                        'remove',
-                    ],
+                    'cascade' => ['remove'],
                     'isCascadeRemove' => true,
                 ],
             ],
