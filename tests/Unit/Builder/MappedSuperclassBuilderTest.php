@@ -12,6 +12,7 @@ use yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Field\FieldTest;
 use yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Field\IdTest;
 use yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Field\ReferenceManyTest;
 use yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Field\ReferenceOneTest;
+use yjiotpukc\MongoODMFluent\Type\Discriminator;
 
 class MappedSuperclassBuilderTest extends BuilderTestCase
 {
@@ -29,22 +30,6 @@ class MappedSuperclassBuilderTest extends BuilderTestCase
         $this->builder->build($this->metadata);
 
         self::assertSame('collectionName', $this->metadata->collection);
-    }
-
-    public function testSingleCollection()
-    {
-        $this->givenBuilder()->singleCollection();
-        $this->builder->build($this->metadata);
-
-        self::assertTrue($this->metadata->isInheritanceTypeSingleCollection());
-    }
-
-    public function testCollectionPerClass()
-    {
-        $this->givenBuilder()->collectionPerClass();
-        $this->builder->build($this->metadata);
-
-        self::assertTrue($this->metadata->isInheritanceTypeCollectionPerClass());
     }
 
     public function testId()
@@ -111,6 +96,37 @@ class MappedSuperclassBuilderTest extends BuilderTestCase
             EmbedManyTest::getDefaultMapping(),
             $this->metadata->fieldMappings[EmbedManyTest::getDefaultFieldName()]
         );
+    }
+
+    public function testSingleCollection()
+    {
+        $this->givenBuilder()->singleCollection();
+        $this->builder->build($this->metadata);
+
+        self::assertTrue($this->metadata->isInheritanceTypeSingleCollection());
+    }
+
+    public function testCollectionPerClass()
+    {
+        $this->givenBuilder()->collectionPerClass();
+        $this->builder->build($this->metadata);
+
+        self::assertTrue($this->metadata->isInheritanceTypeCollectionPerClass());
+    }
+
+    public function testDiscriminator()
+    {
+        $discriminator = (new Discriminator('type'))
+            ->map('physical', AnotherEntityStub::class)
+            ->default('physical');
+        $discriminatorBuilder = new \yjiotpukc\MongoODMFluent\Builder\Database\Discriminator($discriminator);
+
+        $this->givenBuilder()->discriminator($discriminatorBuilder);
+        $this->builder->build($this->metadata);
+
+        self::assertSame('physical', $this->metadata->defaultDiscriminatorValue);
+        self::assertSame('type', $this->metadata->discriminatorField);
+        self::assertSame(['physical' => AnotherEntityStub::class], $this->metadata->discriminatorMap);
     }
 
     protected function givenBuilder(): MappedSuperclassBuilder

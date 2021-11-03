@@ -15,37 +15,6 @@ use yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Field\ReferenceOneTest;
 
 class EmbeddedDocumentTest extends BuilderTestCase
 {
-    public function testIndex()
-    {
-        $this->givenBuilder()->index('id');
-        $this->builder->build($this->metadata);
-
-        self::assertSameArray([
-            [
-                'keys' => ['id' => 1],
-                'options' => [],
-            ]
-        ], $this->metadata->indexes);
-    }
-
-    public function testTwoIndexes()
-    {
-        $this->givenBuilder()->index('id');
-        $this->builder->index('name');
-        $this->builder->build($this->metadata);
-
-        self::assertSameArray([
-            [
-                'keys' => ['id' => 1],
-                'options' => [],
-            ],
-            [
-                'keys' => ['name' => 1],
-                'options' => [],
-            ],
-        ], $this->metadata->indexes);
-    }
-
     public function testId()
     {
         $this->givenBuilder()->id();
@@ -110,6 +79,37 @@ class EmbeddedDocumentTest extends BuilderTestCase
             EmbedManyTest::getDefaultMapping(),
             $this->metadata->fieldMappings[EmbedManyTest::getDefaultFieldName()]
         );
+    }
+
+    public function testIndex()
+    {
+        $this->givenBuilder()->index('id');
+        $this->builder->build($this->metadata);
+
+        self::assertSameArray([
+            [
+                'keys' => ['id' => 1],
+                'options' => [],
+            ]
+        ], $this->metadata->indexes);
+    }
+
+    public function testTwoIndexes()
+    {
+        $this->givenBuilder()->index('id');
+        $this->builder->index('name');
+        $this->builder->build($this->metadata);
+
+        self::assertSameArray([
+            [
+                'keys' => ['id' => 1],
+                'options' => [],
+            ],
+            [
+                'keys' => ['name' => 1],
+                'options' => [],
+            ],
+        ], $this->metadata->indexes);
     }
 
     protected function givenBuilder(): EmbeddedDocumentBuilder
