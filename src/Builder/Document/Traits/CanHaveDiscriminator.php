@@ -2,18 +2,14 @@
 
 declare(strict_types=1);
 
-namespace yjiotpukc\MongoODMFluent\Builder\Traits;
+namespace yjiotpukc\MongoODMFluent\Builder\Document\Traits;
 
 use yjiotpukc\MongoODMFluent\Type\Discriminator;
 
 trait CanHaveDiscriminator
 {
-    use AbstractBuilderTrait;
-
     public function discriminator(Discriminator $discriminator): self
     {
-        $this->addBuildable($discriminator);
-
-        return $this;
+        return $this->addBuildableAndReturnSelf($discriminator);
     }
 }
