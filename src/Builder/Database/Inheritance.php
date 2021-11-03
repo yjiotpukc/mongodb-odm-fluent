@@ -19,6 +19,16 @@ class Inheritance implements Builder
         $this->type = $type;
     }
 
+    public static function singleCollection(): self
+    {
+        return new static(ClassMetadata::INHERITANCE_TYPE_SINGLE_COLLECTION);
+    }
+
+    public static function collectionPerClass(): self
+    {
+        return new static(ClassMetadata::INHERITANCE_TYPE_COLLECTION_PER_CLASS);
+    }
+
     public function build(ClassMetadata $metadata): void
     {
         $metadata->setInheritanceType($this->type);
