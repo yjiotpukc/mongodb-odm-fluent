@@ -7,12 +7,9 @@ namespace yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Field;
 use yjiotpukc\MongoODMFluent\Builder\Field\EmbedManyBuilder;
 use yjiotpukc\MongoODMFluent\Tests\Stubs\CollectionStub;
 use yjiotpukc\MongoODMFluent\Tests\Stubs\Mappings\AnotherEntityStub;
-use yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Traits\DiscriminatorProvider;
 
 class EmbedManyTest extends FieldTestCase
 {
-    use DiscriminatorProvider;
-
     public static function getDefaultMapping(): array
     {
         return [
