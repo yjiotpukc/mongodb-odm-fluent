@@ -6,6 +6,7 @@ namespace yjiotpukc\MongoODMFluent\Builder\Document;
 
 use yjiotpukc\MongoODMFluent\Builder\BaseBuilder;
 use yjiotpukc\MongoODMFluent\Builder\Builder;
+use yjiotpukc\MongoODMFluent\Builder\Document;
 use yjiotpukc\MongoODMFluent\Builder\Document\Traits\CanBeReadOnly;
 use yjiotpukc\MongoODMFluent\Builder\Document\Traits\CanHaveCollection;
 use yjiotpukc\MongoODMFluent\Builder\Document\Traits\CanHaveDb;
@@ -19,8 +20,9 @@ use yjiotpukc\MongoODMFluent\Builder\Document\Traits\CanHaveReferences;
 use yjiotpukc\MongoODMFluent\Builder\Document\Traits\CanHaveRepository;
 use yjiotpukc\MongoODMFluent\Builder\Document\Traits\CanHaveWriteConcern;
 use yjiotpukc\MongoODMFluent\Builder\EmbeddedDocument;
+use yjiotpukc\MongoODMFluent\Builder\MappedSuperclass;
 
-class DocumentBuilder extends BaseBuilder implements Builder, EmbeddedDocument
+class DocumentBuilder extends BaseBuilder implements Builder, Document, EmbeddedDocument, MappedSuperclass
 {
     use CanHaveDb;
     use CanHaveCollection;
@@ -38,5 +40,10 @@ class DocumentBuilder extends BaseBuilder implements Builder, EmbeddedDocument
     public function embeddedDocument(): self
     {
         return $this->addBuilderAndReturnSelf(new EmbeddedDocumentBuilder());
+    }
+
+    public function mappedSuperclass(): self
+    {
+        return $this->addBuilderAndReturnSelf(new MappedSuperclassBuilder());
     }
 }
