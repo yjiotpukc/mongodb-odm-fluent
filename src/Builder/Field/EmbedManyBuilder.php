@@ -16,22 +16,27 @@ class EmbedManyBuilder extends AbstractField implements EmbedMany, Builder
      * @var string
      */
     public $targetDocument;
+
     /**
      * @var bool
      */
     public $notSaved = false;
+
     /**
      * @var DiscriminatorBuilder
      */
     public $discriminator;
+
     /**
      * @var string
      */
     public $collectionClass;
+
     /**
-     * @var CollectionStrategy
+     * @var CollectionStrategyPartial
      */
     public $strategy;
+
     /**
      * @var string
      */
@@ -41,6 +46,7 @@ class EmbedManyBuilder extends AbstractField implements EmbedMany, Builder
     {
         $this->fieldName = $fieldName;
         $this->targetDocument = $target;
+        $this->strategy = new CollectionStrategyPartial();
     }
 
     public function target(string $target): EmbedMany
@@ -71,11 +77,9 @@ class EmbedManyBuilder extends AbstractField implements EmbedMany, Builder
         return $this;
     }
 
-    public function strategy(CollectionStrategy $strategy): EmbedMany
+    public function strategy(): CollectionStrategy
     {
-        $this->strategy = $strategy;
-
-        return $this;
+        return $this->strategy;
     }
 
     public function map(): array
@@ -93,9 +97,7 @@ class EmbedManyBuilder extends AbstractField implements EmbedMany, Builder
         if (isset($this->collectionClass)) {
             $map['collectionClass'] = $this->collectionClass;
         }
-        if (isset($this->strategy)) {
-            $map['strategy'] = $this->strategy->strategy;
-        }
+        $map = array_merge($map, $this->strategy->toMapping());
         if ($this->discriminator) {
             $map = array_merge($map, $this->discriminator->toMapping());
         }

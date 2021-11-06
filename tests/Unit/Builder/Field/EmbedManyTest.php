@@ -7,13 +7,10 @@ namespace yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Field;
 use yjiotpukc\MongoODMFluent\Builder\Field\EmbedManyBuilder;
 use yjiotpukc\MongoODMFluent\Tests\Stubs\CollectionStub;
 use yjiotpukc\MongoODMFluent\Tests\Stubs\Mappings\AnotherEntityStub;
-use yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Traits\CollectionStrategyProvider;
 use yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Traits\DiscriminatorProvider;
-use yjiotpukc\MongoODMFluent\Type\CollectionStrategy;
 
 class EmbedManyTest extends FieldTestCase
 {
-    use CollectionStrategyProvider;
     use DiscriminatorProvider;
 
     public static function getDefaultMapping(): array
@@ -108,13 +105,10 @@ class EmbedManyTest extends FieldTestCase
         $this->assertFieldBuildsCorrectly(['collectionClass' => CollectionStub::class]);
     }
 
-    /**
-     * @dataProvider collectionStrategyProvider
-     */
-    public function testEmbedManyWithCollectionStrategy(CollectionStrategy $strategy, array $expectedFields)
+    public function testEmbedManyWithCollectionStrategy()
     {
-        $this->givenDefaultBuilder()->strategy($strategy);
+        $this->givenDefaultBuilder()->strategy()->setArray();
 
-        $this->assertFieldBuildsCorrectly($expectedFields);
+        $this->assertFieldBuildsCorrectly(['strategy' => 'setArray']);
     }
 }

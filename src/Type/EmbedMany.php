@@ -16,5 +16,5 @@ interface EmbedMany
 
     public function collectionClass(string $className): EmbedMany;
 
-    public function strategy(CollectionStrategy $strategy): EmbedMany;
+    public function strategy(): CollectionStrategy;
 }
