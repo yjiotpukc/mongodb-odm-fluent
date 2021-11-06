@@ -6,7 +6,6 @@ namespace yjiotpukc\MongoODMFluent\Builder\Field;
 
 use yjiotpukc\MongoODMFluent\Builder\Builder;
 use yjiotpukc\MongoODMFluent\Type\Cascade;
-use yjiotpukc\MongoODMFluent\Type\Discriminator;
 use yjiotpukc\MongoODMFluent\Type\ReferenceOne as ReferenceOneType;
 
 class ReferenceOne extends AbstractReference implements ReferenceOneType, Builder
@@ -49,13 +48,6 @@ class ReferenceOne extends AbstractReference implements ReferenceOneType, Builde
     public function cascade(Cascade $cascade): ReferenceOneType
     {
         $this->cascade = $cascade;
-
-        return $this;
-    }
-
-    public function discriminator(Discriminator $discriminator): ReferenceOneType
-    {
-        $this->discriminator = $discriminator;
 
         return $this;
     }

@@ -28,7 +28,7 @@ interface ReferenceMany
 
     public function cascade(Cascade $cascade): ReferenceMany;
 
-    public function discriminator(Discriminator $discriminator): ReferenceMany;
+    public function discriminator(string $field): Discriminator;
 
     public function orphanRemoval(): ReferenceMany;
 

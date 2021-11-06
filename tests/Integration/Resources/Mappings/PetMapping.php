@@ -9,7 +9,6 @@ use yjiotpukc\MongoODMFluent\Mapping\MappedSuperclassMapping;
 use yjiotpukc\MongoODMFluent\Tests\Integration\Resources\Entities\Bird;
 use yjiotpukc\MongoODMFluent\Tests\Integration\Resources\Entities\Dog;
 use yjiotpukc\MongoODMFluent\Tests\Integration\Resources\Entities\Pet;
-use yjiotpukc\MongoODMFluent\Type\Discriminator;
 
 class PetMapping extends MappedSuperclassMapping
 {
@@ -25,8 +24,6 @@ class PetMapping extends MappedSuperclassMapping
         $builder->singleCollection();
         $builder->id();
         $builder->field('string', 'name');
-        $discriminator = new Discriminator('type');
-        $discriminator->map('dog', Dog::class)->map('bird', Bird::class);
-        $builder->discriminator(new \yjiotpukc\MongoODMFluent\Builder\Database\Discriminator($discriminator));
+        $builder->discriminator('type')->map('dog', Dog::class)->map('bird', Bird::class);
     }
 }

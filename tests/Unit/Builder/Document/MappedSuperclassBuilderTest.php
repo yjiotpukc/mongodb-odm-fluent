@@ -13,7 +13,6 @@ use yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Field\FieldTest;
 use yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Field\IdTest;
 use yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Field\ReferenceManyTest;
 use yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Field\ReferenceOneTest;
-use yjiotpukc\MongoODMFluent\Type\Discriminator;
 
 class MappedSuperclassBuilderTest extends BuilderTestCase
 {
@@ -117,12 +116,10 @@ class MappedSuperclassBuilderTest extends BuilderTestCase
 
     public function testDiscriminator()
     {
-        $discriminator = (new Discriminator('type'))
+        $this->givenBuilder()
+            ->discriminator('type')
             ->map('physical', AnotherEntityStub::class)
             ->default('physical');
-        $discriminatorBuilder = new \yjiotpukc\MongoODMFluent\Builder\Database\Discriminator($discriminator);
-
-        $this->givenBuilder()->discriminator($discriminatorBuilder);
         $this->builder->build($this->metadata);
 
         self::assertSame('physical', $this->metadata->defaultDiscriminatorValue);

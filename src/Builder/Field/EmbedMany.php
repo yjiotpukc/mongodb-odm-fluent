@@ -27,7 +27,7 @@ class EmbedMany extends BuilderField implements EmbedManyType, Builder
     public $notSaved = false;
 
     /**
-     * @var Discriminator
+     * @var \yjiotpukc\MongoODMFluent\Builder\Database\Discriminator
      */
     public $discriminator;
 
@@ -61,11 +61,11 @@ class EmbedMany extends BuilderField implements EmbedManyType, Builder
         return $this;
     }
 
-    public function discriminator(Discriminator $discriminator): EmbedManyType
+    public function discriminator(string $field): Discriminator
     {
-        $this->discriminator = $discriminator;
+        $this->discriminator = new \yjiotpukc\MongoODMFluent\Builder\Database\Discriminator($field);
 
-        return $this;
+        return $this->discriminator;
     }
 
     public function collectionClass(string $className): EmbedManyType
@@ -101,9 +101,7 @@ class EmbedMany extends BuilderField implements EmbedManyType, Builder
             $map['strategy'] = $this->strategy->strategy;
         }
         if ($this->discriminator) {
-            $map['discriminatorField'] = $this->discriminator->field;
-            $map['discriminatorMap'] = $this->discriminator->map;
-                $map['defaultDiscriminatorValue'] = $this->discriminator->defaultValue;
+            $map = array_merge($map, $this->discriminator->toMapping());
         }
 
         return $map;

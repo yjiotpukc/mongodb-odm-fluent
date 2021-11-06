@@ -8,8 +8,8 @@ use yjiotpukc\MongoODMFluent\Builder\Database\Discriminator;
 
 trait CanHaveDiscriminator
 {
-    public function discriminator(Discriminator $discriminator): self
+    public function discriminator(string $field): \yjiotpukc\MongoODMFluent\Type\Discriminator
     {
-        return $this->addBuilderAndReturnSelf($discriminator);
+        return $this->addBuilder(new Discriminator($field));
     }
 }

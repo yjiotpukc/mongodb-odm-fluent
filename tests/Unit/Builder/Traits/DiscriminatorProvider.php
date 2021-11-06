@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Traits;
 
+use yjiotpukc\MongoODMFluent\Builder\Database\Discriminator;
 use yjiotpukc\MongoODMFluent\Tests\Stubs\Mappings\AnotherEntityStub;
-use yjiotpukc\MongoODMFluent\Type\Discriminator;
 
 trait DiscriminatorProvider
 {

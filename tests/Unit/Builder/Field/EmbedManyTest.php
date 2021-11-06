@@ -10,7 +10,6 @@ use yjiotpukc\MongoODMFluent\Tests\Stubs\Mappings\AnotherEntityStub;
 use yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Traits\CollectionStrategyProvider;
 use yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Traits\DiscriminatorProvider;
 use yjiotpukc\MongoODMFluent\Type\CollectionStrategy;
-use yjiotpukc\MongoODMFluent\Type\Discriminator;
 
 class EmbedManyTest extends FieldTestCase
 {
@@ -49,14 +48,18 @@ class EmbedManyTest extends FieldTestCase
         $this->assertFieldBuildsCorrectly(['notSaved' => true]);
     }
 
-    /**
-     * @dataProvider discriminatorProvider
-     */
-    public function testEmbedManyWithDiscriminator(Discriminator $discriminator, array $expectedFields)
+    public function testReferenceOneWithDiscriminator()
     {
-        $this->givenDefaultBuilder()->discriminator($discriminator);
+        $this->givenDefaultBuilder()
+            ->discriminator('type')
+            ->default('physical')
+            ->map('physical', AnotherEntityStub::class);
 
-        $this->assertFieldBuildsCorrectly($expectedFields);
+        $this->assertFieldBuildsCorrectly([
+            'discriminatorField' => 'type',
+            'defaultDiscriminatorValue' => 'physical',
+            'discriminatorMap' => ['physical' => AnotherEntityStub::class],
+        ]);
     }
 
     public function testEmbedManyWithCollectionClass()

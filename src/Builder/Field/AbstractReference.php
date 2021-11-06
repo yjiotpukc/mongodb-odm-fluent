@@ -32,7 +32,7 @@ abstract class AbstractReference extends BuilderField implements Builder
     protected $cascade;
 
     /**
-     * @var Discriminator
+     * @var \yjiotpukc\MongoODMFluent\Builder\Database\Discriminator
      */
     protected $discriminator;
 
@@ -93,6 +93,13 @@ abstract class AbstractReference extends BuilderField implements Builder
         $this->criteria = [];
     }
 
+    public function discriminator(string $field): Discriminator
+    {
+        $this->discriminator = new \yjiotpukc\MongoODMFluent\Builder\Database\Discriminator($field);
+
+        return $this->discriminator;
+    }
+
     public function map(): array
     {
         $map = [
@@ -113,9 +120,7 @@ abstract class AbstractReference extends BuilderField implements Builder
             $map['cascade'] = $this->cascade->cascades;
         }
         if ($this->discriminator) {
-            $map['discriminatorField'] = $this->discriminator->field;
-            $map['discriminatorMap'] = $this->discriminator->map;
-            $map['defaultDiscriminatorValue'] = $this->discriminator->defaultValue;
+            $map = array_merge($map, $this->discriminator->toMapping());
         }
         if ($this->inversedBy) {
             $map['inversedBy'] = $this->inversedBy;
