@@ -45,11 +45,11 @@ class ReferenceOneBuilder extends AbstractReferenceBuilder implements ReferenceO
         return $this;
     }
 
-    public function cascade(Cascade $cascade): ReferenceOne
+    public function cascade(): Cascade
     {
-        $this->cascade = $cascade;
+        $this->cascade = new CascadePartial();
 
-        return $this;
+        return $this->cascade;
     }
 
     public function orphanRemoval(): ReferenceOne
