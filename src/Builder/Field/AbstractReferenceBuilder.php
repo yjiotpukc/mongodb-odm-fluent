@@ -7,7 +7,6 @@ namespace yjiotpukc\MongoODMFluent\Builder\Field;
 use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
 use yjiotpukc\MongoODMFluent\Builder\Builder;
 use yjiotpukc\MongoODMFluent\Builder\Database\DiscriminatorBuilder;
-use yjiotpukc\MongoODMFluent\Type\Cascade;
 use yjiotpukc\MongoODMFluent\Type\Discriminator;
 
 abstract class AbstractReferenceBuilder extends AbstractField implements Builder
@@ -28,7 +27,7 @@ abstract class AbstractReferenceBuilder extends AbstractField implements Builder
     protected $storeAs;
 
     /**
-     * @var Cascade
+     * @var CascadePartial
      */
     protected $cascade;
 
@@ -118,7 +117,7 @@ abstract class AbstractReferenceBuilder extends AbstractField implements Builder
             $map['targetDocument'] = $this->target;
         }
         if ($this->cascade) {
-            $map['cascade'] = $this->cascade->cascades;
+            $map = array_merge($map, $this->cascade->toMapping());
         }
         if ($this->discriminator) {
             $map = array_merge($map, $this->discriminator->toMapping());

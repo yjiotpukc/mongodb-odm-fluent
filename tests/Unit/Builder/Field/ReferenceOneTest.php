@@ -6,13 +6,10 @@ namespace yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Field;
 
 use yjiotpukc\MongoODMFluent\Builder\Field\ReferenceOneBuilder;
 use yjiotpukc\MongoODMFluent\Tests\Stubs\Mappings\AnotherEntityStub;
-use yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Traits\CascadeProvider;
 use yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Traits\DiscriminatorProvider;
-use yjiotpukc\MongoODMFluent\Type\Cascade;
 
 class ReferenceOneTest extends FieldTestCase
 {
-    use CascadeProvider;
     use DiscriminatorProvider;
 
     public static function getDefaultMapping(): array
@@ -132,14 +129,24 @@ class ReferenceOneTest extends FieldTestCase
         $this->assertFieldBuildsCorrectly(['orphanRemoval' => true]);
     }
 
-    /**
-     * @dataProvider cascadeProvider
-     */
-    public function testReferenceOneWithCascadeAll(Cascade $cascade, array $expectedFields)
+    public function testReferenceOneWithCascadeAll()
     {
-        $this->givenDefaultBuilder()->cascade($cascade);
+        $this->givenDefaultBuilder()->cascade()->all();
 
-        $this->assertFieldBuildsCorrectly($expectedFields);
+        $this->assertFieldBuildsCorrectly([
+            'cascade' => [
+                'detach',
+                'merge',
+                'refresh',
+                'remove',
+                'persist',
+            ],
+            'isCascadeDetach' => true,
+            'isCascadeMerge' => true,
+            'isCascadePersist' => true,
+            'isCascadeRefresh' => true,
+            'isCascadeRemove' => true,
+        ]);
     }
 
     public function testReferenceOneWithRepositoryMethod()

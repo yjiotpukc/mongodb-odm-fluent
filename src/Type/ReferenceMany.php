@@ -26,7 +26,7 @@ interface ReferenceMany
      */
     public function storeAsDbRefWithDb(): ReferenceMany;
 
-    public function cascade(Cascade $cascade): ReferenceMany;
+    public function cascade(): Cascade;
 
     public function discriminator(string $field): Discriminator;
 

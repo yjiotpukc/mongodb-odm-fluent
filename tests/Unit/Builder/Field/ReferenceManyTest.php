@@ -7,15 +7,12 @@ namespace yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Field;
 use yjiotpukc\MongoODMFluent\Builder\Field\ReferenceManyBuilder;
 use yjiotpukc\MongoODMFluent\Tests\Stubs\CollectionStub;
 use yjiotpukc\MongoODMFluent\Tests\Stubs\Mappings\AnotherEntityStub;
-use yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Traits\CascadeProvider;
 use yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Traits\CollectionStrategyProvider;
 use yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Traits\DiscriminatorProvider;
-use yjiotpukc\MongoODMFluent\Type\Cascade;
 use yjiotpukc\MongoODMFluent\Type\CollectionStrategy;
 
 class ReferenceManyTest extends FieldTestCase
 {
-    use CascadeProvider;
     use CollectionStrategyProvider;
     use DiscriminatorProvider;
 
@@ -137,14 +134,24 @@ class ReferenceManyTest extends FieldTestCase
         $this->assertFieldBuildsCorrectly(['orphanRemoval' => true]);
     }
 
-    /**
-     * @dataProvider cascadeProvider
-     */
-    public function testReferenceManyWithCascadeAll(Cascade $cascade, array $expectedFields)
+    public function testReferenceManyWithCascadeAll()
     {
-        $this->givenDefaultBuilder()->cascade($cascade);
+        $this->givenDefaultBuilder()->cascade()->all();
 
-        $this->assertFieldBuildsCorrectly($expectedFields);
+        $this->assertFieldBuildsCorrectly([
+            'cascade' => [
+                'detach',
+                'merge',
+                'refresh',
+                'remove',
+                'persist',
+            ],
+            'isCascadeDetach' => true,
+            'isCascadeMerge' => true,
+            'isCascadePersist' => true,
+            'isCascadeRefresh' => true,
+            'isCascadeRemove' => true,
+        ]);
     }
 
     public function testReferenceManyWithRepositoryMethod()

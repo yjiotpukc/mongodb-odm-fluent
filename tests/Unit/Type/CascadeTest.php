@@ -5,55 +5,63 @@ declare(strict_types=1);
 namespace yjiotpukc\MongoODMFluent\Tests\Unit\Type;
 
 use PHPUnit\Framework\TestCase;
-use yjiotpukc\MongoODMFluent\Type\Cascade;
+use yjiotpukc\MongoODMFluent\Builder\Field\CascadePartial;
 
 class CascadeTest extends TestCase
 {
     public function testAll()
     {
-        $cascade = (new Cascade())->all();
+        $cascadeBuilder = new CascadePartial();
+        $cascadeBuilder->all();
 
         self::assertSame([
-            'detach',
-            'merge',
-            'refresh',
-            'remove',
-            'persist',
-        ], $cascade->cascades);
+            'cascade' => [
+                'detach',
+                'merge',
+                'refresh',
+                'remove',
+                'persist',
+            ],
+        ], $cascadeBuilder->toMapping());
     }
 
     public function testDetach()
     {
-        $cascade = (new Cascade())->detach();
+        $cascadeBuilder = new CascadePartial();
+        $cascadeBuilder->detach();
 
-        self::assertSame(['detach'], $cascade->cascades);
+        self::assertSame(['cascade' => ['detach']], $cascadeBuilder->toMapping());
     }
 
     public function testMerge()
     {
-        $cascade = (new Cascade())->merge();
+        $cascadeBuilder = new CascadePartial();
+        $cascadeBuilder->merge();
 
-        self::assertSame(['merge'], $cascade->cascades);
+        self::assertSame(['cascade' => ['merge']], $cascadeBuilder->toMapping());
     }
 
     public function testRefresh()
     {
-        $cascade = (new Cascade())->refresh();
+        $cascadeBuilder = new CascadePartial();
+        $cascadeBuilder->refresh();
 
-        self::assertSame(['refresh'], $cascade->cascades);
+        self::assertSame(['cascade' => ['refresh']], $cascadeBuilder->toMapping());
     }
 
     public function testRemove()
     {
-        $cascade = (new Cascade())->remove();
+        $cascadeBuilder = new CascadePartial();
+        $cascadeBuilder->remove();
 
-        self::assertSame(['remove'], $cascade->cascades);
+        self::assertSame(['cascade' => ['remove']], $cascadeBuilder->toMapping());
     }
 
     public function testPersist()
     {
-        $cascade = (new Cascade())->persist();
+        $cascadeBuilder = new CascadePartial();
+        $cascadeBuilder->persist();
 
-        self::assertSame(['persist'], $cascade->cascades);
+        self::assertSame(['cascade' => ['persist']], $cascadeBuilder->toMapping());
     }
 }

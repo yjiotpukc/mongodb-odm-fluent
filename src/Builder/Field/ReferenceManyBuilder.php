@@ -73,11 +73,11 @@ class ReferenceManyBuilder extends AbstractReferenceBuilder implements Reference
         return $this;
     }
 
-    public function cascade(Cascade $cascade): ReferenceMany
+    public function cascade(): Cascade
     {
-        $this->cascade = $cascade;
+        $this->cascade = new CascadePartial();
 
-        return $this;
+        return $this->cascade;
     }
 
     public function orphanRemoval(): ReferenceMany
