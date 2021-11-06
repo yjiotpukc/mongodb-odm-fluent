@@ -26,9 +26,9 @@ interface ReferenceMany
      */
     public function storeAsDbRefWithDb(): ReferenceMany;
 
-    public function cascade(Cascade $cascade): ReferenceMany;
+    public function cascade(): Cascade;
 
-    public function discriminator(Discriminator $discriminator): ReferenceMany;
+    public function discriminator(string $field): Discriminator;
 
     public function orphanRemoval(): ReferenceMany;
 
@@ -46,7 +46,7 @@ interface ReferenceMany
 
     public function skip(int $skip): ReferenceMany;
 
-    public function strategy(CollectionStrategy $strategy): ReferenceMany;
+    public function strategy(): CollectionStrategy;
 
     public function collectionClass(string $className): ReferenceMany;
 

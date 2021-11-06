@@ -5,21 +5,18 @@ declare(strict_types=1);
 namespace yjiotpukc\MongoODMFluent\Mapping;
 
 use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
-use yjiotpukc\MongoODMFluent\Builder\MappedSuperclassBuilder;
+use yjiotpukc\MongoODMFluent\Builder\Document\DocumentBuilder;
+use yjiotpukc\MongoODMFluent\Builder\MappedSuperclass;
 
 abstract class MappedSuperclassMapping implements Mapping
 {
-    abstract public function map(MappedSuperclassBuilder $builder): void;
-
     public function load(ClassMetadata $metadata): void
     {
-        $builder = $this->createBuilder();
+        $builder = new DocumentBuilder();
+        $builder->mappedSuperclass();
         $this->map($builder);
         $builder->build($metadata);
     }
 
-    final public function createBuilder(): MappedSuperclassBuilder
-    {
-        return new MappedSuperclassBuilder();
-    }
+    abstract public function map(MappedSuperclass $builder): void;
 }

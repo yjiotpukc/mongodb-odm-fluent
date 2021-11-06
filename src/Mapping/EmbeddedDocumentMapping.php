@@ -5,21 +5,18 @@ declare(strict_types=1);
 namespace yjiotpukc\MongoODMFluent\Mapping;
 
 use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
-use yjiotpukc\MongoODMFluent\Builder\EmbeddedDocumentBuilder;
+use yjiotpukc\MongoODMFluent\Builder\Document\DocumentBuilder;
+use yjiotpukc\MongoODMFluent\Builder\EmbeddedDocument;
 
 abstract class EmbeddedDocumentMapping implements Mapping
 {
-    abstract public function map(EmbeddedDocumentBuilder $builder): void;
-
     public function load(ClassMetadata $metadata): void
     {
-        $builder = $this->createBuilder();
+        $builder = new DocumentBuilder();
+        $builder->embeddedDocument();
         $this->map($builder);
         $builder->build($metadata);
     }
 
-    final public function createBuilder(): EmbeddedDocumentBuilder
-    {
-        return new EmbeddedDocumentBuilder();
-    }
+    abstract public function map(EmbeddedDocument $builder): void;
 }

@@ -5,81 +5,32 @@ declare(strict_types=1);
 namespace yjiotpukc\MongoODMFluent\Builder;
 
 use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
-use yjiotpukc\MongoODMFluent\Type\Cascade;
-use yjiotpukc\MongoODMFluent\Type\CollectionStrategy;
-use yjiotpukc\MongoODMFluent\Type\EmbedMany;
-use yjiotpukc\MongoODMFluent\Type\EmbedOne;
-use yjiotpukc\MongoODMFluent\Type\Field;
-use yjiotpukc\MongoODMFluent\Type\Id;
-use yjiotpukc\MongoODMFluent\Type\Implementation\EmbedMany as EmbedManyImplementation;
-use yjiotpukc\MongoODMFluent\Type\Implementation\EmbedOne as EmbedOneImplementation;
-use yjiotpukc\MongoODMFluent\Type\Implementation\Field as FieldImplementation;
-use yjiotpukc\MongoODMFluent\Type\Implementation\Id as IdImplementation;
-use yjiotpukc\MongoODMFluent\Type\Implementation\ReferenceMany as ReferenceManyImplementation;
-use yjiotpukc\MongoODMFluent\Type\Implementation\ReferenceOne as ReferenceOneImplementation;
-use yjiotpukc\MongoODMFluent\Type\MappableField;
-use yjiotpukc\MongoODMFluent\Type\ReferenceMany;
-use yjiotpukc\MongoODMFluent\Type\ReferenceOne;
 
-abstract class BaseBuilder implements FluentBuilder
+abstract class BaseBuilder implements Builder
 {
     /**
-     * @var MappableField[]
+     * @var Builder[]
      */
-    protected $fields = [];
+    protected $builders = [];
 
     public function build(ClassMetadata $metadata): void
     {
-        foreach ($this->fields as $field) {
-            $metadata->mapField($field->map());
+        foreach ($this->builders as $builder) {
+            $builder->build($metadata);
         }
     }
 
-    public function id(): Id
+    protected function addBuilder($builder)
     {
-        $id = new IdImplementation();
-        $this->fields[] = $id;
+        $this->builders[] = $builder;
 
-        return $id;
+        return $builder;
     }
 
-    public function field(string $type, string $fieldName): Field
+    protected function addBuilderAndReturnSelf($builder): self
     {
-        $field = new FieldImplementation($type, $fieldName);
-        $this->fields[] = $field;
+        $this->builders[] = $builder;
 
-        return $field;
-    }
-
-    public function embedOne(string $fieldName, string $target = ''): EmbedOne
-    {
-        $embedOne = new EmbedOneImplementation($fieldName, $target);
-        $this->fields[] = $embedOne;
-
-        return $embedOne;
-    }
-
-    public function embedMany(string $fieldName, string $target = ''): EmbedMany
-    {
-        $embedMany = new EmbedManyImplementation($fieldName, $target);
-        $this->fields[] = $embedMany;
-
-        return $embedMany;
-    }
-
-    public function referenceOne(string $fieldName, string $target = ''): ReferenceOne
-    {
-        $referenceOne = new ReferenceOneImplementation($fieldName, $target);
-        $this->fields[] = $referenceOne;
-
-        return $referenceOne;
-    }
-
-    public function referenceMany(string $fieldName, string $target = ''): ReferenceMany
-    {
-        $referenceOne = new ReferenceManyImplementation($fieldName, $target);
-        $this->fields[] = $referenceOne;
-
-        return $referenceOne;
+        return $this;
     }
 }

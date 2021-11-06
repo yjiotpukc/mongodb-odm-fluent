@@ -8,17 +8,18 @@ use Doctrine\Persistence\Mapping\ClassMetadata;
 use Doctrine\Persistence\Mapping\Driver\MappingDriver;
 use yjiotpukc\MongoODMFluent\Mapping\Mapping;
 use yjiotpukc\MongoODMFluent\MappingFinder\MappingFinder;
+use yjiotpukc\MongoODMFluent\MappingSet\MappingSet;
 
 class FluentDriver implements MappingDriver
 {
     /**
-     * @var MappingFinder
+     * @var MappingSet
      */
-    private $mappingFinder;
+    protected $mappingSet;
 
     public function __construct(MappingFinder $mappingFinder)
     {
-        $this->mappingFinder = $mappingFinder;
+        $this->mappingSet = $mappingFinder->makeMappingSet();
     }
 
     public function loadMetadataForClass($className, ClassMetadata $metadata): void
@@ -26,28 +27,49 @@ class FluentDriver implements MappingDriver
         $this->createMapping($className)->load($metadata);
     }
 
+    protected function createMapping(string $entityClassName): Mapping
+    {
+        $this->assertMappingExists($entityClassName);
+        $mappingClassName = $this->mappingSet->find($entityClassName);
+        $this->assertMappingClassExists($mappingClassName);
+        $mapping = new $mappingClassName();
+        $this->assertMappingIsInstanceOfMapping($mapping);
+
+        return $mapping;
+    }
+
+    protected function assertMappingExists(string $entityClassName): void
+    {
+        if (!$this->mappingSet->exists($entityClassName)) {
+            throw new MappingException("Mapping for entity [$entityClassName] not found");
+        }
+    }
+
+    protected function assertMappingClassExists(string $mappingClassName): void
+    {
+        if (!class_exists($mappingClassName)) {
+            throw new MappingException("[$mappingClassName] does not exist");
+        }
+    }
+
+    protected function assertMappingIsInstanceOfMapping(object $mapping): void
+    {
+        $mappingClassName = get_class($mapping);
+        if (!($mapping instanceof Mapping)) {
+            throw new MappingException("[$mappingClassName] is not a mapping");
+        }
+    }
+
     /**
      * @return string[]
      */
     public function getAllClassNames(): array
     {
-        return $this->mappingFinder->getAll();
+        return $this->mappingSet->getAll();
     }
 
     public function isTransient($className): bool
     {
-        return !$this->mappingFinder->exists($className);
-    }
-
-    protected function createMapping(string $entityClassName): Mapping
-    {
-        $mappingClassName = $this->mappingFinder->find($entityClassName);
-
-        $mapping = new $mappingClassName();
-        if (!($mapping instanceof Mapping)) {
-            throw new MappingException("[$mappingClassName] is not a mapping");
-        }
-
-        return $mapping;
+        return !$this->mappingSet->exists($className);
     }
 }

@@ -16,9 +16,4 @@ interface Mapping
     public function mapFor(): string;
 
     public function load(ClassMetadata $metadata): void;
-
-    /**
-     * Returns fluent builder for this mapping type
-     */
-    public function createBuilder();
 }
