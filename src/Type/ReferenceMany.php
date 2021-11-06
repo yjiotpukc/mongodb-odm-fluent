@@ -46,7 +46,7 @@ interface ReferenceMany
 
     public function skip(int $skip): ReferenceMany;
 
-    public function strategy(CollectionStrategy $strategy): ReferenceMany;
+    public function strategy(): CollectionStrategy;
 
     public function collectionClass(string $className): ReferenceMany;
 

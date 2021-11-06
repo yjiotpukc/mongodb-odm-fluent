@@ -7,13 +7,10 @@ namespace yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Field;
 use yjiotpukc\MongoODMFluent\Builder\Field\ReferenceManyBuilder;
 use yjiotpukc\MongoODMFluent\Tests\Stubs\CollectionStub;
 use yjiotpukc\MongoODMFluent\Tests\Stubs\Mappings\AnotherEntityStub;
-use yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Traits\CollectionStrategyProvider;
 use yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Traits\DiscriminatorProvider;
-use yjiotpukc\MongoODMFluent\Type\CollectionStrategy;
 
 class ReferenceManyTest extends FieldTestCase
 {
-    use CollectionStrategyProvider;
     use DiscriminatorProvider;
 
     public static function getDefaultMapping(): array
@@ -58,6 +55,14 @@ class ReferenceManyTest extends FieldTestCase
     protected function givenDefaultBuilder(): ReferenceManyBuilder
     {
         return $this->givenBuilder('address', AnotherEntityStub::class);
+    }
+
+    protected function givenBuilderWithSetArrayStrategy(): ReferenceManyBuilder
+    {
+        $builder = $this->givenDefaultBuilder();
+        $builder->strategy()->setArray();
+
+        return $builder;
     }
 
     protected function givenBuilder(string $fieldName, string $target = ''): ReferenceManyBuilder
@@ -213,9 +218,7 @@ class ReferenceManyTest extends FieldTestCase
 
     public function testReferenceManyWithSortDefault()
     {
-        $this->givenDefaultBuilder()
-            ->strategy((new CollectionStrategy())->setArray())
-            ->addSort('sort');
+        $this->givenBuilderWithSetArrayStrategy()->addSort('sort');
 
         $this->assertFieldBuildsCorrectly([
             'strategy' => 'setArray',
@@ -225,9 +228,7 @@ class ReferenceManyTest extends FieldTestCase
 
     public function testReferenceManyWithSortAsc()
     {
-        $this->givenDefaultBuilder()
-            ->strategy((new CollectionStrategy())->setArray())
-            ->addSort('sort', 'asc');
+        $this->givenBuilderWithSetArrayStrategy()->addSort('sort', 'asc');
 
         $this->assertFieldBuildsCorrectly([
             'strategy' => 'setArray',
@@ -237,9 +238,7 @@ class ReferenceManyTest extends FieldTestCase
 
     public function testReferenceManyWithSortDesc()
     {
-        $this->givenDefaultBuilder()
-            ->strategy((new CollectionStrategy())->setArray())
-            ->addSort('sort', 'desc');
+        $this->givenBuilderWithSetArrayStrategy()->addSort('sort', 'desc');
 
         $this->assertFieldBuildsCorrectly([
             'strategy' => 'setArray',
@@ -249,10 +248,7 @@ class ReferenceManyTest extends FieldTestCase
 
     public function testReferenceManyWithMultiSort()
     {
-        $this->givenDefaultBuilder()
-            ->strategy((new CollectionStrategy())->setArray())
-            ->addSort('sort', 'desc')
-            ->addSort('id');
+        $this->givenBuilderWithSetArrayStrategy()->addSort('sort', 'desc')->addSort('id');
 
         $this->assertFieldBuildsCorrectly([
             'strategy' => 'setArray',
@@ -284,14 +280,11 @@ class ReferenceManyTest extends FieldTestCase
         ]);
     }
 
-    /**
-     * @dataProvider collectionStrategyProvider
-     */
-    public function testReferenceManyWithCollectionStrategy(CollectionStrategy $strategy, array $expectedFields)
+    public function testReferenceManyWithCollectionStrategy()
     {
-        $this->givenDefaultBuilder()->strategy($strategy);
+        $this->givenDefaultBuilder()->strategy()->setArray();
 
-        $this->assertFieldBuildsCorrectly($expectedFields);
+        $this->assertFieldBuildsCorrectly(['strategy' => 'setArray']);
     }
 
     public function testReferenceManyWithCollectionClass()

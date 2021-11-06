@@ -5,35 +5,46 @@ declare(strict_types=1);
 namespace yjiotpukc\MongoODMFluent\Tests\Unit\Type;
 
 use PHPUnit\Framework\TestCase;
-use yjiotpukc\MongoODMFluent\Type\CollectionStrategy;
+use yjiotpukc\MongoODMFluent\Builder\Field\CollectionStrategyPartial;
 
 class CollectionStrategyTest extends TestCase
 {
+    public function testDefault()
+    {
+        $collectionStrategy = new CollectionStrategyPartial();
+
+        self::assertSame(['strategy' => 'pushAll'], $collectionStrategy->toMapping());
+    }
+
     public function testSet()
     {
-        $collectionStrategy = (new CollectionStrategy())->set();
+        $collectionStrategy = new CollectionStrategyPartial();
+        $collectionStrategy->set();
 
-        self::assertSame('set', $collectionStrategy->strategy);
+        self::assertSame(['strategy' => 'set'], $collectionStrategy->toMapping());
     }
 
     public function testPushAll()
     {
-        $collectionStrategy = (new CollectionStrategy())->pushAll();
+        $collectionStrategy = new CollectionStrategyPartial();
+        $collectionStrategy->pushAll();
 
-        self::assertSame('pushAll', $collectionStrategy->strategy);
+        self::assertSame(['strategy' => 'pushAll'], $collectionStrategy->toMapping());
     }
 
     public function testAddToSet()
     {
-        $collectionStrategy = (new CollectionStrategy())->addToSet();
+        $collectionStrategy = new CollectionStrategyPartial();
+        $collectionStrategy->addToSet();
 
-        self::assertSame('addToSet', $collectionStrategy->strategy);
+        self::assertSame(['strategy' => 'addToSet'], $collectionStrategy->toMapping());
     }
 
     public function testSetArray()
     {
-        $collectionStrategy = (new CollectionStrategy())->setArray();
+        $collectionStrategy = new CollectionStrategyPartial();
+        $collectionStrategy->setArray();
 
-        self::assertSame('setArray', $collectionStrategy->strategy);
+        self::assertSame(['strategy' => 'setArray'], $collectionStrategy->toMapping());
     }
 }
