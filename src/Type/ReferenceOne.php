@@ -28,7 +28,7 @@ interface ReferenceOne
 
     public function cascade(Cascade $cascade): ReferenceOne;
 
-    public function discriminator(Discriminator $discriminator): ReferenceOne;
+    public function discriminator(string $field): Discriminator;
 
     public function orphanRemoval(): ReferenceOne;
 

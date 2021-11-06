@@ -7,7 +7,6 @@ namespace yjiotpukc\MongoODMFluent\Builder\Field;
 use yjiotpukc\MongoODMFluent\Builder\Builder;
 use yjiotpukc\MongoODMFluent\Type\Cascade;
 use yjiotpukc\MongoODMFluent\Type\CollectionStrategy;
-use yjiotpukc\MongoODMFluent\Type\Discriminator;
 use yjiotpukc\MongoODMFluent\Type\ReferenceMany as ReferenceManyType;
 
 class ReferenceMany extends AbstractReference implements ReferenceManyType, Builder
@@ -77,13 +76,6 @@ class ReferenceMany extends AbstractReference implements ReferenceManyType, Buil
     public function cascade(Cascade $cascade): ReferenceManyType
     {
         $this->cascade = $cascade;
-
-        return $this;
-    }
-
-    public function discriminator(Discriminator $discriminator): ReferenceManyType
-    {
-        $this->discriminator = $discriminator;
 
         return $this;
     }

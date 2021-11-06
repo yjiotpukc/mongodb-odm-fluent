@@ -15,10 +15,9 @@ class DiscriminatorTest extends BuilderTestCase
     /**
      * @dataProvider discriminatorProvider
      */
-    public function testDiscriminator(\yjiotpukc\MongoODMFluent\Type\Discriminator $discriminator, array $expected)
+    public function testDiscriminator(Discriminator $discriminator, array $expected)
     {
-        $this->builder = new Discriminator($discriminator);
-        $this->builder->build($this->metadata);
+        $discriminator->build($this->metadata);
 
         self::assertSame($expected['defaultDiscriminatorValue'], $this->metadata->defaultDiscriminatorValue);
         self::assertSame($expected['discriminatorField'], $this->metadata->discriminatorField);

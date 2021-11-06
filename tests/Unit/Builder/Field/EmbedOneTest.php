@@ -7,7 +7,6 @@ namespace yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Field;
 use yjiotpukc\MongoODMFluent\Builder\Field\EmbedOne;
 use yjiotpukc\MongoODMFluent\Tests\Stubs\Mappings\AnotherEntityStub;
 use yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Traits\DiscriminatorProvider;
-use yjiotpukc\MongoODMFluent\Type\Discriminator;
 
 class EmbedOneTest extends FieldTestCase
 {
@@ -45,14 +44,18 @@ class EmbedOneTest extends FieldTestCase
         $this->assertFieldBuildsCorrectly(['notSaved' => true]);
     }
 
-    /**
-     * @dataProvider discriminatorProvider
-     */
-    public function testEmbedOneWithDiscriminator(Discriminator $discriminator, array $expectedFields)
+    public function testReferenceOneWithDiscriminator()
     {
-        $this->givenDefaultBuilder()->discriminator($discriminator);
+        $this->givenDefaultBuilder()
+            ->discriminator('type')
+            ->default('physical')
+            ->map('physical', AnotherEntityStub::class);
 
-        $this->assertFieldBuildsCorrectly($expectedFields);
+        $this->assertFieldBuildsCorrectly([
+            'discriminatorField' => 'type',
+            'defaultDiscriminatorValue' => 'physical',
+            'discriminatorMap' => ['physical' => AnotherEntityStub::class],
+        ]);
     }
 
     public static function getDefaultMapping(): array

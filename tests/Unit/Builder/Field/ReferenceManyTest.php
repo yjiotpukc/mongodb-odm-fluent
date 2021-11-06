@@ -12,7 +12,6 @@ use yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Traits\CollectionStrategyProvide
 use yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Traits\DiscriminatorProvider;
 use yjiotpukc\MongoODMFluent\Type\Cascade;
 use yjiotpukc\MongoODMFluent\Type\CollectionStrategy;
-use yjiotpukc\MongoODMFluent\Type\Discriminator;
 
 class ReferenceManyTest extends FieldTestCase
 {
@@ -147,14 +146,18 @@ class ReferenceManyTest extends FieldTestCase
         $this->assertFieldBuildsCorrectly(['inversedBy' => 'address_id']);
     }
 
-    /**
-     * @dataProvider discriminatorProvider
-     */
-    public function testReferenceManyWithDiscriminator(Discriminator $discriminator, array $expectedFields)
+    public function testReferenceOneWithDiscriminator()
     {
-        $this->givenDefaultBuilder()->discriminator($discriminator);
+        $this->givenDefaultBuilder()
+            ->discriminator('type')
+            ->default('physical')
+            ->map('physical', AnotherEntityStub::class);
 
-        $this->assertFieldBuildsCorrectly($expectedFields);
+        $this->assertFieldBuildsCorrectly([
+            'discriminatorField' => 'type',
+            'defaultDiscriminatorValue' => 'physical',
+            'discriminatorMap' => ['physical' => AnotherEntityStub::class],
+        ]);
     }
 
     public function testReferenceManyWithSortDefault()

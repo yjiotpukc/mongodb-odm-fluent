@@ -26,7 +26,7 @@ class EmbedOne extends BuilderField implements EmbedOneType, Builder
     public $notSaved = false;
 
     /**
-     * @var Discriminator
+     * @var \yjiotpukc\MongoODMFluent\Builder\Database\Discriminator
      */
     public $discriminator = null;
 
@@ -50,11 +50,11 @@ class EmbedOne extends BuilderField implements EmbedOneType, Builder
         return $this;
     }
 
-    public function discriminator(Discriminator $discriminator): EmbedOneType
+    public function discriminator(string $field): Discriminator
     {
-        $this->discriminator = $discriminator;
+        $this->discriminator = new \yjiotpukc\MongoODMFluent\Builder\Database\Discriminator($field);
 
-        return $this;
+        return $this->discriminator;
     }
 
     public function map(): array
@@ -70,9 +70,7 @@ class EmbedOne extends BuilderField implements EmbedOneType, Builder
             $map['targetDocument'] = $this->targetDocument;
         }
         if ($this->discriminator) {
-            $map['discriminatorField'] = $this->discriminator->field;
-            $map['discriminatorMap'] = $this->discriminator->map;
-            $map['defaultDiscriminatorValue'] = $this->discriminator->defaultValue;
+            $map = array_merge($map, $this->discriminator->toMapping());
         }
 
         return $map;
