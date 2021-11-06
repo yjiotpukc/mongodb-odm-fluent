@@ -18,8 +18,9 @@ use yjiotpukc\MongoODMFluent\Builder\Document\Traits\CanHaveInheritance;
 use yjiotpukc\MongoODMFluent\Builder\Document\Traits\CanHaveReferences;
 use yjiotpukc\MongoODMFluent\Builder\Document\Traits\CanHaveRepository;
 use yjiotpukc\MongoODMFluent\Builder\Document\Traits\CanHaveWriteConcern;
+use yjiotpukc\MongoODMFluent\Builder\EmbeddedDocument;
 
-class DocumentBuilder extends BaseBuilder implements Builder
+class DocumentBuilder extends BaseBuilder implements Builder, EmbeddedDocument
 {
     use CanHaveDb;
     use CanHaveCollection;
@@ -33,4 +34,9 @@ class DocumentBuilder extends BaseBuilder implements Builder
     use CanHaveRepository;
     use CanBeReadOnly;
     use CanHaveWriteConcern;
+
+    public function embeddedDocument(): self
+    {
+        return $this->addBuilderAndReturnSelf(new EmbeddedDocumentBuilder());
+    }
 }
