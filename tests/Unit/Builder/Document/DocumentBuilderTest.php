@@ -25,6 +25,13 @@ class DocumentBuilderTest extends BuilderTestCase
         self::assertSame('dbName', $this->metadata->db);
     }
 
+    protected function givenBuilder(): DocumentBuilder
+    {
+        $this->builder = new DocumentBuilder();
+
+        return $this->builder;
+    }
+
     public function testCollection()
     {
         $this->givenBuilder()->collection('collectionName');
@@ -181,12 +188,5 @@ class DocumentBuilderTest extends BuilderTestCase
         $this->builder->build($this->metadata);
 
         self::assertSame('some', $this->metadata->getWriteConcern());
-    }
-
-    protected function givenBuilder(): DocumentBuilder
-    {
-        $this->builder = new DocumentBuilder();
-
-        return $this->builder;
     }
 }

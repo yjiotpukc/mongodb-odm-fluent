@@ -7,9 +7,9 @@ namespace yjiotpukc\MongoODMFluent\Builder\Field;
 use yjiotpukc\MongoODMFluent\Builder\Builder;
 use yjiotpukc\MongoODMFluent\Type\Cascade;
 use yjiotpukc\MongoODMFluent\Type\CollectionStrategy;
-use yjiotpukc\MongoODMFluent\Type\ReferenceMany as ReferenceManyType;
+use yjiotpukc\MongoODMFluent\Type\ReferenceMany;
 
-class ReferenceMany extends AbstractReference implements ReferenceManyType, Builder
+class ReferenceManyBuilder extends AbstractReferenceBuilder implements ReferenceMany, Builder
 {
     /**
      * @var int
@@ -38,133 +38,133 @@ class ReferenceMany extends AbstractReference implements ReferenceManyType, Buil
         $this->strategy = (new CollectionStrategy())->pushAll();
     }
 
-    public function target(string $target): ReferenceManyType
+    public function target(string $target): ReferenceMany
     {
         $this->target = $target;
 
         return $this;
     }
 
-    public function storeAsId(): ReferenceManyType
+    public function storeAsId(): ReferenceMany
     {
         $this->storeAs = 'id';
 
         return $this;
     }
 
-    public function storeAsRef(): ReferenceManyType
+    public function storeAsRef(): ReferenceMany
     {
         $this->storeAs = 'ref';
 
         return $this;
     }
 
-    public function storeAsDbRef(): ReferenceManyType
+    public function storeAsDbRef(): ReferenceMany
     {
         $this->storeAs = 'dbRef';
 
         return $this;
     }
 
-    public function storeAsDbRefWithDb(): ReferenceManyType
+    public function storeAsDbRefWithDb(): ReferenceMany
     {
         $this->storeAs = 'dbRefWithDb';
 
         return $this;
     }
 
-    public function cascade(Cascade $cascade): ReferenceManyType
+    public function cascade(Cascade $cascade): ReferenceMany
     {
         $this->cascade = $cascade;
 
         return $this;
     }
 
-    public function orphanRemoval(): ReferenceManyType
+    public function orphanRemoval(): ReferenceMany
     {
         $this->orphanRemoval = true;
 
         return $this;
     }
 
-    public function inversedBy(string $fieldName): ReferenceManyType
+    public function inversedBy(string $fieldName): ReferenceMany
     {
         $this->inversedBy = $fieldName;
 
         return $this;
     }
 
-    public function mappedBy(string $fieldName): ReferenceManyType
+    public function mappedBy(string $fieldName): ReferenceMany
     {
         $this->mappedBy = $fieldName;
 
         return $this;
     }
 
-    public function repositoryMethod(string $methodName): ReferenceManyType
+    public function repositoryMethod(string $methodName): ReferenceMany
     {
         $this->repositoryMethod = $methodName;
 
         return $this;
     }
 
-    public function addSort(string $field, string $order = 'asc'): ReferenceManyType
+    public function addSort(string $field, string $order = 'asc'): ReferenceMany
     {
         $this->sort[$field] = $order;
 
         return $this;
     }
 
-    public function addCriteria(string $field, $value): ReferenceManyType
+    public function addCriteria(string $field, $value): ReferenceMany
     {
         $this->criteria[$field] = $value;
 
         return $this;
     }
 
-    public function limit(int $limit): ReferenceManyType
+    public function limit(int $limit): ReferenceMany
     {
         $this->limit = $limit;
 
         return $this;
     }
 
-    public function skip(int $skip): ReferenceManyType
+    public function skip(int $skip): ReferenceMany
     {
         $this->skip = $skip;
 
         return $this;
     }
 
-    public function strategy(CollectionStrategy $strategy): ReferenceManyType
+    public function strategy(CollectionStrategy $strategy): ReferenceMany
     {
         $this->strategy = $strategy;
 
         return $this;
     }
 
-    public function collectionClass(string $className): ReferenceManyType
+    public function collectionClass(string $className): ReferenceMany
     {
         $this->collectionClass = $className;
 
         return $this;
     }
 
-    public function addPrime(string $primer): ReferenceManyType
+    public function addPrime(string $primer): ReferenceMany
     {
         $this->prime[] = $primer;
 
         return $this;
     }
 
-    public function notSaved(): ReferenceManyType
+    public function notSaved(): ReferenceMany
     {
         $this->notSaved = true;
 
         return $this;
     }
 
-    public function nullable(): ReferenceManyType
+    public function nullable(): ReferenceMany
     {
         $this->nullable = true;
 

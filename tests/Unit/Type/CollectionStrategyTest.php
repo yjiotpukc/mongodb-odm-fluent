@@ -15,18 +15,21 @@ class CollectionStrategyTest extends TestCase
 
         self::assertSame('set', $collectionStrategy->strategy);
     }
+
     public function testPushAll()
     {
         $collectionStrategy = (new CollectionStrategy())->pushAll();
 
         self::assertSame('pushAll', $collectionStrategy->strategy);
     }
+
     public function testAddToSet()
     {
         $collectionStrategy = (new CollectionStrategy())->addToSet();
 
         self::assertSame('addToSet', $collectionStrategy->strategy);
     }
+
     public function testSetArray()
     {
         $collectionStrategy = (new CollectionStrategy())->setArray();

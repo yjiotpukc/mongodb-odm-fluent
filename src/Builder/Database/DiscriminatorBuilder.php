@@ -7,9 +7,9 @@ namespace yjiotpukc\MongoODMFluent\Builder\Database;
 use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
 use yjiotpukc\MongoODMFluent\Builder\Builder;
 use yjiotpukc\MongoODMFluent\Builder\Field\FieldPartial;
-use yjiotpukc\MongoODMFluent\Type\Discriminator as DiscriminatorType;
+use yjiotpukc\MongoODMFluent\Type\Discriminator;
 
-class Discriminator implements DiscriminatorType, Builder, FieldPartial
+class DiscriminatorBuilder implements Discriminator, Builder, FieldPartial
 {
     /**
      * @var string
@@ -32,14 +32,14 @@ class Discriminator implements DiscriminatorType, Builder, FieldPartial
         $this->map = [];
     }
 
-    public function map(string $value, string $class): DiscriminatorType
+    public function map(string $value, string $class): Discriminator
     {
         $this->map[$value] = $class;
 
         return $this;
     }
 
-    public function default($value): DiscriminatorType
+    public function default($value): Discriminator
     {
         $this->defaultValue = $value;
 

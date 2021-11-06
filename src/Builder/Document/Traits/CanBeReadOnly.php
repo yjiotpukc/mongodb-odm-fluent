@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace yjiotpukc\MongoODMFluent\Builder\Document\Traits;
 
-use yjiotpukc\MongoODMFluent\Builder\Database\ReadOnly;
+use yjiotpukc\MongoODMFluent\Builder\Database\ReadOnlyBuilder;
 
 trait CanBeReadOnly
 {
     public function readOnly(): self
     {
-        return $this->addBuilderAndReturnSelf(new ReadOnly());
+        return $this->addBuilderAndReturnSelf(new ReadOnlyBuilder());
     }
 }

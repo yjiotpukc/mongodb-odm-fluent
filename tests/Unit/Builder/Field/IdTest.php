@@ -4,16 +4,47 @@ declare(strict_types=1);
 
 namespace yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Field;
 
-use yjiotpukc\MongoODMFluent\Builder\Field\Id;
+use yjiotpukc\MongoODMFluent\Builder\Field\IdBuilder;
 use yjiotpukc\MongoODMFluent\Tests\Stubs\IdGeneratorStub;
 
 class IdTest extends FieldTestCase
 {
+    public static function getDefaultMapping(): array
+    {
+        return [
+            'id' => true,
+            'fieldName' => 'id',
+            'strategy' => 'auto',
+            'name' => '_id',
+            'isCascadeRemove' => false,
+            'isCascadePersist' => false,
+            'isCascadeRefresh' => false,
+            'isCascadeMerge' => false,
+            'isCascadeDetach' => false,
+            'type' => 'id',
+            'nullable' => false,
+            'isOwningSide' => true,
+            'isInverseSide' => false,
+        ];
+    }
+
+    public static function getDefaultFieldName(): string
+    {
+        return 'id';
+    }
+
     public function testDefaultId()
     {
         $this->givenBuilder();
 
         $this->assertFieldBuildsCorrectly();
+    }
+
+    protected function givenBuilder(): IdBuilder
+    {
+        $this->builder = new IdBuilder();
+
+        return $this->builder;
     }
 
     public function testUuidId()
@@ -75,36 +106,5 @@ class IdTest extends FieldTestCase
             'strategy' => 'alNum',
             'type' => 'string',
         ]);
-    }
-
-    public static function getDefaultMapping(): array
-    {
-        return [
-            'id' => true,
-            'fieldName' => 'id',
-            'strategy' => 'auto',
-            'name' => '_id',
-            'isCascadeRemove' => false,
-            'isCascadePersist' => false,
-            'isCascadeRefresh' => false,
-            'isCascadeMerge' => false,
-            'isCascadeDetach' => false,
-            'type' => 'id',
-            'nullable' => false,
-            'isOwningSide' => true,
-            'isInverseSide' => false,
-        ];
-    }
-
-    public static function getDefaultFieldName(): string
-    {
-        return 'id';
-    }
-
-    protected function givenBuilder(): Id
-    {
-        $this->builder = new Id();
-
-        return $this->builder;
     }
 }

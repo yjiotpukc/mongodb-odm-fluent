@@ -16,6 +16,14 @@ abstract class BuilderTestCase extends TestCase
     protected $metadata;
     protected $builder;
 
+    public static function assertSameArray(array $expected, array $actual)
+    {
+        ksort($expected);
+        ksort($actual);
+
+        static::assertSame($expected, $actual);
+    }
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -27,13 +35,5 @@ abstract class BuilderTestCase extends TestCase
         $this->metadata = new ClassMetadata(EntityStub::class);
 
         return $this->metadata;
-    }
-
-    public static function assertSameArray(array $expected, array $actual)
-    {
-        ksort($expected);
-        ksort($actual);
-
-        static::assertSame($expected, $actual);
     }
 }

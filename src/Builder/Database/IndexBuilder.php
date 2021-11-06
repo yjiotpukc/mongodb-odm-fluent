@@ -7,9 +7,9 @@ namespace yjiotpukc\MongoODMFluent\Builder\Database;
 use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
 use yjiotpukc\MongoODMFluent\Builder\Builder;
 use yjiotpukc\MongoODMFluent\MappingException;
-use yjiotpukc\MongoODMFluent\Type\Index as IndexType;
+use yjiotpukc\MongoODMFluent\Type\Index;
 
-class Index implements IndexType, Builder
+class IndexBuilder implements Index, Builder
 {
     public $keys;
     public $options;
@@ -43,14 +43,14 @@ class Index implements IndexType, Builder
         $this->options = [];
     }
 
-    public function asc(string $key): IndexType
+    public function asc(string $key): Index
     {
         $this->keys[$key] = 'asc';
 
         return $this;
     }
 
-    public function desc(string $key = ''): IndexType
+    public function desc(string $key = ''): Index
     {
         if (empty($key) && count($this->keys) !== 1) {
             throw new MappingException('Index::desc without arguments can be used only if exactly one key was provided');
@@ -65,42 +65,42 @@ class Index implements IndexType, Builder
         return $this;
     }
 
-    public function unique(): IndexType
+    public function unique(): Index
     {
         $this->options['unique'] = true;
 
         return $this;
     }
 
-    public function name(string $name): IndexType
+    public function name(string $name): Index
     {
         $this->options['name'] = $name;
 
         return $this;
     }
 
-    public function background(): IndexType
+    public function background(): Index
     {
         $this->options['background'] = true;
 
         return $this;
     }
 
-    public function expireAfter(int $seconds): IndexType
+    public function expireAfter(int $seconds): Index
     {
         $this->options['expireAfterSeconds'] = $seconds;
 
         return $this;
     }
 
-    public function sparse(): IndexType
+    public function sparse(): Index
     {
         $this->options['sparse'] = true;
 
         return $this;
     }
 
-    public function partialFilter(string $expression): IndexType
+    public function partialFilter(string $expression): Index
     {
         $this->options['partialFilterExpression'] = $expression;
 

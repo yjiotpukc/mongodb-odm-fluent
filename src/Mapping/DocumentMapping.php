@@ -9,12 +9,12 @@ use yjiotpukc\MongoODMFluent\Builder\Document\DocumentBuilder;
 
 abstract class DocumentMapping implements Mapping
 {
-    abstract public function map(DocumentBuilder $builder): void;
-
     public function load(ClassMetadata $metadata): void
     {
         $builder = new DocumentBuilder();
         $this->map($builder);
         $builder->build($metadata);
     }
+
+    abstract public function map(DocumentBuilder $builder): void;
 }

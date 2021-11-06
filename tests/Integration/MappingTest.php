@@ -46,41 +46,6 @@ class MappingTest extends TestCase
         $this->assertSimpleMappingIsCorrect($metadata);
     }
 
-    public function testMappingWithEmbeddedField()
-    {
-        $metadata = static::$documentManager->getClassMetadata(User::class);
-
-        $this->assertMappingWithEmbeddedFieldIsCorrect($metadata);
-    }
-
-    public function testEmbeddedMapping()
-    {
-        $metadata = static::$documentManager->getClassMetadata(Phone::class);
-
-        $this->assertEmbeddedMappingIsCorrect($metadata);
-    }
-
-    public function testSuperclassMapping()
-    {
-        $metadata = static::$documentManager->getClassMetadata(Pet::class);
-
-        $this->assertSuperclassMappingIsCorrect($metadata);
-    }
-
-    public function testFirstChildClassMapping()
-    {
-        $metadata = static::$documentManager->getClassMetadata(Dog::class);
-
-        $this->assertFirstChildClassMappingIsCorrect($metadata);
-    }
-
-    public function testSecondChildClassMapping()
-    {
-        $metadata = static::$documentManager->getClassMetadata(Bird::class);
-
-        $this->assertSecondChildClassMappingIsCorrect($metadata);
-    }
-
     protected function assertSimpleMappingIsCorrect(ClassMetadata $metadata)
     {
         $expectedMetadata = new ClassMetadata(SimpleEntity::class);
@@ -103,6 +68,13 @@ class MappingTest extends TestCase
         self::assertEquals($expectedMetadata, $metadata);
     }
 
+    public function testMappingWithEmbeddedField()
+    {
+        $metadata = static::$documentManager->getClassMetadata(User::class);
+
+        $this->assertMappingWithEmbeddedFieldIsCorrect($metadata);
+    }
+
     protected function assertMappingWithEmbeddedFieldIsCorrect(ClassMetadata $metadata)
     {
         $expectedMetadata = new ClassMetadata(User::class);
@@ -122,12 +94,19 @@ class MappingTest extends TestCase
             'name' => 'name',
         ]);
         $expectedMetadata->mapManyEmbedded([
-            'fieldName'=> 'phones',
+            'fieldName' => 'phones',
             'notSaved' => false,
             'targetDocument' => Phone::class,
         ]);
 
         self::assertEquals($expectedMetadata, $metadata);
+    }
+
+    public function testEmbeddedMapping()
+    {
+        $metadata = static::$documentManager->getClassMetadata(Phone::class);
+
+        $this->assertEmbeddedMappingIsCorrect($metadata);
     }
 
     protected function assertEmbeddedMappingIsCorrect(ClassMetadata $metadata)
@@ -144,6 +123,13 @@ class MappingTest extends TestCase
         ]);
 
         self::assertEquals($expectedMetadata, $metadata);
+    }
+
+    public function testSuperclassMapping()
+    {
+        $metadata = static::$documentManager->getClassMetadata(Pet::class);
+
+        $this->assertSuperclassMappingIsCorrect($metadata);
     }
 
     protected function assertSuperclassMappingIsCorrect(ClassMetadata $metadata)
@@ -173,6 +159,13 @@ class MappingTest extends TestCase
         ]);
 
         self::assertEquals($expectedMetadata, $metadata);
+    }
+
+    public function testFirstChildClassMapping()
+    {
+        $metadata = static::$documentManager->getClassMetadata(Dog::class);
+
+        $this->assertFirstChildClassMappingIsCorrect($metadata);
     }
 
     protected function assertFirstChildClassMappingIsCorrect(ClassMetadata $metadata)
@@ -211,6 +204,13 @@ class MappingTest extends TestCase
         ]);
 
         self::assertEquals($expectedMetadata, $metadata);
+    }
+
+    public function testSecondChildClassMapping()
+    {
+        $metadata = static::$documentManager->getClassMetadata(Bird::class);
+
+        $this->assertSecondChildClassMappingIsCorrect($metadata);
     }
 
     protected function assertSecondChildClassMappingIsCorrect(ClassMetadata $metadata)

@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace yjiotpukc\MongoODMFluent\Builder\Field;
 
 use yjiotpukc\MongoODMFluent\Builder\Builder;
-use yjiotpukc\MongoODMFluent\Type\Field as FieldType;
+use yjiotpukc\MongoODMFluent\Type\Field;
 
-class Field extends BuilderField implements FieldType, Builder
+class FieldBuilder extends AbstractField implements Field, Builder
 {
     /**
      * @var string
@@ -41,21 +41,21 @@ class Field extends BuilderField implements FieldType, Builder
         $this->name = $fieldName;
     }
 
-    public function nameInDb(string $name): FieldType
+    public function nameInDb(string $name): Field
     {
         $this->name = $name;
 
         return $this;
     }
 
-    public function nullable(): FieldType
+    public function nullable(): Field
     {
         $this->nullable = true;
 
         return $this;
     }
 
-    public function notSaved(): FieldType
+    public function notSaved(): Field
     {
         $this->notSaved = true;
 

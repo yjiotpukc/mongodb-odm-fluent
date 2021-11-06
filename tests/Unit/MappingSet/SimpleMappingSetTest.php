@@ -23,6 +23,15 @@ class SimpleMappingSetTest extends TestCase
         self::assertFalse($mappingSet->exists(EntityWithoutMappingStub::class));
     }
 
+    protected function createMappingSet(): SimpleMappingSet
+    {
+        $mappingSet = new SimpleMappingSet();
+        $mappingSet->add(EntityStub::class, MappingStub::class);
+        $mappingSet->add(AnotherEntityStub::class, AnotherMappingStub::class);
+
+        return $mappingSet;
+    }
+
     public function testReturnsMapping()
     {
         $mappingSet = $this->createMappingSet();
@@ -43,14 +52,5 @@ class SimpleMappingSetTest extends TestCase
     {
         $mappingSet = $this->createMappingSet();
         self::assertEquals([EntityStub::class, AnotherEntityStub::class], $mappingSet->getAll());
-    }
-
-    protected function createMappingSet(): SimpleMappingSet
-    {
-        $mappingSet = new SimpleMappingSet();
-        $mappingSet->add(EntityStub::class, MappingStub::class);
-        $mappingSet->add(AnotherEntityStub::class, AnotherMappingStub::class);
-
-        return $mappingSet;
     }
 }

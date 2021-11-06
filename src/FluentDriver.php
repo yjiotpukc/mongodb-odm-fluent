@@ -27,19 +27,6 @@ class FluentDriver implements MappingDriver
         $this->createMapping($className)->load($metadata);
     }
 
-    /**
-     * @return string[]
-     */
-    public function getAllClassNames(): array
-    {
-        return $this->mappingSet->getAll();
-    }
-
-    public function isTransient($className): bool
-    {
-        return !$this->mappingSet->exists($className);
-    }
-
     protected function createMapping(string $entityClassName): Mapping
     {
         $this->assertMappingExists($entityClassName);
@@ -71,5 +58,18 @@ class FluentDriver implements MappingDriver
         if (!($mapping instanceof Mapping)) {
             throw new MappingException("[$mappingClassName] is not a mapping");
         }
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getAllClassNames(): array
+    {
+        return $this->mappingSet->getAll();
+    }
+
+    public function isTransient($className): bool
+    {
+        return !$this->mappingSet->exists($className);
     }
 }

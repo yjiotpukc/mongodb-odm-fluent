@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Traits;
 
-use yjiotpukc\MongoODMFluent\Builder\Database\Discriminator;
+use yjiotpukc\MongoODMFluent\Builder\Database\DiscriminatorBuilder;
 use yjiotpukc\MongoODMFluent\Tests\Stubs\Mappings\AnotherEntityStub;
 
 trait DiscriminatorProvider
@@ -13,7 +13,7 @@ trait DiscriminatorProvider
     {
         return [
             [
-                new Discriminator('type'),
+                new DiscriminatorBuilder('type'),
                 [
                     'defaultDiscriminatorValue' => null,
                     'discriminatorField' => 'type',
@@ -21,7 +21,7 @@ trait DiscriminatorProvider
                 ],
             ],
             [
-                (new Discriminator('type'))
+                (new DiscriminatorBuilder('type'))
                     ->map('physical', AnotherEntityStub::class)
                     ->default('physical'),
                 [
@@ -31,7 +31,7 @@ trait DiscriminatorProvider
                 ],
             ],
             [
-                (new Discriminator('type'))
+                (new DiscriminatorBuilder('type'))
                     ->map('email', AnotherEntityStub::class)
                     ->map('physical', AnotherEntityStub::class),
                 [

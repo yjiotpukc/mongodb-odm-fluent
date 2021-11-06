@@ -27,6 +27,13 @@ class EmbeddedDocumentTest extends BuilderTestCase
         );
     }
 
+    protected function givenBuilder(): EmbeddedDocumentBuilder
+    {
+        $this->builder = new EmbeddedDocumentBuilder();
+
+        return $this->builder;
+    }
+
     public function testField()
     {
         $this->givenBuilder()->field('string', FieldTest::getDefaultFieldName());
@@ -91,7 +98,7 @@ class EmbeddedDocumentTest extends BuilderTestCase
             [
                 'keys' => ['id' => 1],
                 'options' => [],
-            ]
+            ],
         ], $this->metadata->indexes);
     }
 
@@ -111,12 +118,5 @@ class EmbeddedDocumentTest extends BuilderTestCase
                 'options' => [],
             ],
         ], $this->metadata->indexes);
-    }
-
-    protected function givenBuilder(): EmbeddedDocumentBuilder
-    {
-        $this->builder = new EmbeddedDocumentBuilder();
-
-        return $this->builder;
     }
 }

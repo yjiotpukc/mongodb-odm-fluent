@@ -9,12 +9,12 @@ use yjiotpukc\MongoODMFluent\Builder\Document\MappedSuperclassBuilder;
 
 abstract class MappedSuperclassMapping implements Mapping
 {
-    abstract public function map(MappedSuperclassBuilder $builder): void;
-
     public function load(ClassMetadata $metadata): void
     {
         $builder = new MappedSuperclassBuilder();
         $this->map($builder);
         $builder->build($metadata);
     }
+
+    abstract public function map(MappedSuperclassBuilder $builder): void;
 }

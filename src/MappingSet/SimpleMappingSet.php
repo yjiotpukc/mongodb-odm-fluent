@@ -20,11 +20,6 @@ class SimpleMappingSet implements MappingSet
         $this->mappings[$entityClassName] = $mappingClassName;
     }
 
-    public function exists(string $entityClassName): bool
-    {
-        return isset($this->mappings[$entityClassName]);
-    }
-
     public function find(string $entityClassName): string
     {
         if (!$this->exists($entityClassName)) {
@@ -32,6 +27,11 @@ class SimpleMappingSet implements MappingSet
         }
 
         return $this->mappings[$entityClassName];
+    }
+
+    public function exists(string $entityClassName): bool
+    {
+        return isset($this->mappings[$entityClassName]);
     }
 
     public function getAll(): array

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Database;
 
-use yjiotpukc\MongoODMFluent\Builder\Database\Discriminator;
+use yjiotpukc\MongoODMFluent\Builder\Database\DiscriminatorBuilder;
 use yjiotpukc\MongoODMFluent\Tests\Unit\Builder\BuilderTestCase;
 use yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Traits\DiscriminatorProvider;
 
@@ -15,7 +15,7 @@ class DiscriminatorTest extends BuilderTestCase
     /**
      * @dataProvider discriminatorProvider
      */
-    public function testDiscriminator(Discriminator $discriminator, array $expected)
+    public function testDiscriminator(DiscriminatorBuilder $discriminator, array $expected)
     {
         $discriminator->build($this->metadata);
 

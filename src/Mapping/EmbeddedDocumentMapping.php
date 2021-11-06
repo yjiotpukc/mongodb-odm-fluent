@@ -9,12 +9,12 @@ use yjiotpukc\MongoODMFluent\Builder\Document\EmbeddedDocumentBuilder;
 
 abstract class EmbeddedDocumentMapping implements Mapping
 {
-    abstract public function map(EmbeddedDocumentBuilder $builder): void;
-
     public function load(ClassMetadata $metadata): void
     {
         $builder = new EmbeddedDocumentBuilder();
         $this->map($builder);
         $builder->build($metadata);
     }
+
+    abstract public function map(EmbeddedDocumentBuilder $builder): void;
 }

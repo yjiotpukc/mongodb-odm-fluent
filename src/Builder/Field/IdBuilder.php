@@ -5,50 +5,50 @@ declare(strict_types=1);
 namespace yjiotpukc\MongoODMFluent\Builder\Field;
 
 use yjiotpukc\MongoODMFluent\Builder\Builder;
-use yjiotpukc\MongoODMFluent\Type\Id as IdType;
+use yjiotpukc\MongoODMFluent\Type\Id;
 
-class Id extends BuilderField implements IdType, Builder
+class IdBuilder extends AbstractField implements Id, Builder
 {
     protected $type;
     protected $strategy = 'auto';
     protected $generator;
 
-    public function type(string $type): IdType
+    public function type(string $type): Id
     {
         $this->type = $type;
 
         return $this;
     }
 
-    public function alNum(): IdType
+    public function alNum(): Id
     {
         $this->strategy = 'alNum';
 
         return $this;
     }
 
-    public function increment(): IdType
+    public function increment(): Id
     {
         $this->strategy = 'increment';
 
         return $this;
     }
 
-    public function uuid(): IdType
+    public function uuid(): Id
     {
         $this->strategy = 'uuid';
 
         return $this;
     }
 
-    public function none(): IdType
+    public function none(): Id
     {
         $this->strategy = 'none';
 
         return $this;
     }
 
-    public function custom(string $generatorClassName): IdType
+    public function custom(string $generatorClassName): Id
     {
         $this->strategy = 'custom';
         $this->generator = $generatorClassName;
