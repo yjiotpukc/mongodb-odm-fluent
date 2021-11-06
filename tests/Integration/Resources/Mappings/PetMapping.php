@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace yjiotpukc\MongoODMFluent\Tests\Integration\Resources\Mappings;
 
-use yjiotpukc\MongoODMFluent\Builder\Document\MappedSuperclassBuilder;
+use yjiotpukc\MongoODMFluent\Builder\MappedSuperclass;
 use yjiotpukc\MongoODMFluent\Mapping\MappedSuperclassMapping;
 use yjiotpukc\MongoODMFluent\Tests\Integration\Resources\Entities\Bird;
 use yjiotpukc\MongoODMFluent\Tests\Integration\Resources\Entities\Dog;
@@ -17,9 +17,9 @@ class PetMapping extends MappedSuperclassMapping
         return Pet::class;
     }
 
-    public function map(MappedSuperclassBuilder $builder): void
+    public function map(MappedSuperclass $builder): void
     {
-        $builder->db('dbName');
+        $builder = $builder->db('dbName');
         $builder->collection('pets');
         $builder->singleCollection();
         $builder->id();
