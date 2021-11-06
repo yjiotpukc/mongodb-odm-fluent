@@ -6,12 +6,9 @@ namespace yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Field;
 
 use yjiotpukc\MongoODMFluent\Builder\Field\EmbedOneBuilder;
 use yjiotpukc\MongoODMFluent\Tests\Stubs\Mappings\AnotherEntityStub;
-use yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Traits\DiscriminatorProvider;
 
 class EmbedOneTest extends FieldTestCase
 {
-    use DiscriminatorProvider;
-
     public static function getDefaultMapping(): array
     {
         return [

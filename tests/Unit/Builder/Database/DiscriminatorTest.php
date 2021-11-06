@@ -5,22 +5,48 @@ declare(strict_types=1);
 namespace yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Database;
 
 use yjiotpukc\MongoODMFluent\Builder\Database\DiscriminatorBuilder;
+use yjiotpukc\MongoODMFluent\Tests\Stubs\Mappings\AnotherEntityStub;
 use yjiotpukc\MongoODMFluent\Tests\Unit\Builder\BuilderTestCase;
-use yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Traits\DiscriminatorProvider;
 
 class DiscriminatorTest extends BuilderTestCase
 {
-    use DiscriminatorProvider;
-
-    /**
-     * @dataProvider discriminatorProvider
-     */
-    public function testDiscriminator(DiscriminatorBuilder $discriminator, array $expected)
+    public function testDefaultDiscriminator()
     {
+        $discriminator = new DiscriminatorBuilder('type');
+
         $discriminator->build($this->metadata);
 
-        self::assertSame($expected['defaultDiscriminatorValue'], $this->metadata->defaultDiscriminatorValue);
-        self::assertSame($expected['discriminatorField'], $this->metadata->discriminatorField);
-        self::assertSame($expected['discriminatorMap'], $this->metadata->discriminatorMap);
+        self::assertSame('type', $this->metadata->discriminatorField);
+        self::assertSame(null, $this->metadata->defaultDiscriminatorValue);
+        self::assertSame([], $this->metadata->discriminatorMap);
+    }
+
+    public function testDiscriminatorWithDefaultValue()
+    {
+        $discriminator = new DiscriminatorBuilder('type');
+        $discriminator->map('physical', AnotherEntityStub::class)->default('physical');
+
+        $discriminator->build($this->metadata);
+
+        self::assertSame('type', $this->metadata->discriminatorField);
+        self::assertSame('physical', $this->metadata->defaultDiscriminatorValue);
+        self::assertSame(['physical' => AnotherEntityStub::class], $this->metadata->discriminatorMap);
+    }
+
+    public function testDiscriminatorWithMap()
+    {
+        $discriminator = new DiscriminatorBuilder('type');
+        $discriminator
+            ->map('email', AnotherEntityStub::class)
+            ->map('physical', AnotherEntityStub::class);
+
+        $discriminator->build($this->metadata);
+
+        self::assertSame('type', $this->metadata->discriminatorField);
+        self::assertSame(null, $this->metadata->defaultDiscriminatorValue);
+        self::assertSame([
+            'email' => AnotherEntityStub::class,
+            'physical' => AnotherEntityStub::class,
+        ], $this->metadata->discriminatorMap);
     }
 }
