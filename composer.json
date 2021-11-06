@@ -2,7 +2,6 @@
   "name": "yjiotpukc/mongodb-odm-fluent",
   "description": "A fluent PHP mapping driver for Doctrine MongoDB ODM.",
   "license": "MIT",
-  "version": "0.1.0",
   "keywords": [
     "doctrine",
     "laravel",
