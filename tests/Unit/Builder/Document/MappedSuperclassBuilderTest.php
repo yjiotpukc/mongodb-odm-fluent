@@ -24,6 +24,13 @@ class MappedSuperclassBuilderTest extends BuilderTestCase
         self::assertSame('dbName', $this->metadata->db);
     }
 
+    protected function givenBuilder(): MappedSuperclassBuilder
+    {
+        $this->builder = new MappedSuperclassBuilder();
+
+        return $this->builder;
+    }
+
     public function testCollection()
     {
         $this->givenBuilder()->collection('collectionName');
@@ -125,12 +132,5 @@ class MappedSuperclassBuilderTest extends BuilderTestCase
         self::assertSame('physical', $this->metadata->defaultDiscriminatorValue);
         self::assertSame('type', $this->metadata->discriminatorField);
         self::assertSame(['physical' => AnotherEntityStub::class], $this->metadata->discriminatorMap);
-    }
-
-    protected function givenBuilder(): MappedSuperclassBuilder
-    {
-        $this->builder = new MappedSuperclassBuilder();
-
-        return $this->builder;
     }
 }

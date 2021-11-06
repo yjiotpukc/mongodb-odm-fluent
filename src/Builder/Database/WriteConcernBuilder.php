@@ -7,7 +7,7 @@ namespace yjiotpukc\MongoODMFluent\Builder\Database;
 use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
 use yjiotpukc\MongoODMFluent\Builder\Builder;
 
-class WriteConcern implements Builder
+class WriteConcernBuilder implements Builder
 {
     /**
      * @var int|string|null

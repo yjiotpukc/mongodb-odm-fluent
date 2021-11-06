@@ -22,6 +22,18 @@ class DirectoryMappingFinderTest extends TestCase
         self::assertEquals(MappingStub::class, $mappingSet->find(EntityStub::class));
     }
 
+    public function createMappingSet(): MappingSet
+    {
+        $finder = new DirectoryMappingFinder([$this->getDirectoryPath()], [self::NAMESPACE]);
+
+        return $finder->makeMappingSet();
+    }
+
+    protected function getDirectoryPath(): string
+    {
+        return realpath(__DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'Stubs');
+    }
+
     public function testFindsMappingsInSubdirectories()
     {
         $mappingSet = $this->createMappingSet();
@@ -32,17 +44,5 @@ class DirectoryMappingFinderTest extends TestCase
     {
         $mappingSet = $this->createMappingSet();
         self::assertEquals([EntityStub::class, AnotherEntityStub::class], $mappingSet->getAll());
-    }
-
-    protected function getDirectoryPath(): string
-    {
-        return realpath(__DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'Stubs');
-    }
-
-    public function createMappingSet(): MappingSet
-    {
-        $finder = new DirectoryMappingFinder([$this->getDirectoryPath()], [self::NAMESPACE]);
-
-        return $finder->makeMappingSet();
     }
 }

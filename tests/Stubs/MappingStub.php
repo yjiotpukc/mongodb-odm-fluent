@@ -11,16 +11,6 @@ class MappingStub implements Mapping
 {
     protected static $wasLoaded = false;
 
-    public function mapFor(): string
-    {
-        return EntityStub::class;
-    }
-
-    public function load(ClassMetadata $metadata): void
-    {
-        static::$wasLoaded = true;
-    }
-
     public static function wasLoaded(): bool
     {
         return static::$wasLoaded;
@@ -29,5 +19,15 @@ class MappingStub implements Mapping
     public static function reset(): void
     {
         static::$wasLoaded = false;
+    }
+
+    public function mapFor(): string
+    {
+        return EntityStub::class;
+    }
+
+    public function load(ClassMetadata $metadata): void
+    {
+        static::$wasLoaded = true;
     }
 }

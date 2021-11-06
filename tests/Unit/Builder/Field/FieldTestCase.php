@@ -8,10 +8,6 @@ use yjiotpukc\MongoODMFluent\Tests\Unit\Builder\BuilderTestCase;
 
 abstract class FieldTestCase extends BuilderTestCase
 {
-    abstract public static function getDefaultMapping(): array;
-
-    abstract public static function getDefaultFieldName(): string;
-
     protected function assertFieldBuildsCorrectly(array $expectedFields = [], string $fieldName = '', array $withoutFields = [])
     {
         $this->builder->build($this->metadata);
@@ -28,4 +24,8 @@ abstract class FieldTestCase extends BuilderTestCase
 
         self::assertSameArray($expectedFields, $fieldMapping);
     }
+
+    abstract public static function getDefaultFieldName(): string;
+
+    abstract public static function getDefaultMapping(): array;
 }

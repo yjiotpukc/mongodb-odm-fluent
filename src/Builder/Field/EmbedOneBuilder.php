@@ -5,30 +5,28 @@ declare(strict_types=1);
 namespace yjiotpukc\MongoODMFluent\Builder\Field;
 
 use yjiotpukc\MongoODMFluent\Builder\Builder;
+use yjiotpukc\MongoODMFluent\Builder\Database\DiscriminatorBuilder;
 use yjiotpukc\MongoODMFluent\Type\Discriminator;
-use yjiotpukc\MongoODMFluent\Type\EmbedOne as EmbedOneType;
+use yjiotpukc\MongoODMFluent\Type\EmbedOne;
 
-class EmbedOne extends BuilderField implements EmbedOneType, Builder
+class EmbedOneBuilder extends AbstractField implements EmbedOne, Builder
 {
     /**
      * @var string
      */
-    protected $fieldName;
-
-    /**
-     * @var string
-     */
     public $targetDocument = '';
-
     /**
      * @var bool
      */
     public $notSaved = false;
-
     /**
-     * @var \yjiotpukc\MongoODMFluent\Builder\Database\Discriminator
+     * @var DiscriminatorBuilder
      */
     public $discriminator = null;
+    /**
+     * @var string
+     */
+    protected $fieldName;
 
     public function __construct(string $fieldName, string $target = '')
     {
@@ -36,14 +34,14 @@ class EmbedOne extends BuilderField implements EmbedOneType, Builder
         $this->targetDocument = $target;
     }
 
-    public function target(string $target): EmbedOneType
+    public function target(string $target): EmbedOne
     {
         $this->targetDocument = $target;
 
         return $this;
     }
 
-    public function notSaved(): EmbedOneType
+    public function notSaved(): EmbedOne
     {
         $this->notSaved = true;
 
@@ -52,7 +50,7 @@ class EmbedOne extends BuilderField implements EmbedOneType, Builder
 
     public function discriminator(string $field): Discriminator
     {
-        $this->discriminator = new \yjiotpukc\MongoODMFluent\Builder\Database\Discriminator($field);
+        $this->discriminator = new DiscriminatorBuilder($field);
 
         return $this->discriminator;
     }

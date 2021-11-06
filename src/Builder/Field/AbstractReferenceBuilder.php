@@ -6,10 +6,11 @@ namespace yjiotpukc\MongoODMFluent\Builder\Field;
 
 use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
 use yjiotpukc\MongoODMFluent\Builder\Builder;
+use yjiotpukc\MongoODMFluent\Builder\Database\DiscriminatorBuilder;
 use yjiotpukc\MongoODMFluent\Type\Cascade;
 use yjiotpukc\MongoODMFluent\Type\Discriminator;
 
-abstract class AbstractReference extends BuilderField implements Builder
+abstract class AbstractReferenceBuilder extends AbstractField implements Builder
 {
     /**
      * @var string
@@ -32,7 +33,7 @@ abstract class AbstractReference extends BuilderField implements Builder
     protected $cascade;
 
     /**
-     * @var \yjiotpukc\MongoODMFluent\Builder\Database\Discriminator
+     * @var DiscriminatorBuilder
      */
     protected $discriminator;
 
@@ -95,7 +96,7 @@ abstract class AbstractReference extends BuilderField implements Builder
 
     public function discriminator(string $field): Discriminator
     {
-        $this->discriminator = new \yjiotpukc\MongoODMFluent\Builder\Database\Discriminator($field);
+        $this->discriminator = new DiscriminatorBuilder($field);
 
         return $this->discriminator;
     }
@@ -103,14 +104,14 @@ abstract class AbstractReference extends BuilderField implements Builder
     public function map(): array
     {
         $map = [
-            'reference'     => true,
-            'name'          => $this->fieldName,
-            'notSaved'      => $this->notSaved,
-            'nullable'      => $this->nullable,
-            'storeAs'       => $this->storeAs,
+            'reference' => true,
+            'name' => $this->fieldName,
+            'notSaved' => $this->notSaved,
+            'nullable' => $this->nullable,
+            'storeAs' => $this->storeAs,
             'orphanRemoval' => $this->orphanRemoval,
-            'sort'          => $this->sort,
-            'criteria'      => $this->criteria,
+            'sort' => $this->sort,
+            'criteria' => $this->criteria,
         ];
 
         if ($this->target) {

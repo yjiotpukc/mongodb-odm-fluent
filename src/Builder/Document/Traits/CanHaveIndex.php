@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace yjiotpukc\MongoODMFluent\Builder\Document\Traits;
 
-use yjiotpukc\MongoODMFluent\Builder\Database\Index as IndexImplementation;
+use yjiotpukc\MongoODMFluent\Builder\Database\IndexBuilder;
 use yjiotpukc\MongoODMFluent\Type\Index;
 
 trait CanHaveIndex
@@ -15,6 +15,6 @@ trait CanHaveIndex
      */
     public function index($keys = []): Index
     {
-        return $this->addBuilder(new IndexImplementation($keys));
+        return $this->addBuilder(new IndexBuilder($keys));
     }
 }

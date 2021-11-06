@@ -6,109 +6,109 @@ namespace yjiotpukc\MongoODMFluent\Builder\Field;
 
 use yjiotpukc\MongoODMFluent\Builder\Builder;
 use yjiotpukc\MongoODMFluent\Type\Cascade;
-use yjiotpukc\MongoODMFluent\Type\ReferenceOne as ReferenceOneType;
+use yjiotpukc\MongoODMFluent\Type\ReferenceOne;
 
-class ReferenceOne extends AbstractReference implements ReferenceOneType, Builder
+class ReferenceOneBuilder extends AbstractReferenceBuilder implements ReferenceOne, Builder
 {
-    public function target(string $target): ReferenceOneType
+    public function target(string $target): ReferenceOne
     {
         $this->target = $target;
 
         return $this;
     }
 
-    public function storeAsId(): ReferenceOneType
+    public function storeAsId(): ReferenceOne
     {
         $this->storeAs = 'id';
 
         return $this;
     }
 
-    public function storeAsRef(): ReferenceOneType
+    public function storeAsRef(): ReferenceOne
     {
         $this->storeAs = 'ref';
 
         return $this;
     }
 
-    public function storeAsDbRef(): ReferenceOneType
+    public function storeAsDbRef(): ReferenceOne
     {
         $this->storeAs = 'dbRef';
 
         return $this;
     }
 
-    public function storeAsDbRefWithDb(): ReferenceOneType
+    public function storeAsDbRefWithDb(): ReferenceOne
     {
         $this->storeAs = 'dbRefWithDb';
 
         return $this;
     }
 
-    public function cascade(Cascade $cascade): ReferenceOneType
+    public function cascade(Cascade $cascade): ReferenceOne
     {
         $this->cascade = $cascade;
 
         return $this;
     }
 
-    public function orphanRemoval(): ReferenceOneType
+    public function orphanRemoval(): ReferenceOne
     {
         $this->orphanRemoval = true;
 
         return $this;
     }
 
-    public function inversedBy(string $fieldName): ReferenceOneType
+    public function inversedBy(string $fieldName): ReferenceOne
     {
         $this->inversedBy = $fieldName;
 
         return $this;
     }
 
-    public function mappedBy(string $fieldName): ReferenceOneType
+    public function mappedBy(string $fieldName): ReferenceOne
     {
         $this->mappedBy = $fieldName;
 
         return $this;
     }
 
-    public function repositoryMethod(string $methodName): ReferenceOneType
+    public function repositoryMethod(string $methodName): ReferenceOne
     {
         $this->repositoryMethod = $methodName;
 
         return $this;
     }
 
-    public function addSort(string $field, string $order = 'asc'): ReferenceOneType
+    public function addSort(string $field, string $order = 'asc'): ReferenceOne
     {
         $this->sort[$field] = $order;
 
         return $this;
     }
 
-    public function addCriteria(string $field, $value): ReferenceOneType
+    public function addCriteria(string $field, $value): ReferenceOne
     {
         $this->criteria[$field] = $value;
 
         return $this;
     }
 
-    public function skip(int $skip): ReferenceOneType
+    public function skip(int $skip): ReferenceOne
     {
         $this->skip = $skip;
 
         return $this;
     }
 
-    public function notSaved(): ReferenceOneType
+    public function notSaved(): ReferenceOne
     {
         $this->notSaved = true;
 
         return $this;
     }
 
-    public function nullable(): ReferenceOneType
+    public function nullable(): ReferenceOne
     {
         $this->nullable = true;
 

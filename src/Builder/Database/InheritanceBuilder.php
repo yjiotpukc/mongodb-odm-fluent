@@ -7,7 +7,7 @@ namespace yjiotpukc\MongoODMFluent\Builder\Database;
 use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
 use yjiotpukc\MongoODMFluent\Builder\Builder;
 
-class Inheritance implements Builder
+class InheritanceBuilder implements Builder
 {
     /**
      * @var int

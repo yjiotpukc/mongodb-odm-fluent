@@ -7,7 +7,7 @@ namespace yjiotpukc\MongoODMFluent\Builder\Database;
 use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
 use yjiotpukc\MongoODMFluent\Builder\Builder;
 
-class Collection implements Builder
+class CollectionBuilder implements Builder
 {
     /**
      * @var string
