@@ -9,10 +9,7 @@ use yjiotpukc\MongoODMFluent\Builder\Builder;
 
 class InheritanceBuilder implements Builder
 {
-    /**
-     * @var int
-     */
-    protected $type;
+    protected int $type;
 
     public function __construct(int $type)
     {

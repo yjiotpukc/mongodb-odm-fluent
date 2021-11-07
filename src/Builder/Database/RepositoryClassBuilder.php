@@ -9,10 +9,7 @@ use yjiotpukc\MongoODMFluent\Builder\Builder;
 
 class RepositoryClassBuilder implements Builder
 {
-    /**
-     * @var string
-     */
-    protected $className;
+    protected string $className;
 
     public function __construct(string $className)
     {

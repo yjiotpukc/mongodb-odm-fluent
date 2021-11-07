@@ -11,25 +11,14 @@ use yjiotpukc\MongoODMFluent\Type\Discriminator;
 
 class DiscriminatorBuilder implements Discriminator, Builder, FieldPartial
 {
-    /**
-     * @var string
-     */
-    protected $field;
-
-    /**
-     * @var string[]
-     */
-    protected $map;
-
-    /**
-     * @var string
-     */
-    protected $defaultValue;
+    protected string $field;
+    /** @var string[] */
+    protected array $map = [];
+    protected ?string $defaultValue = null;
 
     public function __construct(string $field)
     {
         $this->field = $field;
-        $this->map = [];
     }
 
     public function map(string $value, string $class): Discriminator

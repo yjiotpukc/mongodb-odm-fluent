@@ -9,10 +9,7 @@ use yjiotpukc\MongoODMFluent\Builder\Builder;
 
 class CollectionBuilder implements Builder
 {
-    /**
-     * @var string
-     */
-    protected $collectionName;
+    protected string $collectionName;
 
     public function __construct(string $collectionName)
     {

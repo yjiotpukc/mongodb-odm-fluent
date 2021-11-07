@@ -11,8 +11,14 @@ use yjiotpukc\MongoODMFluent\Type\Index;
 
 class IndexBuilder implements Index, Builder
 {
-    public $keys;
-    public $options;
+    /** @var string[] */
+    protected array $keys;
+    protected bool $unique = false;
+    protected bool $background = false;
+    protected bool $sparse = false;
+    protected ?int $expireAfterSeconds = null;
+    protected ?string $name = null;
+    protected ?string $partialFilterExpression = null;
 
     /**
      * @param string|string[] $keys
@@ -40,7 +46,6 @@ class IndexBuilder implements Index, Builder
 
             $this->keys = $keys;
         }
-        $this->options = [];
     }
 
     public function asc(string $key): Index
@@ -67,48 +72,57 @@ class IndexBuilder implements Index, Builder
 
     public function unique(): Index
     {
-        $this->options['unique'] = true;
+        $this->unique = true;
 
         return $this;
     }
 
     public function name(string $name): Index
     {
-        $this->options['name'] = $name;
+        $this->name = $name;
 
         return $this;
     }
 
     public function background(): Index
     {
-        $this->options['background'] = true;
+        $this->background = true;
 
         return $this;
     }
 
     public function expireAfter(int $seconds): Index
     {
-        $this->options['expireAfterSeconds'] = $seconds;
+        $this->expireAfterSeconds = $seconds;
 
         return $this;
     }
 
     public function sparse(): Index
     {
-        $this->options['sparse'] = true;
+        $this->sparse = true;
 
         return $this;
     }
 
     public function partialFilter(string $expression): Index
     {
-        $this->options['partialFilterExpression'] = $expression;
+        $this->partialFilterExpression = $expression;
 
         return $this;
     }
 
     public function build(ClassMetadata $metadata): void
     {
-        $metadata->addIndex($this->keys, $this->options);
+        $options = [
+            'unique' => $this->unique,
+            'name' => $this->name,
+            'background' => $this->background,
+            'expireAfterSeconds' => $this->expireAfterSeconds,
+            'sparse' => $this->sparse,
+            'partialFilterExpression' => $this->partialFilterExpression,
+        ];
+
+        $metadata->addIndex($this->keys, array_filter($options));
     }
 }
