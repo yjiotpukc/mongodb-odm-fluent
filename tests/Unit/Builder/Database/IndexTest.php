@@ -12,8 +12,8 @@ class IndexTest extends BuilderTestCase
 {
     public function testOneFieldIndex()
     {
-        $this->builder = new IndexBuilder('id');
-        $this->builder->build($this->metadata);
+        $builder = new IndexBuilder('id');
+        $builder->build($this->metadata);
 
         self::assertSame([
             [
@@ -25,8 +25,8 @@ class IndexTest extends BuilderTestCase
 
     public function testOneFieldDescIndex()
     {
-        $this->builder = new IndexBuilder(['id' => 'desc']);
-        $this->builder->build($this->metadata);
+        $builder = new IndexBuilder(['id' => 'desc']);
+        $builder->build($this->metadata);
 
         self::assertSame([
             [
@@ -38,8 +38,8 @@ class IndexTest extends BuilderTestCase
 
     public function testDescMethodWithoutArguments()
     {
-        $this->builder = (new IndexBuilder('id'))->desc();
-        $this->builder->build($this->metadata);
+        $builder = (new IndexBuilder('id'))->desc();
+        $builder->build($this->metadata);
 
         self::assertSame([
             [
@@ -54,13 +54,13 @@ class IndexTest extends BuilderTestCase
         $this->expectException(MappingException::class);
         $this->expectExceptionMessage('Index::desc without arguments can be used only if exactly one key was provided');
 
-        $this->builder = (new IndexBuilder())->desc();
+        (new IndexBuilder())->desc();
     }
 
     public function testTwoFieldIndex()
     {
-        $this->builder = new IndexBuilder(['id', 'name']);
-        $this->builder->build($this->metadata);
+        $builder = new IndexBuilder(['id', 'name']);
+        $builder->build($this->metadata);
 
         self::assertSame([
             [
@@ -75,11 +75,11 @@ class IndexTest extends BuilderTestCase
 
     public function testTwoFieldIndexWithOrder()
     {
-        $this->builder = new IndexBuilder([
+        $builder = new IndexBuilder([
             'id' => 'desc',
             'name' => 'asc',
         ]);
-        $this->builder->build($this->metadata);
+        $builder->build($this->metadata);
 
         self::assertSame([
             [
@@ -94,9 +94,9 @@ class IndexTest extends BuilderTestCase
 
     public function testAscAndDescMethods()
     {
-        $this->builder = new IndexBuilder();
-        $this->builder->asc('id')->desc('name');
-        $this->builder->build($this->metadata);
+        $builder = new IndexBuilder();
+        $builder->asc('id')->desc('name');
+        $builder->build($this->metadata);
 
         self::assertSame([
             [
@@ -111,9 +111,9 @@ class IndexTest extends BuilderTestCase
 
     public function testUniqueIndex()
     {
-        $this->builder = (new IndexBuilder('id'));
-        $this->builder->unique();
-        $this->builder->build($this->metadata);
+        $builder = (new IndexBuilder('id'));
+        $builder->unique();
+        $builder->build($this->metadata);
 
         self::assertSame([
             [
@@ -125,9 +125,9 @@ class IndexTest extends BuilderTestCase
 
     public function testBackgroundIndex()
     {
-        $this->builder = (new IndexBuilder('id'));
-        $this->builder->background();
-        $this->builder->build($this->metadata);
+        $builder = (new IndexBuilder('id'));
+        $builder->background();
+        $builder->build($this->metadata);
 
         self::assertSame([
             [
@@ -139,9 +139,9 @@ class IndexTest extends BuilderTestCase
 
     public function testNamedIndex()
     {
-        $this->builder = (new IndexBuilder('id'));
-        $this->builder->name('myIndex');
-        $this->builder->build($this->metadata);
+        $builder = (new IndexBuilder('id'));
+        $builder->name('myIndex');
+        $builder->build($this->metadata);
 
         self::assertSame([
             [
@@ -153,9 +153,9 @@ class IndexTest extends BuilderTestCase
 
     public function testIndexWithExpireAfter()
     {
-        $this->builder = (new IndexBuilder('id'));
-        $this->builder->expireAfter(72);
-        $this->builder->build($this->metadata);
+        $builder = (new IndexBuilder('id'));
+        $builder->expireAfter(72);
+        $builder->build($this->metadata);
 
         self::assertSame([
             [
@@ -167,9 +167,9 @@ class IndexTest extends BuilderTestCase
 
     public function testSparseIndex()
     {
-        $this->builder = (new IndexBuilder('id'));
-        $this->builder->sparse();
-        $this->builder->build($this->metadata);
+        $builder = (new IndexBuilder('id'));
+        $builder->sparse();
+        $builder->build($this->metadata);
 
         self::assertSame([
             [
@@ -181,9 +181,9 @@ class IndexTest extends BuilderTestCase
 
     public function testIndexWithPartialFilter()
     {
-        $this->builder = (new IndexBuilder('id'));
-        $this->builder->partialFilter('condition: true');
-        $this->builder->build($this->metadata);
+        $builder = (new IndexBuilder('id'));
+        $builder->partialFilter('condition: true');
+        $builder->build($this->metadata);
 
         self::assertSame([
             [

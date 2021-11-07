@@ -10,50 +10,11 @@ use yjiotpukc\MongoODMFluent\Tests\Stubs\Mappings\AnotherEntityStub;
 
 class EmbedManyTest extends FieldTestCase
 {
-    public static function getDefaultMapping(): array
-    {
-        return [
-            'association' => 4,
-            'embedded' => true,
-            'fieldName' => 'address',
-            'targetDocument' => AnotherEntityStub::class,
-            'isCascadeDetach' => true,
-            'isCascadeMerge' => true,
-            'isCascadePersist' => true,
-            'isCascadeRefresh' => true,
-            'isCascadeRemove' => true,
-            'isInverseSide' => false,
-            'isOwningSide' => true,
-            'name' => 'address',
-            'nullable' => false,
-            'notSaved' => false,
-            'strategy' => 'pushAll',
-            'type' => 'many',
-        ];
-    }
-
-    public static function getDefaultFieldName(): string
-    {
-        return 'address';
-    }
-
     public function testEmbedMany()
     {
         $this->givenDefaultBuilder();
 
         $this->assertFieldBuildsCorrectly();
-    }
-
-    protected function givenDefaultBuilder(): EmbedManyBuilder
-    {
-        return $this->givenBuilder('address', AnotherEntityStub::class);
-    }
-
-    protected function givenBuilder(string $fieldName, string $target = ''): EmbedManyBuilder
-    {
-        $this->builder = new EmbedManyBuilder($fieldName, $target);
-
-        return $this->builder;
     }
 
     public function testEmbedManyWithTarget()
@@ -114,5 +75,44 @@ class EmbedManyTest extends FieldTestCase
         $this->givenDefaultBuilder()->strategy()->setArray();
 
         $this->assertFieldBuildsCorrectly(['strategy' => 'setArray']);
+    }
+
+    protected function givenDefaultBuilder(): EmbedManyBuilder
+    {
+        return $this->givenBuilder('address', AnotherEntityStub::class);
+    }
+
+    protected function givenBuilder(string $fieldName, string $target = ''): EmbedManyBuilder
+    {
+        $this->builder = new EmbedManyBuilder($fieldName, $target);
+
+        return $this->builder;
+    }
+
+    public static function getDefaultFieldName(): string
+    {
+        return 'address';
+    }
+
+    public static function getDefaultMapping(): array
+    {
+        return [
+            'association' => 4,
+            'embedded' => true,
+            'fieldName' => 'address',
+            'targetDocument' => AnotherEntityStub::class,
+            'isCascadeDetach' => true,
+            'isCascadeMerge' => true,
+            'isCascadePersist' => true,
+            'isCascadeRefresh' => true,
+            'isCascadeRemove' => true,
+            'isInverseSide' => false,
+            'isOwningSide' => true,
+            'name' => 'address',
+            'nullable' => false,
+            'notSaved' => false,
+            'strategy' => 'pushAll',
+            'type' => 'many',
+        ];
     }
 }

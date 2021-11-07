@@ -17,19 +17,14 @@ use yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Field\ReferenceOneTest;
 
 class DocumentBuilderTest extends BuilderTestCase
 {
+    protected DocumentBuilder $builder;
+
     public function testDb()
     {
         $this->givenBuilder()->db('dbName');
         $this->builder->build($this->metadata);
 
         self::assertSame('dbName', $this->metadata->db);
-    }
-
-    protected function givenBuilder(): DocumentBuilder
-    {
-        $this->builder = new DocumentBuilder();
-
-        return $this->builder;
     }
 
     public function testCollection()
@@ -317,6 +312,13 @@ class DocumentBuilderTest extends BuilderTestCase
         $this->builder->build($this->metadata);
 
         self::assertSame('some', $this->metadata->getWriteConcern());
+    }
+
+    protected function givenBuilder(): DocumentBuilder
+    {
+        $this->builder = new DocumentBuilder();
+
+        return $this->builder;
     }
 
     protected function assertFieldBuildsCorrectly(array $expectedFields = [])

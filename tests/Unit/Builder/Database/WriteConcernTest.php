@@ -11,24 +11,24 @@ class WriteConcernTest extends BuilderTestCase
 {
     public function testNullWriteConcern()
     {
-        $this->builder = new WriteConcernBuilder(null);
-        $this->builder->build($this->metadata);
+        $builder = new WriteConcernBuilder(null);
+        $builder->build($this->metadata);
 
         self::assertNull($this->metadata->getWriteConcern());
     }
 
     public function testStringWriteConcern()
     {
-        $this->builder = new WriteConcernBuilder('some');
-        $this->builder->build($this->metadata);
+        $builder = new WriteConcernBuilder('some');
+        $builder->build($this->metadata);
 
         self::assertSame('some', $this->metadata->getWriteConcern());
     }
 
     public function testIntegerWriteConcern()
     {
-        $this->builder = new WriteConcernBuilder(4);
-        $this->builder->build($this->metadata);
+        $builder = new WriteConcernBuilder(4);
+        $builder->build($this->metadata);
 
         self::assertSame(4, $this->metadata->getWriteConcern());
     }

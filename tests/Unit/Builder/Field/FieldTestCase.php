@@ -4,10 +4,13 @@ declare(strict_types=1);
 
 namespace yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Field;
 
+use yjiotpukc\MongoODMFluent\Builder\Builder;
 use yjiotpukc\MongoODMFluent\Tests\Unit\Builder\BuilderTestCase;
 
 abstract class FieldTestCase extends BuilderTestCase
 {
+    protected Builder $builder;
+
     protected function assertFieldBuildsCorrectly(array $expectedFields = [], string $fieldName = '', array $withoutFields = [])
     {
         $this->builder->build($this->metadata);

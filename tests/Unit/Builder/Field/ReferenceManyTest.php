@@ -10,63 +10,11 @@ use yjiotpukc\MongoODMFluent\Tests\Stubs\Mappings\AnotherEntityStub;
 
 class ReferenceManyTest extends FieldTestCase
 {
-    public static function getDefaultMapping(): array
-    {
-        return [
-            'name' => 'address',
-            'fieldName' => 'address',
-            'targetDocument' => AnotherEntityStub::class,
-            'association' => 2,
-            'criteria' => [],
-            'isCascadeDetach' => false,
-            'isCascadeMerge' => false,
-            'isCascadePersist' => false,
-            'isCascadeRefresh' => false,
-            'isCascadeRemove' => false,
-            'isInverseSide' => false,
-            'isOwningSide' => true,
-            'notSaved' => false,
-            'nullable' => false,
-            'orphanRemoval' => false,
-            'reference' => true,
-            'prime' => [],
-            'sort' => [],
-            'storeAs' => 'dbRef',
-            'strategy' => 'pushAll',
-            'type' => 'many',
-        ];
-    }
-
-    public static function getDefaultFieldName(): string
-    {
-        return 'address';
-    }
-
     public function testReferenceMany()
     {
         $this->givenDefaultBuilder();
 
         $this->assertFieldBuildsCorrectly();
-    }
-
-    protected function givenDefaultBuilder(): ReferenceManyBuilder
-    {
-        return $this->givenBuilder('address', AnotherEntityStub::class);
-    }
-
-    protected function givenBuilderWithSetArrayStrategy(): ReferenceManyBuilder
-    {
-        $builder = $this->givenDefaultBuilder();
-        $builder->strategy()->setArray();
-
-        return $builder;
-    }
-
-    protected function givenBuilder(string $fieldName, string $target = ''): ReferenceManyBuilder
-    {
-        $this->builder = new ReferenceManyBuilder($fieldName, $target);
-
-        return $this->builder;
     }
 
     public function testReferenceManyWithTarget()
@@ -301,5 +249,57 @@ class ReferenceManyTest extends FieldTestCase
             'mappedBy' => 'user_id',
             'prime' => ['type'],
         ]);
+    }
+
+    protected function givenDefaultBuilder(): ReferenceManyBuilder
+    {
+        return $this->givenBuilder('address', AnotherEntityStub::class);
+    }
+
+    protected function givenBuilderWithSetArrayStrategy(): ReferenceManyBuilder
+    {
+        $builder = $this->givenDefaultBuilder();
+        $builder->strategy()->setArray();
+
+        return $builder;
+    }
+
+    protected function givenBuilder(string $fieldName, string $target = ''): ReferenceManyBuilder
+    {
+        $this->builder = new ReferenceManyBuilder($fieldName, $target);
+
+        return $this->builder;
+    }
+
+    public static function getDefaultFieldName(): string
+    {
+        return 'address';
+    }
+
+    public static function getDefaultMapping(): array
+    {
+        return [
+            'name' => 'address',
+            'fieldName' => 'address',
+            'targetDocument' => AnotherEntityStub::class,
+            'association' => 2,
+            'criteria' => [],
+            'isCascadeDetach' => false,
+            'isCascadeMerge' => false,
+            'isCascadePersist' => false,
+            'isCascadeRefresh' => false,
+            'isCascadeRemove' => false,
+            'isInverseSide' => false,
+            'isOwningSide' => true,
+            'notSaved' => false,
+            'nullable' => false,
+            'orphanRemoval' => false,
+            'reference' => true,
+            'prime' => [],
+            'sort' => [],
+            'storeAs' => 'dbRef',
+            'strategy' => 'pushAll',
+            'type' => 'many',
+        ];
     }
 }

@@ -11,8 +11,8 @@ class CollectionTest extends BuilderTestCase
 {
     public function testCollection()
     {
-        $this->builder = new CollectionBuilder('someName');
-        $this->builder->build($this->metadata);
+        $builder = new CollectionBuilder('someName');
+        $builder->build($this->metadata);
 
         static::assertSame('someName', $this->metadata->collection);
     }

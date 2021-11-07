@@ -12,8 +12,8 @@ class RepositoryClassTest extends BuilderTestCase
 {
     public function testRepositoryClass()
     {
-        $this->builder = new RepositoryClassBuilder(RepositoryStub::class);
-        $this->builder->build($this->metadata);
+        $builder = new RepositoryClassBuilder(RepositoryStub::class);
+        $builder->build($this->metadata);
 
         self::assertSame(RepositoryStub::class, $this->metadata->customRepositoryClassName);
     }
