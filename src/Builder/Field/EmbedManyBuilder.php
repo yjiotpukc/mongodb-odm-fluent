@@ -12,40 +12,13 @@ use yjiotpukc\MongoODMFluent\Type\EmbedMany;
 
 class EmbedManyBuilder extends AbstractField implements EmbedMany, Builder
 {
-    /**
-     * @var string
-     */
-    public $targetDocument;
-
-    /**
-     * @var bool
-     */
-    public $nullable = false;
-
-    /**
-     * @var bool
-     */
-    public $notSaved = false;
-
-    /**
-     * @var DiscriminatorBuilder
-     */
-    public $discriminator;
-
-    /**
-     * @var string
-     */
-    public $collectionClass;
-
-    /**
-     * @var CollectionStrategyPartial
-     */
-    public $strategy;
-
-    /**
-     * @var string
-     */
-    protected $fieldName;
+    protected string $fieldName;
+    protected string $targetDocument;
+    protected bool $nullable = false;
+    protected bool $notSaved = false;
+    protected ?string $collectionClass = null;
+    protected ?DiscriminatorBuilder $discriminator = null;
+    protected CollectionStrategyPartial $strategy;
 
     public function __construct(string $fieldName, string $target = '')
     {

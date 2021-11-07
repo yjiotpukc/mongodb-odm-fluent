@@ -9,30 +9,11 @@ use yjiotpukc\MongoODMFluent\Type\Field;
 
 class FieldBuilder extends AbstractField implements Field, Builder
 {
-    /**
-     * @var string
-     */
-    protected $type;
-
-    /**
-     * @var string
-     */
-    protected $fieldName;
-
-    /**
-     * @var string
-     */
-    protected $name;
-
-    /**
-     * @var bool
-     */
-    protected $nullable = false;
-
-    /**
-     * @var bool
-     */
-    protected $notSaved = false;
+    protected string $type;
+    protected string $fieldName;
+    protected string $name;
+    protected bool $nullable = false;
+    protected bool $notSaved = false;
 
     public function __construct(string $type, string $fieldName)
     {
@@ -65,11 +46,11 @@ class FieldBuilder extends AbstractField implements Field, Builder
     public function map(): array
     {
         return [
-            'fieldName' => $this->fieldName,
             'type' => $this->type,
+            'fieldName' => $this->fieldName,
+            'name' => $this->name,
             'nullable' => $this->nullable,
             'notSaved' => $this->notSaved,
-            'name' => $this->name,
         ];
     }
 }

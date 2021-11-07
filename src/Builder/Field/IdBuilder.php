@@ -9,11 +9,11 @@ use yjiotpukc\MongoODMFluent\Type\Id;
 
 class IdBuilder extends AbstractField implements Id, Builder
 {
-    protected $type;
-    protected $strategy = 'auto';
-    protected $generator;
-    protected $nullable = false;
-    protected $notSaved = false;
+    protected string $type = 'id';
+    protected string $strategy = 'auto';
+    protected bool $nullable = false;
+    protected bool $notSaved = false;
+    protected ?string $generator = null;
 
     public function type(string $type): Id
     {
@@ -25,6 +25,7 @@ class IdBuilder extends AbstractField implements Id, Builder
     public function alNum(): Id
     {
         $this->strategy = 'alNum';
+        $this->type = 'custom_id';
 
         return $this;
     }
@@ -32,6 +33,7 @@ class IdBuilder extends AbstractField implements Id, Builder
     public function increment(): Id
     {
         $this->strategy = 'increment';
+        $this->type = 'int';
 
         return $this;
     }
@@ -39,6 +41,7 @@ class IdBuilder extends AbstractField implements Id, Builder
     public function uuid(): Id
     {
         $this->strategy = 'uuid';
+        $this->type = 'custom_id';
 
         return $this;
     }
@@ -46,6 +49,7 @@ class IdBuilder extends AbstractField implements Id, Builder
     public function none(): Id
     {
         $this->strategy = 'none';
+        $this->type = 'custom_id';
 
         return $this;
     }
@@ -53,6 +57,7 @@ class IdBuilder extends AbstractField implements Id, Builder
     public function custom(string $generatorClassName): Id
     {
         $this->strategy = 'custom';
+        $this->type = 'custom_id';
         $this->generator = $generatorClassName;
 
         return $this;

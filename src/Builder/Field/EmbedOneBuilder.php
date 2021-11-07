@@ -11,26 +11,11 @@ use yjiotpukc\MongoODMFluent\Type\EmbedOne;
 
 class EmbedOneBuilder extends AbstractField implements EmbedOne, Builder
 {
-    /**
-     * @var string
-     */
-    public $targetDocument = '';
-    /**
-     * @var bool
-     */
-    public $nullable = false;
-    /**
-     * @var bool
-     */
-    public $notSaved = false;
-    /**
-     * @var DiscriminatorBuilder
-     */
-    public $discriminator = null;
-    /**
-     * @var string
-     */
-    protected $fieldName;
+    protected string $fieldName;
+    protected string $targetDocument;
+    protected bool $nullable = false;
+    protected bool $notSaved = false;
+    protected ?DiscriminatorBuilder $discriminator = null;
 
     public function __construct(string $fieldName, string $target = '')
     {

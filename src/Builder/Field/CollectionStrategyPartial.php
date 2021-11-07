@@ -8,12 +8,7 @@ use yjiotpukc\MongoODMFluent\Type\CollectionStrategy;
 
 class CollectionStrategyPartial implements CollectionStrategy, FieldPartial
 {
-    protected $strategy;
-
-    public function __construct()
-    {
-        $this->strategy = 'pushAll';
-    }
+    protected string $strategy = 'pushAll';
 
     public function addToSet(): CollectionStrategy
     {

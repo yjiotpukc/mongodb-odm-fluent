@@ -11,30 +11,15 @@ use yjiotpukc\MongoODMFluent\Type\ReferenceMany;
 
 class ReferenceManyBuilder extends AbstractReferenceBuilder implements ReferenceMany, Builder
 {
-    /**
-     * @var int
-     */
-    protected $limit;
-
-    /**
-     * @var CollectionStrategyPartial
-     */
-    protected $strategy;
-
-    /**
-     * @var string
-     */
-    protected $collectionClass;
-
-    /**
-     * @var string[]
-     */
-    protected $prime;
+    protected CollectionStrategyPartial $strategy;
+    protected ?string $collectionClass = null;
+    protected ?int $limit = null;
+    /** @var string[] */
+    protected array $prime = [];
 
     public function __construct(string $fieldName, string $target = '')
     {
         parent::__construct($fieldName, $target);
-        $this->prime = [];
         $this->strategy = new CollectionStrategyPartial();
     }
 

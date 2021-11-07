@@ -8,15 +8,8 @@ use yjiotpukc\MongoODMFluent\Type\Cascade;
 
 class CascadePartial implements Cascade, FieldPartial
 {
-    /**
-     * @var string[]
-     */
-    protected $cascades;
-
-    public function __construct()
-    {
-        $this->cascades = [];
-    }
+    /** @var string[] */
+    protected array $cascades = [];
 
     public function all(): Cascade
     {
