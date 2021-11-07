@@ -12,6 +12,8 @@ class IdBuilder extends AbstractField implements Id, Builder
     protected $type;
     protected $strategy = 'auto';
     protected $generator;
+    protected $nullable = false;
+    protected $notSaved = false;
 
     public function type(string $type): Id
     {
@@ -56,12 +58,28 @@ class IdBuilder extends AbstractField implements Id, Builder
         return $this;
     }
 
+    public function nullable(): Id
+    {
+        $this->nullable = true;
+
+        return $this;
+    }
+
+    public function notSaved(): Id
+    {
+        $this->notSaved = true;
+
+        return $this;
+    }
+
     public function map(): array
     {
         $fields = [
             'id' => true,
             'fieldName' => 'id',
             'strategy' => $this->strategy,
+            'nullable' => $this->nullable,
+            'notSaved' => $this->notSaved,
         ];
 
         if ($this->type) {

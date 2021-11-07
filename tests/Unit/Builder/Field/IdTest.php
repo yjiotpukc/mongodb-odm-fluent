@@ -25,6 +25,7 @@ class IdTest extends FieldTestCase
             'nullable' => false,
             'isOwningSide' => true,
             'isInverseSide' => false,
+            'notSaved' => false,
         ];
     }
 
@@ -106,5 +107,19 @@ class IdTest extends FieldTestCase
             'strategy' => 'alNum',
             'type' => 'string',
         ]);
+    }
+
+    public function testNullableId()
+    {
+        $this->givenBuilder()->nullable();
+
+        $this->assertFieldBuildsCorrectly(['nullable' => true]);
+    }
+
+    public function testNotSavedId()
+    {
+        $this->givenBuilder()->notSaved();
+
+        $this->assertFieldBuildsCorrectly(['notSaved' => true]);
     }
 }

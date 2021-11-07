@@ -55,6 +55,7 @@ class MappingTest extends TestCase
             'id' => true,
             'fieldName' => 'id',
             'strategy' => 'auto',
+            'notSaved' => false,
         ]);
         $expectedMetadata->setIdGenerator(new AutoGenerator());
         $expectedMetadata->mapField([
@@ -84,6 +85,7 @@ class MappingTest extends TestCase
             'id' => true,
             'fieldName' => 'id',
             'strategy' => 'auto',
+            'notSaved' => false,
         ]);
         $expectedMetadata->setIdGenerator(new AutoGenerator());
         $expectedMetadata->mapField([
@@ -148,6 +150,7 @@ class MappingTest extends TestCase
             'id' => true,
             'fieldName' => 'id',
             'strategy' => 'auto',
+            'notSaved' => false,
         ]);
         $expectedMetadata->setIdGenerator(new AutoGenerator());
         $expectedMetadata->mapField([
@@ -185,6 +188,7 @@ class MappingTest extends TestCase
             'fieldName' => 'id',
             'strategy' => 'auto',
             'declared' => Pet::class,
+            'notSaved' => false,
         ]);
         $expectedMetadata->setIdGenerator(new AutoGenerator());
         $expectedMetadata->mapField([
@@ -230,6 +234,7 @@ class MappingTest extends TestCase
             'fieldName' => 'id',
             'strategy' => 'auto',
             'declared' => Pet::class,
+            'notSaved' => false,
         ]);
         $expectedMetadata->setIdGenerator(new AutoGenerator());
         $expectedMetadata->mapField([

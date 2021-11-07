@@ -44,7 +44,7 @@ interface ReferenceOne
 
     public function skip(int $skip): ReferenceOne;
 
-    public function notSaved(): ReferenceOne;
-
     public function nullable(): ReferenceOne;
+
+    public function notSaved(): ReferenceOne;
 }

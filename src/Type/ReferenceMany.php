@@ -52,7 +52,7 @@ interface ReferenceMany
 
     public function addPrime(string $primer): ReferenceMany;
 
-    public function notSaved(): ReferenceMany;
-
     public function nullable(): ReferenceMany;
+
+    public function notSaved(): ReferenceMany;
 }

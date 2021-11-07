@@ -24,7 +24,7 @@ abstract class AbstractReferenceBuilder extends AbstractField implements Builder
     /**
      * @var string
      */
-    protected $storeAs;
+    protected $storeAs = ClassMetadata::REFERENCE_STORE_AS_DB_REF;
 
     /**
      * @var CascadePartial
@@ -39,58 +39,52 @@ abstract class AbstractReferenceBuilder extends AbstractField implements Builder
     /**
      * @var bool
      */
-    protected $orphanRemoval;
+    protected $orphanRemoval = false;
 
     /**
-     * @var string
+     * @var string|null
      */
     protected $inversedBy;
 
     /**
-     * @var string
+     * @var string|null
      */
     protected $mappedBy;
 
     /**
-     * @var string
+     * @var string|null
      */
     protected $repositoryMethod;
 
     /**
      * @var string[]
      */
-    protected $sort;
+    protected $sort = [];
 
     /**
      * @var array
      */
-    protected $criteria;
+    protected $criteria = [];
 
     /**
-     * @var int
+     * @var int|null
      */
     protected $skip;
 
     /**
      * @var bool
      */
-    protected $notSaved;
+    protected $nullable = false;
 
     /**
      * @var bool
      */
-    protected $nullable;
+    protected $notSaved = false;
 
     public function __construct(string $fieldName, string $target = '')
     {
         $this->fieldName = $fieldName;
         $this->target = $target;
-        $this->notSaved = false;
-        $this->nullable = false;
-        $this->orphanRemoval = false;
-        $this->storeAs = ClassMetadata::REFERENCE_STORE_AS_DB_REF;
-        $this->sort = [];
-        $this->criteria = [];
     }
 
     public function discriminator(string $field): Discriminator
@@ -105,8 +99,8 @@ abstract class AbstractReferenceBuilder extends AbstractField implements Builder
         $map = [
             'reference' => true,
             'name' => $this->fieldName,
-            'notSaved' => $this->notSaved,
             'nullable' => $this->nullable,
+            'notSaved' => $this->notSaved,
             'storeAs' => $this->storeAs,
             'orphanRemoval' => $this->orphanRemoval,
             'sort' => $this->sort,

@@ -73,6 +73,13 @@ class EmbedOneTest extends FieldTestCase
         );
     }
 
+    public function testNullableEmbedOne()
+    {
+        $this->givenDefaultBuilder()->nullable();
+
+        $this->assertFieldBuildsCorrectly(['nullable' => true]);
+    }
+
     public function testNotSavedEmbedOne()
     {
         $this->givenDefaultBuilder()->notSaved();

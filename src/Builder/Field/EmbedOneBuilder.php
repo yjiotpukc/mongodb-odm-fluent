@@ -18,6 +18,10 @@ class EmbedOneBuilder extends AbstractField implements EmbedOne, Builder
     /**
      * @var bool
      */
+    public $nullable = false;
+    /**
+     * @var bool
+     */
     public $notSaved = false;
     /**
      * @var DiscriminatorBuilder
@@ -37,6 +41,13 @@ class EmbedOneBuilder extends AbstractField implements EmbedOne, Builder
     public function target(string $target): EmbedOne
     {
         $this->targetDocument = $target;
+
+        return $this;
+    }
+
+    public function nullable(): EmbedOne
+    {
+        $this->nullable = true;
 
         return $this;
     }
@@ -61,6 +72,7 @@ class EmbedOneBuilder extends AbstractField implements EmbedOne, Builder
             'embedded' => true,
             'type' => 'one',
             'fieldName' => $this->fieldName,
+            'nullable' => $this->nullable,
             'notSaved' => $this->notSaved,
         ];
 

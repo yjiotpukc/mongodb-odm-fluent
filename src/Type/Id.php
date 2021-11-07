@@ -17,4 +17,8 @@ interface Id
     public function none(): Id;
 
     public function custom(string $generatorClassName): Id;
+
+    public function nullable(): Id;
+
+    public function notSaved(): Id;
 }

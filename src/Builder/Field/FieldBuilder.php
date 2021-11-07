@@ -27,7 +27,7 @@ class FieldBuilder extends AbstractField implements Field, Builder
     /**
      * @var bool
      */
-    protected $nullable;
+    protected $nullable = false;
 
     /**
      * @var bool

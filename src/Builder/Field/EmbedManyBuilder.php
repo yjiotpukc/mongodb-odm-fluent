@@ -20,6 +20,11 @@ class EmbedManyBuilder extends AbstractField implements EmbedMany, Builder
     /**
      * @var bool
      */
+    public $nullable = false;
+
+    /**
+     * @var bool
+     */
     public $notSaved = false;
 
     /**
@@ -56,6 +61,13 @@ class EmbedManyBuilder extends AbstractField implements EmbedMany, Builder
         return $this;
     }
 
+    public function nullable(): EmbedMany
+    {
+        $this->nullable = true;
+
+        return $this;
+    }
+
     public function notSaved(): EmbedMany
     {
         $this->notSaved = true;
@@ -88,6 +100,7 @@ class EmbedManyBuilder extends AbstractField implements EmbedMany, Builder
             'embedded' => true,
             'type' => 'many',
             'fieldName' => $this->fieldName,
+            'nullable' => $this->nullable,
             'notSaved' => $this->notSaved,
         ];
 

@@ -74,6 +74,13 @@ class EmbedManyTest extends FieldTestCase
         );
     }
 
+    public function testNullableEmbedMany()
+    {
+        $this->givenDefaultBuilder()->nullable();
+
+        $this->assertFieldBuildsCorrectly(['nullable' => true]);
+    }
+
     public function testNotSavedEmbedMany()
     {
         $this->givenDefaultBuilder()->notSaved();
