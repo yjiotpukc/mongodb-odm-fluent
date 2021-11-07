@@ -11,7 +11,8 @@ use yjiotpukc\MongoODMFluent\MappingSet\SimpleMappingSet;
 
 class ListMappingFinder implements MappingFinder
 {
-    protected $mappingClassNames;
+    /** @var string[] */
+    protected array $mappingClassNames;
 
     public function __construct(array $mappingClassNames)
     {

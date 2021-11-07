@@ -6,8 +6,5 @@ namespace yjiotpukc\MongoODMFluent\Tests\Integration\Resources\Entities;
 
 class Phone
 {
-    /**
-     * @var string
-     */
-    private $phoneNumber;
+    private string $phoneNumber;
 }

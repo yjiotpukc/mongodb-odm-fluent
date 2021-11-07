@@ -10,7 +10,7 @@ use yjiotpukc\MongoODMFluent\MappingSet\SimpleMappingSet;
 
 class MappingFinderStub implements MappingFinder
 {
-    protected $mappings;
+    protected array $mappings;
 
     public function __construct(array $mappings = [])
     {

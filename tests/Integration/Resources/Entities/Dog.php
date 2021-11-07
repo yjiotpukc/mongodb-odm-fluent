@@ -6,8 +6,5 @@ namespace yjiotpukc\MongoODMFluent\Tests\Integration\Resources\Entities;
 
 class Dog extends Pet
 {
-    /**
-     * @var string
-     */
-    private $breed;
+    private string $breed;
 }

@@ -20,10 +20,7 @@ use yjiotpukc\MongoODMFluent\Tests\Integration\Resources\Entities\User;
 
 class MappingTest extends TestCase
 {
-    /**
-     * @var DocumentManager
-     */
-    protected static $documentManager;
+    protected static DocumentManager $documentManager;
 
     public static function setUpBeforeClass(): void
     {

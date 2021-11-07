@@ -12,10 +12,7 @@ use yjiotpukc\MongoODMFluent\MappingSet\MappingSet;
 
 class FluentDriver implements MappingDriver
 {
-    /**
-     * @var MappingSet
-     */
-    protected $mappingSet;
+    protected MappingSet $mappingSet;
 
     public function __construct(MappingFinder $mappingFinder)
     {

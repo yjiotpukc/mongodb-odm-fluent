@@ -6,13 +6,6 @@ namespace yjiotpukc\MongoODMFluent\Tests\Integration\Resources\Entities;
 
 class SimpleEntity
 {
-    /**
-     * @var string
-     */
-    private $id;
-
-    /**
-     * @var string
-     */
-    private $name;
+    private string $id;
+    private string $name;
 }

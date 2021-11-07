@@ -9,7 +9,7 @@ use yjiotpukc\MongoODMFluent\Mapping\Mapping;
 
 class MappingStub implements Mapping
 {
-    protected static $wasLoaded = false;
+    protected static bool $wasLoaded = false;
 
     public static function wasLoaded(): bool
     {
