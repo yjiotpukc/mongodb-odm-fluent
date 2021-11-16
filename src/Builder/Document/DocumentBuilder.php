@@ -17,6 +17,7 @@ use yjiotpukc\MongoODMFluent\Builder\Document\Traits\CanHaveIndex;
 use yjiotpukc\MongoODMFluent\Builder\Document\Traits\CanHaveInheritance;
 use yjiotpukc\MongoODMFluent\Builder\Document\Traits\CanHaveReferences;
 use yjiotpukc\MongoODMFluent\Builder\Document\Traits\CanHaveRepository;
+use yjiotpukc\MongoODMFluent\Builder\Document\Traits\CanHaveShard;
 use yjiotpukc\MongoODMFluent\Builder\Document\Traits\CanHaveWriteConcern;
 use yjiotpukc\MongoODMFluent\Builder\EmbeddedDocument;
 
@@ -24,6 +25,7 @@ class DocumentBuilder extends BaseBuilder implements Document, EmbeddedDocument
 {
     use CanHaveDb;
     use CanHaveCollection;
+    use CanHaveShard;
     use CanHaveIds;
     use CanHaveFields;
     use CanHaveReferences;

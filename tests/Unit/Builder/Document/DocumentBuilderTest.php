@@ -22,6 +22,7 @@ class DocumentBuilderTest extends BuilderTestCase
     public function testDb()
     {
         $this->givenBuilder()->db('dbName');
+
         $this->builder->build($this->metadata);
 
         self::assertSame('dbName', $this->metadata->db);
@@ -30,9 +31,22 @@ class DocumentBuilderTest extends BuilderTestCase
     public function testCollection()
     {
         $this->givenBuilder()->collection('collectionName');
+
         $this->builder->build($this->metadata);
 
         self::assertSame('collectionName', $this->metadata->collection);
+    }
+
+    public function testShard()
+    {
+        $this->givenBuilder()->shard()->asc('year');
+
+        $this->builder->build($this->metadata);
+
+        self::assertSame([
+            'keys' => ['year' => 1],
+            'options' => [],
+        ], $this->metadata->getShardKey());
     }
 
     public function testId()
