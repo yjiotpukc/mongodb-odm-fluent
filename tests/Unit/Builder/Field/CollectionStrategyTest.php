@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace yjiotpukc\MongoODMFluent\Tests\Unit\Type;
+namespace yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Field;
 
 use PHPUnit\Framework\TestCase;
 use yjiotpukc\MongoODMFluent\Builder\Field\CollectionStrategyPartial;
