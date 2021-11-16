@@ -23,6 +23,7 @@ class IdTest extends FieldTestCase
         $this->assertFieldBuildsCorrectly([
             'strategy' => 'uuid',
             'type' => 'custom_id',
+            'options' => [],
         ]);
     }
 
@@ -33,6 +34,7 @@ class IdTest extends FieldTestCase
         $this->assertFieldBuildsCorrectly([
             'strategy' => 'alNum',
             'type' => 'custom_id',
+            'options' => ['awkwardSafe' => false],
         ]);
     }
 
@@ -43,6 +45,7 @@ class IdTest extends FieldTestCase
         $this->assertFieldBuildsCorrectly([
             'strategy' => 'increment',
             'type' => 'int',
+            'options' => ['startingId' => 1],
         ]);
     }
 
@@ -74,6 +77,110 @@ class IdTest extends FieldTestCase
         $this->assertFieldBuildsCorrectly([
             'strategy' => 'alNum',
             'type' => 'string',
+            'options' => ['awkwardSafe' => false],
+        ]);
+    }
+
+    public function testIncrementIdWithStartginId()
+    {
+        $this->givenBuilder()->increment()->startingId(10);
+
+        $this->assertFieldBuildsCorrectly([
+            'strategy' => 'increment',
+            'type' => 'int',
+            'options' => ['startingId' => 10],
+        ]);
+    }
+
+    public function testIncrementIdWithKey()
+    {
+        $this->givenBuilder()->increment()->key('increment_key');
+
+        $this->assertFieldBuildsCorrectly([
+            'strategy' => 'increment',
+            'type' => 'int',
+            'options' => [
+                'startingId' => 1,
+                'key' => 'increment_key',
+            ],
+        ]);
+    }
+
+    public function testIncrementIdWithCollection()
+    {
+        $this->givenBuilder()->increment()->collection('increment_collection');
+
+        $this->assertFieldBuildsCorrectly([
+            'strategy' => 'increment',
+            'type' => 'int',
+            'options' => [
+                'startingId' => 1,
+                'collection' => 'increment_collection',
+            ],
+        ]);
+    }
+
+    public function testAlphaNumericIdWithPadding()
+    {
+        $this->givenBuilder()->alNum()->pad(4);
+
+        $this->assertFieldBuildsCorrectly([
+            'strategy' => 'alNum',
+            'type' => 'custom_id',
+            'options' => [
+                'awkwardSafe' => false,
+                'pad' => 4,
+            ],
+        ]);
+    }
+
+    public function testAlphaNumericIdWithChars()
+    {
+        $this->givenBuilder()->alNum()->chars('abcdef');
+
+        $this->assertFieldBuildsCorrectly([
+            'strategy' => 'alNum',
+            'type' => 'custom_id',
+            'options' => [
+                'awkwardSafe' => false,
+                'chars' => 'abcdef',
+            ],
+        ]);
+    }
+
+    public function testAlphaNumericIdWithAwkwardSafeMode()
+    {
+        $this->givenBuilder()->alNum()->awkwardSafeMode();
+
+        $this->assertFieldBuildsCorrectly([
+            'strategy' => 'alNum',
+            'type' => 'custom_id',
+            'options' => ['awkwardSafe' => true],
+        ]);
+    }
+
+    public function testUuidIdWithSalt()
+    {
+        $this->givenBuilder()->uuid()->salt('salty');
+
+        $this->assertFieldBuildsCorrectly([
+            'strategy' => 'uuid',
+            'type' => 'custom_id',
+            'options' => ['salt' => 'salty'],
+        ]);
+    }
+
+    public function testCustomIdWithGeneratorOptions()
+    {
+        $this->givenBuilder()->custom(IdGeneratorStub::class)->generatorOption('key', 'value');
+
+        $this->assertFieldBuildsCorrectly([
+            'strategy' => 'custom',
+            'type' => 'custom_id',
+            'options' => [
+                'key' => 'value',
+                'class' => IdGeneratorStub::class,
+            ],
         ]);
     }
 

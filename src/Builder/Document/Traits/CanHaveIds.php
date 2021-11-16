@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace yjiotpukc\MongoODMFluent\Builder\Document\Traits;
 
 use yjiotpukc\MongoODMFluent\Builder\Field\IdBuilder;
-use yjiotpukc\MongoODMFluent\Type\Id;
+use yjiotpukc\MongoODMFluent\Type\Id\Id;
 
 trait CanHaveIds
 {

@@ -7,7 +7,7 @@ namespace yjiotpukc\MongoODMFluent\Builder;
 use yjiotpukc\MongoODMFluent\Type\EmbedMany;
 use yjiotpukc\MongoODMFluent\Type\EmbedOne;
 use yjiotpukc\MongoODMFluent\Type\Field;
-use yjiotpukc\MongoODMFluent\Type\Id;
+use yjiotpukc\MongoODMFluent\Type\Id\Id;
 use yjiotpukc\MongoODMFluent\Type\Index;
 use yjiotpukc\MongoODMFluent\Type\ReferenceMany;
 use yjiotpukc\MongoODMFluent\Type\ReferenceOne;
