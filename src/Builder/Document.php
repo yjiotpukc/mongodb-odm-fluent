@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace yjiotpukc\MongoODMFluent\Builder;
 
+use yjiotpukc\MongoODMFluent\Type\Collection;
 use yjiotpukc\MongoODMFluent\Type\Discriminator;
 use yjiotpukc\MongoODMFluent\Type\EmbedMany;
 use yjiotpukc\MongoODMFluent\Type\EmbedOne;
@@ -17,7 +18,7 @@ interface Document
 {
     public function db(string $name): Document;
 
-    public function collection(string $name): Document;
+    public function collection(string $name): Collection;
 
     public function singleCollection(): Document;
 
