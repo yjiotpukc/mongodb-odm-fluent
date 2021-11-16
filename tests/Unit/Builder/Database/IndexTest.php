@@ -57,6 +57,40 @@ class IndexTest extends BuilderTestCase
         (new IndexBuilder())->desc();
     }
 
+    public function testOneFieldGeoIndex()
+    {
+        $builder = new IndexBuilder(['id' => 'geo']);
+        $builder->build($this->metadata);
+
+        self::assertSame([
+            [
+                'keys' => ['id' => 'geo'],
+                'options' => [],
+            ],
+        ], $this->metadata->indexes);
+    }
+
+    public function testGeoMethodWithoutArguments()
+    {
+        $builder = (new IndexBuilder('id'))->geo();
+        $builder->build($this->metadata);
+
+        self::assertSame([
+            [
+                'keys' => ['id' => 'geo'],
+                'options' => [],
+            ],
+        ], $this->metadata->indexes);
+    }
+
+    public function testGeoMethodWithoutArgumentsAndWithoutKeys()
+    {
+        $this->expectException(MappingException::class);
+        $this->expectExceptionMessage('Index::geo without arguments can be used only if exactly one key was provided');
+
+        (new IndexBuilder())->geo();
+    }
+
     public function testTwoFieldIndex()
     {
         $builder = new IndexBuilder(['id', 'name']);
