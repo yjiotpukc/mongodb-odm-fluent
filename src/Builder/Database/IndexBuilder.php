@@ -85,6 +85,21 @@ class IndexBuilder implements Index, Builder
         return $this;
     }
 
+    public function text(string $key = ''): Index
+    {
+        if (empty($key) && count($this->keys) !== 1) {
+            throw new MappingException('Index::text without arguments can be used only if exactly one key was provided');
+        }
+
+        if (empty($key)) {
+            $key = array_key_first($this->keys);
+        }
+
+        $this->keys[$key] = 'text';
+
+        return $this;
+    }
+
     public function unique(): Index
     {
         $this->unique = true;

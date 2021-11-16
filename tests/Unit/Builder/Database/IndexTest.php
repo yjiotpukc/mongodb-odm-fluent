@@ -91,6 +91,40 @@ class IndexTest extends BuilderTestCase
         (new IndexBuilder())->geo();
     }
 
+    public function testOneFieldTextIndex()
+    {
+        $builder = new IndexBuilder(['id' => 'text']);
+        $builder->build($this->metadata);
+
+        self::assertSame([
+            [
+                'keys' => ['id' => 'text'],
+                'options' => [],
+            ],
+        ], $this->metadata->indexes);
+    }
+
+    public function testTextMethodWithoutArguments()
+    {
+        $builder = (new IndexBuilder('id'))->text();
+        $builder->build($this->metadata);
+
+        self::assertSame([
+            [
+                'keys' => ['id' => 'text'],
+                'options' => [],
+            ],
+        ], $this->metadata->indexes);
+    }
+
+    public function testTextMethodWithoutArgumentsAndWithoutKeys()
+    {
+        $this->expectException(MappingException::class);
+        $this->expectExceptionMessage('Index::text without arguments can be used only if exactly one key was provided');
+
+        (new IndexBuilder())->text();
+    }
+
     public function testTwoFieldIndex()
     {
         $builder = new IndexBuilder(['id', 'name']);
