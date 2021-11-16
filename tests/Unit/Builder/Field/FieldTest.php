@@ -59,6 +59,32 @@ class FieldTest extends FieldTestCase
         ], 'age');
     }
 
+    public function testOptimisticLocking()
+    {
+        $this->givenBuilder('int', 'age')->version();
+
+        $this->assertFieldBuildsCorrectly([
+            'fieldName' => 'age',
+            'name' => 'age',
+            'type' => 'int',
+            'version' => true,
+            'notSaved' => true,
+        ], 'age');
+    }
+
+    public function testPessimisticLocking()
+    {
+        $this->givenBuilder('int', 'age')->lock();
+
+        $this->assertFieldBuildsCorrectly([
+            'fieldName' => 'age',
+            'name' => 'age',
+            'type' => 'int',
+            'lock' => true,
+            'notSaved' => true,
+        ], 'age');
+    }
+
     protected function givenDefaultBuilder(): FieldBuilder
     {
         return $this->givenBuilder('string', 'firstName');

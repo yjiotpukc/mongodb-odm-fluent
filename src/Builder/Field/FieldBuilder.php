@@ -15,6 +15,8 @@ class FieldBuilder extends AbstractField implements Field, IntegerField
     protected string $strategy = 'set';
     protected bool $nullable = false;
     protected bool $notSaved = false;
+    protected bool $version = false;
+    protected bool $lock = false;
 
     public function __construct(string $type, string $fieldName)
     {
@@ -51,9 +53,23 @@ class FieldBuilder extends AbstractField implements Field, IntegerField
         return $this;
     }
 
+    public function version(): FieldBuilder
+    {
+        $this->version = true;
+
+        return $this;
+    }
+
+    public function lock(): FieldBuilder
+    {
+        $this->lock = true;
+
+        return $this;
+    }
+
     public function map(): array
     {
-        return [
+        $fields = [
             'type' => $this->type,
             'fieldName' => $this->fieldName,
             'name' => $this->name,
@@ -61,5 +77,14 @@ class FieldBuilder extends AbstractField implements Field, IntegerField
             'notSaved' => $this->notSaved,
             'strategy' => $this->strategy,
         ];
+
+        if ($this->version) {
+            $fields['version'] = $this->version;
+        }
+        if ($this->lock) {
+            $fields['lock'] = $this->lock;
+        }
+
+        return $fields;
     }
 }
