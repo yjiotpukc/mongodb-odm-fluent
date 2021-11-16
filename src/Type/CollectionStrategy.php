@@ -13,4 +13,8 @@ interface CollectionStrategy
     public function set(): CollectionStrategy;
 
     public function setArray(): CollectionStrategy;
+
+    public function atomicSet(): CollectionStrategy;
+
+    public function atomicSetArray(): CollectionStrategy;
 }

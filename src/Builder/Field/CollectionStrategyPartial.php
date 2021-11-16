@@ -38,6 +38,20 @@ class CollectionStrategyPartial implements CollectionStrategy, FieldPartial
         return $this;
     }
 
+    public function atomicSet(): CollectionStrategy
+    {
+        $this->strategy = 'atomicSet';
+
+        return $this;
+    }
+
+    public function atomicSetArray(): CollectionStrategy
+    {
+        $this->strategy = 'atomicSetArray';
+
+        return $this;
+    }
+
     public function toMapping(): array
     {
         return ['strategy' => $this->strategy];

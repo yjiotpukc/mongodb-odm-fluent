@@ -47,4 +47,20 @@ class CollectionStrategyTest extends TestCase
 
         self::assertSame(['strategy' => 'setArray'], $collectionStrategy->toMapping());
     }
+
+    public function testAtomicSet()
+    {
+        $collectionStrategy = new CollectionStrategyPartial();
+        $collectionStrategy->atomicSet();
+
+        self::assertSame(['strategy' => 'atomicSet'], $collectionStrategy->toMapping());
+    }
+
+    public function testAtomicSetArray()
+    {
+        $collectionStrategy = new CollectionStrategyPartial();
+        $collectionStrategy->atomicSetArray();
+
+        self::assertSame(['strategy' => 'atomicSetArray'], $collectionStrategy->toMapping());
+    }
 }
