@@ -49,6 +49,15 @@ class DocumentBuilderTest extends BuilderTestCase
         ], $this->metadata->getShardKey());
     }
 
+    public function testChangeTrackingPolicy()
+    {
+        $this->givenBuilder()->changeTrackingPolicy()->deferredExplicit();
+
+        $this->builder->build($this->metadata);
+
+        self::assertTrue($this->metadata->isChangeTrackingDeferredExplicit());
+    }
+
     public function testId()
     {
         $this->givenBuilder()->id();

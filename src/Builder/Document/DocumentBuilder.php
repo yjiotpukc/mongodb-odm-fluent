@@ -7,6 +7,7 @@ namespace yjiotpukc\MongoODMFluent\Builder\Document;
 use yjiotpukc\MongoODMFluent\Builder\BaseBuilder;
 use yjiotpukc\MongoODMFluent\Builder\Document;
 use yjiotpukc\MongoODMFluent\Builder\Document\Traits\CanBeReadOnly;
+use yjiotpukc\MongoODMFluent\Builder\Document\Traits\CanHaveChangeTrackingPolicy;
 use yjiotpukc\MongoODMFluent\Builder\Document\Traits\CanHaveCollection;
 use yjiotpukc\MongoODMFluent\Builder\Document\Traits\CanHaveDb;
 use yjiotpukc\MongoODMFluent\Builder\Document\Traits\CanHaveDiscriminator;
@@ -26,6 +27,7 @@ class DocumentBuilder extends BaseBuilder implements Document, EmbeddedDocument
     use CanHaveDb;
     use CanHaveCollection;
     use CanHaveShard;
+    use CanHaveChangeTrackingPolicy;
     use CanHaveIds;
     use CanHaveFields;
     use CanHaveReferences;
