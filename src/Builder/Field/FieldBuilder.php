@@ -4,14 +4,15 @@ declare(strict_types=1);
 
 namespace yjiotpukc\MongoODMFluent\Builder\Field;
 
-use yjiotpukc\MongoODMFluent\Builder\Builder;
 use yjiotpukc\MongoODMFluent\Type\Field;
+use yjiotpukc\MongoODMFluent\Type\IntegerField;
 
-class FieldBuilder extends AbstractField implements Field, Builder
+class FieldBuilder extends AbstractField implements Field, IntegerField
 {
     protected string $type;
     protected string $fieldName;
     protected string $name;
+    protected string $strategy = 'set';
     protected bool $nullable = false;
     protected bool $notSaved = false;
 
@@ -22,23 +23,30 @@ class FieldBuilder extends AbstractField implements Field, Builder
         $this->name = $fieldName;
     }
 
-    public function nameInDb(string $name): Field
+    public function nameInDb(string $name): FieldBuilder
     {
         $this->name = $name;
 
         return $this;
     }
 
-    public function nullable(): Field
+    public function nullable(): FieldBuilder
     {
         $this->nullable = true;
 
         return $this;
     }
 
-    public function notSaved(): Field
+    public function notSaved(): FieldBuilder
     {
         $this->notSaved = true;
+
+        return $this;
+    }
+
+    public function increment(): FieldBuilder
+    {
+        $this->strategy = 'increment';
 
         return $this;
     }
@@ -51,6 +59,7 @@ class FieldBuilder extends AbstractField implements Field, Builder
             'name' => $this->name,
             'nullable' => $this->nullable,
             'notSaved' => $this->notSaved,
+            'strategy' => $this->strategy,
         ];
     }
 }

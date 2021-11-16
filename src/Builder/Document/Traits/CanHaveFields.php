@@ -6,6 +6,7 @@ namespace yjiotpukc\MongoODMFluent\Builder\Document\Traits;
 
 use yjiotpukc\MongoODMFluent\Builder\Field\FieldBuilder;
 use yjiotpukc\MongoODMFluent\Type\Field;
+use yjiotpukc\MongoODMFluent\Type\IntegerField;
 
 trait CanHaveFields
 {
@@ -19,7 +20,7 @@ trait CanHaveFields
         return $this->addBuilder(new FieldBuilder('string', $fieldName));
     }
 
-    public function int(string $fieldName): Field
+    public function int(string $fieldName): IntegerField
     {
         return $this->addBuilder(new FieldBuilder('int', $fieldName));
     }

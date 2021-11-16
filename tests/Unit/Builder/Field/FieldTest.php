@@ -17,12 +17,12 @@ class FieldTest extends FieldTestCase
 
     public function testIntegerField()
     {
-        $this->givenBuilder('integer', 'age');
+        $this->givenBuilder('int', 'age');
 
         $this->assertFieldBuildsCorrectly([
             'fieldName' => 'age',
             'name' => 'age',
-            'type' => 'integer',
+            'type' => 'int',
         ], 'age');
     }
 
@@ -45,6 +45,18 @@ class FieldTest extends FieldTestCase
         $this->givenDefaultBuilder()->nameInDb('name');
 
         $this->assertFieldBuildsCorrectly(['name' => 'name']);
+    }
+
+    public function testAutoincrementField()
+    {
+        $this->givenBuilder('int', 'age')->increment();
+
+        $this->assertFieldBuildsCorrectly([
+            'fieldName' => 'age',
+            'name' => 'age',
+            'type' => 'int',
+            'strategy' => 'increment'
+        ], 'age');
     }
 
     protected function givenDefaultBuilder(): FieldBuilder
