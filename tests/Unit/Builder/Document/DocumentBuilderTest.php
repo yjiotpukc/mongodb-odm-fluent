@@ -337,6 +337,16 @@ class DocumentBuilderTest extends BuilderTestCase
         self::assertSame('some', $this->metadata->getWriteConcern());
     }
 
+    public function testReadPreference()
+    {
+        $this->givenBuilder()->readPreference()->secondary()->any();
+
+        $this->builder->build($this->metadata);
+
+        self::assertSame('secondary', $this->metadata->readPreference);
+        self::assertSame([[]], $this->metadata->readPreferenceTags);
+    }
+
     protected function givenBuilder(): DocumentBuilder
     {
         $this->builder = new DocumentBuilder();
