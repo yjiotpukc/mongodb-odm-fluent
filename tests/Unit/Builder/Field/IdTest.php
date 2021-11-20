@@ -16,6 +16,13 @@ class IdTest extends FieldTestCase
         $this->assertFieldBuildsCorrectly();
     }
 
+    public function testIdWithFieldName(): void
+    {
+        $this->givenBuilder()->fieldName('firstName');
+
+        $this->assertFieldBuildsCorrectly(['fieldName' => 'firstName'], 'firstName');
+    }
+
     public function testUuidId()
     {
         $this->givenBuilder()->uuid();

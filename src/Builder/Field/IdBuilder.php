@@ -14,6 +14,7 @@ use yjiotpukc\MongoODMFluent\Type\Id\IdUuid;
 class IdBuilder extends AbstractField implements Id, IdAlNum, IdUuid, IdIncrement, IdCustom, IdNone
 {
     protected string $type = 'id';
+    protected string $fieldName = 'id';
     protected string $strategy = 'auto';
     protected bool $nullable = false;
     protected bool $notSaved = false;
@@ -34,6 +35,13 @@ class IdBuilder extends AbstractField implements Id, IdAlNum, IdUuid, IdIncremen
     public function type(string $type): IdBuilder
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    public function fieldName(string $fieldName): IdBuilder
+    {
+        $this->fieldName = $fieldName;
 
         return $this;
     }
@@ -153,7 +161,7 @@ class IdBuilder extends AbstractField implements Id, IdAlNum, IdUuid, IdIncremen
     {
         $fields = [
             'id' => true,
-            'fieldName' => 'id',
+            'fieldName' => $this->fieldName,
             'strategy' => $this->strategy,
             'nullable' => $this->nullable,
             'notSaved' => $this->notSaved,

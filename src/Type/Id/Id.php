@@ -8,6 +8,8 @@ interface Id
 {
     public function type(string $type): Id;
 
+    public function fieldName(string $fieldName): Id;
+
     public function nullable(): Id;
 
     public function notSaved(): Id;
