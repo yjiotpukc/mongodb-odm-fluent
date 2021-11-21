@@ -26,6 +26,7 @@ use yjiotpukc\MongoODMFluent\Builder\Field\FieldBuilder;
 use yjiotpukc\MongoODMFluent\Builder\Field\IdBuilder;
 use yjiotpukc\MongoODMFluent\Builder\Field\ReferenceManyBuilder;
 use yjiotpukc\MongoODMFluent\Builder\Field\ReferenceOneBuilder;
+use yjiotpukc\MongoODMFluent\Builder\QueryResultDocument;
 use yjiotpukc\MongoODMFluent\Builder\View;
 use yjiotpukc\MongoODMFluent\Type\ChangeTrackingPolicy;
 use yjiotpukc\MongoODMFluent\Type\Collection;
@@ -41,7 +42,7 @@ use yjiotpukc\MongoODMFluent\Type\ReferenceMany;
 use yjiotpukc\MongoODMFluent\Type\ReferenceOne;
 use yjiotpukc\MongoODMFluent\Type\Shard;
 
-class DocumentBuilder extends BaseBuilder implements Document, EmbeddedDocument, View
+class DocumentBuilder extends BaseBuilder implements Document, EmbeddedDocument, View, QueryResultDocument
 {
     public function embeddedDocument(): DocumentBuilder
     {
@@ -51,6 +52,11 @@ class DocumentBuilder extends BaseBuilder implements Document, EmbeddedDocument,
     public function mappedSuperclass(): DocumentBuilder
     {
         return $this->addBuilderAndReturnSelf(new MappedSuperclassBuilder());
+    }
+
+    public function queryResultDocument(): DocumentBuilder
+    {
+        return $this->addBuilderAndReturnSelf(new QueryResultDocumentBuilder());
     }
 
     public function db(string $name): DocumentBuilder
