@@ -58,6 +58,24 @@ class DocumentBuilderTest extends BuilderTestCase
         self::assertTrue($this->metadata->isChangeTrackingDeferredExplicit());
     }
 
+    public function testRootClass(): void
+    {
+        $this->givenBuilder()->rootClass(AnotherEntityStub::class);
+
+        $this->builder->build($this->metadata);
+
+        self::assertSame(AnotherEntityStub::class, $this->metadata->getRootClass());
+    }
+
+    public function testViewName(): void
+    {
+        $this->givenBuilder()->view('my_view');
+
+        $this->builder->build($this->metadata);
+
+        self::assertSame('my_view', $this->metadata->getCollection());
+    }
+
     public function testId()
     {
         $this->givenBuilder()->id();

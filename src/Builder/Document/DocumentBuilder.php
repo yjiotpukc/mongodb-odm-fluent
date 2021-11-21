@@ -14,7 +14,9 @@ use yjiotpukc\MongoODMFluent\Builder\Database\InheritanceBuilder;
 use yjiotpukc\MongoODMFluent\Builder\Database\ReadOnlyBuilder;
 use yjiotpukc\MongoODMFluent\Builder\Database\ReadPreferenceBuilder;
 use yjiotpukc\MongoODMFluent\Builder\Database\RepositoryClassBuilder;
+use yjiotpukc\MongoODMFluent\Builder\Database\RootClassBuilder;
 use yjiotpukc\MongoODMFluent\Builder\Database\ShardBuilder;
+use yjiotpukc\MongoODMFluent\Builder\Database\ViewNameBuilder;
 use yjiotpukc\MongoODMFluent\Builder\Database\WriteConcernBuilder;
 use yjiotpukc\MongoODMFluent\Builder\Document;
 use yjiotpukc\MongoODMFluent\Builder\EmbeddedDocument;
@@ -24,6 +26,7 @@ use yjiotpukc\MongoODMFluent\Builder\Field\FieldBuilder;
 use yjiotpukc\MongoODMFluent\Builder\Field\IdBuilder;
 use yjiotpukc\MongoODMFluent\Builder\Field\ReferenceManyBuilder;
 use yjiotpukc\MongoODMFluent\Builder\Field\ReferenceOneBuilder;
+use yjiotpukc\MongoODMFluent\Builder\View;
 use yjiotpukc\MongoODMFluent\Type\ChangeTrackingPolicy;
 use yjiotpukc\MongoODMFluent\Type\Collection;
 use yjiotpukc\MongoODMFluent\Type\Discriminator;
@@ -38,7 +41,7 @@ use yjiotpukc\MongoODMFluent\Type\ReferenceMany;
 use yjiotpukc\MongoODMFluent\Type\ReferenceOne;
 use yjiotpukc\MongoODMFluent\Type\Shard;
 
-class DocumentBuilder extends BaseBuilder implements Document, EmbeddedDocument
+class DocumentBuilder extends BaseBuilder implements Document, EmbeddedDocument, View
 {
     public function embeddedDocument(): DocumentBuilder
     {
@@ -114,6 +117,16 @@ class DocumentBuilder extends BaseBuilder implements Document, EmbeddedDocument
     public function changeTrackingPolicy(): ChangeTrackingPolicy
     {
         return $this->addBuilder(new ChangeTrackingPolicyBuilder());
+    }
+
+    public function rootClass(string $className): DocumentBuilder
+    {
+        return $this->addBuilderAndReturnSelf(new RootClassBuilder($className));
+    }
+
+    public function view(string $name): DocumentBuilder
+    {
+        return $this->addBuilderAndReturnSelf(new ViewNameBuilder($name));
     }
 
     public function id(): Id
