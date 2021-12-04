@@ -17,6 +17,7 @@ class FieldBuilder extends AbstractField implements Field, IntegerField
     protected bool $notSaved = false;
     protected bool $version = false;
     protected bool $lock = false;
+    protected array $alsoLoadFields = [];
 
     public function __construct(string $type, string $fieldName)
     {
@@ -67,6 +68,13 @@ class FieldBuilder extends AbstractField implements Field, IntegerField
         return $this;
     }
 
+    public function alsoLoad(string $fieldName): FieldBuilder
+    {
+        $this->alsoLoadFields[] = $fieldName;
+
+        return $this;
+    }
+
     public function map(): array
     {
         $fields = [
@@ -83,6 +91,9 @@ class FieldBuilder extends AbstractField implements Field, IntegerField
         }
         if ($this->lock) {
             $fields['lock'] = $this->lock;
+        }
+        if (!empty($this->alsoLoadFields)) {
+            $fields['alsoLoadFields'] = $this->alsoLoadFields;
         }
 
         return $fields;

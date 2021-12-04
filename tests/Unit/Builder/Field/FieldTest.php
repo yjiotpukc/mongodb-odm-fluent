@@ -85,6 +85,13 @@ class FieldTest extends FieldTestCase
         ], 'age');
     }
 
+    public function testAlsoLoadFields()
+    {
+        $this->givenDefaultBuilder()->alsoLoad('name');
+
+        $this->assertFieldBuildsCorrectly(['alsoLoadFields' => ['name']]);
+    }
+
     protected function givenDefaultBuilder(): FieldBuilder
     {
         return $this->givenBuilder('string', 'firstName');
