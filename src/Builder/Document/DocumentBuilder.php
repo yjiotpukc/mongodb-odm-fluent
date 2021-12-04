@@ -26,6 +26,7 @@ use yjiotpukc\MongoODMFluent\Builder\Field\FieldBuilder;
 use yjiotpukc\MongoODMFluent\Builder\Field\IdBuilder;
 use yjiotpukc\MongoODMFluent\Builder\Field\ReferenceManyBuilder;
 use yjiotpukc\MongoODMFluent\Builder\Field\ReferenceOneBuilder;
+use yjiotpukc\MongoODMFluent\Builder\Method\LifecycleBuilder;
 use yjiotpukc\MongoODMFluent\Builder\QueryResultDocument;
 use yjiotpukc\MongoODMFluent\Builder\View;
 use yjiotpukc\MongoODMFluent\Type\ChangeTrackingPolicy;
@@ -37,6 +38,7 @@ use yjiotpukc\MongoODMFluent\Type\Field;
 use yjiotpukc\MongoODMFluent\Type\Id\Id;
 use yjiotpukc\MongoODMFluent\Type\Index;
 use yjiotpukc\MongoODMFluent\Type\IntegerField;
+use yjiotpukc\MongoODMFluent\Type\Lifecycle;
 use yjiotpukc\MongoODMFluent\Type\ReadPreferenceMode;
 use yjiotpukc\MongoODMFluent\Type\ReferenceMany;
 use yjiotpukc\MongoODMFluent\Type\ReferenceOne;
@@ -258,5 +260,10 @@ class DocumentBuilder extends BaseBuilder implements Document, EmbeddedDocument,
     public function binUuid(string $fieldName): Field
     {
         return $this->addBuilder(new FieldBuilder('bin_uuid', $fieldName));
+    }
+
+    public function lifecycle(): Lifecycle
+    {
+        return $this->addBuilder(new LifecycleBuilder());
     }
 }

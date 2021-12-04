@@ -365,6 +365,15 @@ class DocumentBuilderTest extends BuilderTestCase
         self::assertSame([[]], $this->metadata->readPreferenceTags);
     }
 
+    public function testLifecycle()
+    {
+        $this->givenBuilder()->lifecycle()->prePersist('callback');
+
+        $this->builder->build($this->metadata);
+
+        self::assertSameArray(['prePersist' => ['callback']], $this->metadata->lifecycleCallbacks);
+    }
+
     protected function givenBuilder(): DocumentBuilder
     {
         $this->builder = new DocumentBuilder();
