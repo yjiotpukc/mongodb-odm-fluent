@@ -6,18 +6,9 @@ namespace yjiotpukc\MongoODMFluent\Tests\Integration\Resources\Entities;
 
 class User
 {
-    /**
-     * @var string
-     */
-    private $id;
+    private string $id;
+    private string $name;
 
-    /**
-     * @var string
-     */
-    private $name;
-
-    /**
-     * @var Phone[]
-     */
-    private $phones;
+    /** @var Phone[] */
+    private array $phones;
 }

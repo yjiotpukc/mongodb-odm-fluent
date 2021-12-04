@@ -11,16 +11,16 @@ class InheritanceTest extends BuilderTestCase
 {
     public function testSingleCollectionInheritance()
     {
-        $this->builder = InheritanceBuilder::singleCollection();
-        $this->builder->build($this->metadata);
+        $builder = InheritanceBuilder::singleCollection();
+        $builder->build($this->metadata);
 
         self::assertTrue($this->metadata->isInheritanceTypeSingleCollection());
     }
 
     public function testCollectionPerClassInheritance()
     {
-        $this->builder = InheritanceBuilder::collectionPerClass();
-        $this->builder->build($this->metadata);
+        $builder = InheritanceBuilder::collectionPerClass();
+        $builder->build($this->metadata);
 
         self::assertTrue($this->metadata->isInheritanceTypeCollectionPerClass());
     }

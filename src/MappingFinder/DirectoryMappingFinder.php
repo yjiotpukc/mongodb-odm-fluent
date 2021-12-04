@@ -10,13 +10,14 @@ use yjiotpukc\MongoODMFluent\MappingSet\SimpleMappingSet;
 
 class DirectoryMappingFinder implements MappingFinder
 {
-    protected $wereDirectoriesScanned;
-    protected $mappingDirectories;
-    protected $mappingNamespaces;
+    /** @var string[] */
+    protected array $mappingDirectories;
+    /** @var string[] */
+    protected array $mappingNamespaces;
+    protected bool $wereDirectoriesScanned = false;
 
     public function __construct(array $mappingDirectories, array $mappingNamespaces)
     {
-        $this->wereDirectoriesScanned = false;
         $this->mappingDirectories = $mappingDirectories;
         $this->mappingNamespaces = $mappingNamespaces;
     }

@@ -8,12 +8,8 @@ use yjiotpukc\MongoODMFluent\MappingException;
 
 class SimpleMappingSet implements MappingSet
 {
-    protected $mappings;
-
-    public function __construct()
-    {
-        $this->mappings = [];
-    }
+    /** @var string[] */
+    protected array $mappings = [];
 
     public function add(string $entityClassName, string $mappingClassName)
     {

@@ -9,9 +9,7 @@ use yjiotpukc\MongoODMFluent\Builder\Builder;
 
 class WriteConcernBuilder implements Builder
 {
-    /**
-     * @var int|string|null
-     */
+    /** @var int|string|null */
     protected $writeConcern;
 
     /**

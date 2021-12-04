@@ -10,6 +10,8 @@ interface EmbedMany
 
     public function target(string $target): EmbedMany;
 
+    public function nullable(): EmbedMany;
+
     public function notSaved(): EmbedMany;
 
     public function discriminator(string $field): Discriminator;

@@ -12,35 +12,13 @@ use yjiotpukc\MongoODMFluent\Type\EmbedMany;
 
 class EmbedManyBuilder extends AbstractField implements EmbedMany, Builder
 {
-    /**
-     * @var string
-     */
-    public $targetDocument;
-
-    /**
-     * @var bool
-     */
-    public $notSaved = false;
-
-    /**
-     * @var DiscriminatorBuilder
-     */
-    public $discriminator;
-
-    /**
-     * @var string
-     */
-    public $collectionClass;
-
-    /**
-     * @var CollectionStrategyPartial
-     */
-    public $strategy;
-
-    /**
-     * @var string
-     */
-    protected $fieldName;
+    protected string $fieldName;
+    protected string $targetDocument;
+    protected bool $nullable = false;
+    protected bool $notSaved = false;
+    protected ?string $collectionClass = null;
+    protected ?DiscriminatorBuilder $discriminator = null;
+    protected CollectionStrategyPartial $strategy;
 
     public function __construct(string $fieldName, string $target = '')
     {
@@ -52,6 +30,13 @@ class EmbedManyBuilder extends AbstractField implements EmbedMany, Builder
     public function target(string $target): EmbedMany
     {
         $this->targetDocument = $target;
+
+        return $this;
+    }
+
+    public function nullable(): EmbedMany
+    {
+        $this->nullable = true;
 
         return $this;
     }
@@ -88,6 +73,7 @@ class EmbedManyBuilder extends AbstractField implements EmbedMany, Builder
             'embedded' => true,
             'type' => 'many',
             'fieldName' => $this->fieldName,
+            'nullable' => $this->nullable,
             'notSaved' => $this->notSaved,
         ];
 

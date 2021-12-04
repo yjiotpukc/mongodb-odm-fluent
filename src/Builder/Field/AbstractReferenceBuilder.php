@@ -11,86 +11,26 @@ use yjiotpukc\MongoODMFluent\Type\Discriminator;
 
 abstract class AbstractReferenceBuilder extends AbstractField implements Builder
 {
-    /**
-     * @var string
-     */
-    protected $fieldName;
-
-    /**
-     * @var string
-     */
-    protected $target;
-
-    /**
-     * @var string
-     */
-    protected $storeAs;
-
-    /**
-     * @var CascadePartial
-     */
-    protected $cascade;
-
-    /**
-     * @var DiscriminatorBuilder
-     */
-    protected $discriminator;
-
-    /**
-     * @var bool
-     */
-    protected $orphanRemoval;
-
-    /**
-     * @var string
-     */
-    protected $inversedBy;
-
-    /**
-     * @var string
-     */
-    protected $mappedBy;
-
-    /**
-     * @var string
-     */
-    protected $repositoryMethod;
-
-    /**
-     * @var string[]
-     */
-    protected $sort;
-
-    /**
-     * @var array
-     */
-    protected $criteria;
-
-    /**
-     * @var int
-     */
-    protected $skip;
-
-    /**
-     * @var bool
-     */
-    protected $notSaved;
-
-    /**
-     * @var bool
-     */
-    protected $nullable;
+    protected string $fieldName;
+    protected string $target;
+    protected string $storeAs = ClassMetadata::REFERENCE_STORE_AS_DB_REF;
+    protected bool $orphanRemoval = false;
+    protected bool $nullable = false;
+    protected bool $notSaved = false;
+    protected array $criteria = [];
+    protected ?string $inversedBy = null;
+    protected ?string $mappedBy = null;
+    protected ?string $repositoryMethod = null;
+    protected ?int $skip = null;
+    protected ?CascadePartial $cascade = null;
+    protected ?DiscriminatorBuilder $discriminator = null;
+    /** @var string[] */
+    protected array $sort = [];
 
     public function __construct(string $fieldName, string $target = '')
     {
         $this->fieldName = $fieldName;
         $this->target = $target;
-        $this->notSaved = false;
-        $this->nullable = false;
-        $this->orphanRemoval = false;
-        $this->storeAs = ClassMetadata::REFERENCE_STORE_AS_DB_REF;
-        $this->sort = [];
-        $this->criteria = [];
     }
 
     public function discriminator(string $field): Discriminator
@@ -105,8 +45,8 @@ abstract class AbstractReferenceBuilder extends AbstractField implements Builder
         $map = [
             'reference' => true,
             'name' => $this->fieldName,
-            'notSaved' => $this->notSaved,
             'nullable' => $this->nullable,
+            'notSaved' => $this->notSaved,
             'storeAs' => $this->storeAs,
             'orphanRemoval' => $this->orphanRemoval,
             'sort' => $this->sort,

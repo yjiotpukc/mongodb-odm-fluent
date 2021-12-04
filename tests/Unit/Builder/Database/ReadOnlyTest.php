@@ -11,8 +11,8 @@ class ReadOnlyTest extends BuilderTestCase
 {
     public function testReadOnly()
     {
-        $this->builder = new ReadOnlyBuilder();
-        $this->builder->build($this->metadata);
+        $builder = new ReadOnlyBuilder();
+        $builder->build($this->metadata);
 
         static::assertTrue($this->metadata->isReadOnly);
     }

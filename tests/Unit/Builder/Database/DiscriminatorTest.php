@@ -12,9 +12,9 @@ class DiscriminatorTest extends BuilderTestCase
 {
     public function testDefaultDiscriminator()
     {
-        $discriminator = new DiscriminatorBuilder('type');
+        $discriminatorBuilder = new DiscriminatorBuilder('type');
 
-        $discriminator->build($this->metadata);
+        $discriminatorBuilder->build($this->metadata);
 
         self::assertSame('type', $this->metadata->discriminatorField);
         self::assertSame(null, $this->metadata->defaultDiscriminatorValue);
@@ -23,10 +23,10 @@ class DiscriminatorTest extends BuilderTestCase
 
     public function testDiscriminatorWithDefaultValue()
     {
-        $discriminator = new DiscriminatorBuilder('type');
-        $discriminator->map('physical', AnotherEntityStub::class)->default('physical');
+        $discriminatorBuilder = new DiscriminatorBuilder('type');
+        $discriminatorBuilder->map('physical', AnotherEntityStub::class)->default('physical');
 
-        $discriminator->build($this->metadata);
+        $discriminatorBuilder->build($this->metadata);
 
         self::assertSame('type', $this->metadata->discriminatorField);
         self::assertSame('physical', $this->metadata->defaultDiscriminatorValue);
@@ -35,12 +35,12 @@ class DiscriminatorTest extends BuilderTestCase
 
     public function testDiscriminatorWithMap()
     {
-        $discriminator = new DiscriminatorBuilder('type');
-        $discriminator
+        $discriminatorBuilder = new DiscriminatorBuilder('type');
+        $discriminatorBuilder
             ->map('email', AnotherEntityStub::class)
             ->map('physical', AnotherEntityStub::class);
 
-        $discriminator->build($this->metadata);
+        $discriminatorBuilder->build($this->metadata);
 
         self::assertSame('type', $this->metadata->discriminatorField);
         self::assertSame(null, $this->metadata->defaultDiscriminatorValue);

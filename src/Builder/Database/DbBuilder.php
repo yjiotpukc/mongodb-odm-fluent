@@ -9,10 +9,7 @@ use yjiotpukc\MongoODMFluent\Builder\Builder;
 
 class DbBuilder implements Builder
 {
-    /**
-     * @var string
-     */
-    protected $dbName;
+    protected string $dbName;
 
     public function __construct(string $dbName)
     {

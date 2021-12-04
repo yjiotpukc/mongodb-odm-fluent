@@ -6,8 +6,5 @@ namespace yjiotpukc\MongoODMFluent\Tests\Integration\Resources\Entities;
 
 class Bird extends Pet
 {
-    /**
-     * @var bool
-     */
-    private $isTalking;
+    private bool $isTalking;
 }

@@ -8,12 +8,7 @@ use yjiotpukc\MongoODMFluent\Type\CollectionStrategy;
 
 class CollectionStrategyPartial implements CollectionStrategy, FieldPartial
 {
-    protected $strategy;
-
-    public function __construct()
-    {
-        $this->strategy = 'pushAll';
-    }
+    protected string $strategy = 'pushAll';
 
     public function addToSet(): CollectionStrategy
     {
@@ -39,6 +34,20 @@ class CollectionStrategyPartial implements CollectionStrategy, FieldPartial
     public function setArray(): CollectionStrategy
     {
         $this->strategy = 'setArray';
+
+        return $this;
+    }
+
+    public function atomicSet(): CollectionStrategy
+    {
+        $this->strategy = 'atomicSet';
+
+        return $this;
+    }
+
+    public function atomicSetArray(): CollectionStrategy
+    {
+        $this->strategy = 'atomicSetArray';
 
         return $this;
     }

@@ -9,54 +9,11 @@ use yjiotpukc\MongoODMFluent\Tests\Stubs\Mappings\AnotherEntityStub;
 
 class ReferenceOneTest extends FieldTestCase
 {
-    public static function getDefaultMapping(): array
-    {
-        return [
-            'name' => 'address',
-            'fieldName' => 'address',
-            'targetDocument' => AnotherEntityStub::class,
-            'association' => 1,
-            'criteria' => [],
-            'isCascadeDetach' => false,
-            'isCascadeMerge' => false,
-            'isCascadePersist' => false,
-            'isCascadeRefresh' => false,
-            'isCascadeRemove' => false,
-            'isInverseSide' => false,
-            'isOwningSide' => true,
-            'notSaved' => false,
-            'nullable' => false,
-            'orphanRemoval' => false,
-            'reference' => true,
-            'sort' => [],
-            'storeAs' => 'dbRef',
-            'strategy' => 'set',
-            'type' => 'one',
-        ];
-    }
-
-    public static function getDefaultFieldName(): string
-    {
-        return 'address';
-    }
-
     public function testReferenceOne()
     {
         $this->givenDefaultBuilder();
 
         $this->assertFieldBuildsCorrectly();
-    }
-
-    protected function givenDefaultBuilder(): ReferenceOneBuilder
-    {
-        return $this->givenBuilder('address', AnotherEntityStub::class);
-    }
-
-    protected function givenBuilder(string $fieldName, string $target = ''): ReferenceOneBuilder
-    {
-        $this->builder = new ReferenceOneBuilder($fieldName, $target);
-
-        return $this->builder;
     }
 
     public function testReferenceOneWithTarget()
@@ -246,5 +203,48 @@ class ReferenceOneTest extends FieldTestCase
                 'name' => 'home',
             ],
         ]);
+    }
+
+    protected function givenDefaultBuilder(): ReferenceOneBuilder
+    {
+        return $this->givenBuilder('address', AnotherEntityStub::class);
+    }
+
+    protected function givenBuilder(string $fieldName, string $target = ''): ReferenceOneBuilder
+    {
+        $this->builder = new ReferenceOneBuilder($fieldName, $target);
+
+        return $this->builder;
+    }
+
+    public static function getDefaultMapping(): array
+    {
+        return [
+            'name' => 'address',
+            'fieldName' => 'address',
+            'targetDocument' => AnotherEntityStub::class,
+            'association' => 1,
+            'criteria' => [],
+            'isCascadeDetach' => false,
+            'isCascadeMerge' => false,
+            'isCascadePersist' => false,
+            'isCascadeRefresh' => false,
+            'isCascadeRemove' => false,
+            'isInverseSide' => false,
+            'isOwningSide' => true,
+            'notSaved' => false,
+            'nullable' => false,
+            'orphanRemoval' => false,
+            'reference' => true,
+            'sort' => [],
+            'storeAs' => 'dbRef',
+            'strategy' => 'set',
+            'type' => 'one',
+        ];
+    }
+
+    public static function getDefaultFieldName(): string
+    {
+        return 'address';
     }
 }

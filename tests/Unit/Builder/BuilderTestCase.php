@@ -10,11 +10,7 @@ use yjiotpukc\MongoODMFluent\Tests\Stubs\EntityStub;
 
 abstract class BuilderTestCase extends TestCase
 {
-    /**
-     * @var ClassMetadata
-     */
-    protected $metadata;
-    protected $builder;
+    protected ClassMetadata $metadata;
 
     public static function assertSameArray(array $expected, array $actual)
     {

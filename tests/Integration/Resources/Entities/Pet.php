@@ -6,13 +6,6 @@ namespace yjiotpukc\MongoODMFluent\Tests\Integration\Resources\Entities;
 
 abstract class Pet
 {
-    /**
-     * @var string
-     */
-    protected $id;
-
-    /**
-     * @var string
-     */
-    protected $name;
+    protected string $id;
+    protected string $name;
 }

@@ -11,8 +11,8 @@ class DbTest extends BuilderTestCase
 {
     public function testDb()
     {
-        $this->builder = new DbBuilder('someName');
-        $this->builder->build($this->metadata);
+        $builder = new DbBuilder('someName');
+        $builder->build($this->metadata);
 
         static::assertSame('someName', $this->metadata->db);
     }

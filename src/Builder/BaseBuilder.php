@@ -8,10 +8,8 @@ use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
 
 abstract class BaseBuilder implements Builder
 {
-    /**
-     * @var Builder[]
-     */
-    protected $builders = [];
+    /** @var Builder[] */
+    protected array $builders = [];
 
     public function build(ClassMetadata $metadata): void
     {

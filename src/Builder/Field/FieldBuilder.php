@@ -4,35 +4,20 @@ declare(strict_types=1);
 
 namespace yjiotpukc\MongoODMFluent\Builder\Field;
 
-use yjiotpukc\MongoODMFluent\Builder\Builder;
 use yjiotpukc\MongoODMFluent\Type\Field;
+use yjiotpukc\MongoODMFluent\Type\IntegerField;
 
-class FieldBuilder extends AbstractField implements Field, Builder
+class FieldBuilder extends AbstractField implements Field, IntegerField
 {
-    /**
-     * @var string
-     */
-    protected $type;
-
-    /**
-     * @var string
-     */
-    protected $fieldName;
-
-    /**
-     * @var string
-     */
-    protected $name;
-
-    /**
-     * @var bool
-     */
-    protected $nullable;
-
-    /**
-     * @var bool
-     */
-    protected $notSaved = false;
+    protected string $type;
+    protected string $fieldName;
+    protected string $name;
+    protected string $strategy = 'set';
+    protected bool $nullable = false;
+    protected bool $notSaved = false;
+    protected bool $version = false;
+    protected bool $lock = false;
+    protected array $alsoLoadFields = [];
 
     public function __construct(string $type, string $fieldName)
     {
@@ -41,35 +26,76 @@ class FieldBuilder extends AbstractField implements Field, Builder
         $this->name = $fieldName;
     }
 
-    public function nameInDb(string $name): Field
+    public function nameInDb(string $name): FieldBuilder
     {
         $this->name = $name;
 
         return $this;
     }
 
-    public function nullable(): Field
+    public function nullable(): FieldBuilder
     {
         $this->nullable = true;
 
         return $this;
     }
 
-    public function notSaved(): Field
+    public function notSaved(): FieldBuilder
     {
         $this->notSaved = true;
 
         return $this;
     }
 
+    public function increment(): FieldBuilder
+    {
+        $this->strategy = 'increment';
+
+        return $this;
+    }
+
+    public function version(): FieldBuilder
+    {
+        $this->version = true;
+
+        return $this;
+    }
+
+    public function lock(): FieldBuilder
+    {
+        $this->lock = true;
+
+        return $this;
+    }
+
+    public function alsoLoad(string $fieldName): FieldBuilder
+    {
+        $this->alsoLoadFields[] = $fieldName;
+
+        return $this;
+    }
+
     public function map(): array
     {
-        return [
-            'fieldName' => $this->fieldName,
+        $fields = [
             'type' => $this->type,
+            'fieldName' => $this->fieldName,
+            'name' => $this->name,
             'nullable' => $this->nullable,
             'notSaved' => $this->notSaved,
-            'name' => $this->name,
+            'strategy' => $this->strategy,
         ];
+
+        if ($this->version) {
+            $fields['version'] = $this->version;
+        }
+        if ($this->lock) {
+            $fields['lock'] = $this->lock;
+        }
+        if (!empty($this->alsoLoadFields)) {
+            $fields['alsoLoadFields'] = $this->alsoLoadFields;
+        }
+
+        return $fields;
     }
 }

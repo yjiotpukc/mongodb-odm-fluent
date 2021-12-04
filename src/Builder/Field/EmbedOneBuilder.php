@@ -11,22 +11,11 @@ use yjiotpukc\MongoODMFluent\Type\EmbedOne;
 
 class EmbedOneBuilder extends AbstractField implements EmbedOne, Builder
 {
-    /**
-     * @var string
-     */
-    public $targetDocument = '';
-    /**
-     * @var bool
-     */
-    public $notSaved = false;
-    /**
-     * @var DiscriminatorBuilder
-     */
-    public $discriminator = null;
-    /**
-     * @var string
-     */
-    protected $fieldName;
+    protected string $fieldName;
+    protected string $targetDocument;
+    protected bool $nullable = false;
+    protected bool $notSaved = false;
+    protected ?DiscriminatorBuilder $discriminator = null;
 
     public function __construct(string $fieldName, string $target = '')
     {
@@ -37,6 +26,13 @@ class EmbedOneBuilder extends AbstractField implements EmbedOne, Builder
     public function target(string $target): EmbedOne
     {
         $this->targetDocument = $target;
+
+        return $this;
+    }
+
+    public function nullable(): EmbedOne
+    {
+        $this->nullable = true;
 
         return $this;
     }
@@ -61,6 +57,7 @@ class EmbedOneBuilder extends AbstractField implements EmbedOne, Builder
             'embedded' => true,
             'type' => 'one',
             'fieldName' => $this->fieldName,
+            'nullable' => $this->nullable,
             'notSaved' => $this->notSaved,
         ];
 
