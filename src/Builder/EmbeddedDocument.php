@@ -11,6 +11,7 @@ use yjiotpukc\MongoODMFluent\Type\Field;
 use yjiotpukc\MongoODMFluent\Type\Id\Id;
 use yjiotpukc\MongoODMFluent\Type\Index;
 use yjiotpukc\MongoODMFluent\Type\IntegerField;
+use yjiotpukc\MongoODMFluent\Type\Lifecycle;
 use yjiotpukc\MongoODMFluent\Type\ReferenceMany;
 use yjiotpukc\MongoODMFluent\Type\ReferenceOne;
 
@@ -25,6 +26,10 @@ interface EmbeddedDocument
     public function index($keys = []): Index;
 
     public function changeTrackingPolicy(): ChangeTrackingPolicy;
+
+    public function lifecycle(): Lifecycle;
+
+    public function alsoLoad(string $method, array $fields): Document;
 
     public function id(): Id;
 

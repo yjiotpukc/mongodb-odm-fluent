@@ -26,6 +26,7 @@ use yjiotpukc\MongoODMFluent\Builder\Field\FieldBuilder;
 use yjiotpukc\MongoODMFluent\Builder\Field\IdBuilder;
 use yjiotpukc\MongoODMFluent\Builder\Field\ReferenceManyBuilder;
 use yjiotpukc\MongoODMFluent\Builder\Field\ReferenceOneBuilder;
+use yjiotpukc\MongoODMFluent\Builder\Method\AlsoLoadMethodBuilder;
 use yjiotpukc\MongoODMFluent\Builder\Method\LifecycleBuilder;
 use yjiotpukc\MongoODMFluent\Builder\QueryResultDocument;
 use yjiotpukc\MongoODMFluent\Builder\View;
@@ -265,5 +266,10 @@ class DocumentBuilder extends BaseBuilder implements Document, EmbeddedDocument,
     public function lifecycle(): Lifecycle
     {
         return $this->addBuilder(new LifecycleBuilder());
+    }
+
+    public function alsoLoad(string $method, array $fields): DocumentBuilder
+    {
+        return $this->addBuilderAndReturnSelf(new AlsoLoadMethodBuilder($method, $fields));
     }
 }

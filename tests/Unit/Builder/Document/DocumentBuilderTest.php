@@ -374,6 +374,17 @@ class DocumentBuilderTest extends BuilderTestCase
         self::assertSameArray(['prePersist' => ['callback']], $this->metadata->lifecycleCallbacks);
     }
 
+    public function testAlsoLoadMethod()
+    {
+        $this->givenBuilder()->alsoLoad('populateFirstAndLastName', ['name', 'fullName']);
+
+        $this->builder->build($this->metadata);
+
+        self::assertSameArray([
+            'populateFirstAndLastName' => ['name', 'fullName']
+        ], $this->metadata->alsoLoadMethods);
+    }
+
     protected function givenBuilder(): DocumentBuilder
     {
         $this->builder = new DocumentBuilder();

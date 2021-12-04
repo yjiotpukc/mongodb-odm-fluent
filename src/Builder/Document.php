@@ -13,6 +13,7 @@ use yjiotpukc\MongoODMFluent\Type\Field;
 use yjiotpukc\MongoODMFluent\Type\Id\Id;
 use yjiotpukc\MongoODMFluent\Type\Index;
 use yjiotpukc\MongoODMFluent\Type\IntegerField;
+use yjiotpukc\MongoODMFluent\Type\Lifecycle;
 use yjiotpukc\MongoODMFluent\Type\ReadPreferenceMode;
 use yjiotpukc\MongoODMFluent\Type\ReferenceMany;
 use yjiotpukc\MongoODMFluent\Type\ReferenceOne;
@@ -50,6 +51,10 @@ interface Document
     public function shard(): Shard;
 
     public function changeTrackingPolicy(): ChangeTrackingPolicy;
+
+    public function lifecycle(): Lifecycle;
+
+    public function alsoLoad(string $method, array $fields): Document;
 
     public function id(): Id;
 
