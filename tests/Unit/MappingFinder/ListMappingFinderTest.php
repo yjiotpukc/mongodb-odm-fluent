@@ -16,7 +16,10 @@ class ListMappingFinderTest extends TestCase
 {
     public function testCreatesMappingSet()
     {
-        $finder = new ListMappingFinder([EntityStubMapping::class, AnotherEntityStubMapping::class]);
+        $finder = new ListMappingFinder([
+            EntityStub::class => EntityStubMapping::class,
+            AnotherEntityStub::class => AnotherEntityStubMapping::class,
+        ]);
         $mappingSet = $finder->makeMappingSet();
         self::assertEquals([EntityStub::class, AnotherEntityStub::class], $mappingSet->getAll());
     }
