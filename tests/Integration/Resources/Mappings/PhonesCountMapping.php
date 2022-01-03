@@ -10,11 +10,6 @@ use yjiotpukc\MongoODMFluent\Tests\Integration\Resources\Entities\PhonesCount;
 
 class PhonesCountMapping extends QueryResultDocumentMapping
 {
-    public function mapFor(): string
-    {
-        return PhonesCount::class;
-    }
-
     public function map(QueryResultDocument $builder): void
     {
         $builder->int('count');

@@ -10,11 +10,6 @@ use yjiotpukc\MongoODMFluent\Tests\Integration\Resources\Entities\ImageMetadata;
 
 class ImageMetadataMapping extends EmbeddedDocumentMapping
 {
-    public function mapFor(): string
-    {
-        return ImageMetadata::class;
-    }
-
     public function map(EmbeddedDocument $builder): void
     {
         $builder->string('uploadedBy');

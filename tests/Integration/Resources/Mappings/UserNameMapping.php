@@ -12,11 +12,6 @@ use yjiotpukc\MongoODMFluent\Tests\Integration\Resources\Repositories\UserNameRe
 
 class UserNameMapping extends ViewMapping
 {
-    public function mapFor(): string
-    {
-        return UserName::class;
-    }
-
     public function map(View $builder): void
     {
         $builder

@@ -10,11 +10,6 @@ use yjiotpukc\MongoODMFluent\Tests\Integration\Resources\Entities\Bird;
 
 class BirdMapping extends DocumentMapping
 {
-    public function mapFor(): string
-    {
-        return Bird::class;
-    }
-
     public function map(Document $builder): void
     {
         $builder->field('boolean', 'isTalking');

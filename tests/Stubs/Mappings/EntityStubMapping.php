@@ -22,11 +22,6 @@ class EntityStubMapping implements Mapping
         static::$wasLoaded = false;
     }
 
-    public function mapFor(): string
-    {
-        return EntityStub::class;
-    }
-
     public function load(ClassMetadata $metadata): void
     {
         static::$wasLoaded = true;

@@ -10,11 +10,6 @@ use yjiotpukc\MongoODMFluent\Tests\Integration\Resources\Entities\Phone;
 
 class PhoneMapping extends EmbeddedDocumentMapping
 {
-    public function mapFor(): string
-    {
-        return Phone::class;
-    }
-
     public function map(EmbeddedDocument $builder): void
     {
         $builder->field('string', 'phoneNumber');

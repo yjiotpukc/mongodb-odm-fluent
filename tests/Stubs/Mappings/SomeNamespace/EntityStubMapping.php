@@ -10,11 +10,6 @@ use yjiotpukc\MongoODMFluent\Tests\Stubs\SomeNamespace\EntityStub;
 
 class EntityStubMapping implements Mapping
 {
-    public function mapFor(): string
-    {
-        return EntityStub::class;
-    }
-
     public function load(ClassMetadata $metadata): void
     {
     }

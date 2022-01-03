@@ -11,11 +11,6 @@ use yjiotpukc\MongoODMFluent\Tests\Integration\Resources\Entities\ImageMetadata;
 
 class ImageMapping extends FileMapping
 {
-    public function mapFor(): string
-    {
-        return Image::class;
-    }
-
     public function map(File $builder): void
     {
         $builder->db('dbName');

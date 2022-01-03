@@ -12,11 +12,6 @@ use yjiotpukc\MongoODMFluent\Tests\Integration\Resources\Entities\Pet;
 
 class PetMapping extends MappedSuperclassMapping
 {
-    public function mapFor(): string
-    {
-        return Pet::class;
-    }
-
     public function map(Document $builder): void
     {
         $builder = $builder->db('dbName');
