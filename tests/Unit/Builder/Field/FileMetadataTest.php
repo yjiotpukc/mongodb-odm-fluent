@@ -6,8 +6,8 @@ namespace yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Field;
 
 use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
 use yjiotpukc\MongoODMFluent\Builder\Field\FileMetadataBuilder;
+use yjiotpukc\MongoODMFluent\Tests\Stubs\AnotherEntityStub;
 use yjiotpukc\MongoODMFluent\Tests\Stubs\FileStub;
-use yjiotpukc\MongoODMFluent\Tests\Stubs\Mappings\AnotherEntityStub;
 
 class FileMetadataTest extends FieldTestCase
 {

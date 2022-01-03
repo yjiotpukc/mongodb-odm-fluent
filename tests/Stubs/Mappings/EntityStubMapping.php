@@ -2,12 +2,13 @@
 
 declare(strict_types=1);
 
-namespace yjiotpukc\MongoODMFluent\Tests\Stubs;
+namespace yjiotpukc\MongoODMFluent\Tests\Stubs\Mappings;
 
 use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
 use yjiotpukc\MongoODMFluent\Mapping\Mapping;
+use yjiotpukc\MongoODMFluent\Tests\Stubs\EntityStub;
 
-class MappingStub implements Mapping
+class EntityStubMapping implements Mapping
 {
     protected static bool $wasLoaded = false;
 

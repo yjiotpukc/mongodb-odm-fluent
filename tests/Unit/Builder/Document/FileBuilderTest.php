@@ -6,8 +6,8 @@ namespace yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Document;
 
 use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
 use yjiotpukc\MongoODMFluent\Builder\Document\FileBuilder;
+use yjiotpukc\MongoODMFluent\Tests\Stubs\AnotherEntityStub;
 use yjiotpukc\MongoODMFluent\Tests\Stubs\FileStub;
-use yjiotpukc\MongoODMFluent\Tests\Stubs\Mappings\AnotherEntityStub;
 use yjiotpukc\MongoODMFluent\Tests\Stubs\RepositoryStub;
 use yjiotpukc\MongoODMFluent\Tests\Unit\Builder\BuilderTestCase;
 use yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Field\FieldTest;

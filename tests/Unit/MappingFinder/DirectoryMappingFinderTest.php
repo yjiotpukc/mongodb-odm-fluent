@@ -7,10 +7,10 @@ namespace yjiotpukc\MongoODMFluent\Tests\Unit\MappingFinder;
 use PHPUnit\Framework\TestCase;
 use yjiotpukc\MongoODMFluent\MappingFinder\DirectoryMappingFinder;
 use yjiotpukc\MongoODMFluent\MappingSet\MappingSet;
+use yjiotpukc\MongoODMFluent\Tests\Stubs\AnotherEntityStub;
 use yjiotpukc\MongoODMFluent\Tests\Stubs\EntityStub;
-use yjiotpukc\MongoODMFluent\Tests\Stubs\Mappings\AnotherEntityStub;
-use yjiotpukc\MongoODMFluent\Tests\Stubs\Mappings\AnotherMappingStub;
-use yjiotpukc\MongoODMFluent\Tests\Stubs\MappingStub;
+use yjiotpukc\MongoODMFluent\Tests\Stubs\Mappings\AnotherEntityStubMapping;
+use yjiotpukc\MongoODMFluent\Tests\Stubs\Mappings\EntityStubMapping;
 
 class DirectoryMappingFinderTest extends TestCase
 {
@@ -19,7 +19,7 @@ class DirectoryMappingFinderTest extends TestCase
     public function testFindsMappings()
     {
         $mappingSet = $this->createMappingSet();
-        self::assertEquals(MappingStub::class, $mappingSet->find(EntityStub::class));
+        self::assertEquals(EntityStubMapping::class, $mappingSet->find(EntityStub::class));
     }
 
     public function createMappingSet(): MappingSet
@@ -37,12 +37,12 @@ class DirectoryMappingFinderTest extends TestCase
     public function testFindsMappingsInSubdirectories()
     {
         $mappingSet = $this->createMappingSet();
-        self::assertEquals(AnotherMappingStub::class, $mappingSet->find(AnotherEntityStub::class));
+        self::assertEquals(AnotherEntityStubMapping::class, $mappingSet->find(AnotherEntityStub::class));
     }
 
     public function testFindsOnlyMappings()
     {
         $mappingSet = $this->createMappingSet();
-        self::assertEquals([EntityStub::class, AnotherEntityStub::class], $mappingSet->getAll());
+        self::assertEquals([EntityStub::class, AnotherEntityStub::class, \yjiotpukc\MongoODMFluent\Tests\Stubs\SomeNamespace\EntityStub::class], $mappingSet->getAll());
     }
 }

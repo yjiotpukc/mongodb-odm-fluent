@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Document;
 
 use yjiotpukc\MongoODMFluent\Builder\Document\DocumentBuilder;
-use yjiotpukc\MongoODMFluent\Tests\Stubs\Mappings\AnotherEntityStub;
+use yjiotpukc\MongoODMFluent\Tests\Stubs\AnotherEntityStub;
 use yjiotpukc\MongoODMFluent\Tests\Stubs\RepositoryStub;
 use yjiotpukc\MongoODMFluent\Tests\Unit\Builder\BuilderTestCase;
 use yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Field\EmbedManyTest;

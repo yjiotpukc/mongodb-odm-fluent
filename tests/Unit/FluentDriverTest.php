@@ -10,7 +10,7 @@ use yjiotpukc\MongoODMFluent\FluentDriver;
 use yjiotpukc\MongoODMFluent\MappingException;
 use yjiotpukc\MongoODMFluent\Tests\Stubs\EntityStub;
 use yjiotpukc\MongoODMFluent\Tests\Stubs\MappingFinderStub;
-use yjiotpukc\MongoODMFluent\Tests\Stubs\MappingStub;
+use yjiotpukc\MongoODMFluent\Tests\Stubs\Mappings\EntityStubMapping;
 
 class FluentDriverTest extends TestCase
 {
@@ -46,12 +46,12 @@ class FluentDriverTest extends TestCase
 
     public function testLoadsMapping()
     {
-        MappingStub::reset();
+        EntityStubMapping::reset();
         $entity = EntityStub::class;
-        $mappings = [$entity => MappingStub::class];
+        $mappings = [$entity => EntityStubMapping::class];
         $driver = new FluentDriver(new MappingFinderStub($mappings));
         $driver->loadMetadataForClass($entity, new ClassMetadata($entity));
-        self::assertTrue(MappingStub::wasLoaded());
+        self::assertTrue(EntityStubMapping::wasLoaded());
     }
 
     public function testThrowsExceptionIfMappingNotFound()

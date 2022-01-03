@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Field;
 
 use yjiotpukc\MongoODMFluent\Builder\Field\EmbedOneBuilder;
-use yjiotpukc\MongoODMFluent\Tests\Stubs\Mappings\AnotherEntityStub;
+use yjiotpukc\MongoODMFluent\Tests\Stubs\AnotherEntityStub;
 
 class EmbedOneTest extends FieldTestCase
 {
