@@ -88,7 +88,7 @@ class IdTest extends FieldTestCase
         ]);
     }
 
-    public function testIncrementIdWithStartginId()
+    public function testIncrementIdWithStartingId()
     {
         $this->givenBuilder()->increment()->startingId(10);
 
