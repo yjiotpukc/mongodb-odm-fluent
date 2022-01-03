@@ -10,7 +10,7 @@ use yjiotpukc\MongoODMFluent\Tests\Unit\Builder\BuilderTestCase;
 
 class IndexTest extends BuilderTestCase
 {
-    public function testOneFieldIndex()
+    public function testOneFieldIndex(): void
     {
         $builder = new IndexBuilder('id');
         $builder->build($this->metadata);
@@ -23,7 +23,7 @@ class IndexTest extends BuilderTestCase
         ], $this->metadata->indexes);
     }
 
-    public function testOneFieldDescIndex()
+    public function testOneFieldDescIndex(): void
     {
         $builder = new IndexBuilder(['id' => 'desc']);
         $builder->build($this->metadata);
@@ -36,7 +36,7 @@ class IndexTest extends BuilderTestCase
         ], $this->metadata->indexes);
     }
 
-    public function testDescMethodWithoutArguments()
+    public function testDescMethodWithoutArguments(): void
     {
         $builder = (new IndexBuilder('id'))->desc();
         $builder->build($this->metadata);
@@ -49,7 +49,7 @@ class IndexTest extends BuilderTestCase
         ], $this->metadata->indexes);
     }
 
-    public function testDescMethodWithoutArgumentsAndWithoutKeys()
+    public function testDescMethodWithoutArgumentsAndWithoutKeys(): void
     {
         $this->expectException(MappingException::class);
         $this->expectExceptionMessage('Index::desc without arguments can be used only if exactly one key was provided');
@@ -57,7 +57,7 @@ class IndexTest extends BuilderTestCase
         (new IndexBuilder())->desc();
     }
 
-    public function testOneFieldGeoIndex()
+    public function testOneFieldGeoIndex(): void
     {
         $builder = new IndexBuilder(['id' => 'geo']);
         $builder->build($this->metadata);
@@ -70,7 +70,7 @@ class IndexTest extends BuilderTestCase
         ], $this->metadata->indexes);
     }
 
-    public function testGeoMethodWithoutArguments()
+    public function testGeoMethodWithoutArguments(): void
     {
         $builder = (new IndexBuilder('id'))->geo();
         $builder->build($this->metadata);
@@ -83,7 +83,7 @@ class IndexTest extends BuilderTestCase
         ], $this->metadata->indexes);
     }
 
-    public function testGeoMethodWithoutArgumentsAndWithoutKeys()
+    public function testGeoMethodWithoutArgumentsAndWithoutKeys(): void
     {
         $this->expectException(MappingException::class);
         $this->expectExceptionMessage('Index::geo without arguments can be used only if exactly one key was provided');
@@ -91,7 +91,7 @@ class IndexTest extends BuilderTestCase
         (new IndexBuilder())->geo();
     }
 
-    public function testOneFieldTextIndex()
+    public function testOneFieldTextIndex(): void
     {
         $builder = new IndexBuilder(['id' => 'text']);
         $builder->build($this->metadata);
@@ -104,7 +104,7 @@ class IndexTest extends BuilderTestCase
         ], $this->metadata->indexes);
     }
 
-    public function testTextMethodWithoutArguments()
+    public function testTextMethodWithoutArguments(): void
     {
         $builder = (new IndexBuilder('id'))->text();
         $builder->build($this->metadata);
@@ -117,7 +117,7 @@ class IndexTest extends BuilderTestCase
         ], $this->metadata->indexes);
     }
 
-    public function testTextMethodWithoutArgumentsAndWithoutKeys()
+    public function testTextMethodWithoutArgumentsAndWithoutKeys(): void
     {
         $this->expectException(MappingException::class);
         $this->expectExceptionMessage('Index::text without arguments can be used only if exactly one key was provided');
@@ -125,7 +125,7 @@ class IndexTest extends BuilderTestCase
         (new IndexBuilder())->text();
     }
 
-    public function testTwoFieldIndex()
+    public function testTwoFieldIndex(): void
     {
         $builder = new IndexBuilder(['id', 'name']);
         $builder->build($this->metadata);
@@ -141,7 +141,7 @@ class IndexTest extends BuilderTestCase
         ], $this->metadata->indexes);
     }
 
-    public function testTwoFieldIndexWithOrder()
+    public function testTwoFieldIndexWithOrder(): void
     {
         $builder = new IndexBuilder([
             'id' => 'desc',
@@ -160,7 +160,7 @@ class IndexTest extends BuilderTestCase
         ], $this->metadata->indexes);
     }
 
-    public function testAscAndDescMethods()
+    public function testAscAndDescMethods(): void
     {
         $builder = new IndexBuilder();
         $builder->asc('id')->desc('name');
@@ -177,7 +177,7 @@ class IndexTest extends BuilderTestCase
         ], $this->metadata->indexes);
     }
 
-    public function testUniqueIndex()
+    public function testUniqueIndex(): void
     {
         $builder = (new IndexBuilder('id'));
         $builder->unique();
@@ -191,7 +191,7 @@ class IndexTest extends BuilderTestCase
         ], $this->metadata->indexes);
     }
 
-    public function testBackgroundIndex()
+    public function testBackgroundIndex(): void
     {
         $builder = (new IndexBuilder('id'));
         $builder->background();
@@ -205,7 +205,7 @@ class IndexTest extends BuilderTestCase
         ], $this->metadata->indexes);
     }
 
-    public function testNamedIndex()
+    public function testNamedIndex(): void
     {
         $builder = (new IndexBuilder('id'));
         $builder->name('myIndex');
@@ -219,7 +219,7 @@ class IndexTest extends BuilderTestCase
         ], $this->metadata->indexes);
     }
 
-    public function testIndexWithExpireAfter()
+    public function testIndexWithExpireAfter(): void
     {
         $builder = (new IndexBuilder('id'));
         $builder->expireAfter(72);
@@ -233,7 +233,7 @@ class IndexTest extends BuilderTestCase
         ], $this->metadata->indexes);
     }
 
-    public function testSparseIndex()
+    public function testSparseIndex(): void
     {
         $builder = (new IndexBuilder('id'));
         $builder->sparse();
@@ -247,7 +247,7 @@ class IndexTest extends BuilderTestCase
         ], $this->metadata->indexes);
     }
 
-    public function testIndexWithPartialFilter()
+    public function testIndexWithPartialFilter(): void
     {
         $builder = (new IndexBuilder('id'));
         $builder->partialFilter('condition: true');

@@ -11,47 +11,6 @@ use yjiotpukc\MongoODMFluent\Tests\Stubs\FileStub;
 
 class FileMetadataTest extends FieldTestCase
 {
-    public function testFileMetadata(): void
-    {
-        $this->givenDefaultBuilder();
-
-        $this->assertFieldBuildsCorrectly();
-    }
-
-    public function testFileMetadataWithFieldName(): void
-    {
-        $this->givenDefaultBuilder()->fieldName('metadataCustom');
-
-        $this->assertFieldBuildsCorrectly(['fieldName' => 'metadataCustom'], 'metadataCustom');
-    }
-
-    public function testReferenceOneWithDiscriminator(): void
-    {
-        $this->givenBuilder()
-            ->discriminator('type')
-            ->default('physical')
-            ->map('physical', AnotherEntityStub::class);
-
-        $this->assertFieldBuildsCorrectly([
-            'targetDocument' => null,
-            'discriminatorField' => 'type',
-            'defaultDiscriminatorValue' => 'physical',
-            'discriminatorMap' => ['physical' => AnotherEntityStub::class],
-        ]);
-    }
-
-    protected function givenDefaultBuilder(): FileMetadataBuilder
-    {
-        return $this->givenBuilder()->target(AnotherEntityStub::class);
-    }
-
-    protected function givenBuilder(): FileMetadataBuilder
-    {
-        $this->builder = new FileMetadataBuilder();
-
-        return $this->builder;
-    }
-
     public static function getDefaultFieldName(): string
     {
         return 'metadata';
@@ -77,6 +36,47 @@ class FileMetadataTest extends FieldTestCase
             'strategy' => 'set',
             'type' => 'one',
         ];
+    }
+
+    public function testFileMetadata(): void
+    {
+        $this->givenDefaultBuilder();
+
+        $this->assertFieldBuildsCorrectly();
+    }
+
+    protected function givenDefaultBuilder(): FileMetadataBuilder
+    {
+        return $this->givenBuilder()->target(AnotherEntityStub::class);
+    }
+
+    protected function givenBuilder(): FileMetadataBuilder
+    {
+        $this->builder = new FileMetadataBuilder();
+
+        return $this->builder;
+    }
+
+    public function testFileMetadataWithFieldName(): void
+    {
+        $this->givenDefaultBuilder()->fieldName('metadataCustom');
+
+        $this->assertFieldBuildsCorrectly(['fieldName' => 'metadataCustom'], 'metadataCustom');
+    }
+
+    public function testReferenceOneWithDiscriminator(): void
+    {
+        $this->givenBuilder()
+            ->discriminator('type')
+            ->default('physical')
+            ->map('physical', AnotherEntityStub::class);
+
+        $this->assertFieldBuildsCorrectly([
+            'targetDocument' => null,
+            'discriminatorField' => 'type',
+            'defaultDiscriminatorValue' => 'physical',
+            'discriminatorMap' => ['physical' => AnotherEntityStub::class],
+        ]);
     }
 
     public function givenClassMetadata(): ClassMetadata

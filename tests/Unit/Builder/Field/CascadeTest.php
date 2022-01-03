@@ -9,7 +9,7 @@ use yjiotpukc\MongoODMFluent\Builder\Field\CascadePartial;
 
 class CascadeTest extends TestCase
 {
-    public function testAll()
+    public function testAll(): void
     {
         $cascadeBuilder = new CascadePartial();
         $cascadeBuilder->all();
@@ -25,7 +25,7 @@ class CascadeTest extends TestCase
         ], $cascadeBuilder->toMapping());
     }
 
-    public function testDetach()
+    public function testDetach(): void
     {
         $cascadeBuilder = new CascadePartial();
         $cascadeBuilder->detach();
@@ -33,7 +33,7 @@ class CascadeTest extends TestCase
         self::assertSame(['cascade' => ['detach']], $cascadeBuilder->toMapping());
     }
 
-    public function testMerge()
+    public function testMerge(): void
     {
         $cascadeBuilder = new CascadePartial();
         $cascadeBuilder->merge();
@@ -41,7 +41,7 @@ class CascadeTest extends TestCase
         self::assertSame(['cascade' => ['merge']], $cascadeBuilder->toMapping());
     }
 
-    public function testRefresh()
+    public function testRefresh(): void
     {
         $cascadeBuilder = new CascadePartial();
         $cascadeBuilder->refresh();
@@ -49,7 +49,7 @@ class CascadeTest extends TestCase
         self::assertSame(['cascade' => ['refresh']], $cascadeBuilder->toMapping());
     }
 
-    public function testRemove()
+    public function testRemove(): void
     {
         $cascadeBuilder = new CascadePartial();
         $cascadeBuilder->remove();
@@ -57,7 +57,7 @@ class CascadeTest extends TestCase
         self::assertSame(['cascade' => ['remove']], $cascadeBuilder->toMapping());
     }
 
-    public function testPersist()
+    public function testPersist(): void
     {
         $cascadeBuilder = new CascadePartial();
         $cascadeBuilder->persist();

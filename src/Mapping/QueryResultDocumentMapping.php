@@ -7,7 +7,6 @@ namespace yjiotpukc\MongoODMFluent\Mapping;
 use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
 use yjiotpukc\MongoODMFluent\Builder\Document\DocumentBuilder;
 use yjiotpukc\MongoODMFluent\Builder\QueryResultDocument;
-use yjiotpukc\MongoODMFluent\Builder\View;
 
 abstract class QueryResultDocumentMapping implements Mapping
 {

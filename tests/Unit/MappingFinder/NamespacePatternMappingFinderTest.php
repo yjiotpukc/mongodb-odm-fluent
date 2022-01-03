@@ -20,18 +20,6 @@ class NamespacePatternMappingFinderTest extends TestCase
         self::assertEquals(EntityStubMapping::class, $mappingSet->find(EntityStub::class));
     }
 
-    public function testFindsMappingsInSubdirectories(): void
-    {
-        $mappingSet = $this->createMappingSet();
-        self::assertEquals(AnotherEntityStubMapping::class, $mappingSet->find(AnotherEntityStub::class));
-    }
-
-    public function testFindsOnlyMappings(): void
-    {
-        $mappingSet = $this->createMappingSet();
-        self::assertEquals([EntityStub::class, AnotherEntityStub::class, \yjiotpukc\MongoODMFluent\Tests\Stubs\SomeNamespace\EntityStub::class], $mappingSet->getAll());
-    }
-
     public function createMappingSet(): MappingSet
     {
         $finder = new NamespacePatternMappingFinder(
@@ -46,5 +34,17 @@ class NamespacePatternMappingFinderTest extends TestCase
     protected function getDirectoryPath(): string
     {
         return realpath(__DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'Stubs/Mappings');
+    }
+
+    public function testFindsMappingsInSubdirectories(): void
+    {
+        $mappingSet = $this->createMappingSet();
+        self::assertEquals(AnotherEntityStubMapping::class, $mappingSet->find(AnotherEntityStub::class));
+    }
+
+    public function testFindsOnlyMappings(): void
+    {
+        $mappingSet = $this->createMappingSet();
+        self::assertEquals([EntityStub::class, AnotherEntityStub::class, \yjiotpukc\MongoODMFluent\Tests\Stubs\SomeNamespace\EntityStub::class], $mappingSet->getAll());
     }
 }

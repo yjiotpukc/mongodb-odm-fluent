@@ -9,7 +9,7 @@ use yjiotpukc\MongoODMFluent\Tests\Unit\Builder\BuilderTestCase;
 
 class DbTest extends BuilderTestCase
 {
-    public function testDb()
+    public function testDb(): void
     {
         $builder = new DbBuilder('someName');
         $builder->build($this->metadata);

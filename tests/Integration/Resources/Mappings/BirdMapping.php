@@ -6,7 +6,6 @@ namespace yjiotpukc\MongoODMFluent\Tests\Integration\Resources\Mappings;
 
 use yjiotpukc\MongoODMFluent\Builder\Document;
 use yjiotpukc\MongoODMFluent\Mapping\DocumentMapping;
-use yjiotpukc\MongoODMFluent\Tests\Integration\Resources\Entities\Bird;
 
 class BirdMapping extends DocumentMapping
 {

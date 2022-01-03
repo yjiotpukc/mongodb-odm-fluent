@@ -14,7 +14,7 @@ use yjiotpukc\MongoODMFluent\Tests\Stubs\Mappings\EntityStubMapping;
 
 class ListMappingFinderTest extends TestCase
 {
-    public function testCreatesMappingSet()
+    public function testCreatesMappingSet(): void
     {
         $finder = new ListMappingFinder([
             EntityStub::class => EntityStubMapping::class,
@@ -24,7 +24,7 @@ class ListMappingFinderTest extends TestCase
         self::assertEquals([EntityStub::class, AnotherEntityStub::class], $mappingSet->getAll());
     }
 
-    public function testFailsIfClassIsNotMapping()
+    public function testFailsIfClassIsNotMapping(): void
     {
         $className = EntityStub::class;
         $this->expectException(MappingException::class);

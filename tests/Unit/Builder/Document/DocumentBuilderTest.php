@@ -19,7 +19,7 @@ class DocumentBuilderTest extends BuilderTestCase
 {
     protected DocumentBuilder $builder;
 
-    public function testDb()
+    public function testDb(): void
     {
         $this->givenBuilder()->db('dbName');
 
@@ -28,7 +28,14 @@ class DocumentBuilderTest extends BuilderTestCase
         self::assertSame('dbName', $this->metadata->db);
     }
 
-    public function testCollection()
+    protected function givenBuilder(): DocumentBuilder
+    {
+        $this->builder = new DocumentBuilder();
+
+        return $this->builder;
+    }
+
+    public function testCollection(): void
     {
         $this->givenBuilder()->collection('collectionName');
 
@@ -37,7 +44,7 @@ class DocumentBuilderTest extends BuilderTestCase
         self::assertSame('collectionName', $this->metadata->collection);
     }
 
-    public function testShard()
+    public function testShard(): void
     {
         $this->givenBuilder()->shard()->asc('year');
 
@@ -49,7 +56,7 @@ class DocumentBuilderTest extends BuilderTestCase
         ], $this->metadata->getShardKey());
     }
 
-    public function testChangeTrackingPolicy()
+    public function testChangeTrackingPolicy(): void
     {
         $this->givenBuilder()->changeTrackingPolicy()->deferredExplicit();
 
@@ -76,7 +83,7 @@ class DocumentBuilderTest extends BuilderTestCase
         self::assertSame('my_view', $this->metadata->getCollection());
     }
 
-    public function testId()
+    public function testId(): void
     {
         $this->givenBuilder()->id();
         $this->builder->build($this->metadata);
@@ -87,147 +94,157 @@ class DocumentBuilderTest extends BuilderTestCase
         );
     }
 
-    public function testField()
+    public function testField(): void
     {
         $this->givenBuilder()->field('string', FieldTest::getDefaultFieldName());
 
         $this->assertFieldBuildsCorrectly();
     }
 
-    public function testString()
+    protected function assertFieldBuildsCorrectly(array $expectedFields = []): void
+    {
+        $this->builder->build($this->metadata);
+
+        $expectedFields = array_merge(FieldTest::getDefaultMapping(), $expectedFields);
+        $fieldMapping = $this->metadata->fieldMappings[FieldTest::getDefaultFieldName()];
+
+        self::assertSameArray($expectedFields, $fieldMapping);
+    }
+
+    public function testString(): void
     {
         $this->givenBuilder()->string(FieldTest::getDefaultFieldName());
 
         $this->assertFieldBuildsCorrectly();
     }
 
-    public function testInt()
+    public function testInt(): void
     {
         $this->givenBuilder()->int(FieldTest::getDefaultFieldName());
 
         $this->assertFieldBuildsCorrectly(['type' => 'int']);
     }
 
-    public function testFloat()
+    public function testFloat(): void
     {
         $this->givenBuilder()->float(FieldTest::getDefaultFieldName());
 
         $this->assertFieldBuildsCorrectly(['type' => 'float']);
     }
 
-    public function testBool()
+    public function testBool(): void
     {
         $this->givenBuilder()->bool(FieldTest::getDefaultFieldName());
 
         $this->assertFieldBuildsCorrectly(['type' => 'boolean']);
     }
 
-    public function testTimestamp()
+    public function testTimestamp(): void
     {
         $this->givenBuilder()->timestamp(FieldTest::getDefaultFieldName());
 
         $this->assertFieldBuildsCorrectly(['type' => 'timestamp']);
     }
 
-    public function testDate()
+    public function testDate(): void
     {
         $this->givenBuilder()->date(FieldTest::getDefaultFieldName());
 
         $this->assertFieldBuildsCorrectly(['type' => 'date']);
     }
 
-    public function testDateImmutable()
+    public function testDateImmutable(): void
     {
         $this->givenBuilder()->dateImmutable(FieldTest::getDefaultFieldName());
 
         $this->assertFieldBuildsCorrectly(['type' => 'date_immutable']);
     }
 
-    public function testDecimal()
+    public function testDecimal(): void
     {
         $this->givenBuilder()->decimal(FieldTest::getDefaultFieldName());
 
         $this->assertFieldBuildsCorrectly(['type' => 'decimal128']);
     }
 
-    public function testArray()
+    public function testArray(): void
     {
         $this->givenBuilder()->array(FieldTest::getDefaultFieldName());
 
         $this->assertFieldBuildsCorrectly(['type' => 'collection']);
     }
 
-    public function testHash()
+    public function testHash(): void
     {
         $this->givenBuilder()->hash(FieldTest::getDefaultFieldName());
 
         $this->assertFieldBuildsCorrectly(['type' => 'hash']);
     }
 
-    public function testKey()
+    public function testKey(): void
     {
         $this->givenBuilder()->key(FieldTest::getDefaultFieldName());
 
         $this->assertFieldBuildsCorrectly(['type' => 'key']);
     }
 
-    public function testObjectId()
+    public function testObjectId(): void
     {
         $this->givenBuilder()->objectId(FieldTest::getDefaultFieldName());
 
         $this->assertFieldBuildsCorrectly(['type' => 'object_id']);
     }
 
-    public function testRaw()
+    public function testRaw(): void
     {
         $this->givenBuilder()->raw(FieldTest::getDefaultFieldName());
 
         $this->assertFieldBuildsCorrectly(['type' => 'raw']);
     }
 
-    public function testBin()
+    public function testBin(): void
     {
         $this->givenBuilder()->bin(FieldTest::getDefaultFieldName());
 
         $this->assertFieldBuildsCorrectly(['type' => 'bin']);
     }
 
-    public function testBinBytearray()
+    public function testBinBytearray(): void
     {
         $this->givenBuilder()->binBytearray(FieldTest::getDefaultFieldName());
 
         $this->assertFieldBuildsCorrectly(['type' => 'bin_bytearray']);
     }
 
-    public function testBinCustom()
+    public function testBinCustom(): void
     {
         $this->givenBuilder()->binCustom(FieldTest::getDefaultFieldName());
 
         $this->assertFieldBuildsCorrectly(['type' => 'bin_custom']);
     }
 
-    public function testBinFunc()
+    public function testBinFunc(): void
     {
         $this->givenBuilder()->binFunc(FieldTest::getDefaultFieldName());
 
         $this->assertFieldBuildsCorrectly(['type' => 'bin_func']);
     }
 
-    public function testBinMd5()
+    public function testBinMd5(): void
     {
         $this->givenBuilder()->binMd5(FieldTest::getDefaultFieldName());
 
         $this->assertFieldBuildsCorrectly(['type' => 'bin_md5']);
     }
 
-    public function testBinUuid()
+    public function testBinUuid(): void
     {
         $this->givenBuilder()->binUuid(FieldTest::getDefaultFieldName());
 
         $this->assertFieldBuildsCorrectly(['type' => 'bin_uuid']);
     }
 
-    public function testReferenceOne()
+    public function testReferenceOne(): void
     {
         $this->givenBuilder()->referenceOne(ReferenceOneTest::getDefaultFieldName(), AnotherEntityStub::class);
         $this->builder->build($this->metadata);
@@ -238,7 +255,7 @@ class DocumentBuilderTest extends BuilderTestCase
         );
     }
 
-    public function testReferenceMany()
+    public function testReferenceMany(): void
     {
         $this->givenBuilder()->referenceMany(ReferenceManyTest::getDefaultFieldName(), AnotherEntityStub::class);
         $this->builder->build($this->metadata);
@@ -249,7 +266,7 @@ class DocumentBuilderTest extends BuilderTestCase
         );
     }
 
-    public function testEmbedOne()
+    public function testEmbedOne(): void
     {
         $this->givenBuilder()->embedOne(EmbedOneTest::getDefaultFieldName(), AnotherEntityStub::class);
         $this->builder->build($this->metadata);
@@ -260,7 +277,7 @@ class DocumentBuilderTest extends BuilderTestCase
         );
     }
 
-    public function testEmbedMany()
+    public function testEmbedMany(): void
     {
         $this->givenBuilder()->embedMany(EmbedManyTest::getDefaultFieldName(), AnotherEntityStub::class);
         $this->builder->build($this->metadata);
@@ -271,7 +288,7 @@ class DocumentBuilderTest extends BuilderTestCase
         );
     }
 
-    public function testIndex()
+    public function testIndex(): void
     {
         $this->givenBuilder()->index('id');
         $this->builder->build($this->metadata);
@@ -284,7 +301,7 @@ class DocumentBuilderTest extends BuilderTestCase
         ], $this->metadata->indexes);
     }
 
-    public function testTwoIndexes()
+    public function testTwoIndexes(): void
     {
         $this->givenBuilder()->index('id');
         $this->builder->index('name');
@@ -302,7 +319,7 @@ class DocumentBuilderTest extends BuilderTestCase
         ], $this->metadata->indexes);
     }
 
-    public function testSingleCollection()
+    public function testSingleCollection(): void
     {
         $this->givenBuilder()->singleCollection();
         $this->builder->build($this->metadata);
@@ -310,7 +327,7 @@ class DocumentBuilderTest extends BuilderTestCase
         self::assertTrue($this->metadata->isInheritanceTypeSingleCollection());
     }
 
-    public function testCollectionPerClass()
+    public function testCollectionPerClass(): void
     {
         $this->givenBuilder()->collectionPerClass();
         $this->builder->build($this->metadata);
@@ -318,7 +335,7 @@ class DocumentBuilderTest extends BuilderTestCase
         self::assertTrue($this->metadata->isInheritanceTypeCollectionPerClass());
     }
 
-    public function testDiscriminator()
+    public function testDiscriminator(): void
     {
         $this->givenBuilder()
             ->discriminator('type')
@@ -331,7 +348,7 @@ class DocumentBuilderTest extends BuilderTestCase
         self::assertSame(['physical' => AnotherEntityStub::class], $this->metadata->discriminatorMap);
     }
 
-    public function testRepository()
+    public function testRepository(): void
     {
         $this->givenBuilder()->repository(RepositoryStub::class);
         $this->builder->build($this->metadata);
@@ -339,7 +356,7 @@ class DocumentBuilderTest extends BuilderTestCase
         self::assertSame(RepositoryStub::class, $this->metadata->customRepositoryClassName);
     }
 
-    public function testReadOnly()
+    public function testReadOnly(): void
     {
         $this->givenBuilder()->readOnly();
         $this->builder->build($this->metadata);
@@ -347,7 +364,7 @@ class DocumentBuilderTest extends BuilderTestCase
         self::assertTrue($this->metadata->isReadOnly);
     }
 
-    public function testWriteConcern()
+    public function testWriteConcern(): void
     {
         $this->givenBuilder()->writeConcern('some');
         $this->builder->build($this->metadata);
@@ -355,7 +372,7 @@ class DocumentBuilderTest extends BuilderTestCase
         self::assertSame('some', $this->metadata->getWriteConcern());
     }
 
-    public function testReadPreference()
+    public function testReadPreference(): void
     {
         $this->givenBuilder()->readPreference()->secondary()->any();
 
@@ -365,7 +382,7 @@ class DocumentBuilderTest extends BuilderTestCase
         self::assertSame([[]], $this->metadata->readPreferenceTags);
     }
 
-    public function testLifecycle()
+    public function testLifecycle(): void
     {
         $this->givenBuilder()->lifecycle()->prePersist('callback');
 
@@ -374,7 +391,7 @@ class DocumentBuilderTest extends BuilderTestCase
         self::assertSameArray(['prePersist' => ['callback']], $this->metadata->lifecycleCallbacks);
     }
 
-    public function testAlsoLoadMethod()
+    public function testAlsoLoadMethod(): void
     {
         $this->givenBuilder()->alsoLoad('populateFirstAndLastName', ['name', 'fullName']);
 
@@ -383,22 +400,5 @@ class DocumentBuilderTest extends BuilderTestCase
         self::assertSameArray([
             'populateFirstAndLastName' => ['name', 'fullName']
         ], $this->metadata->alsoLoadMethods);
-    }
-
-    protected function givenBuilder(): DocumentBuilder
-    {
-        $this->builder = new DocumentBuilder();
-
-        return $this->builder;
-    }
-
-    protected function assertFieldBuildsCorrectly(array $expectedFields = [])
-    {
-        $this->builder->build($this->metadata);
-
-        $expectedFields = array_merge(FieldTest::getDefaultMapping(), $expectedFields);
-        $fieldMapping = $this->metadata->fieldMappings[FieldTest::getDefaultFieldName()];
-
-        self::assertSameArray($expectedFields, $fieldMapping);
     }
 }

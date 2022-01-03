@@ -15,7 +15,7 @@ use yjiotpukc\MongoODMFluent\Tests\Stubs\Mappings\EntityStubMapping;
 
 class SimpleMappingSetTest extends TestCase
 {
-    public function testMappingExists()
+    public function testMappingExists(): void
     {
         $mappingSet = $this->createMappingSet();
         self::assertTrue($mappingSet->exists(EntityStub::class));
@@ -32,14 +32,14 @@ class SimpleMappingSetTest extends TestCase
         return $mappingSet;
     }
 
-    public function testReturnsMapping()
+    public function testReturnsMapping(): void
     {
         $mappingSet = $this->createMappingSet();
         self::assertEquals(EntityStubMapping::class, $mappingSet->find(EntityStub::class));
         self::assertEquals(AnotherEntityStubMapping::class, $mappingSet->find(AnotherEntityStub::class));
     }
 
-    public function testFailsIfNoMappingFound()
+    public function testFailsIfNoMappingFound(): void
     {
         $entityClassName = EntityWithoutMappingStub::class;
         $this->expectException(MappingException::class);
@@ -48,7 +48,7 @@ class SimpleMappingSetTest extends TestCase
         $mappingSet->find($entityClassName);
     }
 
-    public function testReturnsAllMappings()
+    public function testReturnsAllMappings(): void
     {
         $mappingSet = $this->createMappingSet();
         self::assertEquals([EntityStub::class, AnotherEntityStub::class], $mappingSet->getAll());

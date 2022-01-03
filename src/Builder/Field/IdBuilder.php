@@ -19,17 +19,13 @@ class IdBuilder extends AbstractField implements Id, IdAlNum, IdUuid, IdIncremen
     protected bool $nullable = false;
     protected bool $notSaved = false;
     protected ?string $generator = null;
-
     protected int $incrementStartingId = 1;
     protected ?string $incrementKey = null;
     protected ?string $incrementCollection = null;
-
     protected ?string $uuidSalt = null;
-
     protected int $alNumPadding = 0;
     protected bool $alNumAwkwardSafeMode = false;
     protected ?string $alNumChars = null;
-
     protected array $customGeneratorOptions = [];
 
     public function type(string $type): IdBuilder

@@ -26,6 +26,13 @@ class FileBuilderTest extends BuilderTestCase
         self::assertSame('dbName', $this->metadata->db);
     }
 
+    protected function givenBuilder(): FileBuilder
+    {
+        $this->builder = new FileBuilder();
+
+        return $this->builder;
+    }
+
     public function testBucket(): void
     {
         $this->givenBuilder()->bucket('images');
@@ -147,6 +154,16 @@ class FileBuilderTest extends BuilderTestCase
         );
     }
 
+    protected function assertFieldBuildsCorrectly(string $fieldName, array $expectedFields = []): void
+    {
+        $this->builder->build($this->metadata);
+
+        $expectedFields = array_merge(FieldTest::getDefaultMapping(), $expectedFields);
+        $fieldMapping = $this->metadata->fieldMappings[$fieldName];
+
+        self::assertSameArray($expectedFields, $fieldMapping);
+    }
+
     public function testUploadDateFieldName(): void
     {
         $this->givenBuilder()->uploadDateFieldName('uploadDateCustom');
@@ -216,23 +233,6 @@ class FileBuilderTest extends BuilderTestCase
                 'isCascadeRemove' => true,
             ]
         );
-    }
-
-    protected function givenBuilder(): FileBuilder
-    {
-        $this->builder = new FileBuilder();
-
-        return $this->builder;
-    }
-
-    protected function assertFieldBuildsCorrectly(string $fieldName, array $expectedFields = []): void
-    {
-        $this->builder->build($this->metadata);
-
-        $expectedFields = array_merge(FieldTest::getDefaultMapping(), $expectedFields);
-        $fieldMapping = $this->metadata->fieldMappings[$fieldName];
-
-        self::assertSameArray($expectedFields, $fieldMapping);
     }
 
     public function givenClassMetadata(): ClassMetadata

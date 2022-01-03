@@ -9,71 +9,6 @@ use yjiotpukc\MongoODMFluent\Tests\Stubs\AnotherEntityStub;
 
 class EmbedOneTest extends FieldTestCase
 {
-    public function testEmbedOne()
-    {
-        $this->givenDefaultBuilder();
-
-        $this->assertFieldBuildsCorrectly();
-    }
-
-    public function testEmbedOneWithTarget()
-    {
-        $this->givenBuilder('address')->target(AnotherEntityStub::class);
-
-        $this->assertFieldBuildsCorrectly();
-    }
-
-    public function testEmbedOneWithoutTarget()
-    {
-        $this->givenBuilder('address');
-
-        $this->assertFieldBuildsCorrectly(
-            ['discriminatorField' => '_doctrine_class_name'],
-            'address',
-            ['targetDocument']
-        );
-    }
-
-    public function testNullableEmbedOne()
-    {
-        $this->givenDefaultBuilder()->nullable();
-
-        $this->assertFieldBuildsCorrectly(['nullable' => true]);
-    }
-
-    public function testNotSavedEmbedOne()
-    {
-        $this->givenDefaultBuilder()->notSaved();
-
-        $this->assertFieldBuildsCorrectly(['notSaved' => true]);
-    }
-
-    public function testReferenceOneWithDiscriminator()
-    {
-        $this->givenDefaultBuilder()
-            ->discriminator('type')
-            ->default('physical')
-            ->map('physical', AnotherEntityStub::class);
-
-        $this->assertFieldBuildsCorrectly([
-            'discriminatorField' => 'type',
-            'defaultDiscriminatorValue' => 'physical',
-            'discriminatorMap' => ['physical' => AnotherEntityStub::class],
-        ]);
-    }
-
-    protected function givenDefaultBuilder(): EmbedOneBuilder
-    {
-        return $this->givenBuilder('address', AnotherEntityStub::class);
-    }
-
-    protected function givenBuilder(string $fieldName, string $target = ''): EmbedOneBuilder
-    {
-        $this->builder = new EmbedOneBuilder($fieldName, $target);
-
-        return $this->builder;
-    }
-
     public static function getDefaultFieldName(): string
     {
         return 'address';
@@ -99,5 +34,70 @@ class EmbedOneTest extends FieldTestCase
             'strategy' => 'set',
             'type' => 'one',
         ];
+    }
+
+    public function testEmbedOne(): void
+    {
+        $this->givenDefaultBuilder();
+
+        $this->assertFieldBuildsCorrectly();
+    }
+
+    protected function givenDefaultBuilder(): EmbedOneBuilder
+    {
+        return $this->givenBuilder('address', AnotherEntityStub::class);
+    }
+
+    protected function givenBuilder(string $fieldName, string $target = ''): EmbedOneBuilder
+    {
+        $this->builder = new EmbedOneBuilder($fieldName, $target);
+
+        return $this->builder;
+    }
+
+    public function testEmbedOneWithTarget(): void
+    {
+        $this->givenBuilder('address')->target(AnotherEntityStub::class);
+
+        $this->assertFieldBuildsCorrectly();
+    }
+
+    public function testEmbedOneWithoutTarget(): void
+    {
+        $this->givenBuilder('address');
+
+        $this->assertFieldBuildsCorrectly(
+            ['discriminatorField' => '_doctrine_class_name'],
+            'address',
+            ['targetDocument']
+        );
+    }
+
+    public function testNullableEmbedOne(): void
+    {
+        $this->givenDefaultBuilder()->nullable();
+
+        $this->assertFieldBuildsCorrectly(['nullable' => true]);
+    }
+
+    public function testNotSavedEmbedOne(): void
+    {
+        $this->givenDefaultBuilder()->notSaved();
+
+        $this->assertFieldBuildsCorrectly(['notSaved' => true]);
+    }
+
+    public function testReferenceOneWithDiscriminator(): void
+    {
+        $this->givenDefaultBuilder()
+            ->discriminator('type')
+            ->default('physical')
+            ->map('physical', AnotherEntityStub::class);
+
+        $this->assertFieldBuildsCorrectly([
+            'discriminatorField' => 'type',
+            'defaultDiscriminatorValue' => 'physical',
+            'discriminatorMap' => ['physical' => AnotherEntityStub::class],
+        ]);
     }
 }

@@ -6,7 +6,6 @@ namespace yjiotpukc\MongoODMFluent\Tests\Integration\Resources\Mappings;
 
 use yjiotpukc\MongoODMFluent\Builder\QueryResultDocument;
 use yjiotpukc\MongoODMFluent\Mapping\QueryResultDocumentMapping;
-use yjiotpukc\MongoODMFluent\Tests\Integration\Resources\Entities\PhonesCount;
 
 class PhonesCountMapping extends QueryResultDocumentMapping
 {

@@ -6,7 +6,6 @@ namespace yjiotpukc\MongoODMFluent\Tests\Integration\Resources\Mappings;
 
 use yjiotpukc\MongoODMFluent\Builder\EmbeddedDocument;
 use yjiotpukc\MongoODMFluent\Mapping\EmbeddedDocumentMapping;
-use yjiotpukc\MongoODMFluent\Tests\Integration\Resources\Entities\ImageMetadata;
 
 class ImageMetadataMapping extends EmbeddedDocumentMapping
 {

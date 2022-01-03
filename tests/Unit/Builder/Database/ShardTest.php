@@ -21,6 +21,14 @@ class ShardTest extends BuilderTestCase
         ], $this->metadata->getShardKey());
     }
 
+    protected function givenBuilder(): ShardBuilder
+    {
+        $shard = new ShardBuilder();
+        $shard->asc('year');
+
+        return $shard;
+    }
+
     public function testShardWithMultipleKeys(): void
     {
         $shard = $this->givenBuilder();
@@ -61,13 +69,5 @@ class ShardTest extends BuilderTestCase
             'keys' => ['year' => 1],
             'options' => ['numInitialChunks' => 4],
         ], $this->metadata->getShardKey());
-    }
-
-    protected function givenBuilder(): ShardBuilder
-    {
-        $shard = new ShardBuilder();
-        $shard->asc('year');
-
-        return $shard;
     }
 }

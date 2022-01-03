@@ -9,7 +9,7 @@ use yjiotpukc\MongoODMFluent\Tests\Unit\Builder\BuilderTestCase;
 
 class ReadOnlyTest extends BuilderTestCase
 {
-    public function testReadOnly()
+    public function testReadOnly(): void
     {
         $builder = new ReadOnlyBuilder();
         $builder->build($this->metadata);

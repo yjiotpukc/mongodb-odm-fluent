@@ -30,7 +30,7 @@ class IndexBuilder implements Index, Builder
         } else {
             $notNumericFields = array_filter(
                 array_keys($keys),
-                function ($key) {
+                static function ($key) {
                     return !is_numeric($key);
                 }
             );

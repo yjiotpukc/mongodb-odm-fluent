@@ -6,7 +6,6 @@ namespace yjiotpukc\MongoODMFluent\Tests\Integration\Resources\Mappings;
 
 use yjiotpukc\MongoODMFluent\Builder\File;
 use yjiotpukc\MongoODMFluent\Mapping\FileMapping;
-use yjiotpukc\MongoODMFluent\Tests\Integration\Resources\Entities\Image;
 use yjiotpukc\MongoODMFluent\Tests\Integration\Resources\Entities\ImageMetadata;
 
 class ImageMapping extends FileMapping

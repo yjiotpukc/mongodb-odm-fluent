@@ -8,7 +8,6 @@ class User
 {
     private string $id;
     private string $name;
-
     /** @var Phone[] */
     private array $phones;
 }

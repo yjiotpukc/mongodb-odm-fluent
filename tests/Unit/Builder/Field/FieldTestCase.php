@@ -11,7 +11,7 @@ abstract class FieldTestCase extends BuilderTestCase
 {
     protected Builder $builder;
 
-    protected function assertFieldBuildsCorrectly(array $expectedFields = [], string $fieldName = '', array $withoutFields = [])
+    protected function assertFieldBuildsCorrectly(array $expectedFields = [], string $fieldName = '', array $withoutFields = []): void
     {
         $this->builder->build($this->metadata);
 

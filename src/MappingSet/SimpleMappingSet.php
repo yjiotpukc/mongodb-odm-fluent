@@ -11,7 +11,7 @@ class SimpleMappingSet implements MappingSet
     /** @var string[] */
     protected array $mappings = [];
 
-    public function add(string $entityClassName, string $mappingClassName)
+    public function add(string $entityClassName, string $mappingClassName): void
     {
         $this->mappings[$entityClassName] = $mappingClassName;
     }

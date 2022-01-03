@@ -14,21 +14,21 @@ use yjiotpukc\MongoODMFluent\Tests\Stubs\Mappings\EntityStubMapping;
 
 class FluentDriverTest extends TestCase
 {
-    public function testReturnsNotTransientIfEntityHasMapping()
+    public function testReturnsNotTransientIfEntityHasMapping(): void
     {
         $mappings = ['Entity' => 'Mapping'];
         $driver = new FluentDriver(new MappingFinderStub($mappings));
         self::assertFalse($driver->isTransient('Entity'));
     }
 
-    public function testReturnsTransientIfMappingDoesNotExist()
+    public function testReturnsTransientIfMappingDoesNotExist(): void
     {
         $mappings = ['Entity' => 'Mapping'];
         $driver = new FluentDriver(new MappingFinderStub($mappings));
         self::assertTrue($driver->isTransient('DifferentEntity'));
     }
 
-    public function testReturnsAllEntities()
+    public function testReturnsAllEntities(): void
     {
         $mappings = [
             'Entity' => 'Mapping',
@@ -38,13 +38,13 @@ class FluentDriverTest extends TestCase
         self::assertEquals(['Entity', 'DifferentEntity'], $driver->getAllClassNames());
     }
 
-    public function testReturnsEmptyArrayIfNoEntitiesFound()
+    public function testReturnsEmptyArrayIfNoEntitiesFound(): void
     {
         $driver = new FluentDriver(new MappingFinderStub([]));
         self::assertEquals([], $driver->getAllClassNames());
     }
 
-    public function testLoadsMapping()
+    public function testLoadsMapping(): void
     {
         EntityStubMapping::reset();
         $entity = EntityStub::class;
@@ -54,7 +54,7 @@ class FluentDriverTest extends TestCase
         self::assertTrue(EntityStubMapping::wasLoaded());
     }
 
-    public function testThrowsExceptionIfMappingNotFound()
+    public function testThrowsExceptionIfMappingNotFound(): void
     {
         $this->expectException(MappingException::class);
         $this->expectExceptionMessage('Mapping for entity [yjiotpukc\MongoODMFluent\Tests\Stubs\EntityStub] not found');
@@ -63,7 +63,7 @@ class FluentDriverTest extends TestCase
         $driver->loadMetadataForClass($entity, new ClassMetadata($entity));
     }
 
-    public function testThrowsExceptionIfMappingDoesNotExist()
+    public function testThrowsExceptionIfMappingDoesNotExist(): void
     {
         $this->expectException(MappingException::class);
         $this->expectExceptionMessage('[Mapping] does not exist');
@@ -73,7 +73,7 @@ class FluentDriverTest extends TestCase
         $driver->loadMetadataForClass($entity, new ClassMetadata($entity));
     }
 
-    public function testThrowsExceptionIfNotMapping()
+    public function testThrowsExceptionIfNotMapping(): void
     {
         $this->expectException(MappingException::class);
         $this->expectExceptionMessage('[yjiotpukc\MongoODMFluent\Tests\Stubs\EntityStub] is not a mapping');

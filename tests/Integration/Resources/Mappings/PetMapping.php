@@ -8,7 +8,6 @@ use yjiotpukc\MongoODMFluent\Builder\Document;
 use yjiotpukc\MongoODMFluent\Mapping\MappedSuperclassMapping;
 use yjiotpukc\MongoODMFluent\Tests\Integration\Resources\Entities\Bird;
 use yjiotpukc\MongoODMFluent\Tests\Integration\Resources\Entities\Dog;
-use yjiotpukc\MongoODMFluent\Tests\Integration\Resources\Entities\Pet;
 
 class PetMapping extends MappedSuperclassMapping
 {
