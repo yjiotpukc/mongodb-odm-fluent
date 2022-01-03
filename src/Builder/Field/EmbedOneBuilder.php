@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace yjiotpukc\MongoODMFluent\Builder\Field;
 
-use yjiotpukc\MongoODMFluent\Builder\Builder;
 use yjiotpukc\MongoODMFluent\Builder\Database\DiscriminatorBuilder;
 use yjiotpukc\MongoODMFluent\Type\Discriminator;
 use yjiotpukc\MongoODMFluent\Type\EmbedOne;
 
-class EmbedOneBuilder extends AbstractField implements EmbedOne, Builder
+class EmbedOneBuilder extends AbstractField implements EmbedOne
 {
     protected string $fieldName;
     protected string $targetDocument;

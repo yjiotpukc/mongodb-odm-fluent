@@ -5,11 +5,10 @@ declare(strict_types=1);
 namespace yjiotpukc\MongoODMFluent\Builder\Field;
 
 use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
-use yjiotpukc\MongoODMFluent\Builder\Builder;
 use yjiotpukc\MongoODMFluent\Builder\Database\DiscriminatorBuilder;
 use yjiotpukc\MongoODMFluent\Type\Discriminator;
 
-abstract class AbstractReferenceBuilder extends AbstractField implements Builder
+abstract class AbstractReferenceBuilder extends AbstractField
 {
     protected string $fieldName;
     protected string $target;

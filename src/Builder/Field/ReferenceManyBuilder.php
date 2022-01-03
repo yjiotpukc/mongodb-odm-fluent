@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace yjiotpukc\MongoODMFluent\Builder\Field;
 
-use yjiotpukc\MongoODMFluent\Builder\Builder;
 use yjiotpukc\MongoODMFluent\Type\Cascade;
 use yjiotpukc\MongoODMFluent\Type\CollectionStrategy;
 use yjiotpukc\MongoODMFluent\Type\ReferenceMany;
 
-class ReferenceManyBuilder extends AbstractReferenceBuilder implements ReferenceMany, Builder
+class ReferenceManyBuilder extends AbstractReferenceBuilder implements ReferenceMany
 {
     protected CollectionStrategyPartial $strategy;
     protected ?string $collectionClass = null;
