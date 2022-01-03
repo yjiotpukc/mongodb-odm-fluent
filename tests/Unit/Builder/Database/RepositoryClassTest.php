@@ -10,7 +10,7 @@ use yjiotpukc\MongoODMFluent\Tests\Unit\Builder\BuilderTestCase;
 
 class RepositoryClassTest extends BuilderTestCase
 {
-    public function testRepositoryClass()
+    public function testRepositoryClass(): void
     {
         $builder = new RepositoryClassBuilder(RepositoryStub::class);
         $builder->build($this->metadata);

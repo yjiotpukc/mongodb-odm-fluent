@@ -7,15 +7,15 @@ namespace yjiotpukc\MongoODMFluent\Tests\Unit\MappingSet;
 use PHPUnit\Framework\TestCase;
 use yjiotpukc\MongoODMFluent\MappingException;
 use yjiotpukc\MongoODMFluent\MappingSet\SimpleMappingSet;
+use yjiotpukc\MongoODMFluent\Tests\Stubs\AnotherEntityStub;
 use yjiotpukc\MongoODMFluent\Tests\Stubs\EntityStub;
 use yjiotpukc\MongoODMFluent\Tests\Stubs\EntityWithoutMappingStub;
-use yjiotpukc\MongoODMFluent\Tests\Stubs\Mappings\AnotherEntityStub;
-use yjiotpukc\MongoODMFluent\Tests\Stubs\Mappings\AnotherMappingStub;
-use yjiotpukc\MongoODMFluent\Tests\Stubs\MappingStub;
+use yjiotpukc\MongoODMFluent\Tests\Stubs\Mappings\AnotherEntityStubMapping;
+use yjiotpukc\MongoODMFluent\Tests\Stubs\Mappings\EntityStubMapping;
 
 class SimpleMappingSetTest extends TestCase
 {
-    public function testMappingExists()
+    public function testMappingExists(): void
     {
         $mappingSet = $this->createMappingSet();
         self::assertTrue($mappingSet->exists(EntityStub::class));
@@ -26,20 +26,20 @@ class SimpleMappingSetTest extends TestCase
     protected function createMappingSet(): SimpleMappingSet
     {
         $mappingSet = new SimpleMappingSet();
-        $mappingSet->add(EntityStub::class, MappingStub::class);
-        $mappingSet->add(AnotherEntityStub::class, AnotherMappingStub::class);
+        $mappingSet->add(EntityStub::class, EntityStubMapping::class);
+        $mappingSet->add(AnotherEntityStub::class, AnotherEntityStubMapping::class);
 
         return $mappingSet;
     }
 
-    public function testReturnsMapping()
+    public function testReturnsMapping(): void
     {
         $mappingSet = $this->createMappingSet();
-        self::assertEquals(MappingStub::class, $mappingSet->find(EntityStub::class));
-        self::assertEquals(AnotherMappingStub::class, $mappingSet->find(AnotherEntityStub::class));
+        self::assertEquals(EntityStubMapping::class, $mappingSet->find(EntityStub::class));
+        self::assertEquals(AnotherEntityStubMapping::class, $mappingSet->find(AnotherEntityStub::class));
     }
 
-    public function testFailsIfNoMappingFound()
+    public function testFailsIfNoMappingFound(): void
     {
         $entityClassName = EntityWithoutMappingStub::class;
         $this->expectException(MappingException::class);
@@ -48,7 +48,7 @@ class SimpleMappingSetTest extends TestCase
         $mappingSet->find($entityClassName);
     }
 
-    public function testReturnsAllMappings()
+    public function testReturnsAllMappings(): void
     {
         $mappingSet = $this->createMappingSet();
         self::assertEquals([EntityStub::class, AnotherEntityStub::class], $mappingSet->getAll());

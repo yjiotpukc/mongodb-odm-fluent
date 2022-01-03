@@ -9,7 +9,7 @@ use yjiotpukc\MongoODMFluent\Tests\Unit\Builder\BuilderTestCase;
 
 class WriteConcernTest extends BuilderTestCase
 {
-    public function testNullWriteConcern()
+    public function testNullWriteConcern(): void
     {
         $builder = new WriteConcernBuilder(null);
         $builder->build($this->metadata);
@@ -17,7 +17,7 @@ class WriteConcernTest extends BuilderTestCase
         self::assertNull($this->metadata->getWriteConcern());
     }
 
-    public function testStringWriteConcern()
+    public function testStringWriteConcern(): void
     {
         $builder = new WriteConcernBuilder('some');
         $builder->build($this->metadata);
@@ -25,7 +25,7 @@ class WriteConcernTest extends BuilderTestCase
         self::assertSame('some', $this->metadata->getWriteConcern());
     }
 
-    public function testIntegerWriteConcern()
+    public function testIntegerWriteConcern(): void
     {
         $builder = new WriteConcernBuilder(4);
         $builder->build($this->metadata);

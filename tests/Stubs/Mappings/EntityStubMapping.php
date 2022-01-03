@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace yjiotpukc\MongoODMFluent\Tests\Stubs;
+namespace yjiotpukc\MongoODMFluent\Tests\Stubs\Mappings;
 
 use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
 use yjiotpukc\MongoODMFluent\Mapping\Mapping;
 
-class MappingStub implements Mapping
+class EntityStubMapping implements Mapping
 {
     protected static bool $wasLoaded = false;
 
@@ -19,11 +19,6 @@ class MappingStub implements Mapping
     public static function reset(): void
     {
         static::$wasLoaded = false;
-    }
-
-    public function mapFor(): string
-    {
-        return EntityStub::class;
     }
 
     public function load(ClassMetadata $metadata): void

@@ -9,7 +9,7 @@ use yjiotpukc\MongoODMFluent\Tests\Unit\Builder\BuilderTestCase;
 
 class CollectionTest extends BuilderTestCase
 {
-    public function testCollection()
+    public function testCollection(): void
     {
         $builder = new CollectionBuilder('someName');
         $builder->build($this->metadata);
@@ -17,7 +17,7 @@ class CollectionTest extends BuilderTestCase
         static::assertSame('someName', $this->metadata->collection);
     }
 
-    public function testCappedCollection()
+    public function testCappedCollection(): void
     {
         $builder = new CollectionBuilder('someName');
         $builder->cappedAt(1000000);
@@ -27,7 +27,7 @@ class CollectionTest extends BuilderTestCase
         static::assertSame(1000000, $this->metadata->getCollectionSize());
     }
 
-    public function testCappedCollectionWithMax()
+    public function testCappedCollectionWithMax(): void
     {
         $builder = new CollectionBuilder('someName');
         $builder->cappedAt(1000000, 1000);

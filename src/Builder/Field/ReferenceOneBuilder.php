@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace yjiotpukc\MongoODMFluent\Builder\Field;
 
-use yjiotpukc\MongoODMFluent\Builder\Builder;
 use yjiotpukc\MongoODMFluent\Type\Cascade;
 use yjiotpukc\MongoODMFluent\Type\ReferenceOne;
 
-class ReferenceOneBuilder extends AbstractReferenceBuilder implements ReferenceOne, Builder
+class ReferenceOneBuilder extends AbstractReferenceBuilder implements ReferenceOne
 {
     public function target(string $target): ReferenceOne
     {

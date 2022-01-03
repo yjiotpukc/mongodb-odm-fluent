@@ -9,7 +9,7 @@ use yjiotpukc\MongoODMFluent\Tests\Unit\Builder\BuilderTestCase;
 
 class InheritanceTest extends BuilderTestCase
 {
-    public function testSingleCollectionInheritance()
+    public function testSingleCollectionInheritance(): void
     {
         $builder = InheritanceBuilder::singleCollection();
         $builder->build($this->metadata);
@@ -17,7 +17,7 @@ class InheritanceTest extends BuilderTestCase
         self::assertTrue($this->metadata->isInheritanceTypeSingleCollection());
     }
 
-    public function testCollectionPerClassInheritance()
+    public function testCollectionPerClassInheritance(): void
     {
         $builder = InheritanceBuilder::collectionPerClass();
         $builder->build($this->metadata);

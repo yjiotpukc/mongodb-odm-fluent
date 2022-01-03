@@ -6,8 +6,8 @@ namespace yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Document;
 
 use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
 use yjiotpukc\MongoODMFluent\Builder\Document\FileBuilder;
+use yjiotpukc\MongoODMFluent\Tests\Stubs\AnotherEntityStub;
 use yjiotpukc\MongoODMFluent\Tests\Stubs\FileStub;
-use yjiotpukc\MongoODMFluent\Tests\Stubs\Mappings\AnotherEntityStub;
 use yjiotpukc\MongoODMFluent\Tests\Stubs\RepositoryStub;
 use yjiotpukc\MongoODMFluent\Tests\Unit\Builder\BuilderTestCase;
 use yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Field\FieldTest;
@@ -24,6 +24,13 @@ class FileBuilderTest extends BuilderTestCase
         $this->builder->build($this->metadata);
 
         self::assertSame('dbName', $this->metadata->db);
+    }
+
+    protected function givenBuilder(): FileBuilder
+    {
+        $this->builder = new FileBuilder();
+
+        return $this->builder;
     }
 
     public function testBucket(): void
@@ -147,6 +154,16 @@ class FileBuilderTest extends BuilderTestCase
         );
     }
 
+    protected function assertFieldBuildsCorrectly(string $fieldName, array $expectedFields = []): void
+    {
+        $this->builder->build($this->metadata);
+
+        $expectedFields = array_merge(FieldTest::getDefaultMapping(), $expectedFields);
+        $fieldMapping = $this->metadata->fieldMappings[$fieldName];
+
+        self::assertSameArray($expectedFields, $fieldMapping);
+    }
+
     public function testUploadDateFieldName(): void
     {
         $this->givenBuilder()->uploadDateFieldName('uploadDateCustom');
@@ -216,23 +233,6 @@ class FileBuilderTest extends BuilderTestCase
                 'isCascadeRemove' => true,
             ]
         );
-    }
-
-    protected function givenBuilder(): FileBuilder
-    {
-        $this->builder = new FileBuilder();
-
-        return $this->builder;
-    }
-
-    protected function assertFieldBuildsCorrectly(string $fieldName, array $expectedFields = []): void
-    {
-        $this->builder->build($this->metadata);
-
-        $expectedFields = array_merge(FieldTest::getDefaultMapping(), $expectedFields);
-        $fieldMapping = $this->metadata->fieldMappings[$fieldName];
-
-        self::assertSameArray($expectedFields, $fieldMapping);
     }
 
     public function givenClassMetadata(): ClassMetadata

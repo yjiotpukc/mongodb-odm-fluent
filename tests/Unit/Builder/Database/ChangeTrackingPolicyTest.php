@@ -9,7 +9,7 @@ use yjiotpukc\MongoODMFluent\Tests\Unit\Builder\BuilderTestCase;
 
 class ChangeTrackingPolicyTest extends BuilderTestCase
 {
-    public function testDeferredImplicit()
+    public function testDeferredImplicit(): void
     {
         $changeTrackingPolicy = new ChangeTrackingPolicyBuilder();
 
@@ -18,7 +18,8 @@ class ChangeTrackingPolicyTest extends BuilderTestCase
 
         self::assertTrue($this->metadata->isChangeTrackingDeferredImplicit());
     }
-    public function testDeferredExplicit()
+
+    public function testDeferredExplicit(): void
     {
         $changeTrackingPolicy = new ChangeTrackingPolicyBuilder();
 
@@ -27,7 +28,8 @@ class ChangeTrackingPolicyTest extends BuilderTestCase
 
         self::assertTrue($this->metadata->isChangeTrackingDeferredExplicit());
     }
-    public function testNotify()
+
+    public function testNotify(): void
     {
         $changeTrackingPolicy = new ChangeTrackingPolicyBuilder();
 

@@ -5,90 +5,11 @@ declare(strict_types=1);
 namespace yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Field;
 
 use yjiotpukc\MongoODMFluent\Builder\Field\EmbedManyBuilder;
+use yjiotpukc\MongoODMFluent\Tests\Stubs\AnotherEntityStub;
 use yjiotpukc\MongoODMFluent\Tests\Stubs\CollectionStub;
-use yjiotpukc\MongoODMFluent\Tests\Stubs\Mappings\AnotherEntityStub;
 
 class EmbedManyTest extends FieldTestCase
 {
-    public function testEmbedMany()
-    {
-        $this->givenDefaultBuilder();
-
-        $this->assertFieldBuildsCorrectly();
-    }
-
-    public function testEmbedManyWithTarget()
-    {
-        $this->givenBuilder('address')->target(AnotherEntityStub::class);
-
-        $this->assertFieldBuildsCorrectly();
-    }
-
-    public function testEmbedManyWithoutTarget()
-    {
-        $this->givenBuilder('address');
-
-        $this->assertFieldBuildsCorrectly(
-            ['discriminatorField' => '_doctrine_class_name'],
-            'address',
-            ['targetDocument']
-        );
-    }
-
-    public function testNullableEmbedMany()
-    {
-        $this->givenDefaultBuilder()->nullable();
-
-        $this->assertFieldBuildsCorrectly(['nullable' => true]);
-    }
-
-    public function testNotSavedEmbedMany()
-    {
-        $this->givenDefaultBuilder()->notSaved();
-
-        $this->assertFieldBuildsCorrectly(['notSaved' => true]);
-    }
-
-    public function testReferenceOneWithDiscriminator()
-    {
-        $this->givenDefaultBuilder()
-            ->discriminator('type')
-            ->default('physical')
-            ->map('physical', AnotherEntityStub::class);
-
-        $this->assertFieldBuildsCorrectly([
-            'discriminatorField' => 'type',
-            'defaultDiscriminatorValue' => 'physical',
-            'discriminatorMap' => ['physical' => AnotherEntityStub::class],
-        ]);
-    }
-
-    public function testEmbedManyWithCollectionClass()
-    {
-        $this->givenDefaultBuilder()->collectionClass(CollectionStub::class);
-
-        $this->assertFieldBuildsCorrectly(['collectionClass' => CollectionStub::class]);
-    }
-
-    public function testEmbedManyWithCollectionStrategy()
-    {
-        $this->givenDefaultBuilder()->strategy()->setArray();
-
-        $this->assertFieldBuildsCorrectly(['strategy' => 'setArray']);
-    }
-
-    protected function givenDefaultBuilder(): EmbedManyBuilder
-    {
-        return $this->givenBuilder('address', AnotherEntityStub::class);
-    }
-
-    protected function givenBuilder(string $fieldName, string $target = ''): EmbedManyBuilder
-    {
-        $this->builder = new EmbedManyBuilder($fieldName, $target);
-
-        return $this->builder;
-    }
-
     public static function getDefaultFieldName(): string
     {
         return 'address';
@@ -114,5 +35,84 @@ class EmbedManyTest extends FieldTestCase
             'strategy' => 'pushAll',
             'type' => 'many',
         ];
+    }
+
+    public function testEmbedMany(): void
+    {
+        $this->givenDefaultBuilder();
+
+        $this->assertFieldBuildsCorrectly();
+    }
+
+    protected function givenDefaultBuilder(): EmbedManyBuilder
+    {
+        return $this->givenBuilder('address', AnotherEntityStub::class);
+    }
+
+    protected function givenBuilder(string $fieldName, string $target = ''): EmbedManyBuilder
+    {
+        $this->builder = new EmbedManyBuilder($fieldName, $target);
+
+        return $this->builder;
+    }
+
+    public function testEmbedManyWithTarget(): void
+    {
+        $this->givenBuilder('address')->target(AnotherEntityStub::class);
+
+        $this->assertFieldBuildsCorrectly();
+    }
+
+    public function testEmbedManyWithoutTarget(): void
+    {
+        $this->givenBuilder('address');
+
+        $this->assertFieldBuildsCorrectly(
+            ['discriminatorField' => '_doctrine_class_name'],
+            'address',
+            ['targetDocument']
+        );
+    }
+
+    public function testNullableEmbedMany(): void
+    {
+        $this->givenDefaultBuilder()->nullable();
+
+        $this->assertFieldBuildsCorrectly(['nullable' => true]);
+    }
+
+    public function testNotSavedEmbedMany(): void
+    {
+        $this->givenDefaultBuilder()->notSaved();
+
+        $this->assertFieldBuildsCorrectly(['notSaved' => true]);
+    }
+
+    public function testReferenceOneWithDiscriminator(): void
+    {
+        $this->givenDefaultBuilder()
+            ->discriminator('type')
+            ->default('physical')
+            ->map('physical', AnotherEntityStub::class);
+
+        $this->assertFieldBuildsCorrectly([
+            'discriminatorField' => 'type',
+            'defaultDiscriminatorValue' => 'physical',
+            'discriminatorMap' => ['physical' => AnotherEntityStub::class],
+        ]);
+    }
+
+    public function testEmbedManyWithCollectionClass(): void
+    {
+        $this->givenDefaultBuilder()->collectionClass(CollectionStub::class);
+
+        $this->assertFieldBuildsCorrectly(['collectionClass' => CollectionStub::class]);
+    }
+
+    public function testEmbedManyWithCollectionStrategy(): void
+    {
+        $this->givenDefaultBuilder()->strategy()->setArray();
+
+        $this->assertFieldBuildsCorrectly(['strategy' => 'setArray']);
     }
 }

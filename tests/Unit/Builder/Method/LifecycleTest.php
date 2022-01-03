@@ -9,7 +9,7 @@ use yjiotpukc\MongoODMFluent\Tests\Unit\Builder\BuilderTestCase;
 
 class LifecycleTest extends BuilderTestCase
 {
-    public function testPreRemove()
+    public function testPreRemove(): void
     {
         $builder = $this->givenBuilder()->preRemove('callback');
 
@@ -18,7 +18,17 @@ class LifecycleTest extends BuilderTestCase
         $this->assertHasCallback('preRemove');
     }
 
-    public function testPostRemove()
+    protected function givenBuilder(): LifecycleBuilder
+    {
+        return new LifecycleBuilder();
+    }
+
+    protected function assertHasCallback(string $event): void
+    {
+        self::assertSameArray([$event => ['callback']], $this->metadata->lifecycleCallbacks);
+    }
+
+    public function testPostRemove(): void
     {
         $builder = $this->givenBuilder()->postRemove('callback');
 
@@ -27,7 +37,7 @@ class LifecycleTest extends BuilderTestCase
         $this->assertHasCallback('postRemove');
     }
 
-    public function testPrePersist()
+    public function testPrePersist(): void
     {
         $builder = $this->givenBuilder()->prePersist('callback');
 
@@ -36,7 +46,7 @@ class LifecycleTest extends BuilderTestCase
         $this->assertHasCallback('prePersist');
     }
 
-    public function testPostPersist()
+    public function testPostPersist(): void
     {
         $builder = $this->givenBuilder()->postPersist('callback');
 
@@ -45,7 +55,7 @@ class LifecycleTest extends BuilderTestCase
         $this->assertHasCallback('postPersist');
     }
 
-    public function testPreUpdate()
+    public function testPreUpdate(): void
     {
         $builder = $this->givenBuilder()->preUpdate('callback');
 
@@ -54,7 +64,7 @@ class LifecycleTest extends BuilderTestCase
         $this->assertHasCallback('preUpdate');
     }
 
-    public function testPostUpdate()
+    public function testPostUpdate(): void
     {
         $builder = $this->givenBuilder()->postUpdate('callback');
 
@@ -63,7 +73,7 @@ class LifecycleTest extends BuilderTestCase
         $this->assertHasCallback('postUpdate');
     }
 
-    public function testPreLoad()
+    public function testPreLoad(): void
     {
         $builder = $this->givenBuilder()->preLoad('callback');
 
@@ -72,7 +82,7 @@ class LifecycleTest extends BuilderTestCase
         $this->assertHasCallback('preLoad');
     }
 
-    public function testPostLoad()
+    public function testPostLoad(): void
     {
         $builder = $this->givenBuilder()->postLoad('callback');
 
@@ -81,22 +91,12 @@ class LifecycleTest extends BuilderTestCase
         $this->assertHasCallback('postLoad');
     }
 
-    public function testPreFlush()
+    public function testPreFlush(): void
     {
         $builder = $this->givenBuilder()->preFlush('callback');
 
         $builder->build($this->metadata);
 
         $this->assertHasCallback('preFlush');
-    }
-
-    protected function givenBuilder(): LifecycleBuilder
-    {
-        return new LifecycleBuilder();
-    }
-
-    protected function assertHasCallback(string $event)
-    {
-        self::assertSameArray([$event => ['callback']], $this->metadata->lifecycleCallbacks);
     }
 }

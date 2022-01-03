@@ -9,14 +9,14 @@ use yjiotpukc\MongoODMFluent\Builder\Field\CollectionStrategyPartial;
 
 class CollectionStrategyTest extends TestCase
 {
-    public function testDefault()
+    public function testDefault(): void
     {
         $collectionStrategy = new CollectionStrategyPartial();
 
         self::assertSame(['strategy' => 'pushAll'], $collectionStrategy->toMapping());
     }
 
-    public function testSet()
+    public function testSet(): void
     {
         $collectionStrategy = new CollectionStrategyPartial();
         $collectionStrategy->set();
@@ -24,7 +24,7 @@ class CollectionStrategyTest extends TestCase
         self::assertSame(['strategy' => 'set'], $collectionStrategy->toMapping());
     }
 
-    public function testPushAll()
+    public function testPushAll(): void
     {
         $collectionStrategy = new CollectionStrategyPartial();
         $collectionStrategy->pushAll();
@@ -32,7 +32,7 @@ class CollectionStrategyTest extends TestCase
         self::assertSame(['strategy' => 'pushAll'], $collectionStrategy->toMapping());
     }
 
-    public function testAddToSet()
+    public function testAddToSet(): void
     {
         $collectionStrategy = new CollectionStrategyPartial();
         $collectionStrategy->addToSet();
@@ -40,7 +40,7 @@ class CollectionStrategyTest extends TestCase
         self::assertSame(['strategy' => 'addToSet'], $collectionStrategy->toMapping());
     }
 
-    public function testSetArray()
+    public function testSetArray(): void
     {
         $collectionStrategy = new CollectionStrategyPartial();
         $collectionStrategy->setArray();
@@ -48,7 +48,7 @@ class CollectionStrategyTest extends TestCase
         self::assertSame(['strategy' => 'setArray'], $collectionStrategy->toMapping());
     }
 
-    public function testAtomicSet()
+    public function testAtomicSet(): void
     {
         $collectionStrategy = new CollectionStrategyPartial();
         $collectionStrategy->atomicSet();
@@ -56,7 +56,7 @@ class CollectionStrategyTest extends TestCase
         self::assertSame(['strategy' => 'atomicSet'], $collectionStrategy->toMapping());
     }
 
-    public function testAtomicSetArray()
+    public function testAtomicSetArray(): void
     {
         $collectionStrategy = new CollectionStrategyPartial();
         $collectionStrategy->atomicSetArray();

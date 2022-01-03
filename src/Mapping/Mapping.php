@@ -8,12 +8,5 @@ use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
 
 interface Mapping
 {
-    /**
-     * Returns Entity name
-     *
-     * @return string
-     */
-    public function mapFor(): string;
-
     public function load(ClassMetadata $metadata): void;
 }

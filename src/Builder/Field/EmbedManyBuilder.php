@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 namespace yjiotpukc\MongoODMFluent\Builder\Field;
 
-use yjiotpukc\MongoODMFluent\Builder\Builder;
 use yjiotpukc\MongoODMFluent\Builder\Database\DiscriminatorBuilder;
 use yjiotpukc\MongoODMFluent\Type\CollectionStrategy;
 use yjiotpukc\MongoODMFluent\Type\Discriminator;
 use yjiotpukc\MongoODMFluent\Type\EmbedMany;
 
-class EmbedManyBuilder extends AbstractField implements EmbedMany, Builder
+class EmbedManyBuilder extends AbstractField implements EmbedMany
 {
     protected string $fieldName;
     protected string $targetDocument;

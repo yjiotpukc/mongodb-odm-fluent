@@ -12,7 +12,7 @@ abstract class BuilderTestCase extends TestCase
 {
     protected ClassMetadata $metadata;
 
-    public static function assertSameArray(array $expected, array $actual)
+    public static function assertSameArray(array $expected, array $actual): void
     {
         ksort($expected);
         ksort($actual);

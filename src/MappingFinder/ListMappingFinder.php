@@ -23,13 +23,13 @@ class ListMappingFinder implements MappingFinder
     {
         $mappingSet = new SimpleMappingSet();
 
-        foreach ($this->mappingClassNames as $mappingClassName) {
+        foreach ($this->mappingClassNames as $entityClassName => $mappingClassName) {
             $mapping = new $mappingClassName();
             if (!($mapping instanceof Mapping)) {
                 throw new MappingException("Class [{$mappingClassName}] is not a mapping");
             }
 
-            $mappingSet->add($mapping->mapFor(), $mappingClassName);
+            $mappingSet->add($entityClassName, $mappingClassName);
         }
 
         return $mappingSet;

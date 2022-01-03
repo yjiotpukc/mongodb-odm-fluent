@@ -10,7 +10,7 @@ use Doctrine\ODM\MongoDB\Id\AutoGenerator;
 use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
 use PHPUnit\Framework\TestCase;
 use yjiotpukc\MongoODMFluent\FluentDriver;
-use yjiotpukc\MongoODMFluent\MappingFinder\DirectoryMappingFinder;
+use yjiotpukc\MongoODMFluent\MappingFinder\NamespacePatternMappingFinder;
 use yjiotpukc\MongoODMFluent\Tests\Integration\Resources\Entities\Bird;
 use yjiotpukc\MongoODMFluent\Tests\Integration\Resources\Entities\Dog;
 use yjiotpukc\MongoODMFluent\Tests\Integration\Resources\Entities\Pet;
@@ -24,9 +24,10 @@ class MappingTest extends TestCase
 
     public static function setUpBeforeClass(): void
     {
-        $mappingFinder = new DirectoryMappingFinder(
-            [__DIR__ . '/Resources/Mappings/'],
-            ['yjiotpukc\MongoODMFluent\Tests\Integration\Resources\Mappings']
+        $mappingFinder = new NamespacePatternMappingFinder(
+            '/^yjiotpukc\\\\MongoODMFluent\\\\Tests\\\\Integration\\\\Resources\\\\Mappings\\\\(.*)Mapping$/',
+            'yjiotpukc\\\\MongoODMFluent\\\\Tests\\\\Integration\\\\Resources\\\\Entities\\\\$1',
+            __DIR__ . '/Resources/Mappings/'
         );
         $driver = new FluentDriver($mappingFinder);
         $config = new Configuration();
@@ -36,14 +37,14 @@ class MappingTest extends TestCase
         static::$documentManager = DocumentManager::create(null, $config);
     }
 
-    public function testSimpleMapping()
+    public function testSimpleMapping(): void
     {
         $metadata = static::$documentManager->getClassMetadata(SimpleEntity::class);
 
         $this->assertSimpleMappingIsCorrect($metadata);
     }
 
-    protected function assertSimpleMappingIsCorrect(ClassMetadata $metadata)
+    protected function assertSimpleMappingIsCorrect(ClassMetadata $metadata): void
     {
         $expectedMetadata = new ClassMetadata(SimpleEntity::class);
         $expectedMetadata->db = 'dbName';
@@ -66,14 +67,14 @@ class MappingTest extends TestCase
         self::assertEquals($expectedMetadata, $metadata);
     }
 
-    public function testMappingWithEmbeddedField()
+    public function testMappingWithEmbeddedField(): void
     {
         $metadata = static::$documentManager->getClassMetadata(User::class);
 
         $this->assertMappingWithEmbeddedFieldIsCorrect($metadata);
     }
 
-    protected function assertMappingWithEmbeddedFieldIsCorrect(ClassMetadata $metadata)
+    protected function assertMappingWithEmbeddedFieldIsCorrect(ClassMetadata $metadata): void
     {
         $expectedMetadata = new ClassMetadata(User::class);
         $expectedMetadata->db = 'dbName';
@@ -101,14 +102,14 @@ class MappingTest extends TestCase
         self::assertEquals($expectedMetadata, $metadata);
     }
 
-    public function testEmbeddedMapping()
+    public function testEmbeddedMapping(): void
     {
         $metadata = static::$documentManager->getClassMetadata(Phone::class);
 
         $this->assertEmbeddedMappingIsCorrect($metadata);
     }
 
-    protected function assertEmbeddedMappingIsCorrect(ClassMetadata $metadata)
+    protected function assertEmbeddedMappingIsCorrect(ClassMetadata $metadata): void
     {
         $expectedMetadata = new ClassMetadata(Phone::class);
         $expectedMetadata->setIdGenerator(new AutoGenerator());
@@ -124,14 +125,14 @@ class MappingTest extends TestCase
         self::assertEquals($expectedMetadata, $metadata);
     }
 
-    public function testSuperclassMapping()
+    public function testSuperclassMapping(): void
     {
         $metadata = static::$documentManager->getClassMetadata(Pet::class);
 
         $this->assertSuperclassMappingIsCorrect($metadata);
     }
 
-    protected function assertSuperclassMappingIsCorrect(ClassMetadata $metadata)
+    protected function assertSuperclassMappingIsCorrect(ClassMetadata $metadata): void
     {
         $expectedMetadata = new ClassMetadata(Pet::class);
         $expectedMetadata->db = 'dbName';
@@ -161,14 +162,14 @@ class MappingTest extends TestCase
         self::assertEquals($expectedMetadata, $metadata);
     }
 
-    public function testFirstChildClassMapping()
+    public function testFirstChildClassMapping(): void
     {
         $metadata = static::$documentManager->getClassMetadata(Dog::class);
 
         $this->assertFirstChildClassMappingIsCorrect($metadata);
     }
 
-    protected function assertFirstChildClassMappingIsCorrect(ClassMetadata $metadata)
+    protected function assertFirstChildClassMappingIsCorrect(ClassMetadata $metadata): void
     {
         $expectedMetadata = new ClassMetadata(Dog::class);
         $expectedMetadata->db = 'dbName';
@@ -207,14 +208,14 @@ class MappingTest extends TestCase
         self::assertEquals($expectedMetadata, $metadata);
     }
 
-    public function testSecondChildClassMapping()
+    public function testSecondChildClassMapping(): void
     {
         $metadata = static::$documentManager->getClassMetadata(Bird::class);
 
         $this->assertSecondChildClassMappingIsCorrect($metadata);
     }
 
-    protected function assertSecondChildClassMappingIsCorrect(ClassMetadata $metadata)
+    protected function assertSecondChildClassMappingIsCorrect(ClassMetadata $metadata): void
     {
         $expectedMetadata = new ClassMetadata(Bird::class);
         $expectedMetadata->db = 'dbName';

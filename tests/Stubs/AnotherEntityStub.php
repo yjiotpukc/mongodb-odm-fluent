@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace yjiotpukc\MongoODMFluent\Tests\Stubs\Mappings;
+namespace yjiotpukc\MongoODMFluent\Tests\Stubs;
 
 class AnotherEntityStub
 {

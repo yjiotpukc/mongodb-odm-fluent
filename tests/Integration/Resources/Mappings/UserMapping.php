@@ -7,15 +7,9 @@ namespace yjiotpukc\MongoODMFluent\Tests\Integration\Resources\Mappings;
 use yjiotpukc\MongoODMFluent\Builder\Document;
 use yjiotpukc\MongoODMFluent\Mapping\DocumentMapping;
 use yjiotpukc\MongoODMFluent\Tests\Integration\Resources\Entities\Phone;
-use yjiotpukc\MongoODMFluent\Tests\Integration\Resources\Entities\User;
 
 class UserMapping extends DocumentMapping
 {
-    public function mapFor(): string
-    {
-        return User::class;
-    }
-
     public function map(Document $builder): void
     {
         $builder->db('dbName');

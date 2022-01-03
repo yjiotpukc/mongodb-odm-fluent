@@ -21,6 +21,13 @@ class ReadPreferenceTest extends BuilderTestCase
         self::assertSame('primary', $this->metadata->readPreference);
     }
 
+    protected function givenBuilder(): ReadPreferenceBuilder
+    {
+        $this->builder = new ReadPreferenceBuilder();
+
+        return $this->builder;
+    }
+
     public function testPrimaryPreferredMode(): void
     {
         $this->givenBuilder()->primaryPreferred();
@@ -86,7 +93,7 @@ class ReadPreferenceTest extends BuilderTestCase
         self::assertSameArray([$tags], $this->metadata->readPreferenceTags);
     }
 
-    public function testTagSet()
+    public function testTagSet(): void
     {
         $tagSet = [
             ['tag1' => 'value1', 'tag2' => 'value2'],
@@ -100,7 +107,7 @@ class ReadPreferenceTest extends BuilderTestCase
         self::assertSameArray($tagSet, $this->metadata->readPreferenceTags);
     }
 
-    public function testAny()
+    public function testAny(): void
     {
         $this->givenBuilder()->primary()->tagSpecification(['tag1' => 'value1'])->any();
 
@@ -110,12 +117,5 @@ class ReadPreferenceTest extends BuilderTestCase
             ['tag1' => 'value1'],
             [],
         ], $this->metadata->readPreferenceTags);
-    }
-
-    protected function givenBuilder(): ReadPreferenceBuilder
-    {
-        $this->builder = new ReadPreferenceBuilder();
-
-        return $this->builder;
     }
 }

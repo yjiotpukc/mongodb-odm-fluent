@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace yjiotpukc\MongoODMFluent\Tests\Stubs;
 
 use DateTime;
-use yjiotpukc\MongoODMFluent\Tests\Stubs\Mappings\AnotherEntityStub;
 
 class FileStub
 {

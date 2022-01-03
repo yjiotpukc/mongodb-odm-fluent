@@ -8,102 +8,6 @@ use yjiotpukc\MongoODMFluent\Builder\Field\FieldBuilder;
 
 class FieldTest extends FieldTestCase
 {
-    public function testStringField()
-    {
-        $this->givenDefaultBuilder();
-
-        $this->assertFieldBuildsCorrectly();
-    }
-
-    public function testIntegerField()
-    {
-        $this->givenBuilder('int', 'age');
-
-        $this->assertFieldBuildsCorrectly([
-            'fieldName' => 'age',
-            'name' => 'age',
-            'type' => 'int',
-        ], 'age');
-    }
-
-    public function testNullableStringField()
-    {
-        $this->givenDefaultBuilder()->nullable();
-
-        $this->assertFieldBuildsCorrectly(['nullable' => true]);
-    }
-
-    public function testNotSavedStringField()
-    {
-        $this->givenDefaultBuilder()->notSaved();
-
-        $this->assertFieldBuildsCorrectly(['notSaved' => true]);
-    }
-
-    public function testStringFieldWithDifferentNameInDb()
-    {
-        $this->givenDefaultBuilder()->nameInDb('name');
-
-        $this->assertFieldBuildsCorrectly(['name' => 'name']);
-    }
-
-    public function testAutoincrementField()
-    {
-        $this->givenBuilder('int', 'age')->increment();
-
-        $this->assertFieldBuildsCorrectly([
-            'fieldName' => 'age',
-            'name' => 'age',
-            'type' => 'int',
-            'strategy' => 'increment'
-        ], 'age');
-    }
-
-    public function testOptimisticLocking()
-    {
-        $this->givenBuilder('int', 'age')->version();
-
-        $this->assertFieldBuildsCorrectly([
-            'fieldName' => 'age',
-            'name' => 'age',
-            'type' => 'int',
-            'version' => true,
-            'notSaved' => true,
-        ], 'age');
-    }
-
-    public function testPessimisticLocking()
-    {
-        $this->givenBuilder('int', 'age')->lock();
-
-        $this->assertFieldBuildsCorrectly([
-            'fieldName' => 'age',
-            'name' => 'age',
-            'type' => 'int',
-            'lock' => true,
-            'notSaved' => true,
-        ], 'age');
-    }
-
-    public function testAlsoLoadFields()
-    {
-        $this->givenDefaultBuilder()->alsoLoad('name');
-
-        $this->assertFieldBuildsCorrectly(['alsoLoadFields' => ['name']]);
-    }
-
-    protected function givenDefaultBuilder(): FieldBuilder
-    {
-        return $this->givenBuilder('string', 'firstName');
-    }
-
-    protected function givenBuilder(string $type, string $fieldName): FieldBuilder
-    {
-        $this->builder = new FieldBuilder($type, $fieldName);
-
-        return $this->builder;
-    }
-
     public static function getDefaultFieldName(): string
     {
         return 'firstName';
@@ -126,5 +30,101 @@ class FieldTest extends FieldTestCase
             'isOwningSide' => true,
             'isInverseSide' => false,
         ];
+    }
+
+    public function testStringField(): void
+    {
+        $this->givenDefaultBuilder();
+
+        $this->assertFieldBuildsCorrectly();
+    }
+
+    protected function givenDefaultBuilder(): FieldBuilder
+    {
+        return $this->givenBuilder('string', 'firstName');
+    }
+
+    protected function givenBuilder(string $type, string $fieldName): FieldBuilder
+    {
+        $this->builder = new FieldBuilder($type, $fieldName);
+
+        return $this->builder;
+    }
+
+    public function testIntegerField(): void
+    {
+        $this->givenBuilder('int', 'age');
+
+        $this->assertFieldBuildsCorrectly([
+            'fieldName' => 'age',
+            'name' => 'age',
+            'type' => 'int',
+        ], 'age');
+    }
+
+    public function testNullableStringField(): void
+    {
+        $this->givenDefaultBuilder()->nullable();
+
+        $this->assertFieldBuildsCorrectly(['nullable' => true]);
+    }
+
+    public function testNotSavedStringField(): void
+    {
+        $this->givenDefaultBuilder()->notSaved();
+
+        $this->assertFieldBuildsCorrectly(['notSaved' => true]);
+    }
+
+    public function testStringFieldWithDifferentNameInDb(): void
+    {
+        $this->givenDefaultBuilder()->nameInDb('name');
+
+        $this->assertFieldBuildsCorrectly(['name' => 'name']);
+    }
+
+    public function testAutoincrementField(): void
+    {
+        $this->givenBuilder('int', 'age')->increment();
+
+        $this->assertFieldBuildsCorrectly([
+            'fieldName' => 'age',
+            'name' => 'age',
+            'type' => 'int',
+            'strategy' => 'increment'
+        ], 'age');
+    }
+
+    public function testOptimisticLocking(): void
+    {
+        $this->givenBuilder('int', 'age')->version();
+
+        $this->assertFieldBuildsCorrectly([
+            'fieldName' => 'age',
+            'name' => 'age',
+            'type' => 'int',
+            'version' => true,
+            'notSaved' => true,
+        ], 'age');
+    }
+
+    public function testPessimisticLocking(): void
+    {
+        $this->givenBuilder('int', 'age')->lock();
+
+        $this->assertFieldBuildsCorrectly([
+            'fieldName' => 'age',
+            'name' => 'age',
+            'type' => 'int',
+            'lock' => true,
+            'notSaved' => true,
+        ], 'age');
+    }
+
+    public function testAlsoLoadFields(): void
+    {
+        $this->givenDefaultBuilder()->alsoLoad('name');
+
+        $this->assertFieldBuildsCorrectly(['alsoLoadFields' => ['name']]);
     }
 }
