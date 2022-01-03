@@ -10,7 +10,7 @@ use Doctrine\ODM\MongoDB\Id\AutoGenerator;
 use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
 use PHPUnit\Framework\TestCase;
 use yjiotpukc\MongoODMFluent\FluentDriver;
-use yjiotpukc\MongoODMFluent\MappingFinder\DirectoryMappingFinder;
+use yjiotpukc\MongoODMFluent\MappingFinder\NamespacePatternMappingFinder;
 use yjiotpukc\MongoODMFluent\Tests\Integration\Resources\Entities\Image;
 use yjiotpukc\MongoODMFluent\Tests\Integration\Resources\Entities\ImageMetadata;
 
@@ -20,9 +20,10 @@ class FileMappingTest extends TestCase
 
     public static function setUpBeforeClass(): void
     {
-        $mappingFinder = new DirectoryMappingFinder(
-            [__DIR__ . '/Resources/Mappings/'],
-            ['yjiotpukc\MongoODMFluent\Tests\Integration\Resources\Mappings']
+        $mappingFinder = new NamespacePatternMappingFinder(
+            '/^yjiotpukc\\\\MongoODMFluent\\\\Tests\\\\Integration\\\\Resources\\\\Mappings\\\\(.*)Mapping$/',
+            'yjiotpukc\\\\MongoODMFluent\\\\Tests\\\\Integration\\\\Resources\\\\Entities\\\\$1',
+            __DIR__ . '/Resources/Mappings/'
         );
         $driver = new FluentDriver($mappingFinder);
         $config = new Configuration();
