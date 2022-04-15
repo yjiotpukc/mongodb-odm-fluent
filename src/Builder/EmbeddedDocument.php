@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace yjiotpukc\MongoODMFluent\Builder;
 
 use yjiotpukc\MongoODMFluent\Type\ChangeTrackingPolicy;
+use yjiotpukc\MongoODMFluent\Type\Discriminator;
 use yjiotpukc\MongoODMFluent\Type\EmbedMany;
 use yjiotpukc\MongoODMFluent\Type\EmbedOne;
 use yjiotpukc\MongoODMFluent\Type\Field;
@@ -24,6 +25,8 @@ interface EmbeddedDocument
      * @return Index
      */
     public function index($keys = []): Index;
+
+    public function discriminator(string $field): Discriminator;
 
     public function changeTrackingPolicy(): ChangeTrackingPolicy;
 
