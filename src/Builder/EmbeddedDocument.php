@@ -32,7 +32,7 @@ interface EmbeddedDocument
 
     public function lifecycle(): Lifecycle;
 
-    public function alsoLoad(string $method, array $fields): Document;
+    public function alsoLoad(string $method, array $fields): EmbeddedDocument;
 
     public function id(): Id;
 
