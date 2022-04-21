@@ -24,10 +24,10 @@ class NamespacePatternMappingFinder implements MappingFinder
 
     public function makeMappingSet(): MappingSet
     {
-        $scannedClasses = $this->directoryScanner->scanDirectory();
+        $this->directoryScanner->scanDirectory();
 
         $mappingSet = new SimpleMappingSet();
-        foreach ($scannedClasses as $className) {
+        foreach (get_declared_classes() as $className) {
             if (
                 preg_match($this->mappingClassPattern, $className)
                 && in_array(Mapping::class, class_implements($className), true)
