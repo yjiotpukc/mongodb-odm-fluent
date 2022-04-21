@@ -13,10 +13,16 @@ use yjiotpukc\MongoODMFluent\MappingSet\MappingSet;
 class FluentDriver implements MappingDriver
 {
     protected MappingSet $mappingSet;
+    protected bool $checkParents = false;
 
     public function __construct(MappingFinder $mappingFinder)
     {
         $this->mappingSet = $mappingFinder->makeMappingSet();
+    }
+
+    public function checkParents(): void
+    {
+        $this->checkParents = true;
     }
 
     public function loadMetadataForClass($className, ClassMetadata $metadata): void
@@ -26,8 +32,7 @@ class FluentDriver implements MappingDriver
 
     protected function createMapping(string $entityClassName): Mapping
     {
-        $this->assertMappingExists($entityClassName);
-        $mappingClassName = $this->mappingSet->find($entityClassName);
+        $mappingClassName = $this->findMapping($entityClassName);
         $this->assertMappingClassExists($mappingClassName);
         $mapping = new $mappingClassName();
         $this->assertMappingIsInstanceOfMapping($mapping);
@@ -35,11 +40,21 @@ class FluentDriver implements MappingDriver
         return $mapping;
     }
 
-    protected function assertMappingExists(string $entityClassName): void
+    protected function findMapping(string $entityClassName): string
     {
-        if (!$this->mappingSet->exists($entityClassName)) {
-            throw new MappingException("Mapping for entity [$entityClassName] not found");
+        if ($this->mappingSet->exists($entityClassName)) {
+            return $this->mappingSet->find($entityClassName);
         }
+
+        if ($this->checkParents) {
+            while ($entityClassName = get_parent_class($entityClassName)) {
+                if ($this->mappingSet->exists($entityClassName)) {
+                    return $this->mappingSet->find($entityClassName);
+                }
+            }
+        }
+
+        throw new MappingException("Mapping for entity [$entityClassName] not found");
     }
 
     protected function assertMappingClassExists(string $mappingClassName): void

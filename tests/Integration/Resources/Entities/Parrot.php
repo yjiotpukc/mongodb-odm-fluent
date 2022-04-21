@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace yjiotpukc\MongoODMFluent\Tests\Integration\Resources\Entities;
 
-class Bird extends Pet
+class Parrot extends Bird
 {
-    protected bool $isTalking;
+    public function talk():string
+    {
+        return 'Hello';
+    }
 }
