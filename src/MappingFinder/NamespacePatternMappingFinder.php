@@ -7,27 +7,27 @@ namespace yjiotpukc\MongoODMFluent\MappingFinder;
 use yjiotpukc\MongoODMFluent\Mapping\Mapping;
 use yjiotpukc\MongoODMFluent\MappingSet\MappingSet;
 use yjiotpukc\MongoODMFluent\MappingSet\SimpleMappingSet;
-use yjiotpukc\MongoODMFluent\Util\DirectoryScanner;
+use yjiotpukc\MongoODMFluent\Util\ClassScanner;
 
 class NamespacePatternMappingFinder implements MappingFinder
 {
     protected string $entityClassReplacementPattern;
     protected string $mappingClassPattern;
-    protected DirectoryScanner $directoryScanner;
+    protected ClassScanner $classScanner;
 
     public function __construct(string $mappingClassPattern, string $entityClassReplacementPattern, string $mappingDirectory)
     {
         $this->mappingClassPattern = $mappingClassPattern;
         $this->entityClassReplacementPattern = $entityClassReplacementPattern;
-        $this->directoryScanner = new DirectoryScanner($mappingDirectory);
+        $this->classScanner = new ClassScanner($mappingDirectory);
     }
 
     public function makeMappingSet(): MappingSet
     {
-        $this->directoryScanner->scanDirectory();
+        $classes = $this->classScanner->scanClasses();
 
         $mappingSet = new SimpleMappingSet();
-        foreach (get_declared_classes() as $className) {
+        foreach ($classes as $className) {
             if (
                 preg_match($this->mappingClassPattern, $className)
                 && in_array(Mapping::class, class_implements($className), true)
