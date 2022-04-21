@@ -9,16 +9,14 @@ use yjiotpukc\MongoODMFluent\MappingSet\MappingSet;
 use yjiotpukc\MongoODMFluent\MappingSet\SimpleMappingSet;
 use yjiotpukc\MongoODMFluent\Util\ClassScanner;
 
-class NamespacePatternMappingFinder implements MappingFinder
+class SelfMappingFinder implements MappingFinder
 {
-    protected string $entityClassReplacementPattern;
     protected string $mappingClassPattern;
     protected ClassScanner $classScanner;
 
-    public function __construct(string $mappingClassPattern, string $entityClassReplacementPattern, string $mappingDirectory)
+    public function __construct(string $mappingClassPattern, string $mappingDirectory)
     {
         $this->mappingClassPattern = $mappingClassPattern;
-        $this->entityClassReplacementPattern = $entityClassReplacementPattern;
         $this->classScanner = new ClassScanner($mappingDirectory);
     }
 
@@ -28,12 +26,8 @@ class NamespacePatternMappingFinder implements MappingFinder
 
         $mappingSet = new SimpleMappingSet();
         foreach ($classes as $className) {
-            if (
-                preg_match($this->mappingClassPattern, $className)
-                && in_array(Mapping::class, class_implements($className), true)
-            ) {
-                $entityClassName = preg_replace($this->mappingClassPattern, $this->entityClassReplacementPattern, $className);
-                $mappingSet->add($entityClassName, $className);
+            if (in_array(Mapping::class, class_implements($className), true)) {
+                $mappingSet->add($className, $className);
             }
         }
 
