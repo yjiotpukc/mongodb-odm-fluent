@@ -14,6 +14,7 @@ class FluentDriver implements MappingDriver
 {
     protected MappingSet $mappingSet;
     protected bool $checkParents = false;
+    protected bool $useLifecycleAutoMethods = true;
 
     public function __construct(MappingFinder $mappingFinder)
     {
@@ -23,6 +24,11 @@ class FluentDriver implements MappingDriver
     public function checkParents(): void
     {
         $this->checkParents = true;
+    }
+
+    public function disableLifecycleAutoMethods(): void
+    {
+        $this->useLifecycleAutoMethods = true;
     }
 
     public function loadMetadataForClass($className, ClassMetadata $metadata): void
@@ -36,6 +42,10 @@ class FluentDriver implements MappingDriver
         $this->assertMappingClassExists($mappingClassName);
         $mapping = new $mappingClassName();
         $this->assertMappingIsInstanceOfMapping($mapping);
+
+        if(method_exists($mapping, 'enableLifecycleAutoMethods')) {
+            $mapping->enableLifecycleAutoMethods($this->useLifecycleAutoMethods);
+        }
 
         return $mapping;
     }
