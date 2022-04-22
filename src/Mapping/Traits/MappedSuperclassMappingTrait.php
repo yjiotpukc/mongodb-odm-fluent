@@ -10,11 +10,14 @@ use yjiotpukc\MongoODMFluent\Builder\Document\DocumentBuilder;
 
 trait MappedSuperclassMappingTrait
 {
+    use LifecycleAutoMethodsTrait;
+
     public function load(ClassMetadata $metadata): void
     {
         $builder = new DocumentBuilder();
         $builder->mappedSuperclass();
         $this->map($builder);
+        $this->addLifecycleAutoMethods($builder);
         $builder->build($metadata);
     }
 

@@ -87,8 +87,8 @@ class DescendantMappingTest extends TestCase
             __DIR__ . '/Resources/Mappings/'
         );
         $driver = new FluentDriver($mappingFinder);
-        if ($checkParents) {
-            $driver->checkParents();
+        if (!$checkParents) {
+            $driver->disableMappingInheritance();
         }
         $config = new Configuration();
         $config->setMetadataDriverImpl($driver);

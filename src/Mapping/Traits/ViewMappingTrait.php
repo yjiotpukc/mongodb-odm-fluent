@@ -10,10 +10,13 @@ use yjiotpukc\MongoODMFluent\Builder\View;
 
 trait ViewMappingTrait
 {
+    use LifecycleAutoMethodsTrait;
+
     public function load(ClassMetadata $metadata): void
     {
         $builder = new DocumentBuilder();
         $this->map($builder);
+        $this->addLifecycleAutoMethods($builder);
         $builder->build($metadata);
     }
 

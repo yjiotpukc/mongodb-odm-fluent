@@ -10,11 +10,14 @@ use yjiotpukc\MongoODMFluent\Builder\QueryResultDocument;
 
 trait QueryResultDocumentMappingTrait
 {
+    use LifecycleAutoMethodsTrait;
+
     public function load(ClassMetadata $metadata): void
     {
         $builder = new DocumentBuilder();
         $builder->queryResultDocument();
         $this->map($builder);
+        $this->addLifecycleAutoMethods($builder);
         $builder->build($metadata);
     }
 

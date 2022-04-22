@@ -10,11 +10,14 @@ use yjiotpukc\MongoODMFluent\Builder\EmbeddedDocument;
 
 trait EmbeddedDocumentMappingTrait
 {
+    use LifecycleAutoMethodsTrait;
+
     public function load(ClassMetadata $metadata): void
     {
         $builder = new DocumentBuilder();
         $builder->embeddedDocument();
         $this->map($builder);
+        $this->addLifecycleAutoMethods($builder);
         $builder->build($metadata);
     }
 

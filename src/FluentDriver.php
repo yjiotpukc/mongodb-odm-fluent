@@ -13,16 +13,22 @@ use yjiotpukc\MongoODMFluent\MappingSet\MappingSet;
 class FluentDriver implements MappingDriver
 {
     protected MappingSet $mappingSet;
-    protected bool $checkParents = false;
+    protected bool $useMappingInheritance = true;
+    protected bool $useLifecycleAutoMethods = true;
 
     public function __construct(MappingFinder $mappingFinder)
     {
         $this->mappingSet = $mappingFinder->makeMappingSet();
     }
 
-    public function checkParents(): void
+    public function disableMappingInheritance(): void
     {
-        $this->checkParents = true;
+        $this->useMappingInheritance = false;
+    }
+
+    public function disableLifecycleAutoMethods(): void
+    {
+        $this->useLifecycleAutoMethods = false;
     }
 
     public function loadMetadataForClass($className, ClassMetadata $metadata): void
@@ -37,6 +43,10 @@ class FluentDriver implements MappingDriver
         $mapping = new $mappingClassName();
         $this->assertMappingIsInstanceOfMapping($mapping);
 
+        if(method_exists($mapping, 'enableLifecycleAutoMethods')) {
+            $mapping->enableLifecycleAutoMethods($this->useLifecycleAutoMethods);
+        }
+
         return $mapping;
     }
 
@@ -46,10 +56,11 @@ class FluentDriver implements MappingDriver
             return $this->mappingSet->find($entityClassName);
         }
 
-        if ($this->checkParents) {
-            while ($entityClassName = get_parent_class($entityClassName)) {
-                if ($this->mappingSet->exists($entityClassName)) {
-                    return $this->mappingSet->find($entityClassName);
+        if ($this->useMappingInheritance) {
+            $parentEntityClassName = $entityClassName;
+            while ($parentEntityClassName = get_parent_class($parentEntityClassName)) {
+                if ($this->mappingSet->exists($parentEntityClassName)) {
+                    return $this->mappingSet->find($parentEntityClassName);
                 }
             }
         }
