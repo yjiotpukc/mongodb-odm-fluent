@@ -17,7 +17,7 @@ class ClassScanner
         if (str_ends_with($mappingDirectory, '/')) {
             $mappingDirectory = substr($mappingDirectory, 0, -1);
         }
-        $this->mappingDirectory = $mappingDirectory;
+        $this->mappingDirectory = realpath($mappingDirectory);
     }
 
     /**
