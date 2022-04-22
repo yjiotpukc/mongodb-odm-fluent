@@ -21,9 +21,7 @@ class SelfMappingFinderTest extends TestCase
 
     protected function createMappingSet(): MappingSet
     {
-        $finder = new SelfMappingFinder('yjiotpukc\\MongoODMFluent\\Tests\\Stubs\\Mappings\\', $this->getDirectoryPath());
-
-        return $finder->makeMappingSet();
+        return (new SelfMappingFinder($this->getDirectoryPath()))->makeMappingSet();
     }
 
     protected function getDirectoryPath(): string

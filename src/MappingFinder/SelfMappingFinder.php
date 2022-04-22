@@ -11,12 +11,10 @@ use yjiotpukc\MongoODMFluent\Util\ClassScanner;
 
 class SelfMappingFinder implements MappingFinder
 {
-    protected string $mappingClassPattern;
     protected ClassScanner $classScanner;
 
-    public function __construct(string $mappingClassPattern, string $mappingDirectory)
+    public function __construct(string $mappingDirectory)
     {
-        $this->mappingClassPattern = $mappingClassPattern;
         $this->classScanner = new ClassScanner($mappingDirectory);
     }
 
