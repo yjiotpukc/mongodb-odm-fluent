@@ -19,7 +19,7 @@ class LifecycleAutoMethodsTest extends TestCase
 
     public function testLifecycleAutoMethods(): void
     {
-        $documentManager = $this->createDocumentManager();
+        $documentManager = $this->createDocumentManager(true);
         $metadata = $documentManager->getClassMetadata(LifecycleAutoMethodsMapping::class);
 
         $this->assertMappingIsCorrect($metadata);
@@ -42,11 +42,13 @@ class LifecycleAutoMethodsTest extends TestCase
         self::assertEquals($expectedMetadata, $metadata);
     }
 
-    protected function createDocumentManager(): DocumentManager
+    protected function createDocumentManager(bool $useLifecycleAutoMethods): DocumentManager
     {
         $mappingFinder = new SelfMappingFinder(__DIR__ . '/Resources/Mappings/');
         $driver = new FluentDriver($mappingFinder);
-        $driver->disableLifecycleAutoMethods();
+        if (!$useLifecycleAutoMethods) {
+            $driver->disableLifecycleAutoMethods();
+        }
         $config = new Configuration();
         $config->setMetadataDriverImpl($driver);
         $config->setHydratorDir(__DIR__ . '/Resources/Hydrators/');
