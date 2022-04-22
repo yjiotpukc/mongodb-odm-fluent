@@ -88,7 +88,7 @@ class DescendantMappingTest extends TestCase
         );
         $driver = new FluentDriver($mappingFinder);
         if ($checkParents) {
-            $driver->checkParents();
+            $driver->enableMappingInheritance();
         }
         $config = new Configuration();
         $config->setMetadataDriverImpl($driver);
