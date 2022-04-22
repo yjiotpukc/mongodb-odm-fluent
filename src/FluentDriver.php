@@ -13,7 +13,7 @@ use yjiotpukc\MongoODMFluent\MappingSet\MappingSet;
 class FluentDriver implements MappingDriver
 {
     protected MappingSet $mappingSet;
-    protected bool $useMappingInheritance = false;
+    protected bool $useMappingInheritance = true;
     protected bool $useLifecycleAutoMethods = true;
 
     public function __construct(MappingFinder $mappingFinder)
@@ -21,9 +21,9 @@ class FluentDriver implements MappingDriver
         $this->mappingSet = $mappingFinder->makeMappingSet();
     }
 
-    public function enableMappingInheritance(): void
+    public function disableMappingInheritance(): void
     {
-        $this->useMappingInheritance = true;
+        $this->useMappingInheritance = false;
     }
 
     public function disableLifecycleAutoMethods(): void
@@ -57,9 +57,10 @@ class FluentDriver implements MappingDriver
         }
 
         if ($this->useMappingInheritance) {
-            while ($entityClassName = get_parent_class($entityClassName)) {
-                if ($this->mappingSet->exists($entityClassName)) {
-                    return $this->mappingSet->find($entityClassName);
+            $parentEntityClassName = $entityClassName;
+            while ($parentEntityClassName = get_parent_class($parentEntityClassName)) {
+                if ($this->mappingSet->exists($parentEntityClassName)) {
+                    return $this->mappingSet->find($parentEntityClassName);
                 }
             }
         }
