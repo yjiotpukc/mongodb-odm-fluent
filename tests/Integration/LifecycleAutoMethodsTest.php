@@ -22,10 +22,18 @@ class LifecycleAutoMethodsTest extends TestCase
         $documentManager = $this->createDocumentManager(true);
         $metadata = $documentManager->getClassMetadata(LifecycleAutoMethodsMapping::class);
 
-        $this->assertMappingIsCorrect($metadata);
+        $this->assertMappingIsCorrect($metadata, true);
     }
 
-    protected function assertMappingIsCorrect(ClassMetadata $metadata): void
+    public function testDisabledLifecycleAutoMethods(): void
+    {
+        $documentManager = $this->createDocumentManager(false);
+        $metadata = $documentManager->getClassMetadata(LifecycleAutoMethodsMapping::class);
+
+        $this->assertMappingIsCorrect($metadata, false);
+    }
+
+    protected function assertMappingIsCorrect(ClassMetadata $metadata, bool $useLifecycleAutoMethods): void
     {
         $expectedMetadata = new ClassMetadata(LifecycleAutoMethodsMapping::class);
         $expectedMetadata->db = 'dbName';
@@ -37,7 +45,10 @@ class LifecycleAutoMethodsTest extends TestCase
             'notSaved' => false,
         ]);
         $expectedMetadata->setIdGenerator(new AutoGenerator());
-        $expectedMetadata->addLifecycleCallback('preLoad', 'preLoad');
+
+        if ($useLifecycleAutoMethods) {
+            $expectedMetadata->addLifecycleCallback('preLoad', 'preLoad');
+        }
 
         self::assertEquals($expectedMetadata, $metadata);
     }
