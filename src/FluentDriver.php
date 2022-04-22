@@ -28,7 +28,7 @@ class FluentDriver implements MappingDriver
 
     public function disableLifecycleAutoMethods(): void
     {
-        $this->useLifecycleAutoMethods = true;
+        $this->useLifecycleAutoMethods = false;
     }
 
     public function loadMetadataForClass($className, ClassMetadata $metadata): void
