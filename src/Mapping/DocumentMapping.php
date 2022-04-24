@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace yjiotpukc\MongoODMFluent\Builder;
+namespace yjiotpukc\MongoODMFluent\Mapping;
 
 use yjiotpukc\MongoODMFluent\Type\ChangeTrackingPolicy;
 use yjiotpukc\MongoODMFluent\Type\Collection;
@@ -19,22 +19,22 @@ use yjiotpukc\MongoODMFluent\Type\ReferenceMany;
 use yjiotpukc\MongoODMFluent\Type\ReferenceOne;
 use yjiotpukc\MongoODMFluent\Type\Shard;
 
-interface Document
+interface DocumentMapping
 {
-    public function db(string $name): Document;
+    public function db(string $name): DocumentMapping;
 
-    public function repository(string $className): Document;
+    public function repository(string $className): DocumentMapping;
 
-    public function readOnly(): Document;
+    public function readOnly(): DocumentMapping;
 
-    public function singleCollection(): Document;
+    public function singleCollection(): DocumentMapping;
 
-    public function collectionPerClass(): Document;
+    public function collectionPerClass(): DocumentMapping;
 
     /**
      * @param int|string|null $writeConcern
      */
-    public function writeConcern($writeConcern): Document;
+    public function writeConcern($writeConcern): DocumentMapping;
 
     public function readPreference(): ReadPreferenceMode;
 
@@ -54,7 +54,7 @@ interface Document
 
     public function lifecycle(): Lifecycle;
 
-    public function alsoLoad(string $method, array $fields): Document;
+    public function alsoLoad(string $method, array $fields): DocumentMapping;
 
     public function id(): Id;
 

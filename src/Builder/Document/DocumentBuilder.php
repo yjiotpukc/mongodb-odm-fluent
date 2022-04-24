@@ -18,7 +18,6 @@ use yjiotpukc\MongoODMFluent\Builder\Database\RootClassBuilder;
 use yjiotpukc\MongoODMFluent\Builder\Database\ShardBuilder;
 use yjiotpukc\MongoODMFluent\Builder\Database\ViewNameBuilder;
 use yjiotpukc\MongoODMFluent\Builder\Database\WriteConcernBuilder;
-use yjiotpukc\MongoODMFluent\Builder\Document;
 use yjiotpukc\MongoODMFluent\Builder\EmbeddedDocument;
 use yjiotpukc\MongoODMFluent\Builder\Field\EmbedManyBuilder;
 use yjiotpukc\MongoODMFluent\Builder\Field\EmbedOneBuilder;
@@ -30,6 +29,7 @@ use yjiotpukc\MongoODMFluent\Builder\Method\AlsoLoadMethodBuilder;
 use yjiotpukc\MongoODMFluent\Builder\Method\LifecycleBuilder;
 use yjiotpukc\MongoODMFluent\Builder\QueryResultDocument;
 use yjiotpukc\MongoODMFluent\Builder\View;
+use yjiotpukc\MongoODMFluent\Mapping\DocumentMapping;
 use yjiotpukc\MongoODMFluent\Type\ChangeTrackingPolicy;
 use yjiotpukc\MongoODMFluent\Type\Collection;
 use yjiotpukc\MongoODMFluent\Type\Discriminator;
@@ -45,7 +45,7 @@ use yjiotpukc\MongoODMFluent\Type\ReferenceMany;
 use yjiotpukc\MongoODMFluent\Type\ReferenceOne;
 use yjiotpukc\MongoODMFluent\Type\Shard;
 
-class DocumentBuilder extends BaseBuilder implements Document, EmbeddedDocument, View, QueryResultDocument
+class DocumentBuilder extends BaseBuilder implements DocumentMapping, EmbeddedDocument, View, QueryResultDocument
 {
     public function embeddedDocument(): DocumentBuilder
     {

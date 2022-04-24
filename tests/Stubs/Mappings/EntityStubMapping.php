@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace yjiotpukc\MongoODMFluent\Tests\Stubs\Mappings;
 
 use yjiotpukc\MongoODMFluent\Document\Document;
+use yjiotpukc\MongoODMFluent\Mapping\DocumentMapping;
 
 class EntityStubMapping implements Document
 {
@@ -20,7 +21,7 @@ class EntityStubMapping implements Document
         static::$wasLoaded = false;
     }
 
-    public function map(\yjiotpukc\MongoODMFluent\Builder\Document $builder): void
+    public function map(DocumentMapping $builder): void
     {
         static::$wasLoaded = true;
     }

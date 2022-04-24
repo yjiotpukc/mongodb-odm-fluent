@@ -5,14 +5,15 @@ declare(strict_types=1);
 namespace yjiotpukc\MongoODMFluent\Tests\Integration\Resources\Mappings;
 
 use Doctrine\ODM\MongoDB\Event\PreLoadEventArgs;
-use yjiotpukc\MongoODMFluent\Builder\Document;
+use yjiotpukc\MongoODMFluent\Document\Document;
+use yjiotpukc\MongoODMFluent\Mapping\DocumentMapping;
 
-class LifecycleAutoMethodsMapping implements \yjiotpukc\MongoODMFluent\Document\Document
+class LifecycleAutoMethodsMapping implements Document
 {
     protected string $id;
     protected string $name;
 
-    public function map(Document $builder): void
+    public function map(DocumentMapping $builder): void
     {
         $builder->db('dbName');
         $builder->collection('simple');
