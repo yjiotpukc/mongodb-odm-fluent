@@ -9,11 +9,11 @@ use yjiotpukc\MongoODMFluent\Mapping\DocumentMapping;
 
 class SimpleEntityMapping implements Document
 {
-    public function map(DocumentMapping $builder): void
+    public function map(DocumentMapping $mapping): void
     {
-        $builder->db('dbName');
-        $builder->collection('simple');
-        $builder->id();
-        $builder->field('string', 'name');
+        $mapping->db('dbName');
+        $mapping->collection('simple');
+        $mapping->id();
+        $mapping->field('string', 'name');
     }
 }

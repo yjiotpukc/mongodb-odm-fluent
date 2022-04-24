@@ -9,5 +9,5 @@ use yjiotpukc\MongoODMFluent\Mapping\Mapping;
 
 interface EmbeddedDocument extends Mapping
 {
-    public function map(EmbeddedDocumentMapping $builder): void;
+    public function map(EmbeddedDocumentMapping $mapping): void;
 }

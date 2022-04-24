@@ -9,5 +9,5 @@ use yjiotpukc\MongoODMFluent\Mapping\ViewMapping;
 
 interface View extends Mapping
 {
-    public function map(ViewMapping $builder): void;
+    public function map(ViewMapping $mapping): void;
 }

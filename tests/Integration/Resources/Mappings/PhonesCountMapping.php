@@ -9,8 +9,8 @@ use yjiotpukc\MongoODMFluent\Mapping\QueryResultDocumentMapping;
 
 class PhonesCountMapping implements QueryResultDocument
 {
-    public function map(QueryResultDocumentMapping $builder): void
+    public function map(QueryResultDocumentMapping $mapping): void
     {
-        $builder->int('count');
+        $mapping->int('count');
     }
 }

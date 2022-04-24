@@ -21,7 +21,7 @@ class EntityStubMapping implements Document
         static::$wasLoaded = false;
     }
 
-    public function map(DocumentMapping $builder): void
+    public function map(DocumentMapping $mapping): void
     {
         static::$wasLoaded = true;
     }

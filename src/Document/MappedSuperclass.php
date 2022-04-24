@@ -9,5 +9,5 @@ use yjiotpukc\MongoODMFluent\Mapping\Mapping;
 
 interface MappedSuperclass extends Mapping
 {
-    public function map(DocumentMapping $builder): void;
+    public function map(DocumentMapping $mapping): void;
 }

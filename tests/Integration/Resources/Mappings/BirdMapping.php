@@ -9,8 +9,8 @@ use yjiotpukc\MongoODMFluent\Mapping\DocumentMapping;
 
 class BirdMapping implements Document
 {
-    public function map(DocumentMapping $builder): void
+    public function map(DocumentMapping $mapping): void
     {
-        $builder->field('boolean', 'isTalking');
+        $mapping->field('boolean', 'isTalking');
     }
 }

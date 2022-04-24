@@ -9,5 +9,5 @@ use yjiotpukc\MongoODMFluent\Mapping\QueryResultDocumentMapping;
 
 interface QueryResultDocument extends Mapping
 {
-    public function map(QueryResultDocumentMapping $builder): void;
+    public function map(QueryResultDocumentMapping $mapping): void;
 }

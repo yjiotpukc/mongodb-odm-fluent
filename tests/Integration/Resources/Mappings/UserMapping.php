@@ -10,12 +10,12 @@ use yjiotpukc\MongoODMFluent\Tests\Integration\Resources\Entities\Phone;
 
 class UserMapping implements Document
 {
-    public function map(DocumentMapping $builder): void
+    public function map(DocumentMapping $mapping): void
     {
-        $builder->db('dbName');
-        $builder->collection('users');
-        $builder->id();
-        $builder->field('string', 'name');
-        $builder->embedMany('phones', Phone::class);
+        $mapping->db('dbName');
+        $mapping->collection('users');
+        $mapping->id();
+        $mapping->field('string', 'name');
+        $mapping->embedMany('phones', Phone::class);
     }
 }

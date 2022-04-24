@@ -10,11 +10,11 @@ use yjiotpukc\MongoODMFluent\Tests\Integration\Resources\Entities\ImageMetadata;
 
 class ImageMapping implements File
 {
-    public function map(FileMapping $builder): void
+    public function map(FileMapping $mapping): void
     {
-        $builder->db('dbName');
-        $builder->bucket('images');
-        $builder->id();
-        $builder->metadata()->target(ImageMetadata::class);
+        $mapping->db('dbName');
+        $mapping->bucket('images');
+        $mapping->id();
+        $mapping->metadata()->target(ImageMetadata::class);
     }
 }

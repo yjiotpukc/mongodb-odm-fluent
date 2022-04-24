@@ -9,8 +9,8 @@ use yjiotpukc\MongoODMFluent\Mapping\EmbeddedDocumentMapping;
 
 class ImageMetadataMapping implements EmbeddedDocument
 {
-    public function map(EmbeddedDocumentMapping $builder): void
+    public function map(EmbeddedDocumentMapping $mapping): void
     {
-        $builder->string('uploadedBy');
+        $mapping->string('uploadedBy');
     }
 }

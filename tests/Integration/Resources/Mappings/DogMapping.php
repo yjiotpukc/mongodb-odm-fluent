@@ -9,8 +9,8 @@ use yjiotpukc\MongoODMFluent\Mapping\DocumentMapping;
 
 class DogMapping implements Document
 {
-    public function map(DocumentMapping $builder): void
+    public function map(DocumentMapping $mapping): void
     {
-        $builder->field('string', 'breed');
+        $mapping->field('string', 'breed');
     }
 }
