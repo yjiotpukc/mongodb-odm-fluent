@@ -27,7 +27,7 @@ class EmbeddedDocumentLoader implements Loader
         $builder = new DocumentBuilder();
         $builder->embeddedDocument();
         $this->document->map($builder);
-        $this->addLifecycleAutoMethods($builder);
+        $this->addLifecycleAutoMethods($this->document, $builder);
         $builder->build($this->metadata);
     }
 }

@@ -27,7 +27,7 @@ class QueryResultDocumentLoader implements Loader
         $builder = new DocumentBuilder();
         $builder->queryResultDocument();
         $this->document->map($builder);
-        $this->addLifecycleAutoMethods($builder);
+        $this->addLifecycleAutoMethods($this->document, $builder);
         $builder->build($this->metadata);
     }
 }

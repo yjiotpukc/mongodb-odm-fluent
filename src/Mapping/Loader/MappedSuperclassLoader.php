@@ -27,7 +27,7 @@ class MappedSuperclassLoader implements Loader
         $builder = new DocumentBuilder();
         $builder->mappedSuperclass();
         $this->document->map($builder);
-        $this->addLifecycleAutoMethods($builder);
+        $this->addLifecycleAutoMethods($this->document, $builder);
         $builder->build($this->metadata);
     }
 }
