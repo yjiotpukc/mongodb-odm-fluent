@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace yjiotpukc\MongoODMFluent\Builder;
+namespace yjiotpukc\MongoODMFluent\Mapping;
 
 use yjiotpukc\MongoODMFluent\Type\Discriminator;
 use yjiotpukc\MongoODMFluent\Type\EmbedMany;
@@ -13,19 +13,19 @@ use yjiotpukc\MongoODMFluent\Type\IntegerField;
 use yjiotpukc\MongoODMFluent\Type\ReferenceMany;
 use yjiotpukc\MongoODMFluent\Type\ReferenceOne;
 
-interface View
+interface ViewMapping
 {
-    public function rootClass(string $className): View;
+    public function rootClass(string $className): ViewMapping;
 
-    public function repository(string $className): View;
+    public function repository(string $className): ViewMapping;
 
-    public function db(string $name): View;
+    public function db(string $name): ViewMapping;
 
-    public function view(string $name): View;
+    public function view(string $name): ViewMapping;
 
-    public function singleCollection(): View;
+    public function singleCollection(): ViewMapping;
 
-    public function collectionPerClass(): View;
+    public function collectionPerClass(): ViewMapping;
 
     public function discriminator(string $field): Discriminator;
 
