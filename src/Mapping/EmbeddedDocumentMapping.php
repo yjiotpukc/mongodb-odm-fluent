@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace yjiotpukc\MongoODMFluent\Builder;
+namespace yjiotpukc\MongoODMFluent\Mapping;
 
 use yjiotpukc\MongoODMFluent\Type\ChangeTrackingPolicy;
 use yjiotpukc\MongoODMFluent\Type\Discriminator;
@@ -16,9 +16,9 @@ use yjiotpukc\MongoODMFluent\Type\Lifecycle;
 use yjiotpukc\MongoODMFluent\Type\ReferenceMany;
 use yjiotpukc\MongoODMFluent\Type\ReferenceOne;
 
-interface EmbeddedDocument
+interface EmbeddedDocumentMapping
 {
-    public function readOnly(): EmbeddedDocument;
+    public function readOnly(): EmbeddedDocumentMapping;
 
     /**
      * @param string|string[] $keys
@@ -32,7 +32,7 @@ interface EmbeddedDocument
 
     public function lifecycle(): Lifecycle;
 
-    public function alsoLoad(string $method, array $fields): EmbeddedDocument;
+    public function alsoLoad(string $method, array $fields): EmbeddedDocumentMapping;
 
     public function id(): Id;
 

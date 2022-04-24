@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace yjiotpukc\MongoODMFluent\Tests\Integration\Resources\Mappings;
 
-use yjiotpukc\MongoODMFluent\Builder\EmbeddedDocument;
+use yjiotpukc\MongoODMFluent\Document\EmbeddedDocument;
+use yjiotpukc\MongoODMFluent\Mapping\EmbeddedDocumentMapping;
 
-class PhoneMapping implements \yjiotpukc\MongoODMFluent\Document\EmbeddedDocument
+class PhoneMapping implements EmbeddedDocument
 {
-    public function map(EmbeddedDocument $builder): void
+    public function map(EmbeddedDocumentMapping $builder): void
     {
         $builder->field('string', 'phoneNumber');
     }
