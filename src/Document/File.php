@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace yjiotpukc\MongoODMFluent\Document;
 
-interface File
+use yjiotpukc\MongoODMFluent\Mapping\Mapping;
+
+interface File extends Mapping
 {
     public function map(\yjiotpukc\MongoODMFluent\Builder\File $builder): void;
 }
