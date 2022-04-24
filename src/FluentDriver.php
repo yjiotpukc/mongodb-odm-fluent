@@ -6,19 +6,20 @@ namespace yjiotpukc\MongoODMFluent;
 
 use Doctrine\Persistence\Mapping\ClassMetadata;
 use Doctrine\Persistence\Mapping\Driver\MappingDriver;
-use yjiotpukc\MongoODMFluent\Mapping\Mapping;
+use yjiotpukc\MongoODMFluent\Mapping\MappingLoaderFactory;
 use yjiotpukc\MongoODMFluent\MappingFinder\MappingFinder;
 use yjiotpukc\MongoODMFluent\MappingSet\MappingSet;
 
 class FluentDriver implements MappingDriver
 {
     protected MappingSet $mappingSet;
+    protected MappingLoaderFactory $loaderFactory;
     protected bool $useMappingInheritance = true;
-    protected bool $useLifecycleAutoMethods = true;
 
     public function __construct(MappingFinder $mappingFinder)
     {
         $this->mappingSet = $mappingFinder->makeMappingSet();
+        $this->loaderFactory = new MappingLoaderFactory();
     }
 
     public function disableMappingInheritance(): void
@@ -28,26 +29,20 @@ class FluentDriver implements MappingDriver
 
     public function disableLifecycleAutoMethods(): void
     {
-        $this->useLifecycleAutoMethods = false;
+        $this->loaderFactory->disableLifecycleAutoMethods();
     }
 
     public function loadMetadataForClass($className, ClassMetadata $metadata): void
     {
-        $this->createMapping($className)->load($metadata);
+        $this->loaderFactory->createLoader($this->createMapping($className), $metadata)->load();
     }
 
-    protected function createMapping(string $entityClassName): Mapping
+    protected function createMapping(string $entityClassName)
     {
         $mappingClassName = $this->findMapping($entityClassName);
         $this->assertMappingClassExists($mappingClassName);
-        $mapping = new $mappingClassName();
-        $this->assertMappingIsInstanceOfMapping($mapping);
 
-        if(method_exists($mapping, 'enableLifecycleAutoMethods')) {
-            $mapping->enableLifecycleAutoMethods($this->useLifecycleAutoMethods);
-        }
-
-        return $mapping;
+        return new $mappingClassName();
     }
 
     protected function findMapping(string $entityClassName): string
@@ -72,14 +67,6 @@ class FluentDriver implements MappingDriver
     {
         if (!class_exists($mappingClassName)) {
             throw new MappingException("[$mappingClassName] does not exist");
-        }
-    }
-
-    protected function assertMappingIsInstanceOfMapping(object $mapping): void
-    {
-        $mappingClassName = get_class($mapping);
-        if (!($mapping instanceof Mapping)) {
-            throw new MappingException("[$mappingClassName] is not a mapping");
         }
     }
 
