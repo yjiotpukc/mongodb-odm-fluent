@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace yjiotpukc\MongoODMFluent\Builder;
+namespace yjiotpukc\MongoODMFluent\Mapping;
 
 use yjiotpukc\MongoODMFluent\Type\Discriminator;
 use yjiotpukc\MongoODMFluent\Type\EmbedMany;
@@ -13,7 +13,7 @@ use yjiotpukc\MongoODMFluent\Type\IntegerField;
 use yjiotpukc\MongoODMFluent\Type\ReferenceMany;
 use yjiotpukc\MongoODMFluent\Type\ReferenceOne;
 
-interface QueryResultDocument
+interface QueryResultDocumentMapping
 {
     public function discriminator(string $field): Discriminator;
 

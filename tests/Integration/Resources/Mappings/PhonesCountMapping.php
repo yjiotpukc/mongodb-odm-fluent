@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace yjiotpukc\MongoODMFluent\Tests\Integration\Resources\Mappings;
 
-use yjiotpukc\MongoODMFluent\Builder\QueryResultDocument;
+use yjiotpukc\MongoODMFluent\Document\QueryResultDocument;
+use yjiotpukc\MongoODMFluent\Mapping\QueryResultDocumentMapping;
 
-class PhonesCountMapping implements \yjiotpukc\MongoODMFluent\Document\QueryResultDocument
+class PhonesCountMapping implements QueryResultDocument
 {
-    public function map(QueryResultDocument $builder): void
+    public function map(QueryResultDocumentMapping $builder): void
     {
         $builder->int('count');
     }
