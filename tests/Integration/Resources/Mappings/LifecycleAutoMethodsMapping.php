@@ -6,13 +6,9 @@ namespace yjiotpukc\MongoODMFluent\Tests\Integration\Resources\Mappings;
 
 use Doctrine\ODM\MongoDB\Event\PreLoadEventArgs;
 use yjiotpukc\MongoODMFluent\Builder\Document;
-use yjiotpukc\MongoODMFluent\Mapping\Mapping;
-use yjiotpukc\MongoODMFluent\Mapping\Traits\DocumentMappingTrait;
 
-class LifecycleAutoMethodsMapping implements Mapping
+class LifecycleAutoMethodsMapping implements \yjiotpukc\MongoODMFluent\Document\Document
 {
-    use DocumentMappingTrait;
-
     protected string $id;
     protected string $name;
 

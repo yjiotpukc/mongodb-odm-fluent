@@ -5,9 +5,8 @@ declare(strict_types=1);
 namespace yjiotpukc\MongoODMFluent\Tests\Integration\Resources\Mappings;
 
 use yjiotpukc\MongoODMFluent\Builder\Document;
-use yjiotpukc\MongoODMFluent\Mapping\DocumentMapping;
 
-class SimpleEntityMapping extends DocumentMapping
+class SimpleEntityMapping implements \yjiotpukc\MongoODMFluent\Document\Document
 {
     public function map(Document $builder): void
     {

@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace yjiotpukc\MongoODMFluent\Tests\Stubs\Mappings;
 
-use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
-use yjiotpukc\MongoODMFluent\Mapping\Mapping;
+use yjiotpukc\MongoODMFluent\Document\Document;
 
-class EntityStubMapping implements Mapping
+class EntityStubMapping implements Document
 {
     protected static bool $wasLoaded = false;
 
@@ -21,7 +20,7 @@ class EntityStubMapping implements Mapping
         static::$wasLoaded = false;
     }
 
-    public function load(ClassMetadata $metadata): void
+    public function map(\yjiotpukc\MongoODMFluent\Builder\Document $builder): void
     {
         static::$wasLoaded = true;
     }

@@ -5,10 +5,9 @@ declare(strict_types=1);
 namespace yjiotpukc\MongoODMFluent\Tests\Integration\Resources\Mappings;
 
 use yjiotpukc\MongoODMFluent\Builder\Document;
-use yjiotpukc\MongoODMFluent\Mapping\DocumentMapping;
 use yjiotpukc\MongoODMFluent\Tests\Integration\Resources\Entities\Phone;
 
-class UserMapping extends DocumentMapping
+class UserMapping implements \yjiotpukc\MongoODMFluent\Document\Document
 {
     public function map(Document $builder): void
     {
