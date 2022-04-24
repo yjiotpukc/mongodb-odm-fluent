@@ -4,9 +4,23 @@ declare(strict_types=1);
 
 namespace yjiotpukc\MongoODMFluent\Mapping;
 
-use yjiotpukc\MongoODMFluent\Mapping\Traits\MappedSuperclassMappingTrait;
+use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
+use yjiotpukc\MongoODMFluent\Builder\Document;
+use yjiotpukc\MongoODMFluent\Builder\Document\DocumentBuilder;
+use yjiotpukc\MongoODMFluent\Mapping\Traits\LifecycleAutoMethodsTrait;
 
 abstract class MappedSuperclassMapping implements Mapping
 {
-    use MappedSuperclassMappingTrait;
+    use LifecycleAutoMethodsTrait;
+
+    public function load(ClassMetadata $metadata): void
+    {
+        $builder = new DocumentBuilder();
+        $builder->mappedSuperclass();
+        $this->map($builder);
+        $this->addLifecycleAutoMethods($builder);
+        $builder->build($metadata);
+    }
+
+    abstract public function map(Document $builder): void;
 }
