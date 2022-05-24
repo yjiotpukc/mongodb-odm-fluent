@@ -9,7 +9,7 @@ use yjiotpukc\MongoODMFluent\Mapping\DocumentMapping;
 
 class SimpleEntityMapping implements Document
 {
-    public function map(DocumentMapping $mapping): void
+    public static function map(DocumentMapping $mapping): void
     {
         $mapping->db('dbName');
         $mapping->collection('simple');

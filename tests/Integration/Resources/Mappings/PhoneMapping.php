@@ -9,7 +9,7 @@ use yjiotpukc\MongoODMFluent\Mapping\EmbeddedDocumentMapping;
 
 class PhoneMapping implements EmbeddedDocument
 {
-    public function map(EmbeddedDocumentMapping $mapping): void
+    public static function map(EmbeddedDocumentMapping $mapping): void
     {
         $mapping->field('string', 'phoneNumber');
     }

@@ -11,7 +11,7 @@ use yjiotpukc\MongoODMFluent\Tests\Integration\Resources\Repositories\UserNameRe
 
 class UserNameMapping implements View
 {
-    public function map(ViewMapping $mapping): void
+    public static function map(ViewMapping $mapping): void
     {
         $mapping
             ->rootClass(User::class)

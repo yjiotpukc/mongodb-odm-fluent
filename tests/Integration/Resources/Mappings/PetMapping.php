@@ -11,7 +11,7 @@ use yjiotpukc\MongoODMFluent\Tests\Integration\Resources\Entities\Dog;
 
 class PetMapping implements MappedSuperclass
 {
-    public function map(DocumentMapping $mapping): void
+    public static function map(DocumentMapping $mapping): void
     {
         $mapping = $mapping->db('dbName');
         $mapping->collection('pets');

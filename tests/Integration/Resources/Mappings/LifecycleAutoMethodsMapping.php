@@ -13,7 +13,7 @@ class LifecycleAutoMethodsMapping implements Document
     protected string $id;
     protected string $name;
 
-    public function map(DocumentMapping $mapping): void
+    public static function map(DocumentMapping $mapping): void
     {
         $mapping->db('dbName');
         $mapping->collection('simple');
