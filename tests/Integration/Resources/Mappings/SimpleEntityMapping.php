@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace yjiotpukc\MongoODMFluent\Tests\Integration\Resources\Mappings;
 
-use yjiotpukc\MongoODMFluent\Builder\Document;
+use yjiotpukc\MongoODMFluent\Document\Document;
 use yjiotpukc\MongoODMFluent\Mapping\DocumentMapping;
 
-class SimpleEntityMapping extends DocumentMapping
+class SimpleEntityMapping implements Document
 {
-    public function map(Document $builder): void
+    public function map(DocumentMapping $mapping): void
     {
-        $builder->db('dbName');
-        $builder->collection('simple');
-        $builder->id();
-        $builder->field('string', 'name');
+        $mapping->db('dbName');
+        $mapping->collection('simple');
+        $mapping->id();
+        $mapping->field('string', 'name');
     }
 }

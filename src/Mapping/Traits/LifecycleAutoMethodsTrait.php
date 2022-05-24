@@ -15,7 +15,7 @@ trait LifecycleAutoMethodsTrait
         $this->useLifecycleAutoMethods = $value;
     }
 
-    public function addLifecycleAutoMethods(DocumentBuilder $builder): void
+    public function addLifecycleAutoMethods($document, DocumentBuilder $builder): void
     {
         if (!$this->useLifecycleAutoMethods) {
             return;
@@ -41,7 +41,7 @@ trait LifecycleAutoMethodsTrait
         ];
 
         foreach ($lifecycleMethods as $lifecycleMethod) {
-            if (method_exists($this, $lifecycleMethod)) {
+            if (method_exists($document, $lifecycleMethod)) {
                 $builder->lifecycle()->{$lifecycleMethod}($lifecycleMethod);
             }
         }

@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace yjiotpukc\MongoODMFluent\Tests\Integration\Resources\Mappings;
 
-use yjiotpukc\MongoODMFluent\Builder\EmbeddedDocument;
+use yjiotpukc\MongoODMFluent\Document\EmbeddedDocument;
 use yjiotpukc\MongoODMFluent\Mapping\EmbeddedDocumentMapping;
 
-class ImageMetadataMapping extends EmbeddedDocumentMapping
+class ImageMetadataMapping implements EmbeddedDocument
 {
-    public function map(EmbeddedDocument $builder): void
+    public function map(EmbeddedDocumentMapping $mapping): void
     {
-        $builder->string('uploadedBy');
+        $mapping->string('uploadedBy');
     }
 }

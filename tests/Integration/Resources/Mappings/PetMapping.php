@@ -4,20 +4,20 @@ declare(strict_types=1);
 
 namespace yjiotpukc\MongoODMFluent\Tests\Integration\Resources\Mappings;
 
-use yjiotpukc\MongoODMFluent\Builder\Document;
-use yjiotpukc\MongoODMFluent\Mapping\MappedSuperclassMapping;
+use yjiotpukc\MongoODMFluent\Document\MappedSuperclass;
+use yjiotpukc\MongoODMFluent\Mapping\DocumentMapping;
 use yjiotpukc\MongoODMFluent\Tests\Integration\Resources\Entities\Bird;
 use yjiotpukc\MongoODMFluent\Tests\Integration\Resources\Entities\Dog;
 
-class PetMapping extends MappedSuperclassMapping
+class PetMapping implements MappedSuperclass
 {
-    public function map(Document $builder): void
+    public function map(DocumentMapping $mapping): void
     {
-        $builder = $builder->db('dbName');
-        $builder->collection('pets');
-        $builder->singleCollection();
-        $builder->id();
-        $builder->field('string', 'name');
-        $builder->discriminator('type')->map('dog', Dog::class)->map('bird', Bird::class);
+        $mapping = $mapping->db('dbName');
+        $mapping->collection('pets');
+        $mapping->singleCollection();
+        $mapping->id();
+        $mapping->field('string', 'name');
+        $mapping->discriminator('type')->map('dog', Dog::class)->map('bird', Bird::class);
     }
 }

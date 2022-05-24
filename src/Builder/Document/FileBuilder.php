@@ -17,20 +17,20 @@ use yjiotpukc\MongoODMFluent\Builder\Database\WriteConcernBuilder;
 use yjiotpukc\MongoODMFluent\Builder\Field\FieldBuilder;
 use yjiotpukc\MongoODMFluent\Builder\Field\FileMetadataBuilder;
 use yjiotpukc\MongoODMFluent\Builder\Field\IdBuilder;
-use yjiotpukc\MongoODMFluent\Builder\File;
+use yjiotpukc\MongoODMFluent\Mapping\FileMapping;
 use yjiotpukc\MongoODMFluent\Type\FileMetadata;
 use yjiotpukc\MongoODMFluent\Type\Index;
 use yjiotpukc\MongoODMFluent\Type\ReadPreferenceMode;
 use yjiotpukc\MongoODMFluent\Type\Shard;
 
-class FileBuilder extends BaseBuilder implements File
+class FileBuilder extends BaseBuilder implements FileMapping
 {
     public function db(string $name): FileBuilder
     {
         return $this->addBuilderAndReturnSelf(new DbBuilder($name));
     }
 
-    public function bucket(string $name): File
+    public function bucket(string $name): FileMapping
     {
         return $this->addBuilderAndReturnSelf(new BucketBuilder($name));
     }
@@ -45,7 +45,7 @@ class FileBuilder extends BaseBuilder implements File
         return $this->addBuilderAndReturnSelf(new ReadOnlyBuilder());
     }
 
-    public function chunkSize(int $bytes): File
+    public function chunkSize(int $bytes): FileMapping
     {
         return $this->addBuilderAndReturnSelf(new ChunkSizeBuilder($bytes));
     }
@@ -81,7 +81,7 @@ class FileBuilder extends BaseBuilder implements File
         return $this->addBuilder(new IdBuilder());
     }
 
-    public function filenameFieldName(string $fieldName): File
+    public function filenameFieldName(string $fieldName): FileMapping
     {
         $filename = new FieldBuilder('string', $fieldName);
         $filename->nameInDb('filename')->notSaved();
@@ -89,7 +89,7 @@ class FileBuilder extends BaseBuilder implements File
         return $this->addBuilderAndReturnSelf($filename);
     }
 
-    public function uploadDateFieldName(string $fieldName): File
+    public function uploadDateFieldName(string $fieldName): FileMapping
     {
         $uploadDate = new FieldBuilder('date', $fieldName);
         $uploadDate->nameInDb('uploadDate')->notSaved();
@@ -97,7 +97,7 @@ class FileBuilder extends BaseBuilder implements File
         return $this->addBuilderAndReturnSelf($uploadDate);
     }
 
-    public function lengthFieldName(string $fieldName): File
+    public function lengthFieldName(string $fieldName): FileMapping
     {
         $length = new FieldBuilder('int', $fieldName);
         $length->nameInDb('length')->notSaved();
@@ -105,7 +105,7 @@ class FileBuilder extends BaseBuilder implements File
         return $this->addBuilderAndReturnSelf($length);
     }
 
-    public function chunkSizeFieldName(string $fieldName): File
+    public function chunkSizeFieldName(string $fieldName): FileMapping
     {
         $length = new FieldBuilder('int', $fieldName);
         $length->nameInDb('chunkSize')->notSaved();

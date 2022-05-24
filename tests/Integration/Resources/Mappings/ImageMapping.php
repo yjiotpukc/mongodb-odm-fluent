@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace yjiotpukc\MongoODMFluent\Tests\Integration\Resources\Mappings;
 
-use yjiotpukc\MongoODMFluent\Builder\File;
+use yjiotpukc\MongoODMFluent\Document\File;
 use yjiotpukc\MongoODMFluent\Mapping\FileMapping;
 use yjiotpukc\MongoODMFluent\Tests\Integration\Resources\Entities\ImageMetadata;
 
-class ImageMapping extends FileMapping
+class ImageMapping implements File
 {
-    public function map(File $builder): void
+    public function map(FileMapping $mapping): void
     {
-        $builder->db('dbName');
-        $builder->bucket('images');
-        $builder->id();
-        $builder->metadata()->target(ImageMetadata::class);
+        $mapping->db('dbName');
+        $mapping->bucket('images');
+        $mapping->id();
+        $mapping->metadata()->target(ImageMetadata::class);
     }
 }

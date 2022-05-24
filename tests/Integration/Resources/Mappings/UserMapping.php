@@ -4,18 +4,18 @@ declare(strict_types=1);
 
 namespace yjiotpukc\MongoODMFluent\Tests\Integration\Resources\Mappings;
 
-use yjiotpukc\MongoODMFluent\Builder\Document;
+use yjiotpukc\MongoODMFluent\Document\Document;
 use yjiotpukc\MongoODMFluent\Mapping\DocumentMapping;
 use yjiotpukc\MongoODMFluent\Tests\Integration\Resources\Entities\Phone;
 
-class UserMapping extends DocumentMapping
+class UserMapping implements Document
 {
-    public function map(Document $builder): void
+    public function map(DocumentMapping $mapping): void
     {
-        $builder->db('dbName');
-        $builder->collection('users');
-        $builder->id();
-        $builder->field('string', 'name');
-        $builder->embedMany('phones', Phone::class);
+        $mapping->db('dbName');
+        $mapping->collection('users');
+        $mapping->id();
+        $mapping->field('string', 'name');
+        $mapping->embedMany('phones', Phone::class);
     }
 }
