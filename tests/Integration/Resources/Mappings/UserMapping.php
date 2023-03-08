@@ -10,7 +10,7 @@ use yjiotpukc\MongoODMFluent\Tests\Integration\Resources\Entities\Phone;
 
 class UserMapping implements Document
 {
-    public function map(DocumentMapping $mapping): void
+    public static function map(DocumentMapping $mapping): void
     {
         $mapping->db('dbName');
         $mapping->collection('users');

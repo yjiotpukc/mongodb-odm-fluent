@@ -10,7 +10,7 @@ use yjiotpukc\MongoODMFluent\Tests\Integration\Resources\Entities\ImageMetadata;
 
 class ImageMapping implements File
 {
-    public function map(FileMapping $mapping): void
+    public static function map(FileMapping $mapping): void
     {
         $mapping->db('dbName');
         $mapping->bucket('images');

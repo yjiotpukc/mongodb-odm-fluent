@@ -9,5 +9,5 @@ use yjiotpukc\MongoODMFluent\Mapping\Mapping;
 
 interface File extends Mapping
 {
-    public function map(FileMapping $mapping): void;
+    public static function map(FileMapping $mapping): void;
 }
