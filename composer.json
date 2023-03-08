@@ -37,6 +37,7 @@
     }
   },
   "scripts": {
-    "test": "vendor/bin/phpunit tests"
+    "test": "vendor/bin/phpunit tests",
+    "coverage": "XDEBUG_MODE=coverage vendor/bin/phpunit tests --coverage-clover tests-coverage.xml --coverage-filter src"
   }
 }
