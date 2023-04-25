@@ -50,7 +50,8 @@ abstract class AbstractIntegrationTestCase extends TestCase
 
     protected function registerAutoLoaderForExamples(string $subDir): void
     {
-        $loader = ClassLoader::getRegisteredLoaders()['/home/yjiotpukc/code/php/mongodb-odm-fluent/vendor'];
+        $path = realpath(__DIR__ . '/../../vendor');
+        $loader = ClassLoader::getRegisteredLoaders()[$path];
         $loader->addPsr4('Examples\\', $this->getExamplesDir() . "/$subDir");
     }
 
