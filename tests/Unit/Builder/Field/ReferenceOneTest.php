@@ -16,6 +16,10 @@ class ReferenceOneTest extends FieldTestCase
             'fieldName' => 'address',
             'targetDocument' => AnotherEntityStub::class,
             'association' => 1,
+            'collectionClass' => null,
+            'defaultDiscriminatorValue' => null,
+            'discriminatorField' => null,
+            'discriminatorMap' => null,
             'criteria' => [],
             'isCascadeDetach' => false,
             'isCascadeMerge' => false,
@@ -32,6 +36,8 @@ class ReferenceOneTest extends FieldTestCase
             'storeAs' => 'dbRef',
             'strategy' => 'set',
             'type' => 'one',
+            'options' => [],
+            'value' => null,
         ];
     }
 

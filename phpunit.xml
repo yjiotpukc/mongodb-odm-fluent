@@ -1,0 +1,13 @@
+<phpunit>
+    <testsuites>
+        <testsuite name="unit">
+            <directory>tests/Unit</directory>
+        </testsuite>
+        <testsuite name="self">
+            <file>tests/Integration/ExamplesSelfMappingTest.php</file>
+        </testsuite>
+        <testsuite name="split">
+            <file>tests/Integration/ExamplesNamespacePatternMappingTest.php</file>
+        </testsuite>
+    </testsuites>
+</phpunit>

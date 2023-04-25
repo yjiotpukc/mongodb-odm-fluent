@@ -231,6 +231,9 @@ class FileBuilderTest extends BuilderTestCase
                 'isCascadePersist' => true,
                 'isCascadeRefresh' => true,
                 'isCascadeRemove' => true,
+                'defaultDiscriminatorValue' => null,
+                'discriminatorField' => null,
+                'discriminatorMap' => null,
             ]
         );
     }

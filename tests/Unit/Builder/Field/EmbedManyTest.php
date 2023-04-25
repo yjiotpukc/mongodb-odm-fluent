@@ -19,6 +19,10 @@ class EmbedManyTest extends FieldTestCase
     {
         return [
             'association' => 4,
+            'collectionClass' => null,
+            'defaultDiscriminatorValue' => null,
+            'discriminatorField' => null,
+            'discriminatorMap' => null,
             'embedded' => true,
             'fieldName' => 'address',
             'targetDocument' => AnotherEntityStub::class,
@@ -31,9 +35,11 @@ class EmbedManyTest extends FieldTestCase
             'isOwningSide' => true,
             'name' => 'address',
             'nullable' => false,
+            'options' => [],
             'notSaved' => false,
             'strategy' => 'pushAll',
             'type' => 'many',
+            'value' => null,
         ];
     }
 

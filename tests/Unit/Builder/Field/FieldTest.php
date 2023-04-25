@@ -22,6 +22,8 @@ class FieldTest extends FieldTestCase
             'notSaved' => false,
             'strategy' => 'set',
             'nullable' => false,
+            'options' => [],
+            'value' => null,
             'isCascadeRemove' => false,
             'isCascadePersist' => false,
             'isCascadeRefresh' => false,

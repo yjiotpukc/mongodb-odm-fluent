@@ -20,6 +20,9 @@ class FileMetadataTest extends FieldTestCase
     {
         return [
             'association' => 3,
+            'defaultDiscriminatorValue' => null,
+            'discriminatorField' => null,
+            'discriminatorMap' => null,
             'embedded' => true,
             'fieldName' => 'metadata',
             'targetDocument' => AnotherEntityStub::class,
@@ -32,9 +35,11 @@ class FileMetadataTest extends FieldTestCase
             'isOwningSide' => true,
             'name' => 'metadata',
             'nullable' => false,
+            'options' => [],
             'notSaved' => false,
             'strategy' => 'set',
             'type' => 'one',
+            'value' => null,
         ];
     }
 
