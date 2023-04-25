@@ -185,7 +185,7 @@ class DocumentBuilder extends BaseBuilder implements DocumentMapping, EmbeddedDo
 
     public function bool(string $fieldName): Field
     {
-        return $this->addBuilder(new FieldBuilder('boolean', $fieldName));
+        return $this->addBuilder(new FieldBuilder('bool', $fieldName));
     }
 
     public function timestamp(string $fieldName): Field

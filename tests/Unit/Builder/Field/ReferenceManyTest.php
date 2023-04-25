@@ -22,6 +22,10 @@ class ReferenceManyTest extends FieldTestCase
             'fieldName' => 'address',
             'targetDocument' => AnotherEntityStub::class,
             'association' => 2,
+            'collectionClass' => null,
+            'defaultDiscriminatorValue' => null,
+            'discriminatorField' => null,
+            'discriminatorMap' => null,
             'criteria' => [],
             'isCascadeDetach' => false,
             'isCascadeMerge' => false,
@@ -39,6 +43,8 @@ class ReferenceManyTest extends FieldTestCase
             'storeAs' => 'dbRef',
             'strategy' => 'pushAll',
             'type' => 'many',
+            'options' => [],
+            'value' => null,
         ];
     }
 

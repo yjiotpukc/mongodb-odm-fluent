@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace yjiotpukc\MongoODMFluent\Builder\Document;
 
+use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
 use yjiotpukc\MongoODMFluent\Builder\BaseBuilder;
 use yjiotpukc\MongoODMFluent\Builder\Database\BucketBuilder;
 use yjiotpukc\MongoODMFluent\Builder\Database\ChunkSizeBuilder;
@@ -116,5 +117,16 @@ class FileBuilder extends BaseBuilder implements FileMapping
     public function metadata(): FileMetadata
     {
         return $this->addBuilder(new FileMetadataBuilder());
+    }
+
+    public function build(ClassMetadata $metadata): void
+    {
+        $metadata->isFile = true;
+        $this->builders[] = (new FieldBuilder('string', 'filename'))->notSaved();
+        $this->builders[] = (new FieldBuilder('date', 'uploadDate'))->notSaved();
+        $this->builders[] = (new FieldBuilder('int', 'length'))->notSaved();
+        $this->builders[] = (new FieldBuilder('int', 'chunkSize'))->notSaved();
+
+        parent::build($metadata);
     }
 }

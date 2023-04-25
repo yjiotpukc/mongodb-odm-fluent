@@ -10,9 +10,13 @@ use yjiotpukc\MongoODMFluent\Type\FileMetadata;
 
 class FileMetadataBuilder extends AbstractField implements FileMetadata
 {
-    protected string $fieldName = 'metadata';
     protected ?string $target = null;
     protected ?DiscriminatorBuilder $discriminator = null;
+
+    public function __construct()
+    {
+        $this->fieldName = 'metadata';
+    }
 
     public function fieldName(string $name): FileMetadataBuilder
     {
@@ -45,6 +49,11 @@ class FileMetadataBuilder extends AbstractField implements FileMetadata
             'name' => 'metadata',
             'nullable' => false,
             'notSaved' => false,
+            'value' => null,
+            'options' => [],
+            'discriminatorField' => null,
+            'discriminatorMap' => null,
+            'defaultDiscriminatorValue' => null,
         ];
 
         if ($this->target) {

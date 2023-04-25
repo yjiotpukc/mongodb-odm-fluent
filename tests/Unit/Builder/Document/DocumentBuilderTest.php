@@ -136,7 +136,7 @@ class DocumentBuilderTest extends BuilderTestCase
     {
         $this->givenBuilder()->bool(FieldTest::getDefaultFieldName());
 
-        $this->assertFieldBuildsCorrectly(['type' => 'boolean']);
+        $this->assertFieldBuildsCorrectly(['type' => 'bool']);
     }
 
     public function testTimestamp(): void

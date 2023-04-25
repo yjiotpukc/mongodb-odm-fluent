@@ -18,6 +18,10 @@ class EmbedOneTest extends FieldTestCase
     {
         return [
             'association' => 3,
+            'collectionClass' => null,
+            'defaultDiscriminatorValue' => null,
+            'discriminatorField' => null,
+            'discriminatorMap' => null,
             'embedded' => true,
             'fieldName' => 'address',
             'targetDocument' => AnotherEntityStub::class,
@@ -30,9 +34,11 @@ class EmbedOneTest extends FieldTestCase
             'isOwningSide' => true,
             'name' => 'address',
             'nullable' => false,
+            'options' => [],
             'notSaved' => false,
             'strategy' => 'set',
             'type' => 'one',
+            'value' => null,
         ];
     }
 

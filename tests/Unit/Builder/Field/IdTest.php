@@ -27,10 +27,12 @@ class IdTest extends FieldTestCase
             'isCascadeMerge' => false,
             'isCascadeDetach' => false,
             'type' => 'id',
+            'options' => [],
             'nullable' => false,
             'isOwningSide' => true,
             'isInverseSide' => false,
             'notSaved' => false,
+            'value' => null,
         ];
     }
 

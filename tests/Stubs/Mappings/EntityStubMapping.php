@@ -25,4 +25,9 @@ class EntityStubMapping implements Document
     {
         static::$wasLoaded = true;
     }
+
+    public static function isSuperclass(): bool
+    {
+        return false;
+    }
 }

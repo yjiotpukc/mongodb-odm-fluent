@@ -9,9 +9,18 @@ use yjiotpukc\MongoODMFluent\Builder\Builder;
 
 abstract class AbstractField implements Builder
 {
+    protected string $fieldName;
+
     public function build(ClassMetadata $metadata): void
     {
-        $metadata->mapField($this->map());
+        if (!$metadata->getReflectionClass()->hasProperty($this->fieldName)) {
+            return;
+        }
+
+        $reflProperty = $metadata->getReflectionClass()->getProperty($this->fieldName);
+        if (!$metadata->isMappedSuperclass || $reflProperty->isPrivate()) {
+            $metadata->mapField($this->map());
+        }
     }
 
     abstract public function map(): array;

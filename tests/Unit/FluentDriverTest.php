@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace yjiotpukc\MongoODMFluent\Tests\Unit;
 
+use Doctrine\Common\EventManager;
 use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
 use PHPUnit\Framework\TestCase;
 use yjiotpukc\MongoODMFluent\FluentDriver;
@@ -50,6 +51,7 @@ class FluentDriverTest extends TestCase
         $entity = EntityStub::class;
         $mappings = [$entity => EntityStubMapping::class];
         $driver = new FluentDriver(new MappingFinderStub($mappings));
+        $driver->setEventManager(new EventManager());
         $driver->loadMetadataForClass($entity, new ClassMetadata($entity));
         self::assertTrue(EntityStubMapping::wasLoaded());
     }
@@ -80,6 +82,7 @@ class FluentDriverTest extends TestCase
         $entity = EntityStub::class;
         $mappings = [$entity => $entity];
         $driver = new FluentDriver(new MappingFinderStub($mappings));
+        $driver->setEventManager(new EventManager());
         $driver->loadMetadataForClass($entity, new ClassMetadata($entity));
     }
 }
