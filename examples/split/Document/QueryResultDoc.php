@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace yjiotpukc\MongoODMFluent\Tests\Integration\Resources\Mappings;
+namespace Examples\Document;
 
 use yjiotpukc\MongoODMFluent\Document\QueryResultDocument;
 use yjiotpukc\MongoODMFluent\Mapping\QueryResultDocumentMapping;
 
-class PhonesCountMapping implements QueryResultDocument
+class QueryResultDoc implements QueryResultDocument
 {
     public static function map(QueryResultDocumentMapping $mapping): void
     {

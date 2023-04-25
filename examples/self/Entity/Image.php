@@ -2,14 +2,21 @@
 
 declare(strict_types=1);
 
-namespace yjiotpukc\MongoODMFluent\Tests\Integration\Resources\Mappings;
+namespace Examples\Entity;
 
+use DateTime;
 use yjiotpukc\MongoODMFluent\Document\File;
 use yjiotpukc\MongoODMFluent\Mapping\FileMapping;
-use yjiotpukc\MongoODMFluent\Tests\Integration\Resources\Entities\ImageMetadata;
 
-class ImageMapping implements File
+class Image implements File
 {
+    protected string $id;
+    protected string $filename;
+    protected DateTime $uploadDate;
+    protected int $length;
+    protected int $chunkSize;
+    protected ImageMetadata $metadata;
+
     public static function map(FileMapping $mapping): void
     {
         $mapping->db('dbName');
