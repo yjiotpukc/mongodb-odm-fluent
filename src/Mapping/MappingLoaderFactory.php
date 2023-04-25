@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace yjiotpukc\MongoODMFluent\Mapping;
 
+use Doctrine\Common\EventManager;
 use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
 use yjiotpukc\MongoODMFluent\Document\Document;
 use yjiotpukc\MongoODMFluent\Document\EmbeddedDocument;
@@ -29,37 +30,40 @@ class MappingLoaderFactory
         $this->useLifecycleAutoMethods = false;
     }
 
-    public function createLoader($mapping, ClassMetadata $metadata): Loader
+    public function createLoader($mapping, ClassMetadata $metadata, EventManager $eventManager): Loader
+    {
+        $loader = $this->determineLoader($mapping, $metadata, $eventManager);
+        if (!($loader instanceof FileLoader)) {
+            $loader->enableLifecycleAutoMethods($this->useLifecycleAutoMethods);
+        }
+
+        return $loader;
+    }
+
+    protected function determineLoader($mapping, ClassMetadata $metadata, EventManager $eventManager): Loader
     {
         if ($mapping instanceof File) {
-            return new FileLoader($mapping, $metadata);
-        }
-
-        $loader = null;
-        if ($mapping instanceof Document) {
-            $loader = new DocumentLoader($mapping, $metadata);
-        }
-
-        if ($mapping instanceof EmbeddedDocument) {
-            $loader = new EmbeddedDocumentLoader($mapping, $metadata);
-        }
-
-        if ($mapping instanceof MappedSuperclass) {
-            $loader = new MappedSuperclassLoader($mapping, $metadata);
+            return new FileLoader($mapping, $metadata, $eventManager);
         }
 
         if ($mapping instanceof QueryResultDocument) {
-            $loader = new QueryResultDocumentLoader($mapping, $metadata);
+            return new QueryResultDocumentLoader($mapping, $metadata, $eventManager);
         }
 
         if ($mapping instanceof View) {
-            $loader = new ViewLoader($mapping, $metadata);
+            return new ViewLoader($mapping, $metadata, $eventManager);
         }
 
-        if ($loader !== null) {
-            $loader->enableLifecycleAutoMethods($this->useLifecycleAutoMethods);
+        if ($mapping instanceof MappedSuperclass) {
+            return new MappedSuperclassLoader($mapping, $metadata, $eventManager);
+        }
 
-            return $loader;
+        if ($mapping instanceof Document) {
+            return new DocumentLoader($mapping, $metadata, $eventManager);
+        }
+
+        if ($mapping instanceof EmbeddedDocument) {
+            return new EmbeddedDocumentLoader($mapping, $metadata, $eventManager);
         }
 
         $mappingClassName = get_class($mapping);

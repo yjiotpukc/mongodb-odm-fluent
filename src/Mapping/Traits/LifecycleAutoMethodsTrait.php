@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace yjiotpukc\MongoODMFluent\Mapping\Traits;
 
 use yjiotpukc\MongoODMFluent\Builder\Document\DocumentBuilder;
+use yjiotpukc\MongoODMFluent\EventListener;
 
 trait LifecycleAutoMethodsTrait
 {
@@ -15,13 +16,29 @@ trait LifecycleAutoMethodsTrait
         $this->useLifecycleAutoMethods = $value;
     }
 
-    public function addLifecycleAutoMethods($document, DocumentBuilder $builder): void
+    public function addLifecycleAutoMethods(DocumentBuilder $builder): void
     {
         if (!$this->useLifecycleAutoMethods) {
             return;
         }
 
-        $lifecycleMethods = [
+        $entity = $this->metadata->name;
+        $document = get_class($this->document);
+
+        $eventListener = new EventListener($document);
+
+        foreach (static::getLifecycleMethods() as $lifecycleMethod) {
+            if (method_exists($entity, $lifecycleMethod)) {
+                $builder->lifecycle()->{$lifecycleMethod}($lifecycleMethod);
+            } elseif (method_exists($document, $lifecycleMethod)) {
+                $this->eventManager->addEventListener($lifecycleMethod, $eventListener);
+            }
+        }
+    }
+
+    protected static function getLifecycleMethods(): array
+    {
+        return [
             'preRemove',
             'postRemove',
             'prePersist',
@@ -39,11 +56,5 @@ trait LifecycleAutoMethodsTrait
             'documentNotFound',
             'postCollectionLoad',
         ];
-
-        foreach ($lifecycleMethods as $lifecycleMethod) {
-            if (method_exists($document, $lifecycleMethod)) {
-                $builder->lifecycle()->{$lifecycleMethod}($lifecycleMethod);
-            }
-        }
     }
 }

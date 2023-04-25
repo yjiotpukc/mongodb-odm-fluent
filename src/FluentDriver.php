@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace yjiotpukc\MongoODMFluent;
 
+use Doctrine\Common\EventManager;
 use Doctrine\Persistence\Mapping\ClassMetadata;
 use Doctrine\Persistence\Mapping\Driver\MappingDriver;
 use yjiotpukc\MongoODMFluent\Mapping\MappingLoaderFactory;
@@ -15,6 +16,7 @@ class FluentDriver implements MappingDriver
     protected MappingSet $mappingSet;
     protected MappingLoaderFactory $loaderFactory;
     protected bool $useMappingInheritance = true;
+    protected EventManager $eventManager;
 
     public function __construct(MappingFinder $mappingFinder)
     {
@@ -27,6 +29,11 @@ class FluentDriver implements MappingDriver
         $this->useMappingInheritance = false;
     }
 
+    public function setEventManager(EventManager $eventManager): void
+    {
+        $this->eventManager = $eventManager;
+    }
+
     public function disableLifecycleAutoMethods(): void
     {
         $this->loaderFactory->disableLifecycleAutoMethods();
@@ -34,7 +41,7 @@ class FluentDriver implements MappingDriver
 
     public function loadMetadataForClass($className, ClassMetadata $metadata): void
     {
-        $this->loaderFactory->createLoader($this->createMapping($className), $metadata)->load();
+        $this->loaderFactory->createLoader($this->createMapping($className), $metadata, $this->eventManager)->load();
     }
 
     protected function createMapping(string $entityClassName)
