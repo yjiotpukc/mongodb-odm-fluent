@@ -10,7 +10,6 @@ use yjiotpukc\MongoODMFluent\Type\EmbedOne;
 
 class EmbedOneBuilder extends AbstractField implements EmbedOne
 {
-    protected string $fieldName;
     protected string $targetDocument;
     protected bool $nullable = false;
     protected bool $notSaved = false;
@@ -58,6 +57,12 @@ class EmbedOneBuilder extends AbstractField implements EmbedOne
             'fieldName' => $this->fieldName,
             'nullable' => $this->nullable,
             'notSaved' => $this->notSaved,
+            'value' => null,
+            'options' => [],
+            'discriminatorField' => null,
+            'discriminatorMap' => null,
+            'defaultDiscriminatorValue' => null,
+            'collectionClass' => null,
         ];
 
         if ($this->targetDocument) {

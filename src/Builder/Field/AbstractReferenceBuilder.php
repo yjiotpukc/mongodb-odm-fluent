@@ -10,7 +10,6 @@ use yjiotpukc\MongoODMFluent\Type\Discriminator;
 
 abstract class AbstractReferenceBuilder extends AbstractField
 {
-    protected string $fieldName;
     protected string $target;
     protected string $storeAs = ClassMetadata::REFERENCE_STORE_AS_DB_REF;
     protected bool $orphanRemoval = false;
@@ -50,6 +49,12 @@ abstract class AbstractReferenceBuilder extends AbstractField
             'orphanRemoval' => $this->orphanRemoval,
             'sort' => $this->sort,
             'criteria' => $this->criteria,
+            'value' => null,
+            'options' => [],
+            'discriminatorField' => null,
+            'discriminatorMap' => null,
+            'defaultDiscriminatorValue' => null,
+            'collectionClass' => null,
         ];
 
         if ($this->target) {

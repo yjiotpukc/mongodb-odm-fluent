@@ -11,7 +11,6 @@ use yjiotpukc\MongoODMFluent\Type\EmbedMany;
 
 class EmbedManyBuilder extends AbstractField implements EmbedMany
 {
-    protected string $fieldName;
     protected string $targetDocument;
     protected bool $nullable = false;
     protected bool $notSaved = false;
@@ -74,6 +73,12 @@ class EmbedManyBuilder extends AbstractField implements EmbedMany
             'fieldName' => $this->fieldName,
             'nullable' => $this->nullable,
             'notSaved' => $this->notSaved,
+            'value' => null,
+            'options' => [],
+            'discriminatorField' => null,
+            'discriminatorMap' => null,
+            'defaultDiscriminatorValue' => null,
+            'collectionClass' => null,
         ];
 
         if ($this->targetDocument) {

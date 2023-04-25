@@ -10,7 +10,6 @@ use yjiotpukc\MongoODMFluent\Type\IntegerField;
 class FieldBuilder extends AbstractField implements Field, IntegerField
 {
     protected string $type;
-    protected string $fieldName;
     protected string $name;
     protected string $strategy = 'set';
     protected bool $nullable = false;
@@ -84,6 +83,8 @@ class FieldBuilder extends AbstractField implements Field, IntegerField
             'nullable' => $this->nullable,
             'notSaved' => $this->notSaved,
             'strategy' => $this->strategy,
+            'value' => null,
+            'options' => [],
         ];
 
         if ($this->version) {
