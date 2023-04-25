@@ -9,7 +9,6 @@ use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
 use yjiotpukc\MongoODMFluent\Document\Document;
 use yjiotpukc\MongoODMFluent\Document\EmbeddedDocument;
 use yjiotpukc\MongoODMFluent\Document\File;
-use yjiotpukc\MongoODMFluent\Document\MappedSuperclass;
 use yjiotpukc\MongoODMFluent\Document\QueryResultDocument;
 use yjiotpukc\MongoODMFluent\Document\View;
 use yjiotpukc\MongoODMFluent\Mapping\Loader\DocumentLoader;
@@ -54,11 +53,11 @@ class MappingLoaderFactory
             return new ViewLoader($mapping, $metadata, $eventManager);
         }
 
-        if ($mapping instanceof MappedSuperclass) {
-            return new MappedSuperclassLoader($mapping, $metadata, $eventManager);
-        }
-
         if ($mapping instanceof Document) {
+            if ($mapping::isSuperclass()) {
+                return new MappedSuperclassLoader($mapping, $metadata, $eventManager);
+            }
+
             return new DocumentLoader($mapping, $metadata, $eventManager);
         }
 
