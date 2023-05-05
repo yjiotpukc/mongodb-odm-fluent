@@ -7,12 +7,14 @@ namespace Examples\Entity\Inheritance;
 use Doctrine\ODM\MongoDB\Mapping\Annotations\DiscriminatorField;
 use Doctrine\ODM\MongoDB\Mapping\Annotations\DiscriminatorMap;
 use Doctrine\ODM\MongoDB\Mapping\Annotations\Field;
+use Doctrine\ODM\MongoDB\Mapping\Annotations\InheritanceType;
 use Doctrine\ODM\MongoDB\Mapping\Annotations\MappedSuperclass;
 
 /**
  * @MappedSuperclass
  * @DiscriminatorField("type")
  * @DiscriminatorMap({"cat"=Cat::class, "dog"=Dog::class})
+ * @InheritanceType("COLLECTION_PER_CLASS")
  */
 class Mammal extends Animal
 {

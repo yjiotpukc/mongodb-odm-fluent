@@ -13,6 +13,8 @@ class MammalDoc implements Document
 {
     public static function map(DocumentMapping $mapping): void
     {
+        $mapping->collectionPerClass();
+
         $mapping->string('mammalPrivate');
         $mapping->string('mammalProtected');
         $mapping->string('mammalPublic');
