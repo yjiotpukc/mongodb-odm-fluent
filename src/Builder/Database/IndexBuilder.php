@@ -146,13 +146,21 @@ class IndexBuilder implements Index, Builder
     {
         $options = [
             'unique' => $this->unique,
-            'name' => $this->name,
-            'background' => $this->background,
-            'expireAfterSeconds' => $this->expireAfterSeconds,
             'sparse' => $this->sparse,
-            'partialFilterExpression' => $this->partialFilterExpression,
         ];
+        if (isset($this->name)) {
+            $options['name'] = $this->name;
+        }
+        if ($this->background) {
+            $options['background'] = $this->background;
+        }
+        if (isset($this->expireAfterSeconds)) {
+            $options['expireAfterSeconds'] = $this->expireAfterSeconds;
+        }
+        if ($this->partialFilterExpression) {
+            $options['partialFilterExpression'] = $this->partialFilterExpression;
+        }
 
-        $metadata->addIndex($this->keys, array_filter($options));
+        $metadata->addIndex($this->keys, $options);
     }
 }

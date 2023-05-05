@@ -18,7 +18,10 @@ class IndexTest extends BuilderTestCase
         self::assertSame([
             [
                 'keys' => ['id' => 1],
-                'options' => [],
+                'options' => [
+                    'unique' => false,
+                    'sparse' => false,
+                ],
             ],
         ], $this->metadata->indexes);
     }
@@ -31,7 +34,10 @@ class IndexTest extends BuilderTestCase
         self::assertSame([
             [
                 'keys' => ['id' => -1],
-                'options' => [],
+                'options' => [
+                    'unique' => false,
+                    'sparse' => false,
+                ],
             ],
         ], $this->metadata->indexes);
     }
@@ -44,7 +50,10 @@ class IndexTest extends BuilderTestCase
         self::assertSame([
             [
                 'keys' => ['id' => -1],
-                'options' => [],
+                'options' => [
+                    'unique' => false,
+                    'sparse' => false,
+                ],
             ],
         ], $this->metadata->indexes);
     }
@@ -65,7 +74,10 @@ class IndexTest extends BuilderTestCase
         self::assertSame([
             [
                 'keys' => ['id' => 'geo'],
-                'options' => [],
+                'options' => [
+                    'unique' => false,
+                    'sparse' => false,
+                ],
             ],
         ], $this->metadata->indexes);
     }
@@ -78,7 +90,10 @@ class IndexTest extends BuilderTestCase
         self::assertSame([
             [
                 'keys' => ['id' => 'geo'],
-                'options' => [],
+                'options' => [
+                    'unique' => false,
+                    'sparse' => false,
+                ],
             ],
         ], $this->metadata->indexes);
     }
@@ -99,7 +114,10 @@ class IndexTest extends BuilderTestCase
         self::assertSame([
             [
                 'keys' => ['id' => 'text'],
-                'options' => [],
+                'options' => [
+                    'unique' => false,
+                    'sparse' => false,
+                ],
             ],
         ], $this->metadata->indexes);
     }
@@ -112,7 +130,10 @@ class IndexTest extends BuilderTestCase
         self::assertSame([
             [
                 'keys' => ['id' => 'text'],
-                'options' => [],
+                'options' => [
+                    'unique' => false,
+                    'sparse' => false,
+                ],
             ],
         ], $this->metadata->indexes);
     }
@@ -136,7 +157,10 @@ class IndexTest extends BuilderTestCase
                     'id' => 1,
                     'name' => 1,
                 ],
-                'options' => [],
+                'options' => [
+                    'unique' => false,
+                    'sparse' => false,
+                ],
             ],
         ], $this->metadata->indexes);
     }
@@ -155,7 +179,10 @@ class IndexTest extends BuilderTestCase
                     'id' => -1,
                     'name' => 1,
                 ],
-                'options' => [],
+                'options' => [
+                    'unique' => false,
+                    'sparse' => false,
+                ],
             ],
         ], $this->metadata->indexes);
     }
@@ -172,7 +199,10 @@ class IndexTest extends BuilderTestCase
                     'id' => 1,
                     'name' => -1,
                 ],
-                'options' => [],
+                'options' => [
+                    'unique' => false,
+                    'sparse' => false,
+                ],
             ],
         ], $this->metadata->indexes);
     }
@@ -186,7 +216,10 @@ class IndexTest extends BuilderTestCase
         self::assertSame([
             [
                 'keys' => ['id' => 1],
-                'options' => ['unique' => true],
+                'options' => [
+                    'unique' => true,
+                    'sparse' => false,
+                ],
             ],
         ], $this->metadata->indexes);
     }
@@ -200,7 +233,11 @@ class IndexTest extends BuilderTestCase
         self::assertSame([
             [
                 'keys' => ['id' => 1],
-                'options' => ['background' => true],
+                'options' => [
+                    'unique' => false,
+                    'sparse' => false,
+                    'background' => true,
+                ],
             ],
         ], $this->metadata->indexes);
     }
@@ -214,7 +251,11 @@ class IndexTest extends BuilderTestCase
         self::assertSame([
             [
                 'keys' => ['id' => 1],
-                'options' => ['name' => 'myIndex'],
+                'options' => [
+                    'unique' => false,
+                    'sparse' => false,
+                    'name' => 'myIndex',
+                ],
             ],
         ], $this->metadata->indexes);
     }
@@ -228,7 +269,11 @@ class IndexTest extends BuilderTestCase
         self::assertSame([
             [
                 'keys' => ['id' => 1],
-                'options' => ['expireAfterSeconds' => 72],
+                'options' => [
+                    'unique' => false,
+                    'sparse' => false,
+                    'expireAfterSeconds' => 72
+                ],
             ],
         ], $this->metadata->indexes);
     }
@@ -242,7 +287,10 @@ class IndexTest extends BuilderTestCase
         self::assertSame([
             [
                 'keys' => ['id' => 1],
-                'options' => ['sparse' => true],
+                'options' => [
+                    'unique' => false,
+                    'sparse' => true,
+                ],
             ],
         ], $this->metadata->indexes);
     }
@@ -256,7 +304,11 @@ class IndexTest extends BuilderTestCase
         self::assertSame([
             [
                 'keys' => ['id' => 1],
-                'options' => ['partialFilterExpression' => 'condition: true'],
+                'options' => [
+                    'unique' => false,
+                    'sparse' => false,
+                    'partialFilterExpression' => 'condition: true',
+                ],
             ],
         ], $this->metadata->indexes);
     }
