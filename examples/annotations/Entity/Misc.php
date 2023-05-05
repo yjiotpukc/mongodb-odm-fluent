@@ -31,4 +31,9 @@ class Misc
     private string $id;
     /** @Field(type="string") */
     private string $shardKey;
+
+    /** @AlsoLoad("field") */
+    public function alsoLoad(string $field): void
+    {
+    }
 }

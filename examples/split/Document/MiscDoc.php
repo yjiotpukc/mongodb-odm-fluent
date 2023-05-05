@@ -19,6 +19,7 @@ class MiscDoc implements Document
         $mapping->index('id');
         $mapping->shard()->asc('shardKey')->unique();
         $mapping->changeTrackingPolicy()->notify();
+        $mapping->alsoLoad('alsoLoad', ['field']);
     }
 
     public static function isSuperclass(): bool

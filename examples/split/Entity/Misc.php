@@ -8,4 +8,8 @@ class Misc
 {
     private string $id;
     private string $shardKey;
+
+    public function alsoLoad(string $field): void
+    {
+    }
 }
