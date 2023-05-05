@@ -20,6 +20,7 @@ abstract class AbstractReferenceBuilder extends AbstractField
     protected ?string $mappedBy = null;
     protected ?string $repositoryMethod = null;
     protected ?int $skip = null;
+    protected ?int $limit = null;
     protected ?CascadePartial $cascade = null;
     protected ?DiscriminatorBuilder $discriminator = null;
     /** @var string[] */
@@ -54,29 +55,20 @@ abstract class AbstractReferenceBuilder extends AbstractField
             'discriminatorField' => null,
             'discriminatorMap' => null,
             'defaultDiscriminatorValue' => null,
-            'collectionClass' => null,
         ];
+
+        $map['cascade'] = $this->cascade ? $this->cascade->toMapping()['cascade'] : null;
+        $map['inversedBy'] = $this->inversedBy;
+        $map['mappedBy'] = $this->mappedBy;
+        $map['repositoryMethod'] = $this->repositoryMethod;
+        $map['skip'] = $this->skip;
+        $map['limit'] = $this->limit;
 
         if ($this->target) {
             $map['targetDocument'] = $this->target;
         }
-        if ($this->cascade) {
-            $map = array_merge($map, $this->cascade->toMapping());
-        }
         if ($this->discriminator) {
             $map = array_merge($map, $this->discriminator->toMapping());
-        }
-        if ($this->inversedBy) {
-            $map['inversedBy'] = $this->inversedBy;
-        }
-        if ($this->mappedBy) {
-            $map['mappedBy'] = $this->mappedBy;
-        }
-        if ($this->repositoryMethod) {
-            $map['repositoryMethod'] = $this->repositoryMethod;
-        }
-        if ($this->skip) {
-            $map['skip'] = $this->skip;
         }
 
         return $map;

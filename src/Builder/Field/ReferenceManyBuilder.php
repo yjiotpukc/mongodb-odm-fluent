@@ -12,7 +12,6 @@ class ReferenceManyBuilder extends AbstractReferenceBuilder implements Reference
 {
     protected CollectionStrategyPartial $strategy;
     protected ?string $collectionClass = null;
-    protected ?int $limit = null;
     /** @var string[] */
     protected array $prime = [];
 
@@ -158,15 +157,8 @@ class ReferenceManyBuilder extends AbstractReferenceBuilder implements Reference
         $map = parent::map();
         $map['type'] = 'many';
         $map['prime'] = $this->prime;
-        $map = array_merge($map, $this->strategy->toMapping());
+        $map['collectionClass'] = $this->collectionClass;
 
-        if ($this->limit) {
-            $map['limit'] = $this->limit;
-        }
-        if ($this->collectionClass) {
-            $map['collectionClass'] = $this->collectionClass;
-        }
-
-        return $map;
+        return array_merge($map, $this->strategy->toMapping());
     }
 }

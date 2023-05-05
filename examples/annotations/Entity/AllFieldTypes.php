@@ -6,15 +6,22 @@ namespace Examples\Entity;
 
 use DateTime;
 use DateTimeImmutable;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ODM\MongoDB\Mapping\Annotations\Document;
+use Doctrine\ODM\MongoDB\Mapping\Annotations\EmbedMany;
+use Doctrine\ODM\MongoDB\Mapping\Annotations\EmbedOne;
 use Doctrine\ODM\MongoDB\Mapping\Annotations\Field;
 use Doctrine\ODM\MongoDB\Mapping\Annotations\Id;
+use Doctrine\ODM\MongoDB\Mapping\Annotations\ReferenceMany;
+use Doctrine\ODM\MongoDB\Mapping\Annotations\ReferenceOne;
 
 /** @Document */
 class AllFieldTypes
 {
     /** @Id */
     private string $id;
+    /** @Field(type="string") */
+    private string $fieldField;
     /** @Field(type="string") */
     private string $stringField;
     /** @Field(type="int") */
@@ -53,4 +60,12 @@ class AllFieldTypes
     private string $binMd5Field;
     /** @Field(type="bin_uuid") */
     private string $binUuidField;
+    /** @EmbedOne(targetDocument=Entity::class) */
+    private Entity $embedOne;
+    /** @EmbedMany(targetDocument=Entity::class) */
+    private Collection $embedMany;
+    /** @ReferenceOne(targetDocument=Entity::class) */
+    private Entity $referenceOne;
+    /** @ReferenceMany(targetDocument=Entity::class) */
+    private Collection $referenceMany;
 }

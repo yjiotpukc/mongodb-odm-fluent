@@ -18,7 +18,6 @@ class EmbedOneTest extends FieldTestCase
     {
         return [
             'association' => 3,
-            'collectionClass' => null,
             'defaultDiscriminatorValue' => null,
             'discriminatorField' => null,
             'discriminatorMap' => null,

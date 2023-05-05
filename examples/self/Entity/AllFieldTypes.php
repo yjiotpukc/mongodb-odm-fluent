@@ -6,12 +6,14 @@ namespace Examples\Entity;
 
 use DateTime;
 use DateTimeImmutable;
+use Doctrine\Common\Collections\Collection;
 use yjiotpukc\MongoODMFluent\Document\Document;
 use yjiotpukc\MongoODMFluent\Mapping\DocumentMapping;
 
 class AllFieldTypes implements Document
 {
     private string $id;
+    private string $fieldField;
     private string $stringField;
     private int $intField;
     private float $floatField;
@@ -31,10 +33,15 @@ class AllFieldTypes implements Document
     private string $binFuncField;
     private string $binMd5Field;
     private string $binUuidField;
+    private Entity $embedOne;
+    private Collection $embedMany;
+    private Entity $referenceOne;
+    private Collection $referenceMany;
 
     public static function map(DocumentMapping $mapping): void
     {
         $mapping->id();
+        $mapping->field('string', 'fieldField');
         $mapping->string('stringField');
         $mapping->int('intField');
         $mapping->float('floatField');
@@ -54,6 +61,11 @@ class AllFieldTypes implements Document
         $mapping->binFunc('binFuncField');
         $mapping->binMd5('binMd5Field');
         $mapping->binUuid('binUuidField');
+
+        $mapping->embedOne('embedOne', Entity::class);
+        $mapping->embedMany('embedMany', Entity::class);
+        $mapping->referenceOne('referenceOne', Entity::class);
+        $mapping->referenceMany('referenceMany', Entity::class);
     }
 
     public static function isSuperclass(): bool

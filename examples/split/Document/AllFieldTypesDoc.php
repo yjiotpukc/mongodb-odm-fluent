@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Examples\Document;
 
+use Examples\Entity\Entity;
 use yjiotpukc\MongoODMFluent\Document\Document;
 use yjiotpukc\MongoODMFluent\Mapping\DocumentMapping;
 
@@ -12,6 +13,7 @@ class AllFieldTypesDoc implements Document
     public static function map(DocumentMapping $mapping): void
     {
         $mapping->id();
+        $mapping->field('string', 'fieldField');
         $mapping->string('stringField');
         $mapping->int('intField');
         $mapping->float('floatField');
@@ -31,6 +33,11 @@ class AllFieldTypesDoc implements Document
         $mapping->binFunc('binFuncField');
         $mapping->binMd5('binMd5Field');
         $mapping->binUuid('binUuidField');
+
+        $mapping->embedOne('embedOne', Entity::class);
+        $mapping->embedMany('embedMany', Entity::class);
+        $mapping->referenceOne('referenceOne', Entity::class);
+        $mapping->referenceMany('referenceMany', Entity::class);
     }
 
     public static function isSuperclass(): bool

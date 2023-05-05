@@ -62,7 +62,6 @@ class EmbedOneBuilder extends AbstractField implements EmbedOne
             'discriminatorField' => null,
             'discriminatorMap' => null,
             'defaultDiscriminatorValue' => null,
-            'collectionClass' => null,
         ];
 
         if ($this->targetDocument) {

@@ -78,14 +78,11 @@ class EmbedManyBuilder extends AbstractField implements EmbedMany
             'discriminatorField' => null,
             'discriminatorMap' => null,
             'defaultDiscriminatorValue' => null,
-            'collectionClass' => null,
+            'collectionClass' => $this->collectionClass,
         ];
 
         if ($this->targetDocument) {
             $map['targetDocument'] = $this->targetDocument;
-        }
-        if (isset($this->collectionClass)) {
-            $map['collectionClass'] = $this->collectionClass;
         }
         $map = array_merge($map, $this->strategy->toMapping());
         if ($this->discriminator) {
