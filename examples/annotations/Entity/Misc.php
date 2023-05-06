@@ -20,7 +20,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations\ShardKey;
  * )
  * @ReadPreference("secondaryPreferred")
  * @ChangeTrackingPolicy("NOTIFY")
- * @ShardKey(keys={"shardKey"="asc"}, unique=true)
+ * @ShardKey(keys={"shardKey"="asc"})
  */
 class Misc
 {

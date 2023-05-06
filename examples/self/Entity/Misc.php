@@ -20,7 +20,7 @@ class Misc implements Document
         $mapping->writeConcern('majority');
         $mapping->readPreference()->secondaryPreferred();
         $mapping->index('id');
-        $mapping->shard()->asc('shardKey')->unique();
+        $mapping->shard()->asc('shardKey');
         $mapping->changeTrackingPolicy()->notify();
         $mapping->alsoLoad('alsoLoad', ['field']);
     }
