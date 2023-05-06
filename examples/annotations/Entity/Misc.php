@@ -19,7 +19,6 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations\ShardKey;
  *     writeConcern="majority"
  * )
  * @ReadPreference("secondaryPreferred")
- * @ChangeTrackingPolicy("NOTIFY")
  * @ShardKey(keys={"shardKey"="asc"})
  */
 class Misc

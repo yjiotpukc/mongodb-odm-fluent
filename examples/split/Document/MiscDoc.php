@@ -18,7 +18,6 @@ class MiscDoc implements Document
         $mapping->readPreference()->secondaryPreferred();
         $mapping->index('id');
         $mapping->shard()->asc('shardKey');
-        $mapping->changeTrackingPolicy()->notify();
         $mapping->alsoLoad('alsoLoad', ['field']);
     }
 
