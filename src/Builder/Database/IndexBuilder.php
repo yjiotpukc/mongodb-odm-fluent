@@ -18,7 +18,7 @@ class IndexBuilder implements Index, Builder
     protected bool $sparse = false;
     protected ?int $expireAfterSeconds = null;
     protected ?string $name = null;
-    protected ?string $partialFilterExpression = null;
+    protected ?array $partialFilterExpression = null;
 
     /**
      * @param string|string[] $keys
@@ -80,7 +80,7 @@ class IndexBuilder implements Index, Builder
             $key = array_key_first($this->keys);
         }
 
-        $this->keys[$key] = 'geo';
+        $this->keys[$key] = '2d';
 
         return $this;
     }
@@ -135,7 +135,7 @@ class IndexBuilder implements Index, Builder
         return $this;
     }
 
-    public function partialFilter(string $expression): Index
+    public function partialFilter(array $expression): Index
     {
         $this->partialFilterExpression = $expression;
 
@@ -157,7 +157,7 @@ class IndexBuilder implements Index, Builder
         if (isset($this->expireAfterSeconds)) {
             $options['expireAfterSeconds'] = $this->expireAfterSeconds;
         }
-        if ($this->partialFilterExpression) {
+        if (isset($this->partialFilterExpression)) {
             $options['partialFilterExpression'] = $this->partialFilterExpression;
         }
 

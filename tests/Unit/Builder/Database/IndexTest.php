@@ -68,12 +68,12 @@ class IndexTest extends BuilderTestCase
 
     public function testOneFieldGeoIndex(): void
     {
-        $builder = new IndexBuilder(['id' => 'geo']);
+        $builder = new IndexBuilder(['id' => '2d']);
         $builder->build($this->metadata);
 
         self::assertSame([
             [
-                'keys' => ['id' => 'geo'],
+                'keys' => ['id' => '2d'],
                 'options' => [
                     'unique' => false,
                     'sparse' => false,
@@ -89,7 +89,7 @@ class IndexTest extends BuilderTestCase
 
         self::assertSame([
             [
-                'keys' => ['id' => 'geo'],
+                'keys' => ['id' => '2d'],
                 'options' => [
                     'unique' => false,
                     'sparse' => false,
@@ -298,7 +298,7 @@ class IndexTest extends BuilderTestCase
     public function testIndexWithPartialFilter(): void
     {
         $builder = (new IndexBuilder('id'));
-        $builder->partialFilter('condition: true');
+        $builder->partialFilter(['id' => ['$gt' => 100]]);
         $builder->build($this->metadata);
 
         self::assertSame([
@@ -307,7 +307,7 @@ class IndexTest extends BuilderTestCase
                 'options' => [
                     'unique' => false,
                     'sparse' => false,
-                    'partialFilterExpression' => 'condition: true',
+                    'partialFilterExpression' => ['id' => ['$gt' => 100]],
                 ],
             ],
         ], $this->metadata->indexes);
