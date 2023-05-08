@@ -15,7 +15,7 @@ use yjiotpukc\MongoODMFluent\Type\ReferenceOne;
 class ReferenceBuilder extends AbstractField implements ReferenceOne, ReferenceMany
 {
     protected string $type;
-    protected string $target;
+    protected ?string $target;
     protected string $storeAs = ClassMetadata::REFERENCE_STORE_AS_DB_REF;
     protected bool $orphanRemoval = false;
     protected bool $nullable = false;
@@ -35,14 +35,14 @@ class ReferenceBuilder extends AbstractField implements ReferenceOne, ReferenceM
     /** @var string[] */
     protected array $prime = [];
 
-    protected function __construct(string $fieldName, string $target)
+    protected function __construct(string $fieldName, ?string $target)
     {
         $this->fieldName = $fieldName;
         $this->target = $target;
         $this->strategy = new CollectionStrategyPartial();
     }
 
-    public static function one(string $fieldName, string $target = ''): ReferenceBuilder
+    public static function one(string $fieldName, ?string $target = null): ReferenceBuilder
     {
         $referenceBuilder = new static($fieldName, $target);
         $referenceBuilder->type = 'one';
@@ -50,7 +50,7 @@ class ReferenceBuilder extends AbstractField implements ReferenceOne, ReferenceM
         return $referenceBuilder;
     }
 
-    public static function many(string $fieldName, string $target = ''): ReferenceBuilder
+    public static function many(string $fieldName, ?string $target = null): ReferenceBuilder
     {
         $referenceBuilder = new static($fieldName, $target);
         $referenceBuilder->type = 'many';
@@ -202,6 +202,7 @@ class ReferenceBuilder extends AbstractField implements ReferenceOne, ReferenceM
             'reference' => true,
             'type' => $this->type,
             'name' => $this->fieldName,
+            'targetDocument' => $this->target,
             'nullable' => $this->nullable,
             'notSaved' => $this->notSaved,
             'storeAs' => $this->storeAs,
@@ -229,6 +230,9 @@ class ReferenceBuilder extends AbstractField implements ReferenceOne, ReferenceM
         }
         if ($this->target) {
             $map['targetDocument'] = $this->target;
+        } else {
+            $map['targetDocument'] = null;
+            $map['discriminatorField'] = '_doctrine_class_name';
         }
         if ($this->discriminator) {
             $map = array_merge($map, $this->discriminator->toMapping());

@@ -85,9 +85,11 @@ class ReferenceManyTest extends FieldTestCase
         $this->givenBuilder('address');
 
         $this->assertFieldBuildsCorrectly(
-            ['discriminatorField' => '_doctrine_class_name'],
-            'address',
-            ['targetDocument']
+            [
+                'targetDocument' => null,
+                'discriminatorField' => '_doctrine_class_name',
+            ],
+            'address'
         );
     }
 
@@ -146,11 +148,11 @@ class ReferenceManyTest extends FieldTestCase
 
         $this->assertFieldBuildsCorrectly([
             'cascade' => [
-                'detach',
-                'merge',
-                'refresh',
                 'remove',
                 'persist',
+                'refresh',
+                'merge',
+                'detach',
             ],
             'isCascadeDetach' => true,
             'isCascadeMerge' => true,

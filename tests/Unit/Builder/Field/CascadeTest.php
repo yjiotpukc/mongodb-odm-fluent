@@ -16,11 +16,11 @@ class CascadeTest extends TestCase
 
         self::assertSame([
             'cascade' => [
-                'detach',
-                'merge',
-                'refresh',
                 'remove',
                 'persist',
+                'refresh',
+                'merge',
+                'detach',
             ],
         ], $cascadeBuilder->toMapping());
     }

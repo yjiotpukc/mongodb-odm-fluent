@@ -14,11 +14,11 @@ class CascadePartial implements Cascade, FieldPartial
     public function all(): Cascade
     {
         $this->cascades = [
-            'detach',
-            'merge',
-            'refresh',
             'remove',
             'persist',
+            'refresh',
+            'merge',
+            'detach',
         ];
 
         return $this;

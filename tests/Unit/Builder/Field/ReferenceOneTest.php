@@ -63,7 +63,7 @@ class ReferenceOneTest extends FieldTestCase
         return $this->givenBuilder('address', AnotherEntityStub::class);
     }
 
-    protected function givenBuilder(string $fieldName, string $target = ''): ReferenceBuilder
+    protected function givenBuilder(string $fieldName, ?string $target = null): ReferenceBuilder
     {
         $this->builder = ReferenceBuilder::one($fieldName, $target);
 
@@ -82,9 +82,11 @@ class ReferenceOneTest extends FieldTestCase
         $this->givenBuilder('address');
 
         $this->assertFieldBuildsCorrectly(
-            ['discriminatorField' => '_doctrine_class_name'],
-            'address',
-            ['targetDocument']
+            [
+                'targetDocument' => null,
+                'discriminatorField' => '_doctrine_class_name',
+            ],
+            'address'
         );
     }
 
@@ -143,11 +145,11 @@ class ReferenceOneTest extends FieldTestCase
 
         $this->assertFieldBuildsCorrectly([
             'cascade' => [
-                'detach',
-                'merge',
-                'refresh',
                 'remove',
                 'persist',
+                'refresh',
+                'merge',
+                'detach',
             ],
             'isCascadeDetach' => true,
             'isCascadeMerge' => true,

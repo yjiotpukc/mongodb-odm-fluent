@@ -13,7 +13,7 @@ class DiscriminatorBuilder implements Discriminator, Builder, FieldPartial
 {
     protected string $field;
     /** @var string[] */
-    protected array $map = [];
+    protected ?array $map = null;
     protected ?string $defaultValue = null;
 
     public function __construct(string $field)
@@ -23,6 +23,9 @@ class DiscriminatorBuilder implements Discriminator, Builder, FieldPartial
 
     public function map(string $value, string $class): Discriminator
     {
+        if ($this->map === null) {
+            $this->map = [];
+        }
         $this->map[$value] = $class;
 
         return $this;
@@ -38,7 +41,9 @@ class DiscriminatorBuilder implements Discriminator, Builder, FieldPartial
     public function build(ClassMetadata $metadata): void
     {
         $metadata->setDiscriminatorField($this->field);
-        $metadata->setDiscriminatorMap($this->map);
+        if ($this->map !== null) {
+            $metadata->setDiscriminatorMap($this->map);
+        }
         $metadata->setDefaultDiscriminatorValue($this->defaultValue);
     }
 
