@@ -6,8 +6,6 @@ namespace yjiotpukc\MongoODMFluent\Type;
 
 interface ReferenceOne
 {
-    public function __construct(string $fieldName, string $target);
-
     public function target(string $target): ReferenceOne;
 
     public function storeAsId(): ReferenceOne;

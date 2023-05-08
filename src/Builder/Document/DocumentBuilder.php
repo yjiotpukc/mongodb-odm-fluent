@@ -22,8 +22,7 @@ use yjiotpukc\MongoODMFluent\Builder\Field\EmbedManyBuilder;
 use yjiotpukc\MongoODMFluent\Builder\Field\EmbedOneBuilder;
 use yjiotpukc\MongoODMFluent\Builder\Field\FieldBuilder;
 use yjiotpukc\MongoODMFluent\Builder\Field\IdBuilder;
-use yjiotpukc\MongoODMFluent\Builder\Field\ReferenceManyBuilder;
-use yjiotpukc\MongoODMFluent\Builder\Field\ReferenceOneBuilder;
+use yjiotpukc\MongoODMFluent\Builder\Field\ReferenceBuilder;
 use yjiotpukc\MongoODMFluent\Builder\Method\AlsoLoadMethodBuilder;
 use yjiotpukc\MongoODMFluent\Builder\Method\LifecycleBuilder;
 use yjiotpukc\MongoODMFluent\Mapping\DocumentMapping;
@@ -145,12 +144,12 @@ class DocumentBuilder extends BaseBuilder implements DocumentMapping, EmbeddedDo
 
     public function referenceOne(string $fieldName, string $target = ''): ReferenceOne
     {
-        return $this->addBuilder(new ReferenceOneBuilder($fieldName, $target));
+        return $this->addBuilder(ReferenceBuilder::one($fieldName, $target));
     }
 
     public function referenceMany(string $fieldName, string $target = ''): ReferenceMany
     {
-        return $this->addBuilder(new ReferenceManyBuilder($fieldName, $target));
+        return $this->addBuilder(ReferenceBuilder::many($fieldName, $target));
     }
 
     public function embedOne(string $fieldName, string $target = ''): EmbedOne

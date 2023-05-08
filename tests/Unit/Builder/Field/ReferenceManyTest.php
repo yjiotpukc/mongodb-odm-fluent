@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Field;
 
-use yjiotpukc\MongoODMFluent\Builder\Field\ReferenceManyBuilder;
+use yjiotpukc\MongoODMFluent\Builder\Field\ReferenceBuilder;
 use yjiotpukc\MongoODMFluent\Tests\Stubs\AnotherEntityStub;
 use yjiotpukc\MongoODMFluent\Tests\Stubs\CollectionStub;
 
@@ -61,14 +61,14 @@ class ReferenceManyTest extends FieldTestCase
         $this->assertFieldBuildsCorrectly();
     }
 
-    protected function givenDefaultBuilder(): ReferenceManyBuilder
+    protected function givenDefaultBuilder(): ReferenceBuilder
     {
         return $this->givenBuilder('address', AnotherEntityStub::class);
     }
 
-    protected function givenBuilder(string $fieldName, string $target = ''): ReferenceManyBuilder
+    protected function givenBuilder(string $fieldName, string $target = ''): ReferenceBuilder
     {
-        $this->builder = new ReferenceManyBuilder($fieldName, $target);
+        $this->builder = ReferenceBuilder::many($fieldName, $target);
 
         return $this->builder;
     }
@@ -227,7 +227,7 @@ class ReferenceManyTest extends FieldTestCase
         ]);
     }
 
-    protected function givenBuilderWithSetArrayStrategy(): ReferenceManyBuilder
+    protected function givenBuilderWithSetArrayStrategy(): ReferenceBuilder
     {
         $builder = $this->givenDefaultBuilder();
         $builder->strategy()->setArray();

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Field;
 
-use yjiotpukc\MongoODMFluent\Builder\Field\ReferenceOneBuilder;
+use yjiotpukc\MongoODMFluent\Builder\Field\ReferenceBuilder;
 use yjiotpukc\MongoODMFluent\Tests\Stubs\AnotherEntityStub;
 
 class ReferenceOneTest extends FieldTestCase
@@ -58,14 +58,14 @@ class ReferenceOneTest extends FieldTestCase
         $this->assertFieldBuildsCorrectly();
     }
 
-    protected function givenDefaultBuilder(): ReferenceOneBuilder
+    protected function givenDefaultBuilder(): ReferenceBuilder
     {
         return $this->givenBuilder('address', AnotherEntityStub::class);
     }
 
-    protected function givenBuilder(string $fieldName, string $target = ''): ReferenceOneBuilder
+    protected function givenBuilder(string $fieldName, string $target = ''): ReferenceBuilder
     {
-        $this->builder = new ReferenceOneBuilder($fieldName, $target);
+        $this->builder = ReferenceBuilder::one($fieldName, $target);
 
         return $this->builder;
     }
