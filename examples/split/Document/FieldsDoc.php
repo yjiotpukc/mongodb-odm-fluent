@@ -8,7 +8,7 @@ use Examples\Entity\Entity;
 use yjiotpukc\MongoODMFluent\Document\Document;
 use yjiotpukc\MongoODMFluent\Mapping\DocumentMapping;
 
-class AllFieldTypesDoc implements Document
+class FieldsDoc implements Document
 {
     public static function map(DocumentMapping $mapping): void
     {
@@ -33,6 +33,14 @@ class AllFieldTypesDoc implements Document
         $mapping->binFunc('binFuncField');
         $mapping->binMd5('binMd5Field');
         $mapping->binUuid('binUuidField');
+
+        $mapping->int('optionsField')
+            ->nameInDb('someField')
+            ->nullable()
+            ->increment()
+            ->version()
+            ->lock()
+            ->alsoLoad('oldName');
 
         $mapping->embedOne('embedOne', Entity::class);
         $mapping->embedMany('embedMany', Entity::class);

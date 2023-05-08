@@ -7,16 +7,19 @@ namespace Examples\Entity;
 use DateTime;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ODM\MongoDB\Mapping\Annotations\AlsoLoad;
 use Doctrine\ODM\MongoDB\Mapping\Annotations\Document;
 use Doctrine\ODM\MongoDB\Mapping\Annotations\EmbedMany;
 use Doctrine\ODM\MongoDB\Mapping\Annotations\EmbedOne;
 use Doctrine\ODM\MongoDB\Mapping\Annotations\Field;
 use Doctrine\ODM\MongoDB\Mapping\Annotations\Id;
+use Doctrine\ODM\MongoDB\Mapping\Annotations\Lock;
 use Doctrine\ODM\MongoDB\Mapping\Annotations\ReferenceMany;
 use Doctrine\ODM\MongoDB\Mapping\Annotations\ReferenceOne;
+use Doctrine\ODM\MongoDB\Mapping\Annotations\Version;
 
 /** @Document */
-class AllFieldTypes
+class Fields
 {
     /** @Id */
     private string $id;
@@ -60,6 +63,18 @@ class AllFieldTypes
     private string $binMd5Field;
     /** @Field(type="bin_uuid") */
     private string $binUuidField;
+    /**
+     * @Field(
+     *     type="int",
+     *     name="someField",
+     *     nullable=true,
+     *     strategy="increment"
+     * )
+     * @Version
+     * @Lock
+     * @AlsoLoad("oldName")
+     */
+    private int $optionsField;
     /** @EmbedOne(targetDocument=Entity::class) */
     private Entity $embedOne;
     /** @EmbedMany(targetDocument=Entity::class) */

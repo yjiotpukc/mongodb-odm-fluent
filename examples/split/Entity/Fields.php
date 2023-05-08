@@ -8,7 +8,7 @@ use DateTime;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\Collection;
 
-class AllFieldTypes
+class Fields
 {
     private string $id;
     private string $fieldField;
@@ -31,6 +31,7 @@ class AllFieldTypes
     private string $binFuncField;
     private string $binMd5Field;
     private string $binUuidField;
+    private string $optionsField;
     private Entity $embedOne;
     private Collection $embedMany;
     private Entity $referenceOne;

@@ -10,7 +10,7 @@ use Doctrine\Common\Collections\Collection;
 use yjiotpukc\MongoODMFluent\Document\Document;
 use yjiotpukc\MongoODMFluent\Mapping\DocumentMapping;
 
-class AllFieldTypes implements Document
+class Fields implements Document
 {
     private string $id;
     private string $fieldField;
@@ -33,6 +33,7 @@ class AllFieldTypes implements Document
     private string $binFuncField;
     private string $binMd5Field;
     private string $binUuidField;
+    private int $optionsField;
     private Entity $embedOne;
     private Collection $embedMany;
     private Entity $referenceOne;
@@ -61,6 +62,14 @@ class AllFieldTypes implements Document
         $mapping->binFunc('binFuncField');
         $mapping->binMd5('binMd5Field');
         $mapping->binUuid('binUuidField');
+
+        $mapping->int('optionsField')
+            ->nameInDb('someField')
+            ->nullable()
+            ->increment()
+            ->version()
+            ->lock()
+            ->alsoLoad('oldName');
 
         $mapping->embedOne('embedOne', Entity::class);
         $mapping->embedMany('embedMany', Entity::class);
