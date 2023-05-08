@@ -2,16 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Examples\Entity;
+namespace Examples\Entity\Id;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations\Document;
 use Doctrine\ODM\MongoDB\Mapping\Annotations\Id;
 use Examples\IdGenerator\CustomIdGenerator;
 
 /** @Document */
-class CustomId
+class Custom
 {
-    /** @Id(
+    /**
+     * @Id(
      *     type="string",
      *     strategy="custom",
      *     options={
@@ -19,6 +20,7 @@ class CustomId
      *         "prefix"="pre-",
      *         "postfix"="-post",
      *     }
-     * ) */
+     * )
+     */
     private string $id;
 }

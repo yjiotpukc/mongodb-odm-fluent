@@ -2,21 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Examples\Document;
+namespace Examples\Document\Id;
 
-use Examples\IdGenerator\CustomIdGenerator;
 use yjiotpukc\MongoODMFluent\Document\Document;
 use yjiotpukc\MongoODMFluent\Mapping\DocumentMapping;
 
-class CustomIdDoc implements Document
+class IncrementDoc implements Document
 {
     public static function map(DocumentMapping $mapping): void
     {
         $mapping->id()
-            ->custom(CustomIdGenerator::class)
-            ->type('string')
-            ->generatorOption('prefix', 'pre-')
-            ->generatorOption('postfix', '-post');
+            ->increment()
+            ->startingId(10)
+            ->collection('someCollection')
+            ->key('someKey');
     }
 
     public static function isSuperclass(): bool

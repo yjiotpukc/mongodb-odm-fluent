@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Examples\Entity;
+namespace Examples\Entity\Id;
 
-class CustomId
+class Custom
 {
     private string $id;
 }
