@@ -119,12 +119,12 @@ class InheritedFieldsBuilder extends BaseBuilder implements DocumentMapping
         return $this->addBuilder(ReferenceBuilder::many($fieldName, $target));
     }
 
-    public function embedOne(string $fieldName, string $target = ''): EmbedOne
+    public function embedOne(string $fieldName, ?string $target = null): EmbedOne
     {
         return $this->addBuilder(EmbedBuilder::one($fieldName, $target));
     }
 
-    public function embedMany(string $fieldName, string $target = ''): EmbedMany
+    public function embedMany(string $fieldName, ?string $target = null): EmbedMany
     {
         return $this->addBuilder(EmbedBuilder::many($fieldName, $target));
     }

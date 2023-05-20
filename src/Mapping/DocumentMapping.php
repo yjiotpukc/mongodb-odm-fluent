@@ -62,9 +62,9 @@ interface DocumentMapping
 
     public function referenceMany(string $fieldName, string $target = ''): ReferenceMany;
 
-    public function embedOne(string $fieldName, string $target = ''): EmbedOne;
+    public function embedOne(string $fieldName, ?string $target = null): EmbedOne;
 
-    public function embedMany(string $fieldName, string $target = ''): EmbedMany;
+    public function embedMany(string $fieldName, ?string $target = null): EmbedMany;
 
     public function field(string $type, string $fieldName): Field;
 

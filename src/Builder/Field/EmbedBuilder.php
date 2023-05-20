@@ -84,6 +84,7 @@ class EmbedBuilder extends AbstractField implements EmbedOne, EmbedMany
             'embedded' => true,
             'type' => $this->type,
             'fieldName' => $this->fieldName,
+            'targetDocument' => $this->targetDocument,
             'nullable' => $this->nullable,
             'notSaved' => $this->notSaved,
             'value' => null,
@@ -92,10 +93,6 @@ class EmbedBuilder extends AbstractField implements EmbedOne, EmbedMany
             'discriminatorMap' => null,
             'defaultDiscriminatorValue' => null,
         ];
-
-        if ($this->targetDocument) {
-            $map['targetDocument'] = $this->targetDocument;
-        }
 
         if ($this->discriminator) {
             $map = array_merge($map, $this->discriminator->toMapping());

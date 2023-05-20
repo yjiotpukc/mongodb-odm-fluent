@@ -55,7 +55,7 @@ class EmbedManyTest extends FieldTestCase
         return $this->givenBuilder('address', AnotherEntityStub::class);
     }
 
-    protected function givenBuilder(string $fieldName, string $target = ''): EmbedBuilder
+    protected function givenBuilder(string $fieldName, ?string $target = null): EmbedBuilder
     {
         $this->builder = EmbedBuilder::many($fieldName, $target);
 
@@ -73,11 +73,10 @@ class EmbedManyTest extends FieldTestCase
     {
         $this->givenBuilder('address');
 
-        $this->assertFieldBuildsCorrectly(
-            ['discriminatorField' => '_doctrine_class_name'],
-            'address',
-            ['targetDocument']
-        );
+        $this->assertFieldBuildsCorrectly([
+            'discriminatorField' => '_doctrine_class_name',
+            'targetDocument' => null,
+        ]);
     }
 
     public function testNullableEmbedMany(): void
