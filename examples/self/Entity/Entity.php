@@ -17,7 +17,8 @@ class Entity implements Document
     public static function map(DocumentMapping $mapping): void
     {
         $mapping->db('dbName');
-        $mapping->collection('entities');
+        $mapping->collection('entities')
+            ->cappedAt(100000, 1000);
         $mapping->id();
         $mapping->field('string', 'stringField');
         $mapping->embedMany('embeds', Embedded::class);

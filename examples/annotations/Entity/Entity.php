@@ -10,7 +10,17 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations\EmbedMany;
 use Doctrine\ODM\MongoDB\Mapping\Annotations\Field;
 use Doctrine\ODM\MongoDB\Mapping\Annotations\Id;
 
-/** @Document(db="dbName", collection="entities") */
+/**
+ * @Document(
+ *     db="dbName",
+ *     collection={
+ *         "name"="entities",
+ *         "capped"=true,
+ *         "size"="100000",
+ *         "max"="1000"
+ *     }
+ * )
+ */
 class Entity
 {
     /** @Id */
