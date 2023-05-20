@@ -9,9 +9,9 @@ use DateTime;
 class Image
 {
     protected string $id;
-    protected string $filename;
-    protected DateTime $uploadDate;
-    protected int $length;
-    protected int $chunkSize;
-    protected ImageMetadata $metadata;
+    protected string $customFilename;
+    protected DateTime $customUploadDate;
+    protected int $customLength;
+    protected int $customChunkSize;
+    protected ImageMetadata $customMetadata;
 }
