@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Field;
 
-use yjiotpukc\MongoODMFluent\Builder\Field\EmbedOneBuilder;
+use yjiotpukc\MongoODMFluent\Builder\Field\EmbedBuilder;
 use yjiotpukc\MongoODMFluent\Tests\Stubs\AnotherEntityStub;
 
 class EmbedOneTest extends FieldTestCase
@@ -48,14 +48,14 @@ class EmbedOneTest extends FieldTestCase
         $this->assertFieldBuildsCorrectly();
     }
 
-    protected function givenDefaultBuilder(): EmbedOneBuilder
+    protected function givenDefaultBuilder(): EmbedBuilder
     {
         return $this->givenBuilder('address', AnotherEntityStub::class);
     }
 
-    protected function givenBuilder(string $fieldName, string $target = ''): EmbedOneBuilder
+    protected function givenBuilder(string $fieldName, string $target = ''): EmbedBuilder
     {
-        $this->builder = new EmbedOneBuilder($fieldName, $target);
+        $this->builder = EmbedBuilder::one($fieldName, $target);
 
         return $this->builder;
     }

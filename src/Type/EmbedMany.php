@@ -6,8 +6,6 @@ namespace yjiotpukc\MongoODMFluent\Type;
 
 interface EmbedMany
 {
-    public function __construct(string $fieldName, string $target);
-
     public function target(string $target): EmbedMany;
 
     public function nullable(): EmbedMany;

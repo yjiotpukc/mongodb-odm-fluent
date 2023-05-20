@@ -8,38 +8,51 @@ use yjiotpukc\MongoODMFluent\Builder\Database\DiscriminatorBuilder;
 use yjiotpukc\MongoODMFluent\Type\CollectionStrategy;
 use yjiotpukc\MongoODMFluent\Type\Discriminator;
 use yjiotpukc\MongoODMFluent\Type\EmbedMany;
+use yjiotpukc\MongoODMFluent\Type\EmbedOne;
 
-class EmbedManyBuilder extends AbstractField implements EmbedMany
+class EmbedBuilder extends AbstractField implements EmbedOne, EmbedMany
 {
-    protected string $targetDocument;
+    protected string $type;
+    protected ?string $targetDocument;
     protected bool $nullable = false;
     protected bool $notSaved = false;
     protected ?string $collectionClass = null;
     protected ?DiscriminatorBuilder $discriminator = null;
     protected CollectionStrategyPartial $strategy;
 
-    public function __construct(string $fieldName, string $target = '')
+    protected function __construct(string $type, string $fieldName, ?string $target)
     {
+        $this->type = $type;
         $this->fieldName = $fieldName;
         $this->targetDocument = $target;
         $this->strategy = new CollectionStrategyPartial();
     }
 
-    public function target(string $target): EmbedMany
+    public static function one(string $fieldName, ?string $target = null): EmbedBuilder
+    {
+        return new static('one', $fieldName, $target);
+    }
+
+    public static function many(string $fieldName, ?string $target = null): EmbedBuilder
+    {
+        return new static('many', $fieldName, $target);
+    }
+
+    public function target(string $target): EmbedBuilder
     {
         $this->targetDocument = $target;
 
         return $this;
     }
 
-    public function nullable(): EmbedMany
+    public function nullable(): EmbedBuilder
     {
         $this->nullable = true;
 
         return $this;
     }
 
-    public function notSaved(): EmbedMany
+    public function notSaved(): EmbedBuilder
     {
         $this->notSaved = true;
 
@@ -53,7 +66,7 @@ class EmbedManyBuilder extends AbstractField implements EmbedMany
         return $this->discriminator;
     }
 
-    public function collectionClass(string $className): EmbedMany
+    public function collectionClass(string $className): EmbedBuilder
     {
         $this->collectionClass = $className;
 
@@ -69,7 +82,7 @@ class EmbedManyBuilder extends AbstractField implements EmbedMany
     {
         $map = [
             'embedded' => true,
-            'type' => 'many',
+            'type' => $this->type,
             'fieldName' => $this->fieldName,
             'nullable' => $this->nullable,
             'notSaved' => $this->notSaved,
@@ -78,15 +91,19 @@ class EmbedManyBuilder extends AbstractField implements EmbedMany
             'discriminatorField' => null,
             'discriminatorMap' => null,
             'defaultDiscriminatorValue' => null,
-            'collectionClass' => $this->collectionClass,
         ];
 
         if ($this->targetDocument) {
             $map['targetDocument'] = $this->targetDocument;
         }
-        $map = array_merge($map, $this->strategy->toMapping());
+
         if ($this->discriminator) {
             $map = array_merge($map, $this->discriminator->toMapping());
+        }
+
+        if ($this->type === 'many') {
+            $map['collectionClass'] = $this->collectionClass;
+            $map = array_merge($map, $this->strategy->toMapping());
         }
 
         return $map;

@@ -18,8 +18,7 @@ use yjiotpukc\MongoODMFluent\Builder\Database\RootClassBuilder;
 use yjiotpukc\MongoODMFluent\Builder\Database\ShardBuilder;
 use yjiotpukc\MongoODMFluent\Builder\Database\ViewNameBuilder;
 use yjiotpukc\MongoODMFluent\Builder\Database\WriteConcernBuilder;
-use yjiotpukc\MongoODMFluent\Builder\Field\EmbedManyBuilder;
-use yjiotpukc\MongoODMFluent\Builder\Field\EmbedOneBuilder;
+use yjiotpukc\MongoODMFluent\Builder\Field\EmbedBuilder;
 use yjiotpukc\MongoODMFluent\Builder\Field\FieldBuilder;
 use yjiotpukc\MongoODMFluent\Builder\Field\IdBuilder;
 use yjiotpukc\MongoODMFluent\Builder\Field\ReferenceBuilder;
@@ -154,12 +153,12 @@ class DocumentBuilder extends BaseBuilder implements DocumentMapping, EmbeddedDo
 
     public function embedOne(string $fieldName, string $target = ''): EmbedOne
     {
-        return $this->addBuilder(new EmbedOneBuilder($fieldName, $target));
+        return $this->addBuilder(EmbedBuilder::one($fieldName, $target));
     }
 
     public function embedMany(string $fieldName, string $target = ''): EmbedMany
     {
-        return $this->addBuilder(new EmbedManyBuilder($fieldName, $target));
+        return $this->addBuilder(EmbedBuilder::many($fieldName, $target));
     }
 
     public function field(string $type, string $fieldName): Field
