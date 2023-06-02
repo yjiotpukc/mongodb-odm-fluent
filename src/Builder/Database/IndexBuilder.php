@@ -18,7 +18,7 @@ class IndexBuilder implements Index, Builder
     protected bool $sparse = false;
     protected ?int $expireAfterSeconds = null;
     protected ?string $name = null;
-    protected ?string $partialFilterExpression = null;
+    protected ?array $partialFilterExpression = null;
 
     /**
      * @param string|string[] $keys
@@ -80,7 +80,7 @@ class IndexBuilder implements Index, Builder
             $key = array_key_first($this->keys);
         }
 
-        $this->keys[$key] = 'geo';
+        $this->keys[$key] = '2d';
 
         return $this;
     }
@@ -135,7 +135,7 @@ class IndexBuilder implements Index, Builder
         return $this;
     }
 
-    public function partialFilter(string $expression): Index
+    public function partialFilter(array $expression): Index
     {
         $this->partialFilterExpression = $expression;
 
@@ -146,13 +146,21 @@ class IndexBuilder implements Index, Builder
     {
         $options = [
             'unique' => $this->unique,
-            'name' => $this->name,
-            'background' => $this->background,
-            'expireAfterSeconds' => $this->expireAfterSeconds,
             'sparse' => $this->sparse,
-            'partialFilterExpression' => $this->partialFilterExpression,
         ];
+        if (isset($this->name)) {
+            $options['name'] = $this->name;
+        }
+        if ($this->background) {
+            $options['background'] = $this->background;
+        }
+        if (isset($this->expireAfterSeconds)) {
+            $options['expireAfterSeconds'] = $this->expireAfterSeconds;
+        }
+        if (isset($this->partialFilterExpression)) {
+            $options['partialFilterExpression'] = $this->partialFilterExpression;
+        }
 
-        $metadata->addIndex($this->keys, array_filter($options));
+        $metadata->addIndex($this->keys, $options);
     }
 }

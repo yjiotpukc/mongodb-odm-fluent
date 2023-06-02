@@ -6,8 +6,6 @@ namespace yjiotpukc\MongoODMFluent\Type;
 
 interface ReferenceMany
 {
-    public function __construct(string $fieldName, string $target);
-
     public function target(string $target): ReferenceMany;
 
     public function storeAsId(): ReferenceMany;

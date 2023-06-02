@@ -11,6 +11,7 @@ class EmbeddedDoc implements EmbeddedDocument
 {
     public static function map(EmbeddedDocumentMapping $mapping): void
     {
-        $mapping->field('string', 'someString');
+        $mapping->float('latitude');
+        $mapping->float('longitude');
     }
 }

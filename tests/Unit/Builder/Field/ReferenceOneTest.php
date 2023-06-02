@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Field;
 
-use yjiotpukc\MongoODMFluent\Builder\Field\ReferenceOneBuilder;
+use yjiotpukc\MongoODMFluent\Builder\Field\ReferenceBuilder;
 use yjiotpukc\MongoODMFluent\Tests\Stubs\AnotherEntityStub;
 
 class ReferenceOneTest extends FieldTestCase
@@ -14,9 +14,10 @@ class ReferenceOneTest extends FieldTestCase
         return [
             'name' => 'address',
             'fieldName' => 'address',
+            'inversedBy' => null,
             'targetDocument' => AnotherEntityStub::class,
             'association' => 1,
-            'collectionClass' => null,
+            'cascade' => null,
             'defaultDiscriminatorValue' => null,
             'discriminatorField' => null,
             'discriminatorMap' => null,
@@ -28,10 +29,14 @@ class ReferenceOneTest extends FieldTestCase
             'isCascadeRemove' => false,
             'isInverseSide' => false,
             'isOwningSide' => true,
+            'limit' => null,
+            'mappedBy' => null,
             'notSaved' => false,
             'nullable' => false,
             'orphanRemoval' => false,
             'reference' => true,
+            'repositoryMethod' => null,
+            'skip' => null,
             'sort' => [],
             'storeAs' => 'dbRef',
             'strategy' => 'set',
@@ -53,14 +58,14 @@ class ReferenceOneTest extends FieldTestCase
         $this->assertFieldBuildsCorrectly();
     }
 
-    protected function givenDefaultBuilder(): ReferenceOneBuilder
+    protected function givenDefaultBuilder(): ReferenceBuilder
     {
         return $this->givenBuilder('address', AnotherEntityStub::class);
     }
 
-    protected function givenBuilder(string $fieldName, string $target = ''): ReferenceOneBuilder
+    protected function givenBuilder(string $fieldName, ?string $target = null): ReferenceBuilder
     {
-        $this->builder = new ReferenceOneBuilder($fieldName, $target);
+        $this->builder = ReferenceBuilder::one($fieldName, $target);
 
         return $this->builder;
     }
@@ -77,9 +82,11 @@ class ReferenceOneTest extends FieldTestCase
         $this->givenBuilder('address');
 
         $this->assertFieldBuildsCorrectly(
-            ['discriminatorField' => '_doctrine_class_name'],
-            'address',
-            ['targetDocument']
+            [
+                'targetDocument' => null,
+                'discriminatorField' => '_doctrine_class_name',
+            ],
+            'address'
         );
     }
 
@@ -138,11 +145,11 @@ class ReferenceOneTest extends FieldTestCase
 
         $this->assertFieldBuildsCorrectly([
             'cascade' => [
-                'detach',
-                'merge',
-                'refresh',
                 'remove',
                 'persist',
+                'refresh',
+                'merge',
+                'detach',
             ],
             'isCascadeDetach' => true,
             'isCascadeMerge' => true,

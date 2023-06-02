@@ -50,7 +50,10 @@ class FileBuilderTest extends BuilderTestCase
         self::assertSameArray([
             [
                 'keys' => ['id' => 1],
-                'options' => [],
+                'options' => [
+                    'unique' => false,
+                    'sparse' => false,
+                ],
             ],
         ], $this->metadata->indexes);
     }
@@ -64,11 +67,17 @@ class FileBuilderTest extends BuilderTestCase
         self::assertSameArray([
             [
                 'keys' => ['id' => 1],
-                'options' => [],
+                'options' => [
+                    'unique' => false,
+                    'sparse' => false,
+                ],
             ],
             [
                 'keys' => ['name' => 1],
-                'options' => [],
+                'options' => [
+                    'unique' => false,
+                    'sparse' => false,
+                ],
             ],
         ], $this->metadata->indexes);
     }

@@ -6,5 +6,6 @@ namespace Examples\Entity;
 
 class Embedded
 {
-    private string $someString;
+    private float $latitude;
+    private float $longitude;
 }

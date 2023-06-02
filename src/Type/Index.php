@@ -12,6 +12,10 @@ interface Index
 
     public function desc(string $key = ''): Index;
 
+    public function geo(string $key = ''): Index;
+
+    public function text(string $key = ''): Index;
+
     public function unique(): Index;
 
     public function name(string $name): Index;
@@ -22,5 +26,5 @@ interface Index
 
     public function sparse(): Index;
 
-    public function partialFilter(string $expression): Index;
+    public function partialFilter(array $expression): Index;
 }

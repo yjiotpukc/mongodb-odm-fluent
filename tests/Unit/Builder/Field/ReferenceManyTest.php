@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Field;
 
-use yjiotpukc\MongoODMFluent\Builder\Field\ReferenceManyBuilder;
+use yjiotpukc\MongoODMFluent\Builder\Field\ReferenceBuilder;
 use yjiotpukc\MongoODMFluent\Tests\Stubs\AnotherEntityStub;
 use yjiotpukc\MongoODMFluent\Tests\Stubs\CollectionStub;
 
@@ -20,8 +20,10 @@ class ReferenceManyTest extends FieldTestCase
         return [
             'name' => 'address',
             'fieldName' => 'address',
+            'inversedBy' => null,
             'targetDocument' => AnotherEntityStub::class,
             'association' => 2,
+            'cascade' => null,
             'collectionClass' => null,
             'defaultDiscriminatorValue' => null,
             'discriminatorField' => null,
@@ -34,11 +36,15 @@ class ReferenceManyTest extends FieldTestCase
             'isCascadeRemove' => false,
             'isInverseSide' => false,
             'isOwningSide' => true,
+            'limit' => null,
+            'mappedBy' => null,
             'notSaved' => false,
             'nullable' => false,
             'orphanRemoval' => false,
             'reference' => true,
             'prime' => [],
+            'repositoryMethod' => null,
+            'skip' => null,
             'sort' => [],
             'storeAs' => 'dbRef',
             'strategy' => 'pushAll',
@@ -55,14 +61,14 @@ class ReferenceManyTest extends FieldTestCase
         $this->assertFieldBuildsCorrectly();
     }
 
-    protected function givenDefaultBuilder(): ReferenceManyBuilder
+    protected function givenDefaultBuilder(): ReferenceBuilder
     {
         return $this->givenBuilder('address', AnotherEntityStub::class);
     }
 
-    protected function givenBuilder(string $fieldName, string $target = ''): ReferenceManyBuilder
+    protected function givenBuilder(string $fieldName, string $target = ''): ReferenceBuilder
     {
-        $this->builder = new ReferenceManyBuilder($fieldName, $target);
+        $this->builder = ReferenceBuilder::many($fieldName, $target);
 
         return $this->builder;
     }
@@ -79,9 +85,11 @@ class ReferenceManyTest extends FieldTestCase
         $this->givenBuilder('address');
 
         $this->assertFieldBuildsCorrectly(
-            ['discriminatorField' => '_doctrine_class_name'],
-            'address',
-            ['targetDocument']
+            [
+                'targetDocument' => null,
+                'discriminatorField' => '_doctrine_class_name',
+            ],
+            'address'
         );
     }
 
@@ -140,11 +148,11 @@ class ReferenceManyTest extends FieldTestCase
 
         $this->assertFieldBuildsCorrectly([
             'cascade' => [
-                'detach',
-                'merge',
-                'refresh',
                 'remove',
                 'persist',
+                'refresh',
+                'merge',
+                'detach',
             ],
             'isCascadeDetach' => true,
             'isCascadeMerge' => true,
@@ -221,7 +229,7 @@ class ReferenceManyTest extends FieldTestCase
         ]);
     }
 
-    protected function givenBuilderWithSetArrayStrategy(): ReferenceManyBuilder
+    protected function givenBuilderWithSetArrayStrategy(): ReferenceBuilder
     {
         $builder = $this->givenDefaultBuilder();
         $builder->strategy()->setArray();

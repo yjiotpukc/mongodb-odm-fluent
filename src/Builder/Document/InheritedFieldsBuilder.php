@@ -11,12 +11,10 @@ use yjiotpukc\MongoODMFluent\Builder\Database\DiscriminatorBuilder;
 use yjiotpukc\MongoODMFluent\Builder\Database\IndexBuilder;
 use yjiotpukc\MongoODMFluent\Builder\Database\ReadPreferenceBuilder;
 use yjiotpukc\MongoODMFluent\Builder\Database\ShardBuilder;
-use yjiotpukc\MongoODMFluent\Builder\Field\EmbedManyBuilder;
-use yjiotpukc\MongoODMFluent\Builder\Field\EmbedOneBuilder;
+use yjiotpukc\MongoODMFluent\Builder\Field\EmbedBuilder;
 use yjiotpukc\MongoODMFluent\Builder\Field\FieldBuilder;
 use yjiotpukc\MongoODMFluent\Builder\Field\IdBuilder;
-use yjiotpukc\MongoODMFluent\Builder\Field\ReferenceManyBuilder;
-use yjiotpukc\MongoODMFluent\Builder\Field\ReferenceOneBuilder;
+use yjiotpukc\MongoODMFluent\Builder\Field\ReferenceBuilder;
 use yjiotpukc\MongoODMFluent\Builder\Method\LifecycleBuilder;
 use yjiotpukc\MongoODMFluent\Mapping\DocumentMapping;
 use yjiotpukc\MongoODMFluent\Type\ChangeTrackingPolicy;
@@ -113,22 +111,22 @@ class InheritedFieldsBuilder extends BaseBuilder implements DocumentMapping
 
     public function referenceOne(string $fieldName, string $target = ''): ReferenceOne
     {
-        return $this->addBuilder(new ReferenceOneBuilder($fieldName, $target));
+        return $this->addBuilder(ReferenceBuilder::one($fieldName, $target));
     }
 
     public function referenceMany(string $fieldName, string $target = ''): ReferenceMany
     {
-        return $this->addBuilder(new ReferenceManyBuilder($fieldName, $target));
+        return $this->addBuilder(ReferenceBuilder::many($fieldName, $target));
     }
 
-    public function embedOne(string $fieldName, string $target = ''): EmbedOne
+    public function embedOne(string $fieldName, ?string $target = null): EmbedOne
     {
-        return $this->addBuilder(new EmbedOneBuilder($fieldName, $target));
+        return $this->addBuilder(EmbedBuilder::one($fieldName, $target));
     }
 
-    public function embedMany(string $fieldName, string $target = ''): EmbedMany
+    public function embedMany(string $fieldName, ?string $target = null): EmbedMany
     {
-        return $this->addBuilder(new EmbedManyBuilder($fieldName, $target));
+        return $this->addBuilder(EmbedBuilder::many($fieldName, $target));
     }
 
     public function field(string $type, string $fieldName): Field

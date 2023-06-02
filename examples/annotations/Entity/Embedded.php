@@ -10,6 +10,8 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations\Field;
 /** @EmbeddedDocument */
 class Embedded
 {
-    /** @Field(type="string") */
-    private string $someString;
+    /** @Field(type="float") */
+    private float $latitude;
+    /** @Field(type="float") */
+    private float $longitude;
 }

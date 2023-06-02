@@ -21,8 +21,7 @@ $config->setHydratorDir("$varDir/Hydrator/");
 $config->setHydratorNamespace('Hydrator');
 $documentManager = DocumentManager::create(null, $config);
 
-// todo: delete expectedMetadata dir
-$dirsToCreate = [$varDir, "$varDir/expectedMetadata"];
+$dirsToCreate = [$varDir, "$varDir/expectedMetadata", "$varDir/expectedMetadata/notSerialized"];
 foreach ($dirsToCreate as $dir) {
     if (!file_exists($dir) && !mkdir($dir) && !is_dir($dir)) {
         throw new \RuntimeException(sprintf('Directory "%s" was not created', $dir));
@@ -30,10 +29,16 @@ foreach ($dirsToCreate as $dir) {
 }
 
 $documents = $annotationDriver->getAllClassNames();
-//$documents = [\Examples\Entity\Inheritance\Crocodile::class];
 foreach ($documents as $className) {
     $shortClassName = (new ReflectionClass($className))->getShortName();
     $filename = str_replace('\\', '/', $shortClassName);
     $metadata = $documentManager->getClassMetadata($className);
     file_put_contents("$varDir/expectedMetadata/$filename", serialize($metadata));
+
+    if (!empty($metadata->alsoLoadMethods)) {
+        file_put_contents(
+            "$varDir/expectedMetadata/notSerialized/$filename",
+            serialize(['alsoLoadMethods' => $metadata->alsoLoadMethods])
+        );
+    }
 }

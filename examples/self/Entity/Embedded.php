@@ -9,10 +9,12 @@ use yjiotpukc\MongoODMFluent\Mapping\EmbeddedDocumentMapping;
 
 class Embedded implements EmbeddedDocument
 {
-    private string $someString;
+    private float $latitude;
+    private float $longitude;
 
     public static function map(EmbeddedDocumentMapping $mapping): void
     {
-        $mapping->field('string', 'someString');
+        $mapping->float('latitude');
+        $mapping->float('longitude');
     }
 }
