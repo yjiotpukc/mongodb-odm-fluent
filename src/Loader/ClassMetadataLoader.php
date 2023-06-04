@@ -10,16 +10,8 @@ use yjiotpukc\MongoODMFluent\MappingSet\MappingSet;
 
 class ClassMetadataLoader
 {
-    protected MappingSet $mappingSet;
-
-    public function __construct(MappingSet $mappingSet)
+    public function load(string $mapping, ClassMetadata $metadata): void
     {
-        $this->mappingSet = $mappingSet;
-    }
-
-    public function load(string $entity, ClassMetadata $metadata): void
-    {
-        $mapping = $this->mappingSet->find($entity);
         $builder = new DocumentBuilder();
         $mapping::map($builder);
         $builder->build($metadata);
