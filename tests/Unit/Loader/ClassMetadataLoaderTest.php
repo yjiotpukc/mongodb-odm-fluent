@@ -14,51 +14,45 @@ use yjiotpukc\MongoODMFluent\Tests\Stubs\Mappings\SuperclassEntityStubMapping;
 
 class ClassMetadataLoaderTest extends TestCase
 {
+    protected function setUp(): void
+    {
+        $this->loader = new ClassMetadataLoader();
+        $this->metadata = new ClassMetadata(EntityStub::class);
+    }
+
     public function testLoadsDocumentMetadata(): void
     {
-        $entity = EntityStub::class;
-        $mapping = EntityStubMapping::class;
-        $loader = new ClassMetadataLoader();
-        $metadata = new ClassMetadata($entity);
-        $loader->load($mapping, $metadata);
+        $this->loader->load(EntityStubMapping::class, $this->metadata);
 
         $this->assertTrue(EntityStubMapping::wasLoaded());
-        $this->assertFalse($metadata->isEmbeddedDocument);
-        $this->assertFalse($metadata->isMappedSuperclass);
-        $this->assertFalse($metadata->isFile);
-        $this->assertFalse($metadata->isView());
-        $this->assertFalse($metadata->isQueryResultDocument);
+        $this->assertFalse($this->metadata->isEmbeddedDocument);
+        $this->assertFalse($this->metadata->isMappedSuperclass);
+        $this->assertFalse($this->metadata->isFile);
+        $this->assertFalse($this->metadata->isView());
+        $this->assertFalse($this->metadata->isQueryResultDocument);
     }
 
     public function testLoadsSuperclassDocumentMetadata(): void
     {
-        $entity = EntityStub::class;
-        $mapping = SuperclassEntityStubMapping::class;
-        $loader = new ClassMetadataLoader();
-        $metadata = new ClassMetadata($entity);
-        $loader->load($mapping, $metadata);
+        $this->loader->load(SuperclassEntityStubMapping::class, $this->metadata);
 
         $this->assertTrue(SuperclassEntityStubMapping::wasLoaded());
-        $this->assertFalse($metadata->isEmbeddedDocument);
-        $this->assertTrue($metadata->isMappedSuperclass);
-        $this->assertFalse($metadata->isFile);
-        $this->assertFalse($metadata->isView());
-        $this->assertFalse($metadata->isQueryResultDocument);
+        $this->assertFalse($this->metadata->isEmbeddedDocument);
+        $this->assertTrue($this->metadata->isMappedSuperclass);
+        $this->assertFalse($this->metadata->isFile);
+        $this->assertFalse($this->metadata->isView());
+        $this->assertFalse($this->metadata->isQueryResultDocument);
     }
 
     public function testLoadsEmbeddedDocumentMetadata(): void
     {
-        $entity = EntityStub::class;
-        $mapping = EmbeddedEntityStubMapping::class;
-        $loader = new ClassMetadataLoader();
-        $metadata = new ClassMetadata($entity);
-        $loader->load($mapping, $metadata);
+        $this->loader->load(EmbeddedEntityStubMapping::class, $this->metadata);
 
         $this->assertTrue(EmbeddedEntityStubMapping::wasLoaded());
-        $this->assertTrue($metadata->isEmbeddedDocument);
-        $this->assertFalse($metadata->isMappedSuperclass);
-        $this->assertFalse($metadata->isFile);
-        $this->assertFalse($metadata->isView());
-        $this->assertFalse($metadata->isQueryResultDocument);
+        $this->assertTrue($this->metadata->isEmbeddedDocument);
+        $this->assertFalse($this->metadata->isMappedSuperclass);
+        $this->assertFalse($this->metadata->isFile);
+        $this->assertFalse($this->metadata->isView());
+        $this->assertFalse($this->metadata->isQueryResultDocument);
     }
 }
