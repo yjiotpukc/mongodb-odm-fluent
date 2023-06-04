@@ -9,6 +9,7 @@ use yjiotpukc\MongoODMFluent\Builder\Document\DocumentBuilder;
 use yjiotpukc\MongoODMFluent\Builder\Document\FileBuilder;
 use yjiotpukc\MongoODMFluent\Document\EmbeddedDocument;
 use yjiotpukc\MongoODMFluent\Document\File;
+use yjiotpukc\MongoODMFluent\Document\QueryResultDocument;
 
 class ClassMetadataLoader
 {
@@ -22,6 +23,9 @@ class ClassMetadataLoader
 
             if (in_array(EmbeddedDocument::class, $implements)) {
                 $builder->embeddedDocument();
+            }
+            if (in_array(QueryResultDocument::class, $implements)) {
+                $builder->queryResultDocument();
             }
         }
 
