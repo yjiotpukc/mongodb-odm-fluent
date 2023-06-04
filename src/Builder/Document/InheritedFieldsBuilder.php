@@ -34,6 +34,11 @@ use yjiotpukc\MongoODMFluent\Type\Shard;
 
 class InheritedFieldsBuilder extends BaseBuilder implements DocumentMapping
 {
+    public function mappedSuperclass(): DocumentMapping
+    {
+        return $this;
+    }
+
     public function db(string $name): DocumentMapping
     {
         return $this;
