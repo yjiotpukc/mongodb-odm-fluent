@@ -12,6 +12,7 @@ use yjiotpukc\MongoODMFluent\Tests\Stubs\Mappings\EmbeddedEntityStubMapping;
 use yjiotpukc\MongoODMFluent\Tests\Stubs\Mappings\EntityStubMapping;
 use yjiotpukc\MongoODMFluent\Tests\Stubs\Mappings\FileStubMapping;
 use yjiotpukc\MongoODMFluent\Tests\Stubs\Mappings\QueryResultDocumentStubMapping;
+use yjiotpukc\MongoODMFluent\Tests\Stubs\Mappings\SuperclassChildDocumentStubMapping;
 use yjiotpukc\MongoODMFluent\Tests\Stubs\Mappings\SuperclassEntityStubMapping;
 use yjiotpukc\MongoODMFluent\Tests\Stubs\Mappings\ViewStubMapping;
 
@@ -93,5 +94,17 @@ class ClassMetadataLoaderTest extends TestCase
         $this->assertFalse($this->metadata->isFile);
         $this->assertFalse($this->metadata->isView());
         $this->assertTrue($this->metadata->isQueryResultDocument);
+    }
+
+    public function testSuperclassChildDocumentIsNotSuperclass(): void
+    {
+        $this->loader->load(SuperclassChildDocumentStubMapping::class, $this->metadata);
+
+        $this->assertTrue(SuperclassChildDocumentStubMapping::wasLoaded());
+        $this->assertFalse($this->metadata->isMappedSuperclass);
+        $this->assertFalse($this->metadata->isEmbeddedDocument);
+        $this->assertFalse($this->metadata->isFile);
+        $this->assertFalse($this->metadata->isView());
+        $this->assertFalse($this->metadata->isQueryResultDocument);
     }
 }
