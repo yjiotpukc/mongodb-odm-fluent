@@ -10,7 +10,9 @@ use yjiotpukc\MongoODMFluent\Loader\ClassMetadataLoader;
 use yjiotpukc\MongoODMFluent\Tests\Stubs\EntityStub;
 use yjiotpukc\MongoODMFluent\Tests\Stubs\Mappings\EmbeddedEntityStubMapping;
 use yjiotpukc\MongoODMFluent\Tests\Stubs\Mappings\EntityStubMapping;
+use yjiotpukc\MongoODMFluent\Tests\Stubs\Mappings\FileStubMapping;
 use yjiotpukc\MongoODMFluent\Tests\Stubs\Mappings\SuperclassEntityStubMapping;
+use yjiotpukc\MongoODMFluent\Tests\Stubs\Mappings\ViewStubMapping;
 
 class ClassMetadataLoaderTest extends TestCase
 {
@@ -37,8 +39,8 @@ class ClassMetadataLoaderTest extends TestCase
         $this->loader->load(SuperclassEntityStubMapping::class, $this->metadata);
 
         $this->assertTrue(SuperclassEntityStubMapping::wasLoaded());
-        $this->assertFalse($this->metadata->isEmbeddedDocument);
         $this->assertTrue($this->metadata->isMappedSuperclass);
+        $this->assertFalse($this->metadata->isEmbeddedDocument);
         $this->assertFalse($this->metadata->isFile);
         $this->assertFalse($this->metadata->isView());
         $this->assertFalse($this->metadata->isQueryResultDocument);
@@ -49,10 +51,34 @@ class ClassMetadataLoaderTest extends TestCase
         $this->loader->load(EmbeddedEntityStubMapping::class, $this->metadata);
 
         $this->assertTrue(EmbeddedEntityStubMapping::wasLoaded());
-        $this->assertTrue($this->metadata->isEmbeddedDocument);
         $this->assertFalse($this->metadata->isMappedSuperclass);
+        $this->assertTrue($this->metadata->isEmbeddedDocument);
         $this->assertFalse($this->metadata->isFile);
         $this->assertFalse($this->metadata->isView());
+        $this->assertFalse($this->metadata->isQueryResultDocument);
+    }
+
+    public function testLoadsFileMetadata(): void
+    {
+        $this->loader->load(FileStubMapping::class, $this->metadata);
+
+        $this->assertTrue(FileStubMapping::wasLoaded());
+        $this->assertFalse($this->metadata->isMappedSuperclass);
+        $this->assertFalse($this->metadata->isEmbeddedDocument);
+        $this->assertTrue($this->metadata->isFile);
+        $this->assertFalse($this->metadata->isView());
+        $this->assertFalse($this->metadata->isQueryResultDocument);
+    }
+
+    public function testLoadsView(): void
+    {
+        $this->loader->load(ViewStubMapping::class, $this->metadata);
+
+        $this->assertTrue(ViewStubMapping::wasLoaded());
+        $this->assertFalse($this->metadata->isMappedSuperclass);
+        $this->assertFalse($this->metadata->isEmbeddedDocument);
+        $this->assertFalse($this->metadata->isFile);
+        $this->assertTrue($this->metadata->isView());
         $this->assertFalse($this->metadata->isQueryResultDocument);
     }
 }
