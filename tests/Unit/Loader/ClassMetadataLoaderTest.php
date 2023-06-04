@@ -24,6 +24,16 @@ class ClassMetadataLoaderTest extends TestCase
         $this->metadata = new ClassMetadata(EntityStub::class);
     }
 
+    protected function tearDown(): void
+    {
+        EntityStubMapping::reset();
+        SuperclassEntityStubMapping::reset();
+        EmbeddedEntityStubMapping::reset();
+        FileStubMapping::reset();
+        ViewStubMapping::reset();
+        QueryResultDocumentStubMapping::reset();
+    }
+
     public function testLoadsDocumentMetadata(): void
     {
         $this->loader->load(EntityStubMapping::class, $this->metadata);
