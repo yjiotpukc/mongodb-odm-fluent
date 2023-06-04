@@ -8,6 +8,7 @@ use Doctrine\Common\EventManager;
 use Doctrine\Persistence\Mapping\ClassMetadata;
 use Doctrine\Persistence\Mapping\Driver\MappingDriver;
 use ReflectionClass;
+use ReflectionException;
 use yjiotpukc\MongoODMFluent\Mapping\Loader\DocumentLoader;
 use yjiotpukc\MongoODMFluent\Mapping\MappingLoaderFactory;
 use yjiotpukc\MongoODMFluent\MappingFinder\MappingFinder;
@@ -65,20 +66,13 @@ class FluentDriver implements MappingDriver
         return new $mappingClassName();
     }
 
-    protected function findMapping(string $entityClassName): string
+    protected function findMapping(string $entityClassName): ?string
     {
-        if ($this->mappingSet->exists($entityClassName)) {
-            return $this->mappingSet->find($entityClassName);
+        if (!$this->mappingSet->exists($entityClassName)) {
+            return null;
         }
 
-        $parentEntityClassName = $entityClassName;
-        while ($parentEntityClassName = get_parent_class($parentEntityClassName)) {
-            if ($this->mappingSet->exists($parentEntityClassName)) {
-                return $this->mappingSet->find($parentEntityClassName);
-            }
-        }
-
-        throw new MappingException("Mapping for entity [$entityClassName] not found");
+        return $this->mappingSet->find($entityClassName);
     }
 
     protected function assertMappingClassExists(string $mappingClassName): void
@@ -98,6 +92,21 @@ class FluentDriver implements MappingDriver
 
     public function isTransient($className): bool
     {
-        return !$this->mappingSet->exists($className);
+        $mapping = $this->findMapping($className);
+
+        return $mapping === null || !$this->hasOwnMapMethod($mapping);
+    }
+
+    protected function hasOwnMapMethod(string $className): bool
+    {
+        try {
+            $reflObject = new ReflectionClass($className);
+            $mapMethod = $reflObject->getMethod('map');
+            $declaredIn = $mapMethod->getDeclaringClass()->getName();
+
+            return $className === $declaredIn;
+        } catch (ReflectionException $exception) {
+            return false;
+        }
     }
 }
