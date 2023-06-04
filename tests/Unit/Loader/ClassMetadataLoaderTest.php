@@ -18,6 +18,9 @@ use yjiotpukc\MongoODMFluent\Tests\Stubs\Mappings\ViewStubMapping;
 
 class ClassMetadataLoaderTest extends TestCase
 {
+    protected ClassMetadataLoader $loader;
+    protected ClassMetadata $metadata;
+
     protected function setUp(): void
     {
         $this->loader = new ClassMetadataLoader();

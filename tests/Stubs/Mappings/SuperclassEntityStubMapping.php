@@ -25,6 +25,9 @@ class SuperclassEntityStubMapping implements Document
     {
         static::$wasLoaded = true;
         $mapping->mappedSuperclass();
+        $mapping->string('privateField');
+        $mapping->string('protectedField');
+        $mapping->string('publicField');
     }
 
     public static function isSuperclass(): bool
