@@ -10,16 +10,13 @@ use Doctrine\Persistence\Mapping\Driver\MappingDriver;
 use ReflectionClass;
 use ReflectionException;
 use yjiotpukc\MongoODMFluent\Loader\ClassMetadataLoader;
-use yjiotpukc\MongoODMFluent\Mapping\Loader\DocumentLoader;
 use yjiotpukc\MongoODMFluent\Mapping\Mapping;
-use yjiotpukc\MongoODMFluent\Mapping\MappingLoaderFactory;
 use yjiotpukc\MongoODMFluent\MappingFinder\MappingFinder;
 use yjiotpukc\MongoODMFluent\MappingSet\MappingSet;
 
 class FluentDriver implements MappingDriver
 {
     protected MappingSet $mappingSet;
-    protected MappingLoaderFactory $loaderFactory;
     protected EventManager $eventManager;
     protected ClassMetadataLoader $loader;
 
@@ -27,7 +24,6 @@ class FluentDriver implements MappingDriver
     {
         $this->mappingSet = $mappingFinder->makeMappingSet();
         $this->loader = $loader;
-        $this->loaderFactory = new MappingLoaderFactory();
     }
 
     public function setEventManager(EventManager $eventManager): void
@@ -35,34 +31,13 @@ class FluentDriver implements MappingDriver
         $this->eventManager = $eventManager;
     }
 
-    public function disableLifecycleAutoMethods(): void
-    {
-        $this->loaderFactory->disableLifecycleAutoMethods();
-    }
-
     public function loadMetadataForClass($className, ClassMetadata $metadata): void
     {
         $mapping = $this->createMapping($className);
-        $loader = $this->loaderFactory->createLoader($mapping, $metadata, $this->eventManager);
-        if ($loader instanceof DocumentLoader) {
-            $loader->setParents($this->findParentDocuments($className));
-        }
-
-        $loader->load();
+        $this->loader->load($mapping, $metadata);
     }
 
-    public function findParentDocuments(string $className): array
-    {
-        $parent = new ReflectionClass($className);
-        $parentDocuments = [];
-        while ($parent = $parent->getParentClass()) {
-            $parentDocuments[] = $this->findMapping($parent->getName());
-        }
-
-        return array_unique($parentDocuments);
-    }
-
-    protected function createMapping(string $entityClassName)
+    protected function createMapping(string $entityClassName): string
     {
         $mappingClassName = $this->findMapping($entityClassName);
         $this->assertMappingClassExists($mappingClassName);
@@ -72,7 +47,7 @@ class FluentDriver implements MappingDriver
             throw new MappingException("[$mappingClassName] is not a mapping");
         }
 
-        return new $mappingClassName();
+        return $mappingClassName;
     }
 
     protected function findMapping(string $entityClassName): ?string

@@ -8,6 +8,7 @@ use Doctrine\Common\EventManager;
 use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
 use PHPUnit\Framework\TestCase;
 use yjiotpukc\MongoODMFluent\FluentDriver;
+use yjiotpukc\MongoODMFluent\Loader\AnnotationCompatibleLoader;
 use yjiotpukc\MongoODMFluent\Loader\ClassMetadataLoader;
 use yjiotpukc\MongoODMFluent\MappingException;
 use yjiotpukc\MongoODMFluent\Tests\Stubs\EntityStub;
@@ -58,7 +59,7 @@ class FluentDriverTest extends TestCase
         EntityStubMapping::reset();
         $entity = EntityStub::class;
         $finder = new MappingFinderStub([$entity => EntityStubMapping::class]);
-        $loader = $this->createMock(ClassMetadataLoader::class);
+        $loader = new AnnotationCompatibleLoader($finder->makeMappingSet());
         $driver = new FluentDriver($finder, $loader);
         $driver->setEventManager(new EventManager());
         $driver->loadMetadataForClass($entity, new ClassMetadata($entity));
