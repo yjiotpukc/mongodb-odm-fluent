@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace yjiotpukc\MongoODMFluent\Tests\Unit\Loader;
 
+use Doctrine\Common\EventManager;
 use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
 use PHPUnit\Framework\TestCase;
 use yjiotpukc\MongoODMFluent\Loader\SimpleLoader;
@@ -23,7 +24,8 @@ class SimpleLoaderTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->loader = new SimpleLoader();
+        $eventManager = $this->createMock(EventManager::class);
+        $this->loader = new SimpleLoader($eventManager);
         $this->metadata = new ClassMetadata(EntityStub::class);
     }
 

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace yjiotpukc\MongoODMFluent\Tests\Unit\Loader;
 
+use Doctrine\Common\EventManager;
 use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
 use yjiotpukc\MongoODMFluent\Loader\AnnotationCompatibleLoader;
 use yjiotpukc\MongoODMFluent\MappingSet\SimpleMappingSet;
@@ -17,10 +18,11 @@ class AnnotationCompatibleLoaderTest extends SimpleLoaderTest
 {
     protected function setUp(): void
     {
+        $eventManager = $this->createMock(EventManager::class);
         $mappingSet = new SimpleMappingSet();
         $mappingSet->add(SuperclassEntityStub::class, SuperclassEntityStubMapping::class);
         $mappingSet->add(SuperclassChildEntityStub::class, SuperclassChildEntityStubMapping::class);
-        $this->loader = new AnnotationCompatibleLoader($mappingSet);
+        $this->loader = new AnnotationCompatibleLoader($eventManager, $mappingSet);
         $this->metadata = new ClassMetadata(EntityStub::class);
     }
 

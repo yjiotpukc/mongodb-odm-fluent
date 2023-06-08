@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace yjiotpukc\MongoODMFluent\Loader;
 
+use Doctrine\Common\EventManager;
 use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
 use Doctrine\Persistence\Mapping\RuntimeReflectionService;
 use ReflectionClass;
@@ -17,8 +18,9 @@ class AnnotationCompatibleLoader extends SimpleLoader
     protected RuntimeReflectionService $reflectionService;
     private MappingSet $mappingSet;
 
-    public function __construct(MappingSet $mappingSet)
+    public function __construct(EventManager $eventManager, MappingSet $mappingSet)
     {
+        parent::__construct($eventManager);
         $this->reflectionService = new RuntimeReflectionService();
         $this->mappingSet = $mappingSet;
     }
