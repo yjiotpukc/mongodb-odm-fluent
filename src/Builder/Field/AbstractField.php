@@ -17,10 +17,7 @@ abstract class AbstractField implements Builder
             return;
         }
 
-        $reflProperty = $metadata->getReflectionClass()->getProperty($this->fieldName);
-        if (!$metadata->isMappedSuperclass || $reflProperty->isPrivate()) {
-            $metadata->mapField($this->map());
-        }
+        $metadata->mapField($this->map());
     }
 
     abstract public function map(): array;

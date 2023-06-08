@@ -7,7 +7,7 @@ namespace yjiotpukc\MongoODMFluent\Tests\Stubs\Mappings;
 use yjiotpukc\MongoODMFluent\Document\Document;
 use yjiotpukc\MongoODMFluent\Mapping\DocumentMapping;
 
-class SuperclassChildDocumentStubMapping implements Document
+class SuperclassChildEntityStubMapping implements Document
 {
     protected static bool $wasLoaded = false;
 
