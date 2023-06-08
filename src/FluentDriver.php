@@ -9,7 +9,9 @@ use Doctrine\Persistence\Mapping\ClassMetadata;
 use Doctrine\Persistence\Mapping\Driver\MappingDriver;
 use ReflectionClass;
 use ReflectionException;
+use yjiotpukc\MongoODMFluent\Loader\ClassMetadataLoader;
 use yjiotpukc\MongoODMFluent\Mapping\Loader\DocumentLoader;
+use yjiotpukc\MongoODMFluent\Mapping\Mapping;
 use yjiotpukc\MongoODMFluent\Mapping\MappingLoaderFactory;
 use yjiotpukc\MongoODMFluent\MappingFinder\MappingFinder;
 use yjiotpukc\MongoODMFluent\MappingSet\MappingSet;
@@ -19,10 +21,12 @@ class FluentDriver implements MappingDriver
     protected MappingSet $mappingSet;
     protected MappingLoaderFactory $loaderFactory;
     protected EventManager $eventManager;
+    protected ClassMetadataLoader $loader;
 
-    public function __construct(MappingFinder $mappingFinder)
+    public function __construct(MappingFinder $mappingFinder, ClassMetadataLoader $loader)
     {
         $this->mappingSet = $mappingFinder->makeMappingSet();
+        $this->loader = $loader;
         $this->loaderFactory = new MappingLoaderFactory();
     }
 
@@ -62,6 +66,11 @@ class FluentDriver implements MappingDriver
     {
         $mappingClassName = $this->findMapping($entityClassName);
         $this->assertMappingClassExists($mappingClassName);
+
+        $implements = class_implements($mappingClassName);
+        if (!in_array(Mapping::class, $implements, true)) {
+            throw new MappingException("[$mappingClassName] is not a mapping");
+        }
 
         return new $mappingClassName();
     }

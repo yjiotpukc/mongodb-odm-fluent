@@ -6,6 +6,9 @@ namespace yjiotpukc\MongoODMFluent\Tests\Integration;
 
 use Doctrine\ODM\MongoDB\DocumentManager;
 use yjiotpukc\MongoODMFluent\FluentDriver;
+use yjiotpukc\MongoODMFluent\Loader\AnnotationCompatibleLoader;
+use yjiotpukc\MongoODMFluent\MappingFinder\MappingFinder;
+use yjiotpukc\MongoODMFluent\MappingFinder\SelfMappingFinder;
 
 class ExamplesSelfMappingTest extends AbstractIntegrationTestCase
 {
@@ -15,7 +18,9 @@ class ExamplesSelfMappingTest extends AbstractIntegrationTestCase
     public function __construct(?string $name = null, array $data = [], $dataName = '')
     {
         parent::__construct($name, $data, $dataName);
-        $this->driver = new FluentDriver($this->createSelfMappingFinder());
+        $finder = $this->createSelfMappingFinder();
+        $loader = new AnnotationCompatibleLoader($finder->makeMappingSet());
+        $this->driver = new FluentDriver($finder, $loader);
         $this->documentManager = $this->createDocumentManager($this->driver);
         $this->driver->setEventManager($this->documentManager->getEventManager());
     }
@@ -32,5 +37,12 @@ class ExamplesSelfMappingTest extends AbstractIntegrationTestCase
     public function entityProvider(): array
     {
         return array_map(static fn(string $className) => [$className], $this->driver->getAllClassNames());
+    }
+
+    private function createSelfMappingFinder(): MappingFinder
+    {
+        $this->registerAutoLoaderForExamples('self');
+
+        return new SelfMappingFinder($this->getExamplesDir() . '/self/Entity');
     }
 }

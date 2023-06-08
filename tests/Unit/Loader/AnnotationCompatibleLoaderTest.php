@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace yjiotpukc\MongoODMFluent\Tests\Unit\Loader;
 
 use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
-use yjiotpukc\MongoODMFluent\Loader\AnnotationCompatibleClassMetadataLoader;
+use yjiotpukc\MongoODMFluent\Loader\AnnotationCompatibleLoader;
 use yjiotpukc\MongoODMFluent\MappingSet\SimpleMappingSet;
 use yjiotpukc\MongoODMFluent\Tests\Stubs\Entity\SuperclassChildEntityStub;
 use yjiotpukc\MongoODMFluent\Tests\Stubs\Entity\SuperclassEntityStub;
@@ -13,14 +13,14 @@ use yjiotpukc\MongoODMFluent\Tests\Stubs\EntityStub;
 use yjiotpukc\MongoODMFluent\Tests\Stubs\Mappings\SuperclassChildEntityStubMapping;
 use yjiotpukc\MongoODMFluent\Tests\Stubs\Mappings\SuperclassEntityStubMapping;
 
-class AnnotationCompatibleClassMetadataLoaderTest extends ClassMetadataLoaderTest
+class AnnotationCompatibleLoaderTest extends SimpleLoaderTest
 {
     protected function setUp(): void
     {
         $mappingSet = new SimpleMappingSet();
         $mappingSet->add(SuperclassEntityStub::class, SuperclassEntityStubMapping::class);
         $mappingSet->add(SuperclassChildEntityStub::class, SuperclassChildEntityStubMapping::class);
-        $this->loader = new AnnotationCompatibleClassMetadataLoader($mappingSet);
+        $this->loader = new AnnotationCompatibleLoader($mappingSet);
         $this->metadata = new ClassMetadata(EntityStub::class);
     }
 

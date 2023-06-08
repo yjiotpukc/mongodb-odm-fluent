@@ -27,27 +27,6 @@ abstract class AbstractIntegrationTestCase extends TestCase
         return DocumentManager::create(null, $config);
     }
 
-    protected function createNamespacePatternMappingFinder(): MappingFinder
-    {
-        $this->registerAutoLoaderForExamples('split');
-
-        $mappingPattern = '/^Examples\\\\Document\\\\(.*)Doc$/';
-        $replacementPattern = 'Examples\\\\Entity\\\\$1';
-
-        return new NamespacePatternMappingFinder(
-            $mappingPattern,
-            $replacementPattern,
-            $this->getExamplesDir() . '/split/Document'
-        );
-    }
-
-    protected function createSelfMappingFinder(): MappingFinder
-    {
-        $this->registerAutoLoaderForExamples('self');
-
-        return new SelfMappingFinder($this->getExamplesDir() . '/self/Entity');
-    }
-
     protected function registerAutoLoaderForExamples(string $subDir): void
     {
         $path = realpath(__DIR__ . '/../../vendor');

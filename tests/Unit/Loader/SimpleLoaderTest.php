@@ -6,7 +6,7 @@ namespace yjiotpukc\MongoODMFluent\Tests\Unit\Loader;
 
 use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
 use PHPUnit\Framework\TestCase;
-use yjiotpukc\MongoODMFluent\Loader\ClassMetadataLoader;
+use yjiotpukc\MongoODMFluent\Loader\SimpleLoader;
 use yjiotpukc\MongoODMFluent\Tests\Stubs\EntityStub;
 use yjiotpukc\MongoODMFluent\Tests\Stubs\Mappings\EmbeddedEntityStubMapping;
 use yjiotpukc\MongoODMFluent\Tests\Stubs\Mappings\EntityStubMapping;
@@ -16,14 +16,14 @@ use yjiotpukc\MongoODMFluent\Tests\Stubs\Mappings\SuperclassChildEntityStubMappi
 use yjiotpukc\MongoODMFluent\Tests\Stubs\Mappings\SuperclassEntityStubMapping;
 use yjiotpukc\MongoODMFluent\Tests\Stubs\Mappings\ViewStubMapping;
 
-class ClassMetadataLoaderTest extends TestCase
+class SimpleLoaderTest extends TestCase
 {
-    protected ClassMetadataLoader $loader;
+    protected SimpleLoader $loader;
     protected ClassMetadata $metadata;
 
     protected function setUp(): void
     {
-        $this->loader = new ClassMetadataLoader();
+        $this->loader = new SimpleLoader();
         $this->metadata = new ClassMetadata(EntityStub::class);
     }
 
