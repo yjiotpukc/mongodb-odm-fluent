@@ -20,9 +20,4 @@ class ShardingDoc implements Document
             ->unique()
             ->numInitialChunks(10);
     }
-
-    public static function isSuperclass(): bool
-    {
-        return false;
-    }
 }

@@ -16,9 +16,4 @@ class MiscDoc implements Document
         $mapping->writeConcern('majority');
         $mapping->alsoLoad('alsoLoad', ['field']);
     }
-
-    public static function isSuperclass(): bool
-    {
-        return false;
-    }
 }

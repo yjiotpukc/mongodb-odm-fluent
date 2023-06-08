@@ -21,9 +21,4 @@ class AutoLifecycleEventsDoc implements Document
         /** @var AutoLifecycleEvents $document */
         $document = $eventArgs->getDocument();
     }
-
-    public static function isSuperclass(): bool
-    {
-        return false;
-    }
 }

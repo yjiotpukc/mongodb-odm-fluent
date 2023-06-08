@@ -17,9 +17,4 @@ class IncrementDoc implements Document
             ->collection('someCollection')
             ->key('someKey');
     }
-
-    public static function isSuperclass(): bool
-    {
-        return false;
-    }
 }

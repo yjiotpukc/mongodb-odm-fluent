@@ -16,9 +16,4 @@ class Notify implements Document
         $mapping->id();
         $mapping->changeTrackingPolicy()->notify();
     }
-
-    public static function isSuperclass(): bool
-    {
-        return false;
-    }
 }

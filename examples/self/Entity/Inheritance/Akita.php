@@ -18,9 +18,4 @@ class Akita extends PedigreeDog
         $mapping->string('akitaProtected');
         $mapping->string('akitaPublic');
     }
-
-    public static function isSuperclass(): bool
-    {
-        return false;
-    }
 }

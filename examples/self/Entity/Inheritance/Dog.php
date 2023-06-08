@@ -18,9 +18,4 @@ class Dog extends Mammal
         $mapping->string('dogProtected');
         $mapping->string('dogPublic');
     }
-
-    public static function isSuperclass(): bool
-    {
-        return false;
-    }
 }

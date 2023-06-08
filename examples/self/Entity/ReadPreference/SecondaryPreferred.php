@@ -20,9 +20,4 @@ class SecondaryPreferred implements Document
             ->tagSpecification(['dc' => 'west'])
             ->any();
     }
-
-    public static function isSuperclass(): bool
-    {
-        return false;
-    }
 }

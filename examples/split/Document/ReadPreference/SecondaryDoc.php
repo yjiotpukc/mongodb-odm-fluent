@@ -18,9 +18,4 @@ class SecondaryDoc implements Document
             [],
         ]);
     }
-
-    public static function isSuperclass(): bool
-    {
-        return false;
-    }
 }

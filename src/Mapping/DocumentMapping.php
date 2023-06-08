@@ -21,6 +21,8 @@ use yjiotpukc\MongoODMFluent\Type\Shard;
 
 interface DocumentMapping
 {
+    public function mappedSuperclass(): DocumentMapping;
+
     public function db(string $name): DocumentMapping;
 
     public function repository(string $className): DocumentMapping;

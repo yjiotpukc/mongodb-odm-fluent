@@ -13,9 +13,4 @@ class NoneDoc implements Document
     {
         $mapping->id()->none();
     }
-
-    public static function isSuperclass(): bool
-    {
-        return false;
-    }
 }

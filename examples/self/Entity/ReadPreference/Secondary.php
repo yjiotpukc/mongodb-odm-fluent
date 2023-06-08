@@ -20,9 +20,4 @@ class Secondary implements Document
             [],
         ]);
     }
-
-    public static function isSuperclass(): bool
-    {
-        return false;
-    }
 }

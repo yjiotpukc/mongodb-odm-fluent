@@ -8,25 +8,30 @@ use Doctrine\Common\EventManager;
 use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
 use PHPUnit\Framework\TestCase;
 use yjiotpukc\MongoODMFluent\FluentDriver;
+use yjiotpukc\MongoODMFluent\Loader\AnnotationCompatibleLoader;
+use yjiotpukc\MongoODMFluent\Loader\ClassMetadataLoader;
 use yjiotpukc\MongoODMFluent\MappingException;
 use yjiotpukc\MongoODMFluent\Tests\Stubs\EntityStub;
 use yjiotpukc\MongoODMFluent\Tests\Stubs\MappingFinderStub;
 use yjiotpukc\MongoODMFluent\Tests\Stubs\Mappings\EntityStubMapping;
+use yjiotpukc\MongoODMFluent\Tests\Stubs\TransientChildEntityStub;
 
 class FluentDriverTest extends TestCase
 {
-    public function testReturnsNotTransientIfEntityHasMapping(): void
+    public function testMappingWithMapMethodIsNotTransient(): void
     {
-        $mappings = ['Entity' => 'Mapping'];
-        $driver = new FluentDriver(new MappingFinderStub($mappings));
-        self::assertFalse($driver->isTransient('Entity'));
+        $finder = new MappingFinderStub([EntityStub::class => EntityStubMapping::class]);
+        $loader = $this->createMock(ClassMetadataLoader::class);
+        $driver = new FluentDriver($finder, $loader);
+        self::assertFalse($driver->isTransient(EntityStub::class));
     }
 
-    public function testReturnsTransientIfMappingDoesNotExist(): void
+    public function testEntityWithoutMappingIsTransient(): void
     {
-        $mappings = ['Entity' => 'Mapping'];
-        $driver = new FluentDriver(new MappingFinderStub($mappings));
-        self::assertTrue($driver->isTransient('DifferentEntity'));
+        $finder = new MappingFinderStub([EntityStub::class => EntityStubMapping::class]);
+        $loader = $this->createMock(ClassMetadataLoader::class);
+        $driver = new FluentDriver($finder, $loader);
+        self::assertTrue($driver->isTransient(TransientChildEntityStub::class));
     }
 
     public function testReturnsAllEntities(): void
@@ -35,13 +40,17 @@ class FluentDriverTest extends TestCase
             'Entity' => 'Mapping',
             'DifferentEntity' => 'DifferentMapping',
         ];
-        $driver = new FluentDriver(new MappingFinderStub($mappings));
+        $finder = new MappingFinderStub($mappings);
+        $loader = $this->createMock(ClassMetadataLoader::class);
+        $driver = new FluentDriver($finder, $loader);
         self::assertEquals(['Entity', 'DifferentEntity'], $driver->getAllClassNames());
     }
 
     public function testReturnsEmptyArrayIfNoEntitiesFound(): void
     {
-        $driver = new FluentDriver(new MappingFinderStub([]));
+        $finder = new MappingFinderStub([]);
+        $loader = $this->createMock(ClassMetadataLoader::class);
+        $driver = new FluentDriver($finder, $loader);
         self::assertEquals([], $driver->getAllClassNames());
     }
 
@@ -49,20 +58,12 @@ class FluentDriverTest extends TestCase
     {
         EntityStubMapping::reset();
         $entity = EntityStub::class;
-        $mappings = [$entity => EntityStubMapping::class];
-        $driver = new FluentDriver(new MappingFinderStub($mappings));
-        $driver->setEventManager(new EventManager());
+        $eventManager = $this->createMock(EventManager::class);
+        $finder = new MappingFinderStub([$entity => EntityStubMapping::class]);
+        $loader = new AnnotationCompatibleLoader($eventManager, $finder->makeMappingSet());
+        $driver = new FluentDriver($finder, $loader);
         $driver->loadMetadataForClass($entity, new ClassMetadata($entity));
         self::assertTrue(EntityStubMapping::wasLoaded());
-    }
-
-    public function testThrowsExceptionIfMappingNotFound(): void
-    {
-        $this->expectException(MappingException::class);
-        $this->expectExceptionMessage('Mapping for entity [yjiotpukc\MongoODMFluent\Tests\Stubs\EntityStub] not found');
-        $entity = EntityStub::class;
-        $driver = new FluentDriver(new MappingFinderStub([]));
-        $driver->loadMetadataForClass($entity, new ClassMetadata($entity));
     }
 
     public function testThrowsExceptionIfMappingDoesNotExist(): void
@@ -70,8 +71,9 @@ class FluentDriverTest extends TestCase
         $this->expectException(MappingException::class);
         $this->expectExceptionMessage('[Mapping] does not exist');
         $entity = EntityStub::class;
-        $mappings = [$entity => 'Mapping'];
-        $driver = new FluentDriver(new MappingFinderStub($mappings));
+        $finder = new MappingFinderStub([$entity => 'Mapping']);
+        $loader = $this->createMock(ClassMetadataLoader::class);
+        $driver = new FluentDriver($finder, $loader);
         $driver->loadMetadataForClass($entity, new ClassMetadata($entity));
     }
 
@@ -80,9 +82,9 @@ class FluentDriverTest extends TestCase
         $this->expectException(MappingException::class);
         $this->expectExceptionMessage('[yjiotpukc\MongoODMFluent\Tests\Stubs\EntityStub] is not a mapping');
         $entity = EntityStub::class;
-        $mappings = [$entity => $entity];
-        $driver = new FluentDriver(new MappingFinderStub($mappings));
-        $driver->setEventManager(new EventManager());
+        $finder = new MappingFinderStub([$entity => $entity]);
+        $loader = $this->createMock(ClassMetadataLoader::class);
+        $driver = new FluentDriver($finder, $loader);
         $driver->loadMetadataForClass($entity, new ClassMetadata($entity));
     }
 }

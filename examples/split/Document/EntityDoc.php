@@ -19,9 +19,4 @@ class EntityDoc implements Document
         $mapping->field('string', 'stringField');
         $mapping->embedMany('embeds', Embedded::class);
     }
-
-    public static function isSuperclass(): bool
-    {
-        return false;
-    }
 }

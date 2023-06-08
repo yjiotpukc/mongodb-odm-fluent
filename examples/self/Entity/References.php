@@ -94,9 +94,4 @@ class References implements Document
         $ref = $mapping->referenceMany('ref16', Entity::class);
         $ref->cascade()->remove()->persist();
     }
-
-    public static function isSuperclass(): bool
-    {
-        return false;
-    }
 }

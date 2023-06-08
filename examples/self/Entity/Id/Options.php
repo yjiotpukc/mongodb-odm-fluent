@@ -18,9 +18,4 @@ class Options implements Document
             ->nullable()
             ->notSaved();
     }
-
-    public static function isSuperclass(): bool
-    {
-        return false;
-    }
 }

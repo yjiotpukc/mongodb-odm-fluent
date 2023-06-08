@@ -24,9 +24,4 @@ class LifecycleDoc implements Document
             ->postLoad('doStuffOnPostLoad')
             ->preFlush('doStuffOnPreFlush');
     }
-
-    public static function isSuperclass(): bool
-    {
-        return false;
-    }
 }

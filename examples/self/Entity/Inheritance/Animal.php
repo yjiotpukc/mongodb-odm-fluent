@@ -16,6 +16,7 @@ class Animal implements Document
 
     public static function map(DocumentMapping $mapping): void
     {
+        $mapping->mappedSuperclass();
         $mapping->singleCollection();
 
         $mapping->id();
@@ -26,10 +27,5 @@ class Animal implements Document
         $mapping->discriminator('type')
             ->map('mammal', Mammal::class)
             ->map('reptile', Reptile::class);
-    }
-
-    public static function isSuperclass(): bool
-    {
-        return true;
     }
 }

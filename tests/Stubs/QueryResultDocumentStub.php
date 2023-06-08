@@ -4,6 +4,6 @@ declare(strict_types=1);
 
 namespace yjiotpukc\MongoODMFluent\Tests\Stubs;
 
-class IdGeneratorStub
+class QueryResultDocumentStub
 {
 }

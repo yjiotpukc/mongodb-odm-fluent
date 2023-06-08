@@ -15,9 +15,4 @@ class PomeranianDoc implements Document
         $mapping->string('pomeranianProtected');
         $mapping->string('pomeranianPublic');
     }
-
-    public static function isSuperclass(): bool
-    {
-        return false;
-    }
 }

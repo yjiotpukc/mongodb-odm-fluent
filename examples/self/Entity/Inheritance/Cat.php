@@ -18,9 +18,4 @@ class Cat extends Mammal
         $mapping->string('catProtected');
         $mapping->string('catPublic');
     }
-
-    public static function isSuperclass(): bool
-    {
-        return false;
-    }
 }

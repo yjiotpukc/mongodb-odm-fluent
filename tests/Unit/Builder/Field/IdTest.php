@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace yjiotpukc\MongoODMFluent\Tests\Unit\Builder\Field;
 
 use yjiotpukc\MongoODMFluent\Builder\Field\IdBuilder;
-use yjiotpukc\MongoODMFluent\Tests\Stubs\IdGeneratorStub;
 
 class IdTest extends FieldTestCase
 {
@@ -102,11 +101,11 @@ class IdTest extends FieldTestCase
 
     public function testCustomId(): void
     {
-        $this->givenBuilder()->custom(IdGeneratorStub::class);
+        $this->givenBuilder()->custom('IdGeneratorClassName');
 
         $this->assertFieldBuildsCorrectly([
             'strategy' => 'custom',
-            'options' => ['class' => IdGeneratorStub::class],
+            'options' => ['class' => 'IdGeneratorClassName'],
             'type' => 'custom_id',
         ]);
     }
@@ -213,14 +212,14 @@ class IdTest extends FieldTestCase
 
     public function testCustomIdWithGeneratorOptions(): void
     {
-        $this->givenBuilder()->custom(IdGeneratorStub::class)->generatorOption('key', 'value');
+        $this->givenBuilder()->custom('IdGeneratorClassName')->generatorOption('key', 'value');
 
         $this->assertFieldBuildsCorrectly([
             'strategy' => 'custom',
             'type' => 'custom_id',
             'options' => [
                 'key' => 'value',
-                'class' => IdGeneratorStub::class,
+                'class' => 'IdGeneratorClassName',
             ],
         ]);
     }

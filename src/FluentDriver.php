@@ -4,81 +4,52 @@ declare(strict_types=1);
 
 namespace yjiotpukc\MongoODMFluent;
 
-use Doctrine\Common\EventManager;
 use Doctrine\Persistence\Mapping\ClassMetadata;
 use Doctrine\Persistence\Mapping\Driver\MappingDriver;
 use ReflectionClass;
-use yjiotpukc\MongoODMFluent\Mapping\Loader\DocumentLoader;
-use yjiotpukc\MongoODMFluent\Mapping\MappingLoaderFactory;
+use ReflectionException;
+use yjiotpukc\MongoODMFluent\Loader\ClassMetadataLoader;
+use yjiotpukc\MongoODMFluent\Mapping\Mapping;
 use yjiotpukc\MongoODMFluent\MappingFinder\MappingFinder;
 use yjiotpukc\MongoODMFluent\MappingSet\MappingSet;
 
 class FluentDriver implements MappingDriver
 {
     protected MappingSet $mappingSet;
-    protected MappingLoaderFactory $loaderFactory;
-    protected EventManager $eventManager;
+    protected ClassMetadataLoader $loader;
 
-    public function __construct(MappingFinder $mappingFinder)
+    public function __construct(MappingFinder $mappingFinder, ClassMetadataLoader $loader)
     {
         $this->mappingSet = $mappingFinder->makeMappingSet();
-        $this->loaderFactory = new MappingLoaderFactory();
-    }
-
-    public function setEventManager(EventManager $eventManager): void
-    {
-        $this->eventManager = $eventManager;
-    }
-
-    public function disableLifecycleAutoMethods(): void
-    {
-        $this->loaderFactory->disableLifecycleAutoMethods();
+        $this->loader = $loader;
     }
 
     public function loadMetadataForClass($className, ClassMetadata $metadata): void
     {
         $mapping = $this->createMapping($className);
-        $loader = $this->loaderFactory->createLoader($mapping, $metadata, $this->eventManager);
-        if ($loader instanceof DocumentLoader) {
-            $loader->setParents($this->findParentDocuments($className));
-        }
-
-        $loader->load();
+        $this->loader->load($mapping, $metadata);
     }
 
-    public function findParentDocuments(string $className): array
-    {
-        $parent = new ReflectionClass($className);
-        $parentDocuments = [];
-        while ($parent = $parent->getParentClass()) {
-            $parentDocuments[] = $this->findMapping($parent->getName());
-        }
-
-        return array_unique($parentDocuments);
-    }
-
-    protected function createMapping(string $entityClassName)
+    protected function createMapping(string $entityClassName): string
     {
         $mappingClassName = $this->findMapping($entityClassName);
         $this->assertMappingClassExists($mappingClassName);
 
-        return new $mappingClassName();
+        $implements = class_implements($mappingClassName);
+        if (!in_array(Mapping::class, $implements, true)) {
+            throw new MappingException("[$mappingClassName] is not a mapping");
+        }
+
+        return $mappingClassName;
     }
 
-    protected function findMapping(string $entityClassName): string
+    protected function findMapping(string $entityClassName): ?string
     {
-        if ($this->mappingSet->exists($entityClassName)) {
-            return $this->mappingSet->find($entityClassName);
+        if (!$this->mappingSet->exists($entityClassName)) {
+            return null;
         }
 
-        $parentEntityClassName = $entityClassName;
-        while ($parentEntityClassName = get_parent_class($parentEntityClassName)) {
-            if ($this->mappingSet->exists($parentEntityClassName)) {
-                return $this->mappingSet->find($parentEntityClassName);
-            }
-        }
-
-        throw new MappingException("Mapping for entity [$entityClassName] not found");
+        return $this->mappingSet->find($entityClassName);
     }
 
     protected function assertMappingClassExists(string $mappingClassName): void
@@ -98,6 +69,21 @@ class FluentDriver implements MappingDriver
 
     public function isTransient($className): bool
     {
-        return !$this->mappingSet->exists($className);
+        $mapping = $this->findMapping($className);
+
+        return $mapping === null || !$this->hasOwnMapMethod($mapping);
+    }
+
+    protected function hasOwnMapMethod(string $className): bool
+    {
+        try {
+            $reflObject = new ReflectionClass($className);
+            $mapMethod = $reflObject->getMethod('map');
+            $declaredIn = $mapMethod->getDeclaringClass()->getName();
+
+            return $className === $declaredIn;
+        } catch (ReflectionException $exception) {
+            return false;
+        }
     }
 }

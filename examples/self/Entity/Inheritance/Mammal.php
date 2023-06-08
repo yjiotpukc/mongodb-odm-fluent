@@ -14,6 +14,7 @@ class Mammal extends Animal
 
     public static function map(DocumentMapping $mapping): void
     {
+        $mapping->mappedSuperclass();
         $mapping->collectionPerClass();
 
         $mapping->string('mammalPrivate');
@@ -23,10 +24,5 @@ class Mammal extends Animal
         $mapping->discriminator('type')
             ->map('cat', Cat::class)
             ->map('dog', Dog::class);
-    }
-
-    public static function isSuperclass(): bool
-    {
-        return true;
     }
 }
