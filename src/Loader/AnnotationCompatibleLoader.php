@@ -12,7 +12,7 @@ use ReflectionProperty;
 use yjiotpukc\MongoODMFluent\Builder\Document\DocumentBuilder;
 use yjiotpukc\MongoODMFluent\MappingSet\MappingSet;
 
-class AnnotationCompatibleClassMetadataLoader extends ClassMetadataLoader
+class AnnotationCompatibleLoader extends SimpleLoader
 {
     protected RuntimeReflectionService $reflectionService;
     private MappingSet $mappingSet;
