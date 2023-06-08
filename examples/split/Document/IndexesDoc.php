@@ -36,9 +36,4 @@ class IndexesDoc implements Document
         $mapping->index('field5')->text();
         $mapping->index('coordinates')->geo();
     }
-
-    public static function isSuperclass(): bool
-    {
-        return false;
-    }
 }

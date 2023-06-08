@@ -14,9 +14,4 @@ class DeferredImplicitDoc implements Document
         $mapping->id();
         $mapping->changeTrackingPolicy()->deferredImplicit();
     }
-
-    public static function isSuperclass(): bool
-    {
-        return false;
-    }
 }

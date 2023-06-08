@@ -13,6 +13,8 @@ class PedigreeDogDoc implements Document
 {
     public static function map(DocumentMapping $mapping): void
     {
+        $mapping->mappedSuperclass();
+
         $mapping->string('pedigreeDogPrivate');
         $mapping->string('pedigreeDogProtected');
         $mapping->string('pedigreeDogPublic');
@@ -20,10 +22,5 @@ class PedigreeDogDoc implements Document
         $mapping->discriminator('type')
             ->map('akita', Akita::class)
             ->map('pomeranian', Pomeranian::class);
-    }
-
-    public static function isSuperclass(): bool
-    {
-        return true;
     }
 }

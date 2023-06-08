@@ -16,9 +16,4 @@ class CrocodileDoc implements Document
         $mapping->string('crocodileProtected');
         $mapping->string('crocodilePublic');
     }
-
-    public static function isSuperclass(): bool
-    {
-        return false;
-    }
 }

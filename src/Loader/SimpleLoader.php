@@ -40,11 +40,12 @@ class SimpleLoader implements ClassMetadataLoader
         }
 
         $mapping::map($builder);
-        $builder->build($metadata);
 
         if ($this->useLifecycleAutoMethods && !in_array(File::class, $implements)) {
             $this->addLifecycleAutoMethods($mapping, $metadata, $builder);
         }
+
+        $builder->build($metadata);
     }
 
     public function disableLifecycleAutoMethods(): void

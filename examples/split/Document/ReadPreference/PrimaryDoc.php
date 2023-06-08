@@ -14,9 +14,4 @@ class PrimaryDoc implements Document
         $mapping->id();
         $mapping->readPreference()->primary();
     }
-
-    public static function isSuperclass(): bool
-    {
-        return false;
-    }
 }

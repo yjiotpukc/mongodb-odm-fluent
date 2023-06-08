@@ -14,6 +14,8 @@ class PedigreeDog extends Dog
 
     public static function map(DocumentMapping $mapping): void
     {
+        $mapping->mappedSuperclass();
+
         $mapping->string('pedigreeDogPrivate');
         $mapping->string('pedigreeDogProtected');
         $mapping->string('pedigreeDogPublic');
@@ -21,10 +23,5 @@ class PedigreeDog extends Dog
         $mapping->discriminator('type')
             ->map('akita', Akita::class)
             ->map('pomeranian', Pomeranian::class);
-    }
-
-    public static function isSuperclass(): bool
-    {
-        return true;
     }
 }

@@ -18,9 +18,4 @@ class Pomeranian extends PedigreeDog
         $mapping->string('pomeranianProtected');
         $mapping->string('pomeranianPublic');
     }
-
-    public static function isSuperclass(): bool
-    {
-        return false;
-    }
 }

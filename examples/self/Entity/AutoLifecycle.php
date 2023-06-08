@@ -20,11 +20,6 @@ class AutoLifecycle implements Document
         $mapping->id();
     }
 
-    public static function isSuperclass(): bool
-    {
-        return false;
-    }
-
     public function prePersist(LifecycleEventArgs $eventArgs): void
     {
     }

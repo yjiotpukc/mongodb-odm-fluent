@@ -19,9 +19,4 @@ class Crocodile extends Reptile
         $mapping->string('crocodileProtected');
         $mapping->string('crocodilePublic');
     }
-
-    public static function isSuperclass(): bool
-    {
-        return false;
-    }
 }

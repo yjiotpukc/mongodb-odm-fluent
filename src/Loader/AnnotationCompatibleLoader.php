@@ -86,6 +86,9 @@ class AnnotationCompatibleLoader extends SimpleLoader
             if ($metadata->hasAssociation($fieldName)) {
                 unset($metadata->associationMappings[$fieldName]);
             }
+            if ($metadata->identifier === $fieldName) {
+                $metadata->identifier = null;
+            }
             unset($metadata->fieldMappings[$fieldName]);
             unset($metadata->reflFields[$fieldName]);
         }

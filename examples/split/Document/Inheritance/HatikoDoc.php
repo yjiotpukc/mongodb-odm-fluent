@@ -15,9 +15,4 @@ class HatikoDoc implements Document
         $mapping->string('hatikoProtected');
         $mapping->string('hatikoPublic');
     }
-
-    public static function isSuperclass(): bool
-    {
-        return false;
-    }
 }

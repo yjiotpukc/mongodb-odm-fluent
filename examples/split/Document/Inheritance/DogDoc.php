@@ -15,9 +15,4 @@ class DogDoc implements Document
         $mapping->string('dogProtected');
         $mapping->string('dogPublic');
     }
-
-    public static function isSuperclass(): bool
-    {
-        return false;
-    }
 }

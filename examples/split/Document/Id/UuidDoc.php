@@ -13,9 +13,4 @@ class UuidDoc implements Document
     {
         $mapping->id()->uuid()->salt('secret');
     }
-
-    public static function isSuperclass(): bool
-    {
-        return false;
-    }
 }

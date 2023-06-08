@@ -16,9 +16,4 @@ class Nearest implements Document
         $mapping->id();
         $mapping->readPreference()->nearest();
     }
-
-    public static function isSuperclass(): bool
-    {
-        return false;
-    }
 }

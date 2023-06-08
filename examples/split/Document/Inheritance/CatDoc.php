@@ -15,9 +15,4 @@ class CatDoc implements Document
         $mapping->string('catProtected');
         $mapping->string('catPublic');
     }
-
-    public static function isSuperclass(): bool
-    {
-        return false;
-    }
 }

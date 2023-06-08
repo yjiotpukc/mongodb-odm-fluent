@@ -19,11 +19,6 @@ class Misc implements Document
         $mapping->alsoLoad('alsoLoad', ['field']);
     }
 
-    public static function isSuperclass(): bool
-    {
-        return false;
-    }
-
     public function alsoLoad(string $field): void
     {
     }

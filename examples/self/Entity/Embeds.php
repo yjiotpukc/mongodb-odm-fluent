@@ -61,9 +61,4 @@ class Embeds implements Document
         $mapping->embedMany('ref14', Embedded::class)
             ->strategy()->atomicSetArray();
     }
-
-    public static function isSuperclass(): bool
-    {
-        return false;
-    }
 }

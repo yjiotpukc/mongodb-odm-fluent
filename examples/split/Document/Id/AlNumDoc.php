@@ -17,9 +17,4 @@ class AlNumDoc implements Document
             ->pad(5)
             ->chars('abcdefg');
     }
-
-    public static function isSuperclass(): bool
-    {
-        return false;
-    }
 }

@@ -12,16 +12,13 @@ class ReptileDoc implements Document
 {
     public static function map(DocumentMapping $mapping): void
     {
+        $mapping->mappedSuperclass();
+
         $mapping->string('reptilePrivate');
         $mapping->string('reptileProtected');
         $mapping->string('reptilePublic');
 
         $mapping->discriminator('type')
             ->map('crocodile', Crocodile::class);
-    }
-
-    public static function isSuperclass(): bool
-    {
-        return true;
     }
 }

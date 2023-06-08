@@ -13,6 +13,7 @@ class MammalDoc implements Document
 {
     public static function map(DocumentMapping $mapping): void
     {
+        $mapping->mappedSuperclass();
         $mapping->collectionPerClass();
 
         $mapping->string('mammalPrivate');
@@ -22,10 +23,5 @@ class MammalDoc implements Document
         $mapping->discriminator('type')
             ->map('cat', Cat::class)
             ->map('dog', Dog::class);
-    }
-
-    public static function isSuperclass(): bool
-    {
-        return true;
     }
 }

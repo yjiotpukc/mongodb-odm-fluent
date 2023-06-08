@@ -47,9 +47,4 @@ class FieldsDoc implements Document
         $mapping->referenceOne('referenceOne', Entity::class);
         $mapping->referenceMany('referenceMany', Entity::class);
     }
-
-    public static function isSuperclass(): bool
-    {
-        return false;
-    }
 }

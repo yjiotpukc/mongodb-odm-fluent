@@ -15,9 +15,4 @@ class AkitaDoc implements Document
         $mapping->string('akitaProtected');
         $mapping->string('akitaPublic');
     }
-
-    public static function isSuperclass(): bool
-    {
-        return false;
-    }
 }

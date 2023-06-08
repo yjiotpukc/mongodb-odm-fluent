@@ -18,9 +18,4 @@ class CustomDoc implements Document
             ->generatorOption('prefix', 'pre-')
             ->generatorOption('postfix', '-post');
     }
-
-    public static function isSuperclass(): bool
-    {
-        return false;
-    }
 }
