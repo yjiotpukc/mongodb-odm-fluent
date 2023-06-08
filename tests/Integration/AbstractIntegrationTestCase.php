@@ -5,23 +5,42 @@ declare(strict_types=1);
 namespace yjiotpukc\MongoODMFluent\Tests\Integration;
 
 use Composer\Autoload\ClassLoader;
+use Doctrine\Common\EventManager;
 use Doctrine\ODM\MongoDB\Configuration;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
 use Doctrine\Persistence\Mapping\Driver\MappingDriver;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
+use yjiotpukc\MongoODMFluent\FluentDriver;
+use yjiotpukc\MongoODMFluent\Loader\AnnotationCompatibleLoader;
+use yjiotpukc\MongoODMFluent\MappingFinder\MappingFinder;
 
 abstract class AbstractIntegrationTestCase extends TestCase
 {
-    protected function createDocumentManager(MappingDriver $driver): DocumentManager
+    protected FluentDriver $driver;
+    protected DocumentManager $documentManager;
+
+    public function __construct(?string $name = null, array $data = [], $dataName = '')
+    {
+        parent::__construct($name, $data, $dataName);
+        $eventManager = new EventManager();
+        $finder = $this->createMappingFinder();
+        $loader = new AnnotationCompatibleLoader($eventManager, $finder->makeMappingSet());
+        $this->driver = new FluentDriver($finder, $loader);
+        $this->documentManager = $this->createDocumentManager($this->driver, $eventManager);
+    }
+
+    abstract protected function createMappingFinder(): MappingFinder;
+
+    protected function createDocumentManager(MappingDriver $driver, EventManager $eventManager): DocumentManager
     {
         $config = new Configuration();
         $config->setMetadataDriverImpl($driver);
         $config->setHydratorDir($this->getVarDirectory() . '/Hydrator');
         $config->setHydratorNamespace('Hydrator');
 
-        return DocumentManager::create(null, $config);
+        return DocumentManager::create(null, $config, $eventManager);
     }
 
     protected function registerAutoLoaderForExamples(string $subDir): void

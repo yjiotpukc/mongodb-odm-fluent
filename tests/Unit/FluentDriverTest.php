@@ -62,7 +62,6 @@ class FluentDriverTest extends TestCase
         $finder = new MappingFinderStub([$entity => EntityStubMapping::class]);
         $loader = new AnnotationCompatibleLoader($eventManager, $finder->makeMappingSet());
         $driver = new FluentDriver($finder, $loader);
-        $driver->setEventManager(new EventManager());
         $driver->loadMetadataForClass($entity, new ClassMetadata($entity));
         self::assertTrue(EntityStubMapping::wasLoaded());
     }
@@ -86,7 +85,6 @@ class FluentDriverTest extends TestCase
         $finder = new MappingFinderStub([$entity => $entity]);
         $loader = $this->createMock(ClassMetadataLoader::class);
         $driver = new FluentDriver($finder, $loader);
-        $driver->setEventManager(new EventManager());
         $driver->loadMetadataForClass($entity, new ClassMetadata($entity));
     }
 }

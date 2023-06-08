@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace yjiotpukc\MongoODMFluent;
 
-use Doctrine\Common\EventManager;
 use Doctrine\Persistence\Mapping\ClassMetadata;
 use Doctrine\Persistence\Mapping\Driver\MappingDriver;
 use ReflectionClass;
@@ -17,18 +16,12 @@ use yjiotpukc\MongoODMFluent\MappingSet\MappingSet;
 class FluentDriver implements MappingDriver
 {
     protected MappingSet $mappingSet;
-    protected EventManager $eventManager;
     protected ClassMetadataLoader $loader;
 
     public function __construct(MappingFinder $mappingFinder, ClassMetadataLoader $loader)
     {
         $this->mappingSet = $mappingFinder->makeMappingSet();
         $this->loader = $loader;
-    }
-
-    public function setEventManager(EventManager $eventManager): void
-    {
-        $this->eventManager = $eventManager;
     }
 
     public function loadMetadataForClass($className, ClassMetadata $metadata): void
