@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace yjiotpukc\MongoODMFluent\Tests\Stubs\Entity;
+namespace yjiotpukc\MongoODMFluent\Tests\Stubs;
 
 class SuperclassChildEntityStub extends SuperclassEntityStub
 {

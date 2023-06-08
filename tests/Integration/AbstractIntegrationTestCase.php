@@ -11,9 +11,6 @@ use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
 use Doctrine\Persistence\Mapping\Driver\MappingDriver;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
-use yjiotpukc\MongoODMFluent\MappingFinder\MappingFinder;
-use yjiotpukc\MongoODMFluent\MappingFinder\NamespacePatternMappingFinder;
-use yjiotpukc\MongoODMFluent\MappingFinder\SelfMappingFinder;
 
 abstract class AbstractIntegrationTestCase extends TestCase
 {
