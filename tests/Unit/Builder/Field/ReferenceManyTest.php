@@ -237,16 +237,6 @@ class ReferenceManyTest extends FieldTestCase
         return $builder;
     }
 
-    public function testReferenceManyWithSortAsc(): void
-    {
-        $this->givenBuilderWithSetArrayStrategy()->addSort('sort', 'asc');
-
-        $this->assertFieldBuildsCorrectly([
-            'strategy' => 'setArray',
-            'sort' => ['sort' => 'asc'],
-        ]);
-    }
-
     public function testReferenceManyWithSortDesc(): void
     {
         $this->givenBuilderWithSetArrayStrategy()->addSort('sort', 'desc');

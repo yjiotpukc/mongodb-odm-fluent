@@ -216,13 +216,6 @@ class ReferenceOneTest extends FieldTestCase
         $this->assertFieldBuildsCorrectly(['sort' => ['sort' => 'asc']]);
     }
 
-    public function testReferenceOneWithSortAsc(): void
-    {
-        $this->givenDefaultBuilder()->addSort('sort', 'asc');
-
-        $this->assertFieldBuildsCorrectly(['sort' => ['sort' => 'asc']]);
-    }
-
     public function testReferenceOneWithSortDesc(): void
     {
         $this->givenDefaultBuilder()->addSort('sort', 'desc');
