@@ -38,17 +38,7 @@
     }
   },
   "scripts": {
-    "test-unit": "vendor/bin/phpunit --testsuite unit",
-    "test-integration-mapping": "vendor/bin/phpunit --testsuite integration-mapping",
-    "test-full": [
-      "@test-unit",
-      "@test-integration-mapping"
-    ],
-    "coverage-unit": "XDEBUG_MODE=coverage vendor/bin/phpunit --testsuite unit --coverage-clover unit-coverage.xml --coverage-filter src",
-    "coverage-integration-mapping": "XDEBUG_MODE=coverage vendor/bin/phpunit --testsuite integration-mapping --coverage-clover integration-mapping-coverage.xml --coverage-filter src",
-    "coverage-full": [
-      "@coverage-unit",
-      "@coverage-integration-mapping"
-    ]
+    "test": "vendor/bin/phpunit tests",
+    "coverage": "XDEBUG_MODE=coverage vendor/bin/phpunit tests --coverage-clover tests-coverage.xml --coverage-filter src"
   }
 }
