@@ -36,22 +36,7 @@ jobs:
         run: composer install --prefer-dist --no-progress
 
       - name: Run test suite
-        run: composer run-script coverage-full
+        run: composer run-script coverage
 
       - name: Upload coverage reports of unit tests to Codecov
         uses: codecov/codecov-action@v3
-        with:
-          files: ./unit-coverage.xml
-          flags: unit
-
-      - name: Upload coverage reports of self-mapping tests to Codecov
-        uses: codecov/codecov-action@v3
-        with:
-          files: ./self-coverage.xml
-          flags: self
-
-      - name: Upload coverage reports of split-mapping tests to Codecov
-        uses: codecov/codecov-action@v3
-        with:
-          files: ./split-coverage.xml
-          flags: split

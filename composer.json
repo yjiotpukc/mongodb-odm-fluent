@@ -33,28 +33,12 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "yjiotpukc\\MongoODMFluent\\Tests\\": "tests/"
+      "yjiotpukc\\MongoODMFluent\\Tests\\": "tests/",
+      "yjiotpukc\\MongoODMFluent\\Examples\\": "examples/"
     }
   },
   "scripts": {
-    "test-unit": "vendor/bin/phpunit --testsuite unit",
-    "test-self": "vendor/bin/phpunit --testsuite self",
-    "test-split": "vendor/bin/phpunit --testsuite split",
-    "test-full": [
-      "@generate-expected-metadata",
-      "@test-unit",
-      "@test-self",
-      "@test-split"
-    ],
-    "coverage-unit": "XDEBUG_MODE=coverage vendor/bin/phpunit --testsuite unit --coverage-clover unit-coverage.xml --coverage-filter src",
-    "coverage-self": "XDEBUG_MODE=coverage vendor/bin/phpunit --testsuite self --coverage-clover self-coverage.xml --coverage-filter src",
-    "coverage-split": "XDEBUG_MODE=coverage vendor/bin/phpunit --testsuite split --coverage-clover split-coverage.xml --coverage-filter src",
-    "coverage-full": [
-      "@generate-expected-metadata",
-      "@coverage-unit",
-      "@coverage-self",
-      "@coverage-split"
-    ],
-    "generate-expected-metadata": "tests/generateExpectedMetadata.php"
+    "test": "vendor/bin/phpunit tests",
+    "coverage": "XDEBUG_MODE=coverage vendor/bin/phpunit tests --coverage-clover tests-coverage.xml --coverage-filter src"
   }
 }

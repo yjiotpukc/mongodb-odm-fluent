@@ -24,10 +24,6 @@ use yjiotpukc\MongoODMFluent\Builder\Field\IdBuilder;
 use yjiotpukc\MongoODMFluent\Builder\Field\ReferenceBuilder;
 use yjiotpukc\MongoODMFluent\Builder\Method\AlsoLoadMethodBuilder;
 use yjiotpukc\MongoODMFluent\Builder\Method\LifecycleBuilder;
-use yjiotpukc\MongoODMFluent\Mapping\DocumentMapping;
-use yjiotpukc\MongoODMFluent\Mapping\EmbeddedDocumentMapping;
-use yjiotpukc\MongoODMFluent\Mapping\QueryResultDocumentMapping;
-use yjiotpukc\MongoODMFluent\Mapping\ViewMapping;
 use yjiotpukc\MongoODMFluent\Type\ChangeTrackingPolicy;
 use yjiotpukc\MongoODMFluent\Type\Collection;
 use yjiotpukc\MongoODMFluent\Type\Discriminator;
@@ -43,7 +39,7 @@ use yjiotpukc\MongoODMFluent\Type\ReferenceMany;
 use yjiotpukc\MongoODMFluent\Type\ReferenceOne;
 use yjiotpukc\MongoODMFluent\Type\Shard;
 
-class DocumentBuilder extends BaseBuilder implements DocumentMapping, EmbeddedDocumentMapping, ViewMapping, QueryResultDocumentMapping
+class DocumentBuilder extends BaseBuilder
 {
     public function embeddedDocument(): DocumentBuilder
     {

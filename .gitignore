@@ -2,4 +2,4 @@
 vendor
 var
 *.cache
-*-coverage.xml
+tests-coverage.xml
