@@ -9,6 +9,12 @@ use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
 use Doctrine\ODM\MongoDB\Mapping\Driver\AnnotationDriver;
 use Doctrine\Persistence\Mapping\Driver\StaticPHPDriver;
 use PHPUnit\Framework\TestCase;
+use yjiotpukc\MongoODMFluent\AnnotationCompatibleMetadataConverter;
+use yjiotpukc\MongoODMFluent\Examples\Mapping\Entity\Inheritance\Animal;
+use yjiotpukc\MongoODMFluent\Examples\Mapping\Entity\Inheritance\Crocodile;
+use yjiotpukc\MongoODMFluent\Examples\Mapping\Entity\Inheritance\Hatiko;
+use yjiotpukc\MongoODMFluent\Examples\Mapping\Entity\Inheritance\Mammal;
+use yjiotpukc\MongoODMFluent\Examples\Mapping\Entity\Inheritance\Reptile;
 
 class ExamplesMappingTest extends TestCase
 {
@@ -18,6 +24,7 @@ class ExamplesMappingTest extends TestCase
 
         $annotationDriver = new AnnotationDriver(new AnnotationReader(), $entitiesDir);
         $phpDriver = new StaticPHPDriver($entitiesDir);
+        $metadataConverter = new AnnotationCompatibleMetadataConverter($phpDriver);
 
         $entities = $annotationDriver->getAllClassNames();
 
@@ -27,6 +34,7 @@ class ExamplesMappingTest extends TestCase
 
             $annotationDriver->loadMetadataForClass($entity, $expectedMetadata);
             $phpDriver->loadMetadataForClass($entity, $actualMetadata);
+            $metadataConverter->makeCompatible($actualMetadata);
 
             self::assertEquals($expectedMetadata, $actualMetadata);
         }
